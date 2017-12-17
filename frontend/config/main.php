@@ -16,7 +16,7 @@ return [
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'common\models\user\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],
@@ -41,6 +41,29 @@ return [
             'showScriptName' => false,
             'rules' => [
             ],
+        ],
+    ],
+    'modules' => [
+        'user' => [
+            'class' => 'frontend\modules\user\Module',
+        ],
+        'home' => [
+            'class' => 'frontend\modules\home\Module',
+        ],
+        'article' => [
+            'class' => 'frontend\modules\article\Module',
+        ],
+        'finance' => [
+            'class' => 'frontend\modules\finance\Module',
+        ],
+        'product' => [
+            'class' => 'frontend\modules\product\Module',
+        ],
+        'test' => [
+            'class' => 'frontend\modules\test\Module',
+        ],
+        'system' => [
+            'class' => 'frontend\modules\system\Module',
         ],
     ],
     'params' => $params,

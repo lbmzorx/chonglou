@@ -11,7 +11,6 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -44,5 +43,29 @@ return [
             ],
         ],
     ],
+    'modules' => [
+        'home' => [
+            'class' => 'backend\modules\home\Module',
+        ],
+        'user' => [
+            'class' => 'backend\modules\user\Module',
+        ],
+        'product' => [
+            'class' => 'backend\modules\product\Module',
+        ],
+        'finance' => [
+            'class' => 'backend\modules\finance\Module',
+        ],
+        'article' => [
+            'class' => 'backend\modules\article\Module',
+        ],
+        'system' => [
+            'class' => 'backend\modules\system\Module',
+        ],
+        'test' => [
+            'class' => 'backend\modules\test\Module',
+        ],
+    ],
+
     'params' => $params,
 ];

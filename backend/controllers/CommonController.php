@@ -22,7 +22,7 @@ class CommonController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['site/login', 'error'],
                         'allow' => true,
                     ],
                     [

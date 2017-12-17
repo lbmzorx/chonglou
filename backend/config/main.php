@@ -11,6 +11,8 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
+    'default'=>'',
+
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -66,6 +68,6 @@ return [
             'class' => 'backend\modules\test\Module',
         ],
     ],
-
+    'timeZone' => 'Asia/Shanghai',
     'params' => $params,
 ];

@@ -40,15 +40,18 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+
             ],
         ],
     ],
+
+    'defaultRoute'=>'home/default/index',
     'modules' => [
-        'user' => [
-            'class' => 'frontend\modules\user\Module',
-        ],
         'home' => [
             'class' => 'frontend\modules\home\Module',
+        ],
+        'user' => [
+            'class' => 'frontend\modules\user\Module',
         ],
         'article' => [
             'class' => 'frontend\modules\article\Module',
@@ -67,4 +70,5 @@ return [
         ],
     ],
     'params' => $params,
+    'timeZone' => 'Asia/Shanghai',
 ];

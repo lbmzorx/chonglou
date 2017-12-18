@@ -9,9 +9,8 @@ use yii\web\AssetBundle;
  */
 class BootstrapAsset extends AssetBundle
 {
-    public $sourcePath = '@resource/admin/css';
-
+    public $sourcePath = '@resource/admin/vendor/bootstrap/';
     public $css = [
-        'bootstrap.css'
+        'css/bootstrap.min.css'
     ];
 }

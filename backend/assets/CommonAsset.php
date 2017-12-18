@@ -11,27 +11,20 @@ class CommonAsset extends AssetBundle
 {
     public $sourcePath='@resource/admin/';
     public $css = [
-        'css/style.css',
-        'css/loader-style.css',
-        'css/bootstrap.css',
-        'js/progress-bar/number-pb.css',
+        'vendor/linearicons/style.css',
+        'css/main.css',
+        'css/demo.css',
     ];
     public $js = [
-        'js/preloader.js',
-        'js/bootstrap.js',
-        'js/app.js',
-        'js/load.js',
-        'js/main.js',
-        'js/chart/jquery.flot.js',
-        'js/chart/jquery.flot.resize.js',
-        'js/chart/realTime.js',
-        'js/speed/canvasgauge-coustom.js',
-        'js/countdown/jquery.countdown.js',
-        'js/jhere-custom.js',
-        'js/adminMain.js',
+        'js/klorofil-common.js',
     ];
     public $depends = [
         'backend\assets\JqueryAsset',
-        'backend\assets\Progressbas',
+        'backend\assets\BootstrapAsset',
+        'backend\assets\FontAwesomeAsset',
+        'backend\assets\LineariconsAsset',
+        'backend\assets\JquerySlimscroll',
+        'backend\assets\JqueryEasyPieChart',
+        'backend\assets\ChartAsset',
     ];
 }

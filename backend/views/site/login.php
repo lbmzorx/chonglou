@@ -24,7 +24,6 @@ $assets_url=$this->assetBundles[LoginAsset::className()]->baseUrl;
     <!-- VENDOR CSS -->
     <?=$this->head()?>
 </head>
-
 <body>
 <?=$this->beginBody()?>
 <!-- WRAPPER -->
@@ -71,6 +70,5 @@ $assets_url=$this->assetBundles[LoginAsset::className()]->baseUrl;
 <!-- END WRAPPER -->
 <?=$this->endBody()?>
 </body>
-
 </html>
 <?=$this->endPage()?>

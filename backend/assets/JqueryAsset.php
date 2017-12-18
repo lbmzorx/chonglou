@@ -9,10 +9,10 @@ use yii\web\AssetBundle;
  */
 class JqueryAsset extends AssetBundle
 {
-    public $sourcePath = '@resource/admin/';
+    public $sourcePath = '@resource/admin/vendor/jquery/';
 
     public $js = [
-        'js/jquery.min.js'
+        'jquery.min.js'
     ];
 
     public $jsOptions=[

@@ -28,6 +28,7 @@ class CommonAsset extends AssetBundle
         'js/speed/canvasgauge-coustom.js',
         'js/countdown/jquery.countdown.js',
         'js/jhere-custom.js',
+        'js/adminMain.js',
     ];
     public $depends = [
         'backend\assets\JqueryAsset',

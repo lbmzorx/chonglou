@@ -9,9 +9,13 @@ use yii\web\AssetBundle;
  */
 class JqueryAsset extends AssetBundle
 {
-    public $sourcePath = '@resource/admin/js';
+    public $sourcePath = '@resource/admin/';
 
     public $js = [
-        'jquery.min.js'
+        'js/jquery.min.js'
+    ];
+
+    public $jsOptions=[
+        'position' => \yii\web\View::POS_HEAD,
     ];
 }

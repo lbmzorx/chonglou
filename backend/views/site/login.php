@@ -6,76 +6,71 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use \backend\assets\LoginAsset;
 ?>
 <?php
-\backend\assets\LoginAsset::register($this);
+LoginAsset::register($this);
+$assets_url=$this->assetBundles[LoginAsset::className()]->baseUrl;
 ?>
 <?=$this->beginPage()?>
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en" class="fullscreen-bg">
+
 <head>
-    <meta charset="utf-8">
     <title>后台登录</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Le styles -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
     <?=$this->head()?>
 </head>
 
-<body class="pace-done" style="overflow: visible;">
+<body>
 <?=$this->beginBody()?>
-<!-- Preloader -->
-<div id="preloader">
-    <div id="status">&nbsp;</div>
-</div>
-<div class="container">
-    <div class="" id="login-wrapper">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div id="logo-login">
-                    <h1>后台登录
-                        <span>v1.3</span>
-                    </h1>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="account-box">
-                    <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-                    <div class="form-group">
-                        <!--a href="#" class="pull-right label-forgot">Forgot email?</a-->
-                        <?= $form->field($model, 'name')->label('账号')->textInput(['autofocus' => true]) ?>
-                    </div>
-                    <div class="form-group">
-                        <!--a href="#" class="pull-right label-forgot">Forgot password?</a-->
-                        <?= $form->field($model, 'password')->label('密码')->passwordInput() ?>
-                    </div>
-                    <!--  <div class="checkbox pull-left">
-                         <label>
-                             <input type="checkbox">记住用户名</label>
-                     </div> -->
-                    <?= Html::submitButton('登录', ['class' => 'btn btn-primary pull-right', 'name' => 'login-button']) ?>
-                    <?php ActiveForm::end(); ?>
-                    <div class="row-block">
-                        <div class="row">
+<!-- WRAPPER -->
+<div id="wrapper">
+    <div class="vertical-align-wrap">
+        <div class="vertical-align-middle">
+            <div class="auth-box ">
+                <div class="left">
+                    <div class="content">
+                        <div class="header">
+                            <div class="logo text-center"><img src="<?=$assets_url?>/img/logo-dark.png" alt="Klorofil Logo"></div>
+                            <p class="lead">登录后台</p>
                         </div>
+                        <?php $form = ActiveForm::begin(['id' => 'login-form','class'=>'form-auth-small']); ?>
+                            <div class="form-group">
+                                <?= $form->field($model, 'name')
+                                    ->label('账号',['class'=>'control-label sr-only','for'=>'signin-username'])
+                                    ->textInput(['autofocus' => true,'class'=>'form-control']) ?>
+                            </div>
+                            <div class="form-group">
+                                <?= $form->field($model, 'password')
+                                    ->label('密码',['class'=>'control-label sr-only','for'=>'signin-password'])
+                                    ->passwordInput() ?>
+                            </div>
+                        <?= Html::submitButton('登录',['class' =>'btn btn-primary btn-lg btn-block','name' =>'login-button']) ?>
+                            <div class="bottom">
+                                <span class="helper-text"><i class="fa fa-lock"></i> <a href="#">Forgot password?</a></span>
+                            </div>
+                        <?php ActiveForm::end(); ?>
                     </div>
                 </div>
+                <div class="right">
+                    <div class="overlay"></div>
+                    <div class="content text">
+                        <h1 class="heading">重楼 后台</h1>
+                        <p>by The Develovers</p>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>
-    <p>&nbsp;</p>
-    <div style="text-align:center;margin:0 auto;">
-        <h6 style="color:#fff;">Copyright(C)</h6>
-    </div>
 </div>
-<!--  END OF PAPER WRAP -->
-<!-- MAIN EFFECT -->
+<!-- END WRAPPER -->
 <?=$this->endBody()?>
 </body>
+
 </html>
 <?=$this->endPage()?>

@@ -13,8 +13,13 @@ class LoginAsset extends AssetBundle
 
     public $css = [
         'css/loader-style.css',
-        'css/signin.css',
-        'css/bootstrap.css',
+        'css/main.css',
+        'vendor/font-awesome/css/font-awesome.min.css',
+        'vendor/linearicons/style.css',
+        'css/demo.css',
     ];
 
+    public $depends=[
+        'yii\bootstrap\BootstrapAsset',
+    ];
 }

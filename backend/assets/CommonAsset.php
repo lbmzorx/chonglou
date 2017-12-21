@@ -11,12 +11,12 @@ class CommonAsset extends AssetBundle
 {
     public $sourcePath='@resource/admin/';
     public $css = [
-        'vendor/linearicons/style.css',
         'css/main.css',
         'css/demo.css',
     ];
     public $js = [
         'js/klorofil-common.js',
+        'js/main.js',
     ];
     public $depends = [
         'backend\assets\JqueryAsset',

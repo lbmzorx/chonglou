@@ -66,6 +66,9 @@ return [
         'test' => [
             'class' => 'backend\modules\test\Module',
         ],
+        'giiarticle' => [
+            'class' => 'backend\modules\giiarticle\Module',
+        ],
     ],
     'timeZone' => 'Asia/Shanghai',
     'params' => $params,

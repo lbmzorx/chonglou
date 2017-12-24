@@ -2,17 +2,17 @@
 
 namespace backend\modules\article\controllers;
 
-use Yii;
 use backend\controllers\CommonController;
-use yii\web\Controller;
-use common\models\data\Article;
-use common\models\search\Article as ArticleSearch;
+use Yii;
+use common\models\data\ArticleCate;
+use common\models\search\AritcleCate;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
 /**
- * Default controller for the `article` module
+ * CateController implements the CRUD actions for ArticleCate model.
  */
-class DefaultController extends CommonController
+class CateController extends CommonController
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class DefaultController extends CommonController
     }
 
     /**
-     * Lists all Article models.
+     * Lists all ArticleCate models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ArticleSearch();
+        $searchModel = new AritcleCate();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class DefaultController extends CommonController
     }
 
     /**
-     * Displays a single Article model.
+     * Displays a single ArticleCate model.
      * @param string $id
      * @return mixed
      */
@@ -57,13 +57,13 @@ class DefaultController extends CommonController
     }
 
     /**
-     * Creates a new Article model.
+     * Creates a new ArticleCate model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Article();
+        $model = new ArticleCate();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -75,7 +75,7 @@ class DefaultController extends CommonController
     }
 
     /**
-     * Updates an existing Article model.
+     * Updates an existing ArticleCate model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -94,7 +94,7 @@ class DefaultController extends CommonController
     }
 
     /**
-     * Deletes an existing Article model.
+     * Deletes an existing ArticleCate model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -107,15 +107,15 @@ class DefaultController extends CommonController
     }
 
     /**
-     * Finds the Article model based on its primary key value.
+     * Finds the ArticleCate model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Article the loaded model
+     * @return ArticleCate the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Article::findOne($id)) !== null) {
+        if (($model = ArticleCate::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

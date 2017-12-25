@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class FontAwesomeAsset extends AssetBundle
 {
-    public $sourcePath = '@resource/admin/';
+    public $sourcePath = '@resource/admin/vendor/font-awesome/';
     public $css=[
         'css/font-awesome.min.css',
     ];

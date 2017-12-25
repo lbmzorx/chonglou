@@ -3,45 +3,23 @@
     CommonAsset::register($this);
     $assets_url=$this->assetBundles[CommonAsset::className()]->baseUrl;
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Apricot 1.3</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Le styles -->
-
-
-    <style type="text/css">
-        canvas#canvas4 {
-            position: relative;
-            top: 20px;
-        }
-    </style>
-</head>
-
-<body>
-
-
-
-</body>
-
-</html>
-
 <?=$this->beginPage()?>
 <!doctype html>
 <html lang="en">
-
 <head>
-    <title>Dashboard | Klorofil - Free Bootstrap Dashboard Template</title>
+    <title><?=\yii\helpers\Html::encode($this->title)?></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!-- VENDOR CSS -->
     <?=$this->head()?>
+    <?=$this->registerCss(<<<STYLE
+    canvas#canvas4 {
+            position: relative;
+            top: 20px;
+        }
+STYLE
+);?>
 </head>
 
 <body>
@@ -113,24 +91,33 @@
         <div class="sidebar-scroll">
             <nav>
                 <ul class="nav">
-                    <li><a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
-                    <li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>Elements</span></a></li>
-                    <li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a></li>
-                    <li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Panels</span></a></li>
-                    <li><a href="notifications.html" class=""><i class="lnr lnr-alarm"></i> <span>Notifications</span></a></li>
-                    <li>
-                        <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                        <div id="subPages" class="collapse ">
-                            <ul class="nav">
-                                <li><a href="page-profile.html" class="">Profile</a></li>
-                                <li><a href="page-login.html" class="">Login</a></li>
-                                <li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li><a href="tables.html" class=""><i class="lnr lnr-dice"></i> <span>Tables</span></a></li>
-                    <li><a href="typography.html" class=""><i class="lnr lnr-text-format"></i> <span>Typography</span></a></li>
-                    <li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Icons</span></a></li>
+                    <?php foreach ($this->params['left_nav'] as $left_nav):?>
+                        <?php if(!empty($left_nav['item'])):?>
+                            <li>
+                                <a href="<?=$left_nav['url']?>" data-toggle="collapse" class="collapsed">
+                                    <i class="lnr lnr-file-empty"></i>
+                                    <span><?=$left_nav['name']?></span>
+                                    <i class="icon-submenu lnr lnr-chevron-left"></i>
+                                </a>
+                                <div id="subPages" class="collapse ">
+                                    <ul class="nav">
+                                        <?php foreach ($left_nav['item'] as $left_item):?>
+                                            <li>
+                                                <a href="page-profile.html" class="<?=$this->params['left_nav_id']==$left_item['id']?'active':''?>">
+                                                    <?=$left_item['name']?>
+                                                </a>
+                                            </li>
+                                        <?php endforeach;?>
+                                    </ul>
+                                </div>
+                            </li>
+                        <?php else:?>
+                            <li><a href="<?=$left_nav['url']?>" class="<?=$this->params['left_nav_id']==$left_nav['id']?'active':''?>">
+                                    <i class="fa fa-<?=$left_nav['icon']?>"></i> <span><?=$left_nav['name']?></span>
+                                </a>
+                            </li>
+                        <?php endif;?>
+                    <?php endforeach;?>
                 </ul>
             </nav>
         </div>

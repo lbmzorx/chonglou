@@ -16,15 +16,12 @@ class CommonAsset extends AssetBundle
     ];
     public $js = [
         'js/klorofil-common.js',
-        'js/main.js',
     ];
     public $depends = [
         'backend\assets\JqueryAsset',
         'backend\assets\BootstrapAsset',
-        'backend\assets\FontAwesomeAsset',
-        'backend\assets\LineariconsAsset',
         'backend\assets\JquerySlimscroll',
-        'backend\assets\JqueryEasyPieChart',
-        'backend\assets\ChartAsset',
+        'backend\assets\FontAwesomeAsset',
+        'backend\assets\JquerySlimscroll',
     ];
 }

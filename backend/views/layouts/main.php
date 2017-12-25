@@ -93,17 +93,16 @@ STYLE
                 <ul class="nav">
                     <?php foreach ($this->params['left_nav'] as $left_nav):?>
                         <?php if(!empty($left_nav['item'])):?>
-                            <li>
-                                <a href="<?=$left_nav['url']?>" data-toggle="collapse" class="collapsed">
-                                    <i class="lnr lnr-file-empty"></i>
-                                    <span><?=$left_nav['name']?></span>
-                                    <i class="icon-submenu lnr lnr-chevron-left"></i>
-                                </a>
-                                <div id="subPages" class="collapse ">
+                            <li><a href="#<?=str_replace('/','-',$left_nav['url'])?>" data-toggle="collapse"
+                                   class="<?=$this->params['left_nav_id']==$left_nav['id']?'active':'collapsed'?>"
+                                   aria-expanded="<?=$this->params['left_nav_id']==$left_nav['id']?'true':'false'?>">
+                                    <i class="fa fa-<?=$left_nav['icon']?>"></i>
+                                    <span><?=$left_nav['name']?></span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="<?=str_replace('/','-',$left_nav['url'])?>"
+                                     class="<?=$this->params['left_nav_id']==$left_nav['id']?'collapse in':'collapse'?> ">
                                     <ul class="nav">
                                         <?php foreach ($left_nav['item'] as $left_item):?>
-                                            <li>
-                                                <a href="page-profile.html" class="<?=$this->params['left_nav_id']==$left_item['id']?'active':''?>">
+                                            <li><a href="<?=$left_item['url']?>" class="<?=$this->params['left_nav_id']==$left_item['id']?'active':''?>">
                                                     <?=$left_item['name']?>
                                                 </a>
                                             </li>

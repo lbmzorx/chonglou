@@ -59,21 +59,21 @@ class CommonController extends Controller
 
     public function leftnav(){
         return [
-            ['id'=>'home/default/index','url'=>Url::to(['/home/default/index']),'icon'=>'','name'=>'首页',],
-            ['id'=>'article','url'=>Url::to(['/article']),'icon'=>'','name'=>'文章','item'=>
+            ['id'=>'home','url'=>Url::to(['/home/default/index']),'icon'=>'home','name'=>'首页',],
+            ['id'=>'article','url'=>Url::to(['/article']),'icon'=>'file','name'=>'文章','item'=>
                 [
                     ['id'=>'article/default/index','url'=>Url::to(['/article/default/index']),'name'=>'文章','icon'=>'',],
                     ['id'=>'article/cate/index','url'=>Url::to(['/article/cate/index']),'name'=>'分类','icon'=>'',],
                 ],
 
             ],
-            ['id'=>'','url'=>Url::to(['']),'icon'=>'','name'=>'权限','item'=>
+            ['id'=>'auth','url'=>Url::to(['']),'icon'=>'superpowers','name'=>'权限','item'=>
                 [
                     ['id'=>'','url'=>Url::to(['']),'name'=>'权限列表','icon'=>'',],
                 ],
 
             ],
-            ['id'=>'','url'=>Url::to(['']),'icon'=>'','name'=>'布置','item'=>
+            ['id'=>'style','url'=>Url::to(['']),'icon'=>'css3','name'=>'布置','item'=>
                 [
                     ['id'=>'','url'=>Url::to(['']),'name'=>'样式模版','icon'=>'',],
                     ['id'=>'','url'=>Url::to(['']),'name'=>'文章布置','icon'=>'',],

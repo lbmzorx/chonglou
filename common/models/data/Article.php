@@ -66,4 +66,19 @@ class Article extends \yii\db\ActiveRecord
             'edit_time' => 'Edit Time',
         ];
     }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'attributes' => [
+                    self::EVENT_BEFORE_INSERT => ['add_time'],
+                    self::EVENT_BEFORE_UPDATE => ['edit_time'],
+                ],
+                // if you're using datetime instead of UNIX timestamp:
+                // 'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
 }

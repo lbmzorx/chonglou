@@ -3,6 +3,7 @@
 namespace common\models\data;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%admin}}".
@@ -61,6 +62,21 @@ class Admin extends \yii\db\ActiveRecord
             'role_id' => '角色',
             'add_time' => 'Add Time',
             'edit_time' => 'Edit Time',
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    self::EVENT_BEFORE_INSERT => ['add_time'],
+                    self::EVENT_BEFORE_UPDATE => ['edit_time'],
+                ],
+                // if you're using datetime instead of UNIX timestamp:
+                // 'value' => new Expression('NOW()'),
+            ],
         ];
     }
 }

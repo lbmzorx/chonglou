@@ -62,8 +62,8 @@ class Article extends \yii\db\ActiveRecord
             'remain' => '提醒,0未提醒，1已经提醒',
             'publish' => '发布,0不发布，1发布,2发布当前',
             'status' => '状态值，0待审核,1审核通过,2正在审核,3审核不通过',
-            'add_time' => 'Add Time',
-            'edit_time' => 'Edit Time',
+            'add_time' => '添加时间',
+            'edit_time' => '编辑时间',
         ];
     }
 

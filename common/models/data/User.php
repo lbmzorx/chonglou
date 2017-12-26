@@ -59,8 +59,8 @@ class User extends \yii\db\ActiveRecord
             'password' => '密码',
             'password_reset_token' => '密码重置口令',
             'role_id' => '角色',
-            'add_time' => 'Add Time',
-            'edit_time' => 'Edit Time',
+            'add_time' => '添加时间',
+            'edit_time' => '编辑时间',
         ];
     }
 

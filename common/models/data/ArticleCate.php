@@ -48,8 +48,8 @@ class ArticleCate extends \yii\db\ActiveRecord
             'parent_id' => Yii::t('app', '父级分类'),
             'level' => Yii::t('app', '级别'),
             'path' => Yii::t('app', '路径'),
-            'add_time' => Yii::t('app', 'Add Time'),
-            'edit_time' => Yii::t('app', 'Edit Time'),
+            'add_time' => Yii::t('app', '添加时间'),
+            'edit_time' => Yii::t('app', '编辑时间'),
         ];
     }
 

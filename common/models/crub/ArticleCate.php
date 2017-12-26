@@ -1,16 +1,16 @@
 <?php
 
-namespace common\models\search;
+namespace common\models\crub;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\data\Article as ArticleModel;
+use common\models\search\ArticleCate as ArticleCateModel;
 
 /**
- * Article represents the model behind the search form about `common\models\data\Article`.
+ * ArticleCate represents the model behind the search form about `common\models\data\ArticleCate`.
  */
-class Article extends ArticleModel
+class ArticleCate extends ArticleCateModel
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class Article extends ArticleModel
      */
     public function search($params)
     {
-        $query = ArticleModel::find();
+        $query = ArticleCateModel::find();
 
         // add conditions that should always apply here
 
@@ -60,20 +60,14 @@ class Article extends ArticleModel
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'cate_id' => $this->cate_id,
-            'add_admin_id' => $this->add_admin_id,
-            'remain' => $this->remain,
-            'publish' => $this->publish,
-            'status' => $this->status,
+            'parent_id' => $this->parent_id,
+            'level' => $this->level,
             'add_time' => $this->add_time,
             'edit_time' => $this->edit_time,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'author', $this->author])
-            ->andFilterWhere(['like', 'cover', $this->cover])
-            ->andFilterWhere(['like', 'abstract', $this->abstract])
-            ->andFilterWhere(['like', 'content', $this->content]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'path', $this->path]);
 
         return $dataProvider;
     }

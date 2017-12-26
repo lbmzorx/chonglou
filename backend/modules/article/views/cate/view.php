@@ -33,8 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'parent_id',
             'level',
             'path',
-            'add_time:datetime',
-            'edit_time:datetime',
+            [
+                'attribute'=>'add_time',
+                'value'=>date("Y-m-d H:i:s",$model->add_time),
+            ],
+            [
+                'attribute'=>'edit_time',
+                'value'=>date("Y-m-d H:i:s",$model->edit_time),
+            ],
         ],
     ]) ?>
 

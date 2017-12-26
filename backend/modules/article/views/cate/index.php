@@ -29,8 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'parent_id',
             'level',
             'path',
-            // 'add_time:datetime',
-            // 'edit_time:datetime',
+            [
+                'attribute'=>'add_time',
+                'format'=>['date','php:Y-m-d H:i:s'],
+            ],
+            [
+                'attribute'=>'edit_time',
+                'label'=>'编辑时间',
+                'format'=>['date','php:Y-m-d H:i:s'],
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

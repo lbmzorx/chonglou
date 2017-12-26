@@ -17,10 +17,10 @@ class ArticleCate extends ArticleCateModel
      */
     public function rules()
     {
-        return [
-            [['id', 'parent_id', 'level', 'add_time', 'edit_time'], 'integer'],
-            [['name', 'path'], 'safe'],
+        $rules=[
+
         ];
+        return array_merge($rules,parent::rules());
     }
 
     /**

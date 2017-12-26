@@ -14,6 +14,7 @@ use yii\filters\VerbFilter;
  */
 class CateController extends CommonController
 {
+    public $left_nav_id='article';
     /**
      * @inheritdoc
      */

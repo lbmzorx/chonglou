@@ -2,15 +2,16 @@
 
 namespace backend\modules\article\controllers;
 
-use Yii;
 use backend\controllers\CommonController;
-use yii\web\Controller;
+use Yii;
 use common\models\data\Article;
 use common\models\search\Article as ArticleSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
 /**
- * Default controller for the `article` module
+ * DefaultController implements the CRUD actions for Article model.
  */
 class DefaultController extends CommonController
 {

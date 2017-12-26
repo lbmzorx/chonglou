@@ -2,10 +2,10 @@
 
 namespace backend\modules\article\controllers;
 
-use backend\controllers\CommonController;
 use Yii;
 use common\models\data\ArticleCate;
-use common\models\search\AritcleCate;
+use common\models\search\ArticleCate as ArticleCateSearch;
+use backend\controllers\CommonController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -36,7 +36,7 @@ class CateController extends CommonController
      */
     public function actionIndex()
     {
-        $searchModel = new AritcleCate();
+        $searchModel = new ArticleCateSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

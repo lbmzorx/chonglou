@@ -80,4 +80,5 @@ return [
     ],
     'timeZone' => 'Asia/Shanghai',
     'params' => $params,
+    'language'=>'zh-CN',
 ];

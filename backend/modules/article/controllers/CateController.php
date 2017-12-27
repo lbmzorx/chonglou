@@ -8,6 +8,7 @@ use common\models\search\ArticleCate as ArticleCateSearch;
 use backend\controllers\CommonController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * CateController implements the CRUD actions for ArticleCate model.
@@ -15,6 +16,7 @@ use yii\filters\VerbFilter;
 class CateController extends CommonController
 {
     public $left_nav_id='article';
+    public $enableCsrfValidation=false;
     /**
      * @inheritdoc
      */
@@ -123,4 +125,16 @@ class CateController extends CommonController
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionDeletes(){
+        $id=\yii::$app->request->post('id');
+        if($id && ($status=ArticleCate::deleteAll(['id'=>$id])!==null)){
+            $res= ['status'=>true,'msg'=>'删除成功'];
+        }else{
+            $res=  ['status'=>false,'msg'=>'删除失败'];
+        }
+        \yii::$app->response->format=Response::FORMAT_JSON;
+        return $res;
+    }
+
 }

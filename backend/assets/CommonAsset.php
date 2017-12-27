@@ -13,6 +13,7 @@ class CommonAsset extends AssetBundle
     public $css = [
         'css/main.css',
         'css/demo.css',
+        'css/style.css',
     ];
     public $js = [
         'js/klorofil-common.js',

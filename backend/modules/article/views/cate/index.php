@@ -7,17 +7,20 @@ use yii\widgets\Pjax;
 /* @var $searchModel common\models\search\ArticleCate */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Article Cates');
+$this->title = Yii::t('app', '文章分类');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?= \yii\widgets\Breadcrumbs::widget([
+    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+]) ?>
 <div class="article-cate-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Article Cate'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <div class="panel">
+        <div class="panel-body">
+            <p>
+                <?= Html::a(Yii::t('app', '添加文章分类'), ['create'], ['class' => 'btn btn-success']) ?>
+            </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -42,4 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-<?php Pjax::end(); ?></div>
+<?php Pjax::end(); ?>
+        </div>
+    </div>

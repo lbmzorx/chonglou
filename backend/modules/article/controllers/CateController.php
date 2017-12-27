@@ -3,7 +3,7 @@
 namespace backend\modules\article\controllers;
 
 use Yii;
-use common\models\data\ArticleCate;
+use common\models\crub\ArticleCate;
 use common\models\search\ArticleCate as ArticleCateSearch;
 use backend\controllers\CommonController;
 use yii\web\NotFoundHttpException;
@@ -102,6 +102,7 @@ class CateController extends CommonController
      */
     public function actionDelete($id)
     {
+        $this->enableCsrfValidation=false;
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

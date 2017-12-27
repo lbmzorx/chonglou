@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 ?>
     <div class="panel">
         <div class="panel-heading">
-            <h3 class="panel-title"><?=Yii::t('app','添加文章分类')?></h3>
+            <h3 class="panel-title"><?=Yii::t('app',$this->title)?></h3>
         </div>
         <div class="panel-body">
             <div class="article-cate-form">
@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
                     </div>
                 </div>
                 <div class="form-group">
-                    <?= Html::submitButton($model->isNewRecord ? Yii::t('app', '创建') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                    <?= Html::submitButton($model->isNewRecord ? Yii::t('app', '创建') : Yii::t('app', '更新'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>

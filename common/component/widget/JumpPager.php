@@ -1,10 +1,4 @@
 <?php
-/**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
-
 namespace common\component\widget;
 
 use Yii;
@@ -105,7 +99,7 @@ class JumpPager extends LinkPager
     }
 
     /**
-     * Renders the page buttons.
+     * 渲染跳转
      * @return string the rendering result
      */
     protected function renderJButtons()
@@ -114,13 +108,19 @@ class JumpPager extends LinkPager
     }
 
     /**
-     *
+     *渲染单页记录数
      * @return string
      */
     protected function renderSButtons(){
         return $this->renderTemplateButtons('s',$this->pagination->pageSizeParam);
     }
 
+    /**
+     * 渲染按钮
+     * @param $type
+     * @param $pageParams
+     * @return string
+     */
     protected function renderTemplateButtons($type,$pageParams){
         $pageCount = $this->pagination->getPageCount();
         if ($pageCount < 2 && $this->hideOnSinglePage) {
@@ -136,7 +136,7 @@ class JumpPager extends LinkPager
         $BaseUrl=$this->unsetUrlParams($pageParams);
 
         $inputParam=$type=='j'?$page:$pageSize;
-        $buttons[]=$this->renderTemplateInput($type,$inputParam,$BaseUrl);
+        $buttons[]=$this->renderTemplateInput($type,$inputParam,$BaseUrl,$pageParams);
         $buttons[]=$this->renderTemplateButton($type,$page);
 
         $options = $this->{$type.'Options'};
@@ -145,80 +145,18 @@ class JumpPager extends LinkPager
     }
 
     /**
-     * 渲染跳转页input框
-     * @param $page
+     * 渲染输入框
+     * @param $type
+     * @param $inputParam
      * @param $baseUrl
      * @return string
      */
-    protected function renderJInput($page,$baseUrl)
-    {
-        $options = $this->jLiButtonOptions;
-        $linkWrapTag = ArrayHelper::remove($options, 'tag', 'li');
-        Html::addCssClass($options, $this->jLiInputCssClass);
-
-        $linkOptions = $this->jInputOptions;
-
-        $counter=self::$jCounter;
-        $linkOptions['min']=1;
-        $linkOptions['max']=$this->pagination->getPageCount();
-        $linkOptions['id']=$this->jInputIdHeader.$counter;
-        $linkOptions['baseurl']=$baseUrl;
-
-        if(empty($linkOptions['js'])){
-            $this->renderJs($linkOptions['id'],$this->jButtonIdHeader.$counter,$linkOptions['max'],$this->pagination->pageParam);
-        }
-
-        return Html::tag($linkWrapTag, Html::input($this->jInpuType,empty($linkOptions['name'])?'name':$linkOptions['name'],$page+1,$linkOptions), $options);
-
-    }
-
-    /**
-     * 渲染跳转按钮
-     * @param $page
-     * @return string
-     */
-    protected function renderJButton($page)
-    {
-        $options = $this->jLiButtonOptions;
-        $linkWrapTag = ArrayHelper::remove($options, 'tag', 'li');
-        Html::addCssClass($options, $this->jLiButtonCssClass);
-
-        $buttonOptions = $this->jButtonOptions;
-        $buttonOptions['id']=$this->jButtonIdHeader.self::$jCounter;
-        return Html::tag($linkWrapTag, Html::a($this->jButtonLabel,$this->pagination->createUrl($page),$buttonOptions),$options);
-    }
-
-    /**
-     * 单页记录数量输入框
-     * @param $pageSize
-     * @param $baseUrl
-     * @return string
-     */
-    protected function renderSInput($pageSize,$baseUrl)
-    {
-        $options = $this->sLiInputOptions;
-        $linkWrapTag = ArrayHelper::remove($options , 'tag' , 'li');
-        Html::addCssClass($options, $this->sLiInputCssClass);
-
-        $linkOptions = $this->sInputOptions;
-        $counter = self::$sCounter;
-        $linkOptions['min'] = 1;
-        $linkOptions['max'] = $this->pagination->pageSizeLimit[1];
-        $linkOptions['id'] = $this->sInputIdHeader.$counter;
-        $linkOptions['baseurl']=$baseUrl;
-
-        if($linkOptions['js']!==false){
-            $this->renderJs($linkOptions['id'],$this->sButtonIdHeader.$counter,$linkOptions['max'],$this->pagination->pageSizeParam);
-        }
-
-        return Html::tag($linkWrapTag,Html::input($this->sInpuType,empty($linkOptions['name'])?'name':$linkOptions['name'],$pageSize,$linkOptions),$options);
-    }
-
-    protected function renderTemplateInput($type,$inputParam,$baseUrl){
+    protected function renderTemplateInput($type,$inputParam,$baseUrl,$jsParam){
         $options = $this->{$type.'LiInputOptions'};
         $linkWrapTag = ArrayHelper::remove($options , 'tag' , 'li');
         Html::addCssClass($options, $this->{$type.'LiInputCssClass'});
 
+        $inputParam=$type=='j'?($inputParam+1):$inputParam;
         $linkOptions = $this->{$type.'InputOptions'};
         $counter = self::${$type.'Counter'};
         $linkOptions['min'] = 1;
@@ -227,8 +165,7 @@ class JumpPager extends LinkPager
         $linkOptions['id'] = $this->{$type.'InputIdHeader'}.$counter;
         $linkOptions['baseurl']=$baseUrl;
 
-        if($linkOptions['js']!==false){
-            $jsParam=$type=='j'?$this->pagination->pageParam:$this->pagination->pageSizeParam;
+        if(empty($linkOptions['js'])){
             $this->renderJs($linkOptions['id'],$this->{$type.'ButtonIdHeader'}.$counter,$linkOptions['max'],$jsParam);
         }
 
@@ -236,6 +173,12 @@ class JumpPager extends LinkPager
 
     }
 
+    /**
+     * 渲染按钮
+     * @param $type
+     * @param $page
+     * @return string
+     */
     protected function renderTemplateButton($type,$page){
         $options = $this->{$type.'LiButtonOptions'};
         $linkWrapTag = ArrayHelper::remove($options, 'tag', 'li');
@@ -246,21 +189,6 @@ class JumpPager extends LinkPager
         return Html::tag($linkWrapTag, Html::a($this->{$type.'ButtonLabel'},$this->pagination->createUrl($page),$buttonOptions),$options);
     }
 
-    /**
-     * 渲染设置单页记录数按钮
-     * @param $page
-     * @return string
-     */
-    protected function renderSButton($page)
-    {
-        $options = $this->sLiButtonOptions;
-        $linkWrapTag = ArrayHelper::remove($options, 'tag', 'li');
-        Html::addCssClass($options, $this->sLiButtonCssClass);
-
-        $buttonOptions = $this->sButtonOptions;
-        $buttonOptions['id']=$this->sButtonIdHeader.self::$jCounter;
-        return Html::tag($linkWrapTag, Html::a($this->sButtonLabel,$this->pagination->createUrl($page),$buttonOptions),$options);
-    }
 
     /**
      * 渲染页面js

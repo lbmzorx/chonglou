@@ -47,7 +47,6 @@ class ArticleCate extends ArticleCateModel
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 10,
             ],
         ]);
 

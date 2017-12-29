@@ -29,10 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'layout'=>'{items}<div><div class="page-summary">{summary}</div><div  class="page-box">{pager}</div></div>',
-//        'summaryOptions'=>[
-//            'class'=>'',
-//        ],
+
         'pager'=>[
+            'class'=>\common\component\widget\JumpPager::className(),
             'firstPageLabel'=>Yii::t('app','首页'),
             'nextPageLabel'=>Yii::t('app','下一页'),
             'prevPageLabel'=>Yii::t('app','上一页'),
@@ -60,6 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 <?php Pjax::end(); ?>
+
         </div>
     </div>
 <?php

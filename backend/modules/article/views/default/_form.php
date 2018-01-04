@@ -29,7 +29,11 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'author')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
-            <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
+            <div class="row">
+                <div class="col-lg-2">
+                    <?= $form->field($model, 'cover')->fileInput()?>
+                </div>
+            </div>
             <?= $form->field($model, 'abstract')->textarea(['maxlength' => true]) ?>
             <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
             <div class="row">

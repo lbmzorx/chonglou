@@ -4,7 +4,7 @@ namespace backend\modules\article\controllers;
 
 use backend\controllers\CommonController;
 use Yii;
-use common\models\data\Article;
+use common\models\crub\Article;
 use common\models\search\Article as ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

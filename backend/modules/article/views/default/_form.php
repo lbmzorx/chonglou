@@ -7,39 +7,43 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\data\Article */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
-<div class="article-form">
-
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'cate_id')->textInput() ?>
-
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'author')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'abstract')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'add_admin_id')->textInput() ?>
-
-    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'remain')->textInput() ?>
-
-    <?= $form->field($model, 'publish')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'add_time')->textInput() ?>
-
-    <?= $form->field($model, 'edit_time')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?=Yii::t('app',$this->title)?></h3>
     </div>
+    <div class="panel-body">
+        <div class="article-form">
+            <?php $form = ActiveForm::begin(); ?>
+            <div class="row">
+                <div class="col-lg-6 col-sm-6">
+                    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
 
-    <?php ActiveForm::end(); ?>
-
+            <div class="row">
+                <div class="col-lg-2 col-sm-2">
+                    <?= $form->field($model, 'cate_id')->dropDownList(\common\models\crub\ArticleCate::find()
+                        ->select(['name','id'])->indexBy('id')->column(),['prompt'=>'请选择状态'])?>
+                </div>
+                <div class="col-lg-2 col-sm-2">
+                    <?= $form->field($model, 'author')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'abstract')->textarea(['maxlength' => true]) ?>
+            <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+            <div class="row">
+                <div class="col-lg-2">
+                    <?= $form->field($model, 'publish')->dropDownList(\common\models\search\Article::$publish,['prompt'=>'请选择状态'])?>
+                </div>
+                <div class="col-lg-2">
+                    <?= $form->field($model, 'status')->dropDownList(\common\models\search\Article::$status,['prompt'=>'请选择状态'])?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?= Html::submitButton($model->isNewRecord ? Yii::t('app', '创建') : Yii::t('app', '更新'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            </div>
+            <?php ActiveForm::end(); ?>
+        </div>
+    </div>
 </div>

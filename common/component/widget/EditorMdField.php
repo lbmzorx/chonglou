@@ -9,8 +9,7 @@
 namespace common\component\widget;
 
 use backend\assets\EditormdAsset;
-use yii\base\Model;
-use yii\base\Component;
+
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;

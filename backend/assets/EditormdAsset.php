@@ -16,22 +16,10 @@ class EditormdAsset extends AssetBundle
     ];
 
     public $js = [
-        'editormd.js',
-    ];
-
-    public $jsOptions=[
-        'position' => \yii\web\View::POS_HEAD,
+        'editormd.min.js',
     ];
 
     public $depends=[
         'jquery'=>'backend\assets\JqueryAsset',
     ];
-
-//    public $publishOptions=[
-//        'only' => [
-//            'lib',
-//            'css',
-//        ]
-//    ];
-
 }

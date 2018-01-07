@@ -33,9 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'author',
             'cover',
-            'abstract',
+            'abstract:ntext',
             'add_admin_id',
-            'content:ntext',
             'remain',
             [
                 'attribute'=>'publish',
@@ -47,6 +46,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'add_time:datetime',
             'edit_time:datetime',
+            [
+                'attribute'=>'content',
+                'format'=>'raw',
+                'value'=>\common\component\widget\EditorMdView::widget([
+                    'model' => $model,
+                    'attribute' => 'content',
+                   ]),
+            ],
+
         ],
     ]) ?>
 

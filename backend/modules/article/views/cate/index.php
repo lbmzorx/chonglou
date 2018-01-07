@@ -39,22 +39,21 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn',],
-
             'id',
+            [
+                'attribute'=>'id',
+                'value'=>'id',
+            ],
             'name',
             'parent_id',
             'level',
             'path',
             [
                 'attribute'=>'add_time',
-                'format'=>['date','php:Y-m-d H:i:s'],
-            ],
-            [
-                'attribute'=>'edit_time',
-                'label'=>'编辑时间',
-                'format'=>['date','php:Y-m-d H:i:s'],
+                'value'=>'add_time',
             ],
 
+            'edit_time:datetime',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

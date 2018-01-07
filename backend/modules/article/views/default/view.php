@@ -41,7 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'publish',
                 'value'=>$model->cate->name,
             ],
-            [   'attribute'=>'status',
+            [
+                'attribute'=>'status',
                 'value'=>$model->getStatusCode('status'),
             ],
             'add_time:datetime',

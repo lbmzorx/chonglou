@@ -13,6 +13,7 @@ return [
     'bootstrap' => ['log'],
     'defaultRoute'=>'home/default/index',
     'components' => [
+
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
@@ -51,6 +52,10 @@ return [
                 '<module:\w+>-<controller:\w+>-<action:\w+>-<id:\d+>-<page:\d+>-<per-page:\d+>'=>'<module>/<controller>/<action>',
             ],
         ],
+        'formatter' => [
+            'datetimeFormat' => 'y-M-d H:i:s',
+        ],
+
     ],
     'modules' => [
         'home' => [
@@ -78,7 +83,7 @@ return [
             'class' => 'backend\modules\giiarticle\Module',
         ],
     ],
-    'timeZone' => 'Asia/Shanghai',
+
     'params' => $params,
     'language'=>'zh-CN',
 ];

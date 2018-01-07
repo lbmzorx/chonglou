@@ -35,7 +35,14 @@ use yii\widgets\ActiveForm;
                 </div>
             </div>
             <?= $form->field($model, 'abstract')->textarea(['maxlength' => true]) ?>
-            <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+
+            <?= $form->field($model, 'content',[
+                    'class'=>\common\component\widget\EditorMdField::className(),
+                    'mdJsOptions'=>[
+                        'placeholder'=>'请输入内容',
+                    ],
+                ])->textarea();?>
+
             <div class="row">
                 <div class="col-lg-2">
                     <?= $form->field($model, 'publish')->dropDownList(\common\models\search\Article::$publish,['prompt'=>'请选择状态'])?>

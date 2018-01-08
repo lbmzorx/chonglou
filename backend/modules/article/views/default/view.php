@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute'=>'status',
-                'value'=>$model->getStatusCode('status'),
+                'value'=>$model->getStatusCode('status','status_code'),
             ],
             'add_time:datetime',
             'edit_time:datetime',

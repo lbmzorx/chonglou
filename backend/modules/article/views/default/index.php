@@ -23,27 +23,53 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app', '创建文章'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+            <?=Html::beginForm()?>
+            <?=Html::endForm()?>
+
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
+            ['class' => 'yii\grid\CheckboxColumn'],
             'id',
-            'cate_id',
+            [
+                'attribute'=>'cateName',
+                'label'=>'分类',
+                'value'=>'cateName.name',
+            ],
             'title',
             'author',
             'cover',
-            // 'abstract',
+            'abstract',
             // 'add_admin_id',
             // 'content:ntext',
-            // 'remain',
-            // 'publish',
-            // 'status',
-            // 'add_time:datetime',
-            // 'edit_time:datetime',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute'=>'remain',
+                'filter'=>\common\models\search\Article::$remain_code,
+                'value'=> function ($model) {
+                    return $model->getStatusCode('remain','remain_code');
+                },
+            ],
+            [
+                'attribute'=>'publish',
+                'filter'=>\common\models\search\Article::$publish_code,
+                'value'=> function ($model) {
+                    return $model->getStatusCode('publish','publish_code');
+                },
+            ],
+            [
+                'attribute'=>'status',
+                'filter'=>\common\models\search\Article::$status_code,
+                'value'=> function ($model) {
+                    return $model->getStatusCode('status','status_code');
+                },
+            ],
+             'add_time:datetime',
+             'edit_time:datetime',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'buttonOptions'=>['data-pjax'=>['_csrf-backend'=>Yii::$app->request->csrfToken,'id'=>'id']],
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?>

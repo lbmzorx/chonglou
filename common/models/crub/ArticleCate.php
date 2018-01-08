@@ -5,7 +5,7 @@ namespace common\models\crub;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\search\ArticleCate as ArticleCateModel;
+use common\models\data\ArticleCate as ArticleCateModel;
 
 /**
  * ArticleCate represents the model behind the search form about `common\models\data\ArticleCate`.

@@ -23,6 +23,9 @@ use Yii;
  */
 class Article extends \yii\db\ActiveRecord
 {
+    public static $publish_code=[0=>'未发布',1=>'发布'];
+    public static $status_code=[0=>'未待审核',1=>'审核通过',2=>'审核不通过'];
+    public static $remain_code=[0=>'未提醒',1=>'已经提醒'];
     /**
      * @inheritdoc
      */
@@ -77,6 +80,13 @@ class Article extends \yii\db\ActiveRecord
                     self::EVENT_BEFORE_UPDATE => ['edit_time'],
                 ],
             ],
+            'getStatusCode'=>[
+                'class' => \common\component\StatusCode::className(),
+            ],
         ];
+    }
+
+    public function getCateName(){
+        return $this->hasOne(ArticleCate::className(),['id'=>'cate_id']);
     }
 }

@@ -18,7 +18,7 @@ class ArticleCate extends ArticleCateModel
     public function rules()
     {
         $rules=[
-
+            [['id',],'integer'],
         ];
         return array_merge($rules,parent::rules());
     }

@@ -13,7 +13,9 @@ use yii\base\Behavior;
 
 class StatusCode extends Behavior
 {
-     public function getStatusCode($attribute){
-         return empty(get_class($this->owner)::${$attribute})?:get_class($this->owner)::${$attribute}[$this->owner->{$attribute}];
+     public function getStatusCode($attribute,$statuCode){
+         $class=get_class($this->owner);
+         $value=$this->owner->{$attribute};
+         return empty($class::${$statuCode}[$value])?'':($class::${$statuCode}[$value]);
     }
 }

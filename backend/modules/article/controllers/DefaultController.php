@@ -16,6 +16,7 @@ use yii\filters\VerbFilter;
 class DefaultController extends CommonController
 {
     public $left_nav_id='article';
+    public $enableCsrfValidation=false;
     /**
      * @inheritdoc
      */

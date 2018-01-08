@@ -45,10 +45,10 @@ use yii\widgets\ActiveForm;
 
             <div class="row">
                 <div class="col-lg-2">
-                    <?= $form->field($model, 'publish')->dropDownList(\common\models\search\Article::$publish,['prompt'=>'请选择状态'])?>
+                    <?= $form->field($model, 'publish')->dropDownList(\common\models\search\Article::$publish_code,['prompt'=>'请选择状态'])?>
                 </div>
                 <div class="col-lg-2">
-                    <?= $form->field($model, 'status')->dropDownList(\common\models\search\Article::$status,['prompt'=>'请选择状态'])?>
+                    <?= $form->field($model, 'status')->dropDownList(\common\models\search\Article::$status_code,['prompt'=>'请选择状态'])?>
                 </div>
             </div>
             <div class="form-group">

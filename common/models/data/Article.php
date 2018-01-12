@@ -12,6 +12,7 @@ use Yii;
  * @property string $title
  * @property string $author
  * @property string $cover
+ * @property string $tags
  * @property string $abstract
  * @property integer $add_admin_id
  * @property string $content
@@ -43,7 +44,7 @@ class Article extends \yii\db\ActiveRecord
             [['cate_id', 'add_admin_id', 'remain', 'publish', 'status', 'add_time', 'edit_time'], 'integer'],
             [['content'], 'string'],
             [['title'], 'string', 'max' => 50],
-            [['author'], 'string', 'max' => 20],
+            [['author','tags'], 'string', 'max' => 20],
             [['cover', 'abstract'], 'string', 'max' => 255],
         ];
     }
@@ -61,6 +62,7 @@ class Article extends \yii\db\ActiveRecord
             'cover' => '封面',
             'abstract' => '摘要',
             'add_admin_id' => '添加者',
+            'tags' => '标签',
             'content' => '内容',
             'remain' => '提醒',//,0未提醒，1已经提醒
             'publish' => '发布', //,0不发布，1发布,2发布当前

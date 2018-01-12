@@ -12,17 +12,45 @@ use common\models\data\Article as ArticleModel;
  */
 class Article extends ArticleModel
 {
+
+    public $add_time_start;
+    public $add_time_end;
+    public $edit_time_start;
+    public $edit_time_end;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
+
+        $unsetRules=['add_time','edit_time'];
+        $parent_rules=$this->unsetRules(parent::rules(),$unsetRules);
+
         $rules=[
             [['id',],'integer'],
             [['cateName',],'string',],
             [['cateName',],'safe',],
+            [['add_time','edit_time'],'string',],
         ];
-        return array_merge($rules,parent::rules());
+        return array_merge($rules,$parent_rules);
+    }
+
+    /**
+     * 清楚某个属性的规则
+     * @param array $rules
+     * @param array $unsetArr
+     * @return array
+     */
+    protected function unsetRules(array $rules, array $unsetArr){
+        foreach ($rules as $k=>$rule){
+            $inArr=is_array($rule[0]) && array_intersect($unsetArr,$rule[0]);
+            $inString=is_string($rule[0]) && in_array($rule[0],$unsetArr);
+            if($inArr || $inString){
+                unset($rules[$k]);
+            }
+        }
+        return $rules;
     }
 
     public function attributes()
@@ -71,8 +99,6 @@ class Article extends ArticleModel
             'a.remain' => $this->remain,
             'a.publish' => $this->publish,
             'a.status' => $this->status,
-            'a.add_time' => $this->add_time,
-            'a.edit_time' => $this->edit_time,
         ]);
         $query->join('INNER JOIN',\common\models\data\ArticleCate::tableName().' c','c.id = a.cate_id');
         $query->andFilterWhere(['like','c.name',$this->cateName]);
@@ -81,8 +107,9 @@ class Article extends ArticleModel
             ->andFilterWhere(['like', 'a.author', $this->author])
             ->andFilterWhere(['like', 'a.cover', $this->cover])
             ->andFilterWhere(['like', 'a.abstract', $this->abstract])
-            ->andFilterWhere(['like', 'a.content', $this->content]);
-
+            ->andFilterWhere(['like', 'a.tags', $this->tags])
+            ->andFilterWhere(['like', 'a.content', $this->content])
+            ->andFilterWhere([]);
         $dataProvider->sort->attributes['cateName'] =
             [
                 'asc'=>['a.cate_id'=>SORT_ASC],

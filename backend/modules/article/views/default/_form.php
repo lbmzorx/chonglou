@@ -35,7 +35,11 @@ use yii\widgets\ActiveForm;
                 </div>
             </div>
             <?= $form->field($model, 'abstract')->textarea(['maxlength' => true]) ?>
-
+            <div class="row">
+                <div class="col-lg-2">
+                    <?= $form->field($model, 'tags')->input(['maxlength'=>true])?>
+                </div>
+            </div>
             <?= $form->field($model, 'content',[
                     'class'=>\common\component\widget\EditorMdField::className(),
                     'mdJsOptions'=>[

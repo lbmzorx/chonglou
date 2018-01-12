@@ -6,7 +6,7 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
+\backend\assets\LayuiAsset::register($this);
 $this->title = Yii::t('app', '文章');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -17,29 +17,31 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="panel">
         <div class="panel-body">
-
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('app', '创建文章'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-            <?=Html::beginForm()?>
-            <?=Html::endForm()?>
 
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn'],
-            'id',
+            [
+                'attribute'=>'id',
+                'filterInputOptions'=>['class'=>'form-control','style'=>'width:50px'],
+            ],
             [
                 'attribute'=>'cateName',
                 'label'=>'分类',
                 'value'=>'cateName.name',
+                'filterInputOptions'=>['class'=>'form-control','style'=>'width:60px'],
             ],
             'title',
             'author',
             'cover',
+            'tags',
             'abstract',
             // 'add_admin_id',
             // 'content:ntext',
@@ -64,14 +66,67 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->getStatusCode('status','status_code');
                 },
             ],
-             'add_time:datetime',
-             'edit_time:datetime',
+             [
+                 'attribute'=>'add_time',
+                 'format'=>'datetime',
+                 'filterInputOptions'=>['class'=>'form-control','id'=>'add-time-input'],
+             ],
+            [
+                'attribute'=>'edit_time',
+                'format'=>'datetime',
+                'filterInputOptions'=>['class'=>'form-control','id'=>'edit-time-input'],
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'buttonOptions'=>['data-pjax'=>['_csrf-backend'=>Yii::$app->request->csrfToken,'id'=>'id']],
             ],
         ],
     ]); ?>
+
+            <?=$this->registerJs(<<<SCRIPT
+var laydate;
+var layuier;
+layui.use(['laydate','layer'], function(){
+  laydate = layui.laydate;
+  layuier = layui.layer;
+   //日期时间范围
+  laydate.render({
+    elem: '#add-time-input'
+    ,type: 'datetime'
+    ,range: true    
+    ,calendar: true
+    ,range: '~'
+    ,closeStop: '#add-time-input' //这里代表的意思是：点击 test1 所在元素阻止关闭事件冒泡。如果不设定，则无法弹出控件
+    ,done: function(value, date, endDate){      
+//        $(this.elem).change();
+    }
+  });
+  $('#add-time-input').mouseover(function(){
+    layuier.tips($("#add-time-input").val(),"#add-time-input",{
+        tips: [1, '#78BA32']       
+    });
+  });
+  
+  laydate.render({
+    elem: '#edit-time-input'
+    ,type: 'datetime'
+    ,range: true
+    ,calendar: true
+    ,closeStop: '#add-time-input' //这里代表的意思是：点击 test1 所在元素阻止关闭事件冒泡。如果不设定，则无法弹出控件
+    ,done: function(value, date, endDate){       
+//       $(this.elem).change();
+    }
+  });
+});
+  
+$('#edit-time-input').mouseover(function(){
+    layuier.tips($("#edit-time-input").val(),"#edit-time-input",{
+        tips: [1, '#78BA32']
+    });
+});
+SCRIPT
+,\yii\web\View::POS_END)?>
+
 <?php Pjax::end(); ?>
         </div>
     </div>

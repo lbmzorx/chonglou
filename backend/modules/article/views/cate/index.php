@@ -39,7 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn',],
-            'id',
+            [
+                'attribute'=>'id',
+                'filterInputOptions'=>['class'=>'form-control','style'=>'width:50px'],
+            ],
             'name',
             'parent_id',
             'level',
@@ -48,7 +51,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'add_time',
                 'value'=>'add_time',
             ],
-
             'edit_time:datetime',
             ['class' => 'yii\grid\ActionColumn'],
         ],

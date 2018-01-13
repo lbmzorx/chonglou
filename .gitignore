@@ -13,13 +13,13 @@ nbproject
 .buildpath
 .project
 .settings
-
+.gitignore
 # windows thumbnail cache
 Thumbs.db
 
 # composer vendor dir
-/vendor
-
+/vendor/
+/vendor/yiisoft
 # composer itself is not needed
 composer.phar
 
@@ -33,3 +33,6 @@ phpunit.phar
 
 # vagrant runtime
 /.vagrant
+backend/assets/admin/
+common/component/template/
+common/dataBase/chonglou-20180113.sql

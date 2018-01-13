@@ -190,11 +190,6 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
 
     /**
      * Frees all session variables and destroys all data registered to a session.
-     *
-     * This method has no effect when session is not [[getIsActive()|active]].
-     * Make sure to call [[open()]] before calling it.
-     * @see open()
-     * @see isActive
      */
     public function destroy()
     {
@@ -275,16 +270,9 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
     }
 
     /**
-     * Updates the current session ID with a newly generated one.
-     *
+     * Updates the current session ID with a newly generated one .
      * Please refer to <http://php.net/session_regenerate_id> for more details.
-     *
-     * This method has no effect when session is not [[getIsActive()|active]].
-     * Make sure to call [[open()]] before calling it.
-     *
      * @param bool $deleteOldSession Whether to delete the old associated session file or not.
-     * @see open()
-     * @see isActive
      */
     public function regenerateID($deleteOldSession = false)
     {
@@ -333,7 +321,7 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
     /**
      * Sets the current session save path.
      * This is a wrapper for [PHP session_save_path()](http://php.net/manual/en/function.session-save-path.php).
-     * @param string $value the current session save path. This can be either a directory name or a [path alias](guide:concept-aliases).
+     * @param string $value the current session save path. This can be either a directory name or a path alias.
      * @throws InvalidParamException if the path is not a valid directory
      */
     public function setSavePath($value)
@@ -395,14 +383,13 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
             return false;
         } elseif (ini_get('session.use_only_cookies') === '1') {
             return true;
+        } else {
+            return null;
         }
-
-        return null;
     }
 
     /**
      * Sets the value indicating whether cookies should be used to store session IDs.
-     *
      * Three states are possible:
      *
      * - true: cookies and only cookies will be used to store session IDs.
@@ -484,7 +471,7 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
     /**
      * Session open handler.
      * This method should be overridden if [[useCustomStorage]] returns true.
-     * @internal Do not call this method directly.
+     * Do not call this method directly.
      * @param string $savePath session save path
      * @param string $sessionName session name
      * @return bool whether session is opened successfully
@@ -497,7 +484,7 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
     /**
      * Session close handler.
      * This method should be overridden if [[useCustomStorage]] returns true.
-     * @internal Do not call this method directly.
+     * Do not call this method directly.
      * @return bool whether session is closed successfully
      */
     public function closeSession()
@@ -508,7 +495,7 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
     /**
      * Session read handler.
      * This method should be overridden if [[useCustomStorage]] returns true.
-     * @internal Do not call this method directly.
+     * Do not call this method directly.
      * @param string $id session ID
      * @return string the session data
      */
@@ -520,7 +507,7 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
     /**
      * Session write handler.
      * This method should be overridden if [[useCustomStorage]] returns true.
-     * @internal Do not call this method directly.
+     * Do not call this method directly.
      * @param string $id session ID
      * @param string $data session data
      * @return bool whether session write is successful
@@ -533,7 +520,7 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
     /**
      * Session destroy handler.
      * This method should be overridden if [[useCustomStorage]] returns true.
-     * @internal Do not call this method directly.
+     * Do not call this method directly.
      * @param string $id session ID
      * @return bool whether session is destroyed successfully
      */
@@ -545,7 +532,7 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
     /**
      * Session GC (garbage collection) handler.
      * This method should be overridden if [[useCustomStorage]] returns true.
-     * @internal Do not call this method directly.
+     * Do not call this method directly.
      * @param int $maxLifetime the number of seconds after which data will be seen as 'garbage' and cleaned up.
      * @return bool whether session is GCed successfully
      */
@@ -562,7 +549,7 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
     public function getIterator()
     {
         $this->open();
-        return new SessionIterator();
+        return new SessionIterator;
     }
 
     /**
@@ -623,13 +610,13 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
             unset($_SESSION[$key]);
 
             return $value;
+        } else {
+            return null;
         }
-
-        return null;
     }
 
     /**
-     * Removes all session variables.
+     * Removes all session variables
      */
     public function removeAll()
     {
@@ -698,9 +685,9 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
             }
 
             return $value;
+        } else {
+            return $defaultValue;
         }
-
-        return $defaultValue;
     }
 
     /**

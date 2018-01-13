@@ -32,7 +32,7 @@ abstract class BaseActiveFixture extends DbFixture implements \IteratorAggregate
      */
     public $data = [];
     /**
-     * @var string|bool the file path or [path alias](guide:concept-aliases) of the data file that contains the fixture data
+     * @var string|bool the file path or path alias of the data file that contains the fixture data
      * to be returned by [[getData()]]. You can set this property to be false to prevent loading any data.
      */
     public $dataFile;
@@ -65,8 +65,10 @@ abstract class BaseActiveFixture extends DbFixture implements \IteratorAggregate
         $row = $this->data[$name];
         /* @var $modelClass \yii\db\ActiveRecord */
         $modelClass = $this->modelClass;
+        /* @var $model \yii\db\ActiveRecord */
+        $model = new $modelClass;
         $keys = [];
-        foreach ($modelClass::primaryKey() as $key) {
+        foreach ($model->primaryKey() as $key) {
             $keys[$key] = isset($row[$key]) ? $row[$key] : null;
         }
 
@@ -100,10 +102,10 @@ abstract class BaseActiveFixture extends DbFixture implements \IteratorAggregate
         }
         $dataFile = Yii::getAlias($this->dataFile);
         if (is_file($dataFile)) {
-            return require $dataFile;
+            return require($dataFile);
+        } else {
+            throw new InvalidConfigException("Fixture data file does not exist: {$this->dataFile}");
         }
-
-        throw new InvalidConfigException("Fixture data file does not exist: {$this->dataFile}");
     }
 
     /**

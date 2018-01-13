@@ -7,6 +7,7 @@
 
 namespace yii\behaviors;
 
+use Yii;
 use Closure;
 use yii\base\Behavior;
 use yii\base\Event;
@@ -85,11 +86,6 @@ class AttributeBehavior extends Behavior
      * @since 2.0.8
      */
     public $skipUpdateOnClean = true;
-    /**
-     * @var bool whether to preserve non-empty attribute values.
-     * @since 2.0.13
-     */
-    public $preserveNonEmptyValues = false;
 
 
     /**
@@ -122,9 +118,6 @@ class AttributeBehavior extends Behavior
             foreach ($attributes as $attribute) {
                 // ignore attribute names which are not string (e.g. when set by TimestampBehavior::updatedAtAttribute)
                 if (is_string($attribute)) {
-                    if ($this->preserveNonEmptyValues && !empty($this->owner->$attribute)) {
-                        continue;
-                    }
                     $this->owner->$attribute = $value;
                 }
             }

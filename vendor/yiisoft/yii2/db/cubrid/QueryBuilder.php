@@ -8,7 +8,6 @@
 namespace yii\db\cubrid;
 
 use yii\base\InvalidParamException;
-use yii\base\NotSupportedException;
 use yii\db\Exception;
 
 /**
@@ -45,19 +44,6 @@ class QueryBuilder extends \yii\db\QueryBuilder
         Schema::TYPE_MONEY => 'decimal(19,4)',
     ];
 
-    /**
-     * @inheritdoc
-     */
-    protected $likeEscapeCharacter = '!';
-    /**
-     * @inheritdoc
-     */
-    protected $likeEscapingReplacements = [
-        '%' => '!%',
-        '_' => '!_',
-        '!' => '!!',
-    ];
-
 
     /**
      * Creates a SQL statement for resetting the sequence value of a table's primary key.
@@ -84,9 +70,9 @@ class QueryBuilder extends \yii\db\QueryBuilder
             return 'ALTER TABLE ' . $this->db->schema->quoteTableName($tableName) . " AUTO_INCREMENT=$value;";
         } elseif ($table === null) {
             throw new InvalidParamException("Table not found: $tableName");
+        } else {
+            throw new InvalidParamException("There is not sequence associated with table '$tableName'.");
         }
-
-        throw new InvalidParamException("There is not sequence associated with table '$tableName'.");
     }
 
     /**
@@ -117,41 +103,6 @@ class QueryBuilder extends \yii\db\QueryBuilder
     public function selectExists($rawSql)
     {
         return 'SELECT CASE WHEN EXISTS(' . $rawSql . ') THEN 1 ELSE 0 END';
-    }
-
-    /**
-     * @inheritDoc
-     * @see http://www.cubrid.org/manual/93/en/sql/schema/table.html#drop-index-clause
-     */
-    public function dropIndex($name, $table)
-    {
-        /** @var Schema $schema */
-        $schema = $this->db->getSchema();
-        foreach ($schema->getTableUniques($table) as $unique) {
-            if ($unique->name === $name) {
-                return $this->dropUnique($name, $table);
-            }
-        }
-
-        return 'DROP INDEX ' . $this->db->quoteTableName($name) . ' ON ' . $this->db->quoteTableName($table);
-    }
-
-    /**
-     * @inheritDoc
-     * @throws NotSupportedException this is not supported by CUBRID.
-     */
-    public function addCheck($name, $table, $expression)
-    {
-        throw new NotSupportedException(__METHOD__ . ' is not supported by CUBRID.');
-    }
-
-    /**
-     * @inheritDoc
-     * @throws NotSupportedException this is not supported by CUBRID.
-     */
-    public function dropCheck($name, $table)
-    {
-        throw new NotSupportedException(__METHOD__ . ' is not supported by CUBRID.');
     }
 
     /**
@@ -228,7 +179,6 @@ class QueryBuilder extends \yii\db\QueryBuilder
                 }
             }
         }
-
         return null;
     }
 }

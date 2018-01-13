@@ -20,10 +20,10 @@ namespace yii\base;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class Behavior extends BaseObject
+class Behavior extends Object
 {
     /**
-     * @var Component|null the owner of this behavior
+     * @var Component the owner of this behavior
      */
     public $owner;
 

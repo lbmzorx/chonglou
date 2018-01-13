@@ -9,12 +9,12 @@ namespace yii\widgets;
 
 use Yii;
 use yii\base\InvalidCallException;
-use yii\base\Model;
 use yii\base\Widget;
+use yii\base\Model;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\helpers\Json;
-use yii\helpers\Url;
 
 /**
  * ActiveForm is a widget that builds an interactive HTML form for one or multiple data models.
@@ -111,7 +111,6 @@ class ActiveForm extends Widget
      * This property must be set `true` if you want to support client validation and/or AJAX validation, or if you
      * want to take advantage of the `yii.activeForm` plugin. When this is `false`, the form will not generate
      * any JavaScript.
-     * @see registerClientScript
      */
     public $enableClientScript = true;
     /**
@@ -192,7 +191,7 @@ class ActiveForm extends Widget
 
     /**
      * Runs the widget.
-     * This registers the necessary JavaScript code and renders the form open and close tags.
+     * This registers the necessary JavaScript code and renders the form close tag.
      * @throws InvalidCallException if `beginField()` and `endField()` calls are not matching.
      */
     public function run()
@@ -206,24 +205,15 @@ class ActiveForm extends Widget
         echo $content;
 
         if ($this->enableClientScript) {
-            $this->registerClientScript();
+            $id = $this->options['id'];
+            $options = Json::htmlEncode($this->getClientOptions());
+            $attributes = Json::htmlEncode($this->attributes);
+            $view = $this->getView();
+            ActiveFormAsset::register($view);
+            $view->registerJs("jQuery('#$id').yiiActiveForm($attributes, $options);");
         }
 
         echo Html::endForm();
-    }
-
-    /**
-     * This registers the necessary JavaScript code.
-     * @since 2.0.12
-     */
-    public function registerClientScript()
-    {
-        $id = $this->options['id'];
-        $options = Json::htmlEncode($this->getClientOptions());
-        $attributes = Json::htmlEncode($this->attributes);
-        $view = $this->getView();
-        ActiveFormAsset::register($view);
-        $view->registerJs("jQuery('#$id').yiiActiveForm($attributes, $options);");
     }
 
     /**
@@ -305,7 +295,6 @@ class ActiveForm extends Widget
         if (!isset($config['class'])) {
             $config['class'] = $this->fieldClass;
         }
-
         return Yii::createObject(ArrayHelper::merge($config, $options, [
             'model' => $model,
             'attribute' => $attribute,
@@ -343,9 +332,9 @@ class ActiveForm extends Widget
         $field = array_pop($this->_fields);
         if ($field instanceof ActiveField) {
             return $field->end();
+        } else {
+            throw new InvalidCallException('Mismatching endField() call.');
         }
-
-        throw new InvalidCallException('Mismatching endField() call.');
     }
 
     /**

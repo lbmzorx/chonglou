@@ -9,8 +9,8 @@ namespace yii\validators;
 
 use Yii;
 use yii\base\InvalidConfigException;
-use yii\helpers\Json;
 use yii\web\JsExpression;
+use yii\helpers\Json;
 
 /**
  * EmailValidator validates that the attribute value is a valid email address.
@@ -76,8 +76,8 @@ class EmailValidator extends Validator
             $valid = false;
         } else {
             if ($this->enableIDN) {
-                $matches['local'] = $this->idnToAscii($matches['local']);
-                $matches['domain'] = $this->idnToAscii($matches['domain']);
+                $matches['local'] = idn_to_ascii($matches['local']);
+                $matches['domain'] = idn_to_ascii($matches['domain']);
                 $value = $matches['name'] . $matches['open'] . $matches['local'] . '@' . $matches['domain'] . $matches['close'];
             }
 
@@ -104,17 +104,6 @@ class EmailValidator extends Validator
         return $valid ? null : [$this->message, []];
     }
 
-
-    private function idnToAscii($idn)
-    {
-        if (PHP_VERSION_ID < 50600) {
-            // TODO: drop old PHP versions support
-            return idn_to_ascii($idn);
-        }
-
-        return idn_to_ascii($idn, 0, INTL_IDNA_VARIANT_UTS46);
-    }
-
     /**
      * @inheritdoc
      */
@@ -138,10 +127,10 @@ class EmailValidator extends Validator
             'pattern' => new JsExpression($this->pattern),
             'fullPattern' => new JsExpression($this->fullPattern),
             'allowName' => $this->allowName,
-            'message' => $this->formatMessage($this->message, [
+            'message' => Yii::$app->getI18n()->format($this->message, [
                 'attribute' => $model->getAttributeLabel($attribute),
-            ]),
-            'enableIDN' => (bool) $this->enableIDN,
+            ], Yii::$app->language),
+            'enableIDN' => (bool)$this->enableIDN,
         ];
         if ($this->skipOnEmpty) {
             $options['skipOnEmpty'] = 1;

@@ -8,7 +8,7 @@
 namespace yii\web;
 
 use Yii;
-use yii\caching\CacheInterface;
+use yii\caching\Cache;
 use yii\di\Instance;
 
 /**
@@ -39,7 +39,7 @@ use yii\di\Instance;
 class CacheSession extends Session
 {
     /**
-     * @var CacheInterface|array|string the cache object or the application component ID of the cache object.
+     * @var Cache|array|string the cache object or the application component ID of the cache object.
      * The session data will be stored using this cache object.
      *
      * After the CacheSession object is created, if you want to change this property,
@@ -56,7 +56,7 @@ class CacheSession extends Session
     public function init()
     {
         parent::init();
-        $this->cache = Instance::ensure($this->cache, 'yii\caching\CacheInterface');
+        $this->cache = Instance::ensure($this->cache, Cache::className());
     }
 
     /**
@@ -71,7 +71,7 @@ class CacheSession extends Session
 
     /**
      * Session read handler.
-     * @internal Do not call this method directly.
+     * Do not call this method directly.
      * @param string $id session ID
      * @return string the session data
      */
@@ -84,7 +84,7 @@ class CacheSession extends Session
 
     /**
      * Session write handler.
-     * @internal Do not call this method directly.
+     * Do not call this method directly.
      * @param string $id session ID
      * @param string $data session data
      * @return bool whether session write is successful
@@ -96,18 +96,13 @@ class CacheSession extends Session
 
     /**
      * Session destroy handler.
-     * @internal Do not call this method directly.
+     * Do not call this method directly.
      * @param string $id session ID
      * @return bool whether session is destroyed successfully
      */
     public function destroySession($id)
     {
-        $cacheId = $this->calculateKey($id);
-        if ($this->cache->exists($cacheId) === false) {
-            return true;
-        }
-
-        return $this->cache->delete($cacheId);
+        return $this->cache->delete($this->calculateKey($id));
     }
 
     /**

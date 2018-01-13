@@ -8,9 +8,9 @@
 namespace yii\validators;
 
 use Yii;
-use yii\helpers\Json;
 use yii\helpers\StringHelper;
 use yii\web\JsExpression;
+use yii\helpers\Json;
 
 /**
  * NumberValidator validates that the attribute value is a number.
@@ -113,9 +113,9 @@ class NumberValidator extends Validator
             return [$this->tooSmall, ['min' => $this->min]];
         } elseif ($this->max !== null && $value > $this->max) {
             return [$this->tooBig, ['max' => $this->max]];
+        } else {
+            return null;
         }
-
-        return null;
     }
 
     /**
@@ -138,28 +138,28 @@ class NumberValidator extends Validator
 
         $options = [
             'pattern' => new JsExpression($this->integerOnly ? $this->integerPattern : $this->numberPattern),
-            'message' => $this->formatMessage($this->message, [
+            'message' => Yii::$app->getI18n()->format($this->message, [
                 'attribute' => $label,
-            ]),
+            ], Yii::$app->language),
         ];
 
         if ($this->min !== null) {
             // ensure numeric value to make javascript comparison equal to PHP comparison
             // https://github.com/yiisoft/yii2/issues/3118
             $options['min'] = is_string($this->min) ? (float) $this->min : $this->min;
-            $options['tooSmall'] = $this->formatMessage($this->tooSmall, [
+            $options['tooSmall'] = Yii::$app->getI18n()->format($this->tooSmall, [
                 'attribute' => $label,
                 'min' => $this->min,
-            ]);
+            ], Yii::$app->language);
         }
         if ($this->max !== null) {
             // ensure numeric value to make javascript comparison equal to PHP comparison
             // https://github.com/yiisoft/yii2/issues/3118
             $options['max'] = is_string($this->max) ? (float) $this->max : $this->max;
-            $options['tooBig'] = $this->formatMessage($this->tooBig, [
+            $options['tooBig'] = Yii::$app->getI18n()->format($this->tooBig, [
                 'attribute' => $label,
                 'max' => $this->max,
-            ]);
+            ], Yii::$app->language);
         }
         if ($this->skipOnEmpty) {
             $options['skipOnEmpty'] = 1;

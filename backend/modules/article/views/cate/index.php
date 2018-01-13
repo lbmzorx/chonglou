@@ -46,6 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'parent_id',
             'level',
+            [
+                'attribute'=>'level',
+                'filter'=>\common\models\data\Article::$remain_code,
+
+            ],
             'path',
             [
                 'attribute'=>'add_time',

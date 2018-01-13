@@ -47,21 +47,21 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'content:ntext',
             [
                 'attribute'=>'remain',
-                'filter'=>\common\models\search\Article::$remain_code,
+                'filter'=>\common\models\data\Article::$remain_code,
                 'value'=> function ($model) {
                     return $model->getStatusCode('remain','remain_code');
                 },
             ],
             [
                 'attribute'=>'publish',
-                'filter'=>\common\models\search\Article::$publish_code,
+                'filter'=>\common\models\data\Article::$publish_code,
                 'value'=> function ($model) {
                     return $model->getStatusCode('publish','publish_code');
                 },
             ],
             [
                 'attribute'=>'status',
-                'filter'=>\common\models\search\Article::$status_code,
+                'filter'=>\common\models\data\Article::$status_code,
                 'value'=> function ($model) {
                     return $model->getStatusCode('status','status_code');
                 },
@@ -82,7 +82,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
             <?=$this->registerJs(<<<SCRIPT
 var laydate;
 var layuier;
@@ -125,9 +124,10 @@ $('#edit-time-input').mouseover(function(){
     });
 });
 SCRIPT
-,\yii\web\View::POS_END)?>
+                ,\yii\web\View::POS_END)?>
 
 <?php Pjax::end(); ?>
         </div>
     </div>
 </div>
+

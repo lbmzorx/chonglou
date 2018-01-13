@@ -20,6 +20,6 @@ class LayuiAsset extends AssetBundle
     ];
 
     public $depends=[
-        'yii\web\JqueryAsset',
+        'backend\assets\JqueryAsset',
     ];
 }

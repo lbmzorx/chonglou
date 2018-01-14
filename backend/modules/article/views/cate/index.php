@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel common\models\search\ArticleCate */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 \backend\assets\LayerAsset::register($this);
-
+\backend\assets\LayuiAsset::register($this);
 $this->title = Yii::t('app', '文章分类');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -54,9 +54,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'path',
             [
                 'attribute'=>'add_time',
-                'value'=>'add_time',
+                'format'=>'datetime',
+                'filterInputOptions'=>['class'=>'form-control','id'=>'add-time-input'],
             ],
-            'edit_time:datetime',
+            [
+                'attribute'=>'edit_time',
+                'format'=>'datetime',
+                'filterInputOptions'=>['class'=>'form-control','id'=>'edit-time-input'],
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
@@ -82,5 +87,48 @@ $this->params['breadcrumbs'][] = $this->title;
         },'json');        
     });
     
+    
+var laydate;
+var layuier;
+layui.use(['laydate','layer'], function(){
+  laydate = layui.laydate;
+  layuier = layui.layer;
+   //日期时间范围
+  laydate.render({
+    elem: '#add-time-input'
+    ,type: 'datetime'
+    ,range: true    
+    ,calendar: true
+    ,range: '~'
+    ,closeStop: '#add-time-input' //这里代表的意思是：点击 test1 所在元素阻止关闭事件冒泡。如果不设定，则无法弹出控件
+    ,done: function(value, date, endDate){      
+        $(this.elem).val(value);
+        $(this.elem).change();
+    }
+  });
+  $('#add-time-input').mouseover(function(){
+    layuier.tips($("#add-time-input").val(),"#add-time-input",{
+        tips: [1, '#78BA32']       
+    });
+  });
+  
+  laydate.render({
+    elem: '#edit-time-input'
+    ,type: 'datetime'
+    ,range: true
+    ,calendar: true
+    ,closeStop: '#add-time-input' //这里代表的意思是：点击 test1 所在元素阻止关闭事件冒泡。如果不设定，则无法弹出控件
+    ,done: function(value, date, endDate){       
+        $(this.elem).val(value);
+        $(this.elem).change();
+    }
+  });
+});
+  
+$('#edit-time-input').mouseover(function(){
+    layuier.tips($("#edit-time-input").val(),"#edit-time-input",{
+        tips: [1, '#78BA32']
+    });
+});
 SCRIPT
 )?>

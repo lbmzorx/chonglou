@@ -23,9 +23,20 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', '创建文章'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+<?php Pjax::begin(); ?>
+
+            <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'layout'=>'{items}<div><div class="page-summary">{summary}</div><div  class="page-box">{pager}</div></div>',
+
+        'pager'=>[
+            'class'=>\common\component\widget\JumpPager::className(),
+            'firstPageLabel'=>Yii::t('app','首页'),
+            'nextPageLabel'=>Yii::t('app','下一页'),
+            'prevPageLabel'=>Yii::t('app','上一页'),
+            'lastPageLabel'=>Yii::t('app','尾页'),
+        ],
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn'],
             [
@@ -36,7 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'cateName',
                 'label'=>'分类',
                 'value'=>'cateName.name',
-                'filterInputOptions'=>['class'=>'form-control','style'=>'width:60px'],
             ],
             'title',
             'author',
@@ -97,7 +107,8 @@ layui.use(['laydate','layer'], function(){
     ,range: '~'
     ,closeStop: '#add-time-input' //这里代表的意思是：点击 test1 所在元素阻止关闭事件冒泡。如果不设定，则无法弹出控件
     ,done: function(value, date, endDate){      
-//        $(this.elem).change();
+        $(this.elem).val(value);
+        $(this.elem).change();
     }
   });
   $('#add-time-input').mouseover(function(){
@@ -113,7 +124,8 @@ layui.use(['laydate','layer'], function(){
     ,calendar: true
     ,closeStop: '#add-time-input' //这里代表的意思是：点击 test1 所在元素阻止关闭事件冒泡。如果不设定，则无法弹出控件
     ,done: function(value, date, endDate){       
-//       $(this.elem).change();
+        $(this.elem).val(value);
+        $(this.elem).change();
     }
   });
 });

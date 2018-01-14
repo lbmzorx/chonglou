@@ -4,7 +4,7 @@ namespace backend\modules\article\controllers;
 
 use backend\controllers\CommonController;
 use Yii;
-use common\models\crub\Article;
+use common\models\crub\Article as ArticleCrud;
 use common\models\search\Article as ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -41,6 +41,7 @@ class DefaultController extends CommonController
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+//        echo $dataProvider->query->createCommand()->getRawSql();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -66,7 +67,7 @@ class DefaultController extends CommonController
      */
     public function actionCreate()
     {
-        $model = new Article();
+        $model = new ArticleCrud();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -113,12 +114,12 @@ class DefaultController extends CommonController
      * Finds the Article model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Article the loaded model
+     * @return ArticleCrud the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Article::findOne($id)) !== null) {
+        if (($model = ArticleCrud::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

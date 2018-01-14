@@ -99,16 +99,14 @@ class ArticleCate extends ArticleCateModel
             'id' => $this->id,
             'parent_id' => $this->parent_id,
             'level' => $this->level,
-            'add_time' => $this->add_time,
-            'edit_time' => $this->edit_time,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'path', $this->path])
-            ->andFilterWhere(['>=','a.add_time',$this->add_time_start])
-            ->andFilterWhere(['<=','a.add_time',$this->add_time_end])
-            ->andFilterWhere(['>=','a.edit_time',$this->edit_time_start])
-            ->andFilterWhere(['<=','a.edit_time',$this->edit_time_end]);
+            ->andFilterWhere(['>=','add_time',$this->add_time_start])
+            ->andFilterWhere(['<=','add_time',$this->add_time_end])
+            ->andFilterWhere(['>=','edit_time',$this->edit_time_start])
+            ->andFilterWhere(['<=','edit_time',$this->edit_time_end]);
 
         return $dataProvider;
     }

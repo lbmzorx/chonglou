@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
             <div class="row">
                 <div class="col-lg-2 col-sm-2">
-                    <?= $form->field($model, 'cate_id')->dropDownList(\common\models\crub\ArticleCate::find()
+                    <?= $form->field($model, 'cate_id')->dropDownList(\common\models\crud\ArticleCate::find()
                         ->select(['name','id'])->indexBy('id')->column(),['prompt'=>'请选择状态'])?>
                 </div>
                 <div class="col-lg-2 col-sm-2">

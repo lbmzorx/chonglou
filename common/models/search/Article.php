@@ -31,7 +31,7 @@ class Article extends ArticleModel
             [['cateName',],'string',],
             [['cateName',],'safe',],
             [['add_time','edit_time'],'string',],
-            [['add_time_start','add_time_','edit_time'],'string',],
+            [['add_time_start','add_time_end','edit_time_start','edit_time_end'],'integer',],
         ];
         return array_merge($rules,$parent_rules);
     }

@@ -4,17 +4,17 @@ namespace backend\modules\article\controllers;
 
 use backend\controllers\CommonController;
 use Yii;
-use common\models\crud\Article as ArticleCrud;
-use common\models\search\Article as ArticleSearch;
-use yii\web\Controller;
+use common\models\crud\Tag;
+use common\models\search\Tag as TagSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DefaultController implements the CRUD actions for Article model.
+ * TagController implements the CRUD actions for Tag model.
  */
-class DefaultController extends CommonController
+class TagController extends CommonController
 {
+
     public $left_nav_id='article';
     public $enableCsrfValidation=false;
     /**
@@ -33,15 +33,14 @@ class DefaultController extends CommonController
     }
 
     /**
-     * Lists all Article models.
+     * Lists all Tag models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ArticleSearch();
+        $searchModel = new TagSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-//        echo $dataProvider->query->createCommand()->getRawSql();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -49,9 +48,10 @@ class DefaultController extends CommonController
     }
 
     /**
-     * Displays a single Article model.
+     * Displays a single Tag model.
      * @param string $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
@@ -61,28 +61,29 @@ class DefaultController extends CommonController
     }
 
     /**
-     * Creates a new Article model.
+     * Creates a new Tag model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ArticleCrud();
+        $model = new Tag();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Updates an existing Article model.
+     * Updates an existing Tag model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
@@ -90,18 +91,19 @@ class DefaultController extends CommonController
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Deletes an existing Article model.
+     * Deletes an existing Tag model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
@@ -111,18 +113,18 @@ class DefaultController extends CommonController
     }
 
     /**
-     * Finds the Article model based on its primary key value.
+     * Finds the Tag model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return ArticleCrud the loaded model
+     * @return Tag the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ArticleCrud::findOne($id)) !== null) {
+        if (($model = Tag::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

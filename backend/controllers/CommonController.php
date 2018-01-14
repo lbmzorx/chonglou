@@ -64,6 +64,7 @@ class CommonController extends Controller
                 [
                     ['id'=>'article/default/index','url'=>Url::to(['/article/default/index']),'name'=>'文章','icon'=>'',],
                     ['id'=>'article/cate/index','url'=>Url::to(['/article/cate/index']),'name'=>'分类','icon'=>'',],
+                    ['id'=>'article/tag/index','url'=>Url::to(['/article/tag/index']),'name'=>'标签','icon'=>'',],
                 ],
 
             ],

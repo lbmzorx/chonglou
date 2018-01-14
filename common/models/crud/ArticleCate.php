@@ -1,10 +1,8 @@
 <?php
 
-namespace common\models\crub;
+namespace common\models\crud;
 
 use Yii;
-use yii\base\Model;
-use yii\data\ActiveDataProvider;
 use common\models\data\ArticleCate as ArticleCateModel;
 
 /**

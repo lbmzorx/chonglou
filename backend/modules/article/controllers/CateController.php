@@ -3,7 +3,7 @@
 namespace backend\modules\article\controllers;
 
 use Yii;
-use common\models\crub\ArticleCate;
+use common\models\crud\ArticleCate;
 use common\models\search\ArticleCate as ArticleCateSearch;
 use backend\controllers\CommonController;
 use yii\web\NotFoundHttpException;

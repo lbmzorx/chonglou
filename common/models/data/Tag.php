@@ -39,8 +39,8 @@ class Tag extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'frequence' => Yii::t('app', 'Frequence'),
+            'name' => Yii::t('app', '名称'),
+            'frequence' => Yii::t('app', '频率'),
         ];
     }
 

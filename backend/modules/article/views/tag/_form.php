@@ -9,17 +9,27 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="tag-form">
-
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title"><?=Yii::t('app',$this->title)?></h3>
+        </div>
+        <div class="panel-body">
+            <div class="article-form">
     <?php $form = ActiveForm::begin(); ?>
-
+                <div class="row">
+                    <div class="col-lg-2">
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'frequence')->textInput() ?>
-
+                    </div>
+                    <div class="col-lg-2">
+                        <?= $form->field($model, 'frequence')->textInput() ?>
+                    </div>
+                </div>
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', '保存'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
-
+            </div>
+        </div>
+    </div>
 </div>

@@ -5,7 +5,6 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\data\Tag */
-
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', '标签'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

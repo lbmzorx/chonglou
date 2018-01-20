@@ -22,7 +22,7 @@ class TagController extends CommonController
      */
     public function behaviors()
     {
-        return [
+        $rules= [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -30,7 +30,9 @@ class TagController extends CommonController
                 ],
             ],
         ];
+        return array_merge($rules,parent::behaviors());
     }
+
 
     /**
      * Lists all Tag models.

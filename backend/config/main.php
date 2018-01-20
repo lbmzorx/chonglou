@@ -36,14 +36,14 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => '/site/error',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
                 '<controller:\w+>'=>'<controller>/index',
-                '<controller:\w+>.<action:\w+>'=>'<controller>/<action>',
+                '<controller:\w+>-<action:\w+>'=>'<controller>/<action>',
                 '<controller:\w+>-<action:\w+>.<id:\d+>'=>'<controller>/<action>',
                 '<module:\w+>-<controller:\w+>'=>'<module>/<controller>/index',
                 '<module:\w+>-<controller:\w+>-<id:\d+>'=>'<module>/<controller>/index',

@@ -17,12 +17,13 @@ class DefaultController extends CommonController
 {
     public $left_nav_id='article';
     public $enableCsrfValidation=false;
+
     /**
      * @inheritdoc
      */
     public function behaviors()
     {
-        return [
+        $rules= [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -30,6 +31,7 @@ class DefaultController extends CommonController
                 ],
             ],
         ];
+        return array_merge($rules,parent::behaviors());
     }
 
     /**

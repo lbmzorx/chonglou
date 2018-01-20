@@ -3,11 +3,12 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\admin\LoginForm;
+use yii\web\Controller;
 
 /**
  * Site controller
  */
-class SiteController extends CommonController
+class SiteController extends Controller
 {
 
     /**
@@ -27,8 +28,8 @@ class SiteController extends CommonController
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
-//            return $this->goHome();
+        if(!Yii::$app->user->isGuest) {
+            return $this->goHome();
         }
 
         $model = new LoginForm();
@@ -52,4 +53,9 @@ class SiteController extends CommonController
 
         return $this->goHome();
     }
+
+    public function actionError(){
+        return $this->render('error');
+    }
+
 }

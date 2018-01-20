@@ -9,6 +9,7 @@ use yii\widgets\Pjax;
 \backend\assets\LayuiAsset::register($this);
 $this->title = Yii::t('app', '文章');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="article-index">
     <?= \yii\widgets\Breadcrumbs::widget([

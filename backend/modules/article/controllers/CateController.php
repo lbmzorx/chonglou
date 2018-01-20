@@ -22,7 +22,7 @@ class CateController extends CommonController
      */
     public function behaviors()
     {
-        return [
+        $rules= [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -30,7 +30,9 @@ class CateController extends CommonController
                 ],
             ],
         ];
+        return array_merge($rules,parent::behaviors());
     }
+
 
     /**
      * Lists all ArticleCate models.

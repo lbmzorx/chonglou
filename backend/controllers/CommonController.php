@@ -28,6 +28,10 @@ class CommonController extends Controller
                         'allow' => false,
                         'roles' => ['?'],
                     ],
+                    [
+                        'allow'=>true,
+                        'roles'=>['@'],
+                    ],
                 ],
             ],
         ];

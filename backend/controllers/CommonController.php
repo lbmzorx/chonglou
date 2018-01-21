@@ -57,7 +57,7 @@ class CommonController extends Controller
                     ['id'=>'article/default/index','url'=>Url::to(['/article/default/index']),'name'=>'文章','icon'=>'',],
                     ['id'=>'article/cate/index','url'=>Url::to(['/article/cate/index']),'name'=>'分类','icon'=>'',],
                     ['id'=>'article/tag/index','url'=>Url::to(['/article/tag/index']),'name'=>'标签','icon'=>'',],
-                    ['id'=>'article/tag/index','url'=>Url::to(['/article/tag/index']),'name'=>'评论管理','icon'=>'',],
+                    ['id'=>'article/tag/index','url'=>Url::to(['/article/commit/index']),'name'=>'评论管理','icon'=>'',],
                 ],
 
             ],
@@ -74,16 +74,16 @@ class CommonController extends Controller
                     ['id'=>'article/default/index','url'=>Url::to(['/topic/default/index']),'name'=>'文章','icon'=>'',],
                     ['id'=>'article/cate/index','url'=>Url::to(['/topic/cate/index']),'name'=>'分类','icon'=>'',],
                     ['id'=>'article/tag/index','url'=>Url::to(['/topic/tag/index']),'name'=>'标签','icon'=>'',],
+                    ['id'=>'article/tag/index','url'=>Url::to(['/topic/commit/index']),'name'=>'评论管理','icon'=>'',],
                 ],
 
             ],
 
             ['id'=>'user','url'=>Url::to(['/user']),'icon'=>'file','name'=>'用户','item'=>
                 [
-                    ['id'=>'article/default/index','url'=>Url::to(['/user/default/index']),'name'=>'文章','icon'=>'',],
-                    ['id'=>'article/cate/index','url'=>Url::to(['/user/cate/index']),'name'=>'分类','icon'=>'',],
+                    ['id'=>'article/default/index','url'=>Url::to(['/user/default/index']),'name'=>'用户信息','icon'=>'',],
+                    ['id'=>'article/cate/index','url'=>Url::to(['/user/cate/index']),'name'=>'用户动态','icon'=>'',],
                     ['id'=>'article/tag/index','url'=>Url::to(['/user/tag/index']),'name'=>'标签','icon'=>'',],
-                    ['id'=>'article/tag/index','url'=>Url::to(['/user/tag/index']),'name'=>'敏感词管理','icon'=>'',],
                 ],
             ],
 
@@ -92,6 +92,7 @@ class CommonController extends Controller
                     ['id'=>'article/default/index','url'=>Url::to(['/user/default/index']),'name'=>'','icon'=>'',],
                     ['id'=>'article/cate/index','url'=>Url::to(['/user/cate/index']),'name'=>'分类','icon'=>'',],
                     ['id'=>'article/tag/index','url'=>Url::to(['/user/tag/index']),'name'=>'标签','icon'=>'',],
+                    ['id'=>'article/tag/index','url'=>Url::to(['/user/tag/index']),'name'=>'敏感词管理','icon'=>'',],
                 ],
             ],
 

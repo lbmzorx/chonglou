@@ -17,6 +17,8 @@ use Yii;
  */
 class UserAction extends \yii\db\ActiveRecord
 {
+
+    public static $status_code=[0=>'未读',1=>'已读',2=>'未知'];
     /**
      * @inheritdoc
      */
@@ -48,8 +50,23 @@ class UserAction extends \yii\db\ActiveRecord
             'action' => Yii::t('app', '动作内容'),
             'action_id' => Yii::t('app', '动作ID'),
             'action_type' => Yii::t('app', '动作类型'),
-            'status' => Yii::t('app', '状态，0未读，1已读，2未知'),
+            'status' => Yii::t('app', '状态'), //，0未读，1已读，2未知
             'add_time' => Yii::t('app', '添加时间'),
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'attributes' => [
+                    self::EVENT_BEFORE_INSERT => ['add_time'],
+                ],
+            ],
+            'getStatusCode'=>[
+                'class' => \common\component\StatusCode::className(),
+            ],
         ];
     }
 }

@@ -9,18 +9,16 @@ use yii\web\AssetBundle;
  */
 class CommonAsset extends AssetBundle
 {
-    public $sourcePath='@resource/admin/';
+    public $sourcePath='@resource/frontend/';
     public $css = [
-        'css/main.css',
-        'css/demo.css',
-        'css/style.css',
+
     ];
     public $js = [
-        'js/klorofil-common.js',
+
     ];
     public $depends = [
-        'frontend\assets\JqueryAsset',
-        'frontend\assets\FontAwesomeAsset',
-        'frontend\assets\NanoscrollerAsset',
+        'common\assets\JqueryAsset',
+        'common\assets\FontAwesomeAsset',
+        'common\assets\NanoscrollerAsset',
     ];
 }

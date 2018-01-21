@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\assets;
+namespace common\assets;
 
 use yii\web\AssetBundle;
 
@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class BootstrapAsset extends AssetBundle
 {
-    public $sourcePath = '@resource/admin/vendor/bootstrap/';
+    public $sourcePath = '@resource/vendor/bootstrap/';
     public $css = [
         'css/bootstrap.min.css',
     ];

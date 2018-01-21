@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * TumbupController implements the CRUD actions for ArticleThumbup model.
  */
-class TumbupController extends CommonController
+class ThumbupController extends CommonController
 {
     public $left_nav_id='user';
     /**

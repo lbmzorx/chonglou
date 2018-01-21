@@ -45,7 +45,7 @@ return [
         ],
     ],
 
-    'defaultRoute'=>'home/default/index',
+    'defaultRoute'=>'home/index',
     'modules' => [
         'home' => [
             'class' => 'frontend\modules\home\Module',

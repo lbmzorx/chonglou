@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\assets;
+namespace common\assets;
 
 use yii\web\AssetBundle;
 
@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class ChartAsset extends AssetBundle
 {
-    public $sourcePath = '@resource/admin/vendor/chartist';
+    public $sourcePath = '@resource/vendor/chartist';
     public $css=[
         'css/chartist-custom.css',
     ];

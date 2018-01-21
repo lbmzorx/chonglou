@@ -36,6 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'abstract:ntext',
             'add_admin_id',
             'remain',
+            'view',
+            'thumbup',
+            'collection',
+            'commit',
             [
                 'attribute'=>'publish',
                 'value'=>$model->cate->name,

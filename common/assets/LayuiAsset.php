@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class LayuiAsset extends AssetBundle
 {
-    public $sourcePath = '@resource/layui-v2.2.5/layui/';
+    public $sourcePath = '@resource/vendor/layui-v2.2.5/layui/';
 
     public $css=[
         'css/layui.css'
@@ -19,6 +19,6 @@ class LayuiAsset extends AssetBundle
     ];
 
     public $depends=[
-        'backend\assets\JqueryAsset',
+        'common\assets\JqueryAsset',
     ];
 }

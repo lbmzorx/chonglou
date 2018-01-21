@@ -14,6 +14,8 @@ use yii\filters\VerbFilter;
  */
 class CommitController extends CommonController
 {
+    public $left_nav_id='article';
+    public $enableCsrfValidation=false;
     /**
      * @inheritdoc
      */

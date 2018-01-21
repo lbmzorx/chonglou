@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\assets;
+namespace common\assets;
 
 use yii\web\AssetBundle;
 
@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class JquerySlimscroll extends AssetBundle
 {
-    public $sourcePath = '@resource/admin/vendor/jquery-slimscroll/';
+    public $sourcePath = '@resource/vendor/jquery-slimscroll/';
     public $js=[
         'jquery.slimscroll.min.js',
     ];

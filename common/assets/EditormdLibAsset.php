@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\assets;
+namespace common\assets;
 
 use yii\web\AssetBundle;
 
@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class EditormdLibAsset extends AssetBundle
 {
-    public $sourcePath = '@resource/admin/plugins/editor.md-master/';
+    public $sourcePath = '@resource/plugins/editor.md-master/';
 
     public $css=[
         'css/editormd.css',

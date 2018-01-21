@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\assets;
+namespace common\assets;
 
 use yii\web\AssetBundle;
 
@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class JqueryAsset extends AssetBundle
 {
-    public $sourcePath = '@resource/admin/vendor/jquery/';
+    public $sourcePath = '@resource/vendor/jquery/';
 
     public $js = [
         'jquery.min.js'

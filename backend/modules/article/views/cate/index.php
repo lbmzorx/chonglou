@@ -6,8 +6,8 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\ArticleCate */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-\backend\assets\LayerAsset::register($this);
-\backend\assets\LayuiAsset::register($this);
+\common\assets\LayerAsset::register($this);
+\common\assets\LayuiAsset::register($this);
 $this->title = Yii::t('app', '文章分类');
 $this->params['breadcrumbs'][] = $this->title;
 ?>

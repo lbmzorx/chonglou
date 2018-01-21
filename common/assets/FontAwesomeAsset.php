@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\assets;
+namespace common\assets;
 
 use yii\web\AssetBundle;
 
@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class FontAwesomeAsset extends AssetBundle
 {
-    public $sourcePath = '@resource/admin/vendor/font-awesome/';
+    public $sourcePath = '@resource/vendor/font-awesome/';
     public $css=[
         'css/font-awesome.min.css',
     ];

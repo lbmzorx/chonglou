@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\assets;
+namespace frontend\assets;
 
 use yii\web\AssetBundle;
 
@@ -12,16 +12,15 @@ class CommonAsset extends AssetBundle
     public $sourcePath='@resource/admin/';
     public $css = [
         'css/main.css',
+        'css/demo.css',
+        'css/style.css',
     ];
     public $js = [
         'js/klorofil-common.js',
     ];
     public $depends = [
-        'common\assets\JqueryAsset',
-        'common\assets\BootstrapAsset',
-        'common\assets\JquerySlimscroll',
-        'common\assets\LineariconsAsset',
-        'common\assets\FontAwesomeAsset',
-        'common\assets\JquerySlimscroll',
+        'frontend\assets\JqueryAsset',
+        'frontend\assets\FontAwesomeAsset',
+        'frontend\assets\NanoscrollerAsset',
     ];
 }

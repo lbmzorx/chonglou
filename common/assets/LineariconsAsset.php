@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\assets;
+namespace common\assets;
 
 use yii\web\AssetBundle;
 
@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class LineariconsAsset extends AssetBundle
 {
-    public $sourcePath = '@resource/admin/vendor/linearicons/';
+    public $sourcePath = '@resource/vendor/linearicons/';
     public $css=[
         'style.css',
     ];

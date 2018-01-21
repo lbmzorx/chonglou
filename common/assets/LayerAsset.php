@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\assets;
+namespace common\assets;
 
 use yii\web\AssetBundle;
 use yii\web\View;
@@ -10,7 +10,7 @@ use yii\web\View;
  */
 class LayerAsset extends AssetBundle
 {
-    public $sourcePath = '@resource/admin/vendor/layer';
+    public $sourcePath = '@resource/vendor/layer';
 
     public $js = [
         'layer.js'

@@ -1,72 +1,74 @@
 <?php
 
-namespace common\models\data;
+namespace common\models\search;
 
 use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use common\models\data\ArticleCommit as ArticleCommitModel;
 
 /**
- * This is the model class for table "{{%article_commit}}".
- *
- * @property string $id
- * @property string $article_id 文章ID
- * @property string $user_id 用户ID
- * @property string $commit_id 评论ID
- * @property string $content 内容
- * @property int $status 状态，0，已发表，1评论成功，3非法评论，2审核不通过
- * @property string $add_time 添加时间
+ * ArticleCommit represents the model behind the search form of `common\models\data\ArticleCommit`.
  */
-class ArticleCommit extends \yii\db\ActiveRecord
+class ArticleCommit extends ArticleCommitModel
 {
-
-    public static $status_code=[0=>'已经发表',1=>'评论成功',2=>'非法评论',3=>'包含敏感字符',4=>'垃圾评论'];
-
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%article_commit}}';
-    }
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['article_id', 'user_id', 'commit_id', 'status', 'add_time'], 'integer'],
-            [['content'], 'string'],
+            [['id', 'article_id', 'user_id', 'commit_id', 'status', 'add_time'], 'integer'],
+            [['content'], 'safe'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function scenarios()
     {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'article_id' => Yii::t('app', '文章ID'),
-            'user_id' => Yii::t('app', '用户ID'),
-            'commit_id' => Yii::t('app', '评论ID'),
-            'content' => Yii::t('app', '内容'),
-            'status' => Yii::t('app', '状态'), //，0，已发表，1评论成功，3非法评论，2审核不通过
-            'add_time' => Yii::t('app', '添加时间'),
-        ];
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
     }
 
-    public function behaviors()
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
     {
-        return [
-            [
-                'class' => \yii\behaviors\TimestampBehavior::className(),
-                'attributes' => [
-                    self::EVENT_BEFORE_INSERT => ['add_time'],
-                ],
-            ],
-            'getStatusCode'=>[
-                'class' => \common\component\StatusCode::className(),
-            ],
-        ];
+        $query = ArticleCommitModel::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'article_id' => $this->article_id,
+            'user_id' => $this->user_id,
+            'commit_id' => $this->commit_id,
+            'status' => $this->status,
+            'add_time' => $this->add_time,
+        ]);
+
+        $query->andFilterWhere(['like', 'content', $this->content]);
+
+        return $dataProvider;
     }
 }

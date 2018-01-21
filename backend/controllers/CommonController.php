@@ -81,9 +81,12 @@ class CommonController extends Controller
 
             ['id'=>'user','url'=>Url::to(['/user']),'icon'=>'file','name'=>'用户','item'=>
                 [
-                    ['id'=>'article/default/index','url'=>Url::to(['/user/default/index']),'name'=>'用户信息','icon'=>'',],
-                    ['id'=>'article/cate/index','url'=>Url::to(['/user/cate/index']),'name'=>'用户动态','icon'=>'',],
-                    ['id'=>'article/tag/index','url'=>Url::to(['/user/tag/index']),'name'=>'标签','icon'=>'',],
+                    ['id'=>'user/default/index','url'=>Url::to(['/user/default/index']),'name'=>'用户信息','icon'=>'',],
+                    ['id'=>'user/cate/index','url'=>Url::to(['/user/cate/index']),'name'=>'用户动态','icon'=>'',],
+                    ['id'=>'user/tag/index','url'=>Url::to(['/user/tag/index']),'name'=>'标签','icon'=>'',],
+                    ['id'=>'user/commit/index','url'=>Url::to(['/user/commit/index']),'name'=>'评论管理','icon'=>'',],
+                    ['id'=>'user/thumbup/index','url'=>Url::to(['/user/thumbup/index']),'name'=>'点赞管理','icon'=>'',],
+                    ['id'=>'user/collection/index','url'=>Url::to(['/user/collection/index']),'name'=>'收藏管理','icon'=>'',],
                 ],
             ],
 

@@ -1,59 +1,69 @@
 <?php
 
-namespace common\models\data;
+namespace common\models\search;
 
 use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use common\models\data\ArticleCollection as ArticleCollectionModel;
 
 /**
- * This is the model class for table "{{%article_collection}}".
- *
- * @property string $id
- * @property string $article_id 文章ID
- * @property string $user_id 用户ID
- * @property string $add_time 添加时间
+ * ArticleCollection represents the model behind the search form of `common\models\data\ArticleCollection`.
  */
-class ArticleCollection extends \yii\db\ActiveRecord
+class ArticleCollection extends ArticleCollectionModel
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%article_collection}}';
-    }
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['article_id', 'user_id', 'add_time'], 'integer'],
+            [['id', 'article_id', 'user_id', 'add_time'], 'integer'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function scenarios()
     {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'article_id' => Yii::t('app', '文章ID'),
-            'user_id' => Yii::t('app', '用户ID'),
-            'add_time' => Yii::t('app', '添加时间'),
-        ];
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
     }
 
-    public function behaviors()
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
     {
-        return [
-            [
-                'class' => \yii\behaviors\TimestampBehavior::className(),
-                'attributes' => [
-                    self::EVENT_BEFORE_INSERT => ['add_time'],
-                ],
-            ],
-        ];
+        $query = ArticleCollectionModel::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'article_id' => $this->article_id,
+            'user_id' => $this->user_id,
+            'add_time' => $this->add_time,
+        ]);
+
+        return $dataProvider;
     }
 }

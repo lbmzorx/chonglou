@@ -36,34 +36,24 @@ $this->title = '首页';
         <div class="panel panel-default" id="main-article-introduce">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <i class="fa fa-comments-o"></i>&nbsp;列表list框
+                    <i class="fa fa-comments-o"></i>&nbsp;教程List
                     <span class="pull-right"><a href="#">更多...</a></span>
                 </h3>
             </div>
             <div class="panel-body">
                 <div class="col-lg-6 col-md-6">
                     <ul class="list-group">
-                        <li class="list-group-item list-sm-body">免费域名注册</li>
-                        <li class="list-group-item list-sm-body">
-                            <i class="fa fa-angle-right"></i>
-                            免费 Window 空间托管
-                            <span class="pull-right">2017-12-24</span>
-                        </li>
-                        <li class="list-group-item list-sm-body">
-                            <i class="fa fa-angle-right"></i>
-                            图像的数量
-                            <span class="pull-right">2017-12-24</span>
-                        </li>
-                        <li class="list-group-item list-sm-body">
-                            <i class="fa fa-angle-right"></i>
-                            <span class="pull-right">2017-12-24</span>
-                            <a href="#" id="">24*7 支持</a>
-                        </li>
-                        <li class="list-group-item list-sm-body">每年更新成本</li>
-                        <li class="list-group-item list-sm-body">
-                            <span class="badge">新</span>
-                            折扣优惠
-                        </li>
+                        <?php foreach ($articles as $article):?>
+                            <li class="list-group-item list-sm-body">
+                                <a href="<?=\yii\helpers\Url::to(['article/detail','id'=>$article['id']])?>">
+                                    <i class="fa fa-angle-right"></i>
+                                    <?=$article['title']?>
+                                    <span class="pull-right"><i class="fa fa-comment "></i><?=$article['commit']?>&nbsp;</span>
+                                    <span class="pull-right"><i class="fa fa-thumbs-o-up "></i><?=$article['thumbup']?>&nbsp;</span>
+                                    <span class="pull-right"><i class="fa fa-folder "></i><?=$article['collection']?>&nbsp;</span>
+                                </a>
+                            </li>
+                        <?php endforeach;?>
                     </ul>
                 </div>
                 <div class="col-lg-6 col-md-6">

@@ -1,6 +1,9 @@
 <?php
 namespace frontend\controllers;
 
+use frontend\models\Article;
+use frontend\models\Speaks;
+use frontend\models\Topic;
 use Yii;
 use yii\web\Controller;
 
@@ -17,7 +20,11 @@ class HomeController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $speaks=Speaks::home();
+        $articles=Article::home();
+        $topics=Topic::home();
+
+        return $this->render('index',['speaks'=>$speaks,'articles'=>$articles,'topics'=>$topics]);
     }
 
 

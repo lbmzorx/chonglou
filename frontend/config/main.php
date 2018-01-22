@@ -47,20 +47,8 @@ return [
 
     'defaultRoute'=>'home/index',
     'modules' => [
-        'home' => [
-            'class' => 'frontend\modules\home\Module',
-        ],
         'user' => [
             'class' => 'frontend\modules\user\Module',
-        ],
-        'article' => [
-            'class' => 'frontend\modules\article\Module',
-        ],
-        'finance' => [
-            'class' => 'frontend\modules\finance\Module',
-        ],
-        'product' => [
-            'class' => 'frontend\modules\product\Module',
         ],
         'test' => [
             'class' => 'frontend\modules\test\Module',

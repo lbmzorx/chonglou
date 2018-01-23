@@ -41,7 +41,7 @@ $this->title = '首页';
                 </h3>
             </div>
             <div class="panel-body">
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-12 col-md-12">
                     <ul class="list-group">
                         <?php foreach ($articles as $article):?>
                             <li class="list-group-item list-sm-body">
@@ -56,28 +56,12 @@ $this->title = '首页';
                         <?php endforeach;?>
                     </ul>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                    <ul class="list-group">
-                        <li class="list-group-item list-sm-1">免费域名注册</li>
-                        <li class="list-group-item">免费 Window 空间托管</li>
-                        <li class="list-group-item">图像的数量</li>
-                        <li class="list-group-item">
-                            <span class="badge">新</span>
-                            24*7 支持
-                        </li>
-                        <li class="list-group-item">每年更新成本</li>
-                        <li class="list-group-item">
-                            <span class="badge">新</span>
-                            折扣优惠
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
         <div class="panel panel-default" id="main-article-introduce">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <i class="fa fa-comments-o"></i>&nbsp;表格table框
+                    <i class="fa fa-comments-o"></i>&nbsp;最新话题
                     <span class="pull-right"><a href="#">更多...</a></span>
                 </h3>
             </div>
@@ -86,31 +70,23 @@ $this->title = '首页';
                     <table class="table table-hover table-bottom">
                         <thead>
                         <tr>
-                            <th>产品</th>
-                            <th>付款日期</th>
-                            <th>状态</th></tr>
+                            <th>话题</th>
+                            <th>评论</th>
+                            <th>点赞</th>
+                            <th>收藏</th>
+                            <th>日期</th>
+                        </tr>
                         </thead>
                         <tbody>
+                        <?php foreach ($topics as $topic):?>
                         <tr>
-                            <td>产品1</td>
-                            <td>23/11/2013</td>
-                            <td>待发货</td></tr>
+                            <td><?=$topic['title']?></td>
+                            <td><?=$topic['commit']?></td>
+                            <td><?=$topic['thumbup']?></td>
+                            <td><?=$topic['collection']?></td>
+                            <td><?=date("Y-m-d H:i:s",$topic['add_time'])?></td>
                         <tr>
-                            <td>产品2</td>
-                            <td>10/11/2013</td>
-                            <td>发货中</td></tr>
-                        <tr>
-                            <td>产品3</td>
-                            <td>20/10/2013</td>
-                            <td>待确认</td></tr>
-                        <tr>
-                            <td>产品4</td>
-                            <td>20/10/2013</td>
-                            <td>已退货</td></tr>
-                        <tr>
-                            <td>产品4</td>
-                            <td>20/10/2013</td>
-                            <td>已退货</td></tr>
+                        <?php endforeach;?>
                         </tbody>
                     </table>
                 </div>
@@ -214,31 +190,19 @@ $this->title = '首页';
         <!--说说-->
         <div class="panel panel-default" id="side-article-news">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-comments-o"></i>&nbsp;新闻<span class="pull-right"><a href="#">更多...</a></span></h3>
+                <h3 class="panel-title"><i class="fa fa-comments-o"></i>&nbsp;标签云<span class="pull-right"><a href="#">更多...</a></span></h3>
             </div>
             <div class="panel-body">
                 <div class="nano">
                     <ul class="list-group nano-content" tabindex="0" style="right: -10px;">
-                        <li class="list-group-item">
-                            <a href="#">螺丝钉解放看来</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="#">螺丝钉解放看来</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="#">螺丝钉解放看来</a>
-                        </li>
-                        <li class="list-group-item">免费 Window 空间托管</li>
-                        <li class="list-group-item">图像的数量</li>
-                        <li class="list-group-item">
-                            <span class="badge">新</span>
-                            24*7 支持
-                        </li>
-                        <li class="list-group-item">每年更新成本</li>
-                        <li class="list-group-item">
-                            <span class="badge">新</span>
-                            折扣优惠
-                        </li>
+                        <?php $tag_color=['default','primary','success','info','warning','danger']?>
+                        <?php $tag_dim=['h2','h3','h4','h5','h6','p']?>
+                        <?php foreach ($tags as $tag):?>
+                            <a href="<?=\yii\helpers\Url::to(['article/detail','tag'=>$tag['name']])?>">
+                                <?php $span=\yii\helpers\Html::tag('span',$tag['name'],['class'=>'label label-'.$tag_color[intval($tag['frequence']%5)]])?>
+                                <?=\yii\helpers\Html::tag($tag_dim[intval($tag['frequence']%6)],$span)?>
+                            </a>
+                        <?php endforeach;?>
                     </ul>
                 </div>
             </div>

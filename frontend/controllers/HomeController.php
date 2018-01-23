@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use frontend\models\Article;
 use frontend\models\Speaks;
+use frontend\models\Tag;
 use frontend\models\Topic;
 use Yii;
 use yii\web\Controller;
@@ -23,8 +24,8 @@ class HomeController extends Controller
         $speaks=Speaks::home();
         $articles=Article::home();
         $topics=Topic::home();
-
-        return $this->render('index',['speaks'=>$speaks,'articles'=>$articles,'topics'=>$topics]);
+        $tags=Tag::home();
+        return $this->render('index',['speaks'=>$speaks,'articles'=>$articles,'topics'=>$topics,'tags'=>$tags]);
     }
 
 

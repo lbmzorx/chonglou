@@ -36,7 +36,7 @@ $this->title = '首页';
         <div class="panel panel-default" id="main-article-introduce">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <i class="fa fa-comments-o"></i>&nbsp;教程List
+                    <i class="fa fa-comments-o"></i>&nbsp;文章列表
                     <span class="pull-right"><a href="#">更多...</a></span>
                 </h3>
             </div>
@@ -70,6 +70,7 @@ $this->title = '首页';
                     <table class="table table-hover table-bottom">
                         <thead>
                         <tr>
+                            <th>用户</th>
                             <th>话题</th>
                             <th>评论</th>
                             <th>点赞</th>
@@ -80,6 +81,7 @@ $this->title = '首页';
                         <tbody>
                         <?php foreach ($topics as $topic):?>
                         <tr>
+                            <td><?=$topic['name']?></td>
                             <td><?=$topic['title']?></td>
                             <td><?=$topic['commit']?></td>
                             <td><?=$topic['thumbup']?></td>
@@ -195,8 +197,8 @@ $this->title = '首页';
             <div class="panel-body">
                 <div class="nano">
                     <ul class="list-group nano-content" tabindex="0" style="right: -10px;">
-                        <?php $tag_color=['default','primary','success','info','warning','danger']?>
-                        <?php $tag_dim=['h2','h3','h4','h5','h6','p']?>
+                        <?php $tag_color=\frontend\models\Tag::$tag_color?>
+                        <?php $tag_dim=\frontend\models\Tag::$tag_dim?>
                         <?php foreach ($tags as $tag):?>
                             <a href="<?=\yii\helpers\Url::to(['article/detail','tag'=>$tag['name']])?>">
                                 <?php $span=\yii\helpers\Html::tag('span',$tag['name'],['class'=>'label label-'.$tag_color[intval($tag['frequence']%5)]])?>

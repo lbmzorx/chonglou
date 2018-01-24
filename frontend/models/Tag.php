@@ -9,6 +9,10 @@ use Yii;
  */
 class Tag extends \common\models\data\Tag
 {
+
+    public static $tag_color=['default','primary','success','info','warning','danger'];
+    public static $tag_dim=['h2','h3','h4','h5','h6','p'];
+
     public static function home(){
         return self::find()
             ->select(['id','name','frequence',])

@@ -75,19 +75,19 @@ STYLE
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="#">首页</a>
+                    <a href="<?=\yii\helpers\Url::to(['home/index'])?>">首页</a>
                 </li>
                 <li>
-                    <a href="#about">关于</a>
+                    <a href="<?=\yii\helpers\Url::to(['article/index'])?>">文章</a>
                 </li>
                 <li>
-                    <a href="#contact">问答</a>
+                    <a href="<?=\yii\helpers\Url::to(['topic/index'])?>">话题</a>
                 </li>
                 <li>
-                    <a href="#contact">话题</a>
+                    <a href="<?=\yii\helpers\Url::to(['speak/index'])?>">说说</a>
                 </li>
                 <li>
-                    <a href="#contact">热门</a>
+                    <a href="<?=\yii\helpers\Url::to(['sys/index'])?>">关于</a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>

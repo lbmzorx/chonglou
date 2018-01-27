@@ -106,7 +106,7 @@ class Article extends ArticleModel
         // grid filtering conditions
         $query->andFilterWhere([
             'a.id' => $this->id,
-            'a.add_admin_id' => $this->add_admin_id,
+            'a.user_id' => $this->user_id,
             'a.remain' => $this->remain,
             'a.publish' => $this->publish,
             'a.status' => $this->status,

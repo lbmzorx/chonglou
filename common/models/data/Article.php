@@ -13,7 +13,6 @@ use Yii;
  * @property string $author 作者
  * @property string $cover 封面
  * @property string $abstract 摘要
- * @property int $add_admin_id 添加者
  * @property string $content 内容
  * @property int $remain 提醒,0未提醒，1已经提醒
  * @property int $publish 发布,0不发布，1发布,2发布当前
@@ -45,10 +44,10 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cate_id', 'add_admin_id', 'remain', 'publish', 'status', 'add_time', 'edit_time', 'commit', 'view', 'collection', 'thumbup'], 'integer'],
+            [['cate_id', 'remain', 'publish', 'status', 'add_time', 'edit_time', 'commit', 'view', 'collection', 'thumbup'], 'integer'],
             [['content'], 'string'],
             [['title'], 'string', 'max' => 50],
-            [['author', 'tags'], 'string', 'max' => 20],
+            [['author', 'tags'], 'string', 'max' => 255],
             [['cover', 'abstract'], 'string', 'max' => 255],
         ];
     }

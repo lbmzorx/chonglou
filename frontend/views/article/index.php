@@ -5,6 +5,7 @@
  * Date: 2018/1/26
  * Time: 23:53
  */
+$this->title='文章列表';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">

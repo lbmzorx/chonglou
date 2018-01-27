@@ -10,6 +10,9 @@ use common\models\data\Article as ArticleModel;
  */
 class Article extends ArticleModel
 {
+    const ADMIN_ADDER=50;
+
+
     /**
      * @inheritdoc
      */

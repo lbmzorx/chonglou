@@ -3,6 +3,7 @@
 namespace backend\modules\article\controllers;
 
 use backend\controllers\CommonController;
+use frontend\models\ArticleCate;
 use Yii;
 use common\models\crud\Article as ArticleCrud;
 use common\models\search\Article as ArticleSearch;
@@ -70,7 +71,8 @@ class DefaultController extends CommonController
     public function actionCreate()
     {
         $model = new ArticleCrud();
-
+        $model->user_id=\yii::$app->user->identity->id;
+        $model->status=ArticleCrud::ADMIN_ADDER;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

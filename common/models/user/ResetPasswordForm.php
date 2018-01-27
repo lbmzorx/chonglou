@@ -1,5 +1,5 @@
 <?php
-namespace frontend\models;
+namespace common\models\user;
 
 use yii\base\Model;
 use yii\base\InvalidParamException;
@@ -13,7 +13,7 @@ class ResetPasswordForm extends Model
     public $password;
 
     /**
-     * @var \common\models\User
+     * @var \common\models\user\User
      */
     private $_user;
 

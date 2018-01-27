@@ -17,8 +17,9 @@ class CommonAsset extends AssetBundle
 
     ];
     public $depends = [
-        'common\assets\JqueryAsset',
-        'common\assets\BootstrapAsset',
+        'yii\web\JqueryAsset',
+//        'yii\bootstrap\BootstrapAsset',
+        'yii\bootstrap\BootstrapThemeAsset',
         'common\assets\FontAwesomeAsset',
         'common\assets\NanoscrollerAsset',
     ];

@@ -67,7 +67,7 @@ $this->title = '首页';
             </div>
             <div class="panel-body ">
                 <div class="table-responsive">
-                    <table class="table table-hover table-bottom">
+                    <table class="table table-hover table-bottom table-striped">
                         <thead>
                         <tr>
                             <th>用户</th>

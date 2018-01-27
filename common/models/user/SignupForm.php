@@ -2,7 +2,7 @@
 namespace common\models\user;
 
 use yii\base\Model;
-
+use Yii;
 
 /**
  * Signup form
@@ -11,8 +11,9 @@ class SignupForm extends Model
 {
     public $username;
     public $email;
+    public $mobile;
     public $password;
-
+    public $password_confirm;
 
     /**
      * @inheritdoc
@@ -22,19 +23,37 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\user\User','targetAttribute'=>'name','message' => '用户名已经被注册'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\user\User', 'message' => '邮箱已经被注册'],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+//            ['mobile', 'trim'],
+//            ['mobile', 'required'],
+//            ['mobile', 'mobile'],
+//            ['mobile', 'string', 'max' => 20],
+//            ['mobile', 'unique', 'targetClass' => '\common\models\user\User', 'message' => '手机号已经被注册'],
+
+            [['password','password_confirm'], 'required'],
+            [['password','password_confirm'], 'string', 'min' => 6],
         ];
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'username' => Yii::t('app', '用户名'),
+            'email' => Yii::t('app', '邮箱'),
+            'mobile' => Yii::t('app', '手机号'),
+            'password' => Yii::t('app', '密码'),
+            'password_confirm' => Yii::t('app', '确认密码'),
+        ];
+    }
+
 
     /**
      * Signs user up.

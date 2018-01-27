@@ -43,35 +43,13 @@ return [
 
             ],
         ],
-        'assetManager' => [
-            'bundles' => [
-                'yii\web\JqueryAsset' => [
-                    'sourcePath' => '@resource/vendor/jquery/', // 屏蔽jqueryAsset
-                    'js' => [
-                        'jquery.min.js'
-                    ],
-                    'jsOptions'=>[
-                        'position' => \yii\web\View::POS_HEAD,
-                    ]
-                ],
-                'yii\bootstrap\BootstrapAsset' => [
-                    'css' => [
-                        'css/bootstrap.min.css',
-                    ],
-                ],
-                'yii\bootstrap\BootstrapPluginAsset' => [
-                    'js' => [
-                        'js/bootstrap.min.js',
-                    ],
-                ],
-                'yii\bootstrap\BootstrapThemeAsset' => [
-                    'css' => [
-                        'css/bootstrap-theme.min.css',
-                    ],
-                ],
-            ],
+
+        'formatter' => [
+            'datetimeFormat' => 'y-M-d H:i:s',
         ],
     ],
+
+
 
     'defaultRoute'=>'home/index',
     'modules' => [

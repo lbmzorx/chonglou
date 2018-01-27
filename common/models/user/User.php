@@ -22,7 +22,14 @@ class User extends \common\models\data\User implements IdentityInterface
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            'time'=>[
+                'class'=>TimestampBehavior::className(),
+                'attributes' => [
+                    self::EVENT_BEFORE_INSERT => ['add_time'],
+                    self::EVENT_BEFORE_UPDATE => ['edit_time'],
+                ],
+            ]
+
         ];
     }
 

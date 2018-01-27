@@ -21,7 +21,19 @@ CommonAsset::register($this);
     <title><?= Html::encode($this->title)?></title>
     <?php $this->head() ?>
     <?=$this->registerCss(<<<STYLE
-.nano{
+         html,body,.wrap{height: 100%;}
+        .wrap{
+                min-height: 100%;
+                height: auto;
+                margin: 0 auto -237px;
+                padding: 0 0 237px;
+            }
+        .main-container{ 
+            height: auto;  
+            min-height: 100%;  
+            _height: 100%;  
+        }
+        .nano{
             height: 300px;
             font-size: 12px;
             line-height: 1.5em;
@@ -47,9 +59,9 @@ CommonAsset::register($this);
         .table-bottom{
             margin-bottom: 0px;
         }
-        footer li,h2{
-            color:#CDCDCD ;
-        }        
+//        footer li,h2,h3,h4{
+//            color:#CDCDCD ;
+//        }        
         #msg-count{
             position:absolute;
             top:-7px;
@@ -65,6 +77,7 @@ STYLE
 
 <body>
 <?php $this->beginBody() ?>
+<div class="wrap">
 <?php
 NavBar::begin([
     'brandLabel' => '重楼',
@@ -134,42 +147,31 @@ NavBar::begin([
 NavBar::end();
 ?>
 
-<div class="container" style="padding-top: 70px;">
+<div class="container main-container" style="padding-top: 70px;">
     <?=$content?>
 </div>
-
-<footer class="footer navbar-inverse" id="footer">
+</div>
+<footer class="footer bg-info" id="footer">
     <div class="container visible-lg-block">
         <div class="row">
             <div class="col-lg-3">
-                <h2><i class="fa fa-info-circle"></i> 关于 Yii</h2>
+                <h4><i class="fa fa-info-circle"></i> 关于 Yii</h4>
                 <ul>
                     <li><a href="/about">Yii 的简介</a></li>
                     <li><a href="/news">Yii 的动态</a></li>
                     <li><a href="/features">Yii 的特性</a></li>
-                    <li><a href="/performance">Yii 的性能</a></li>
-                    <li><a href="/license">Yii 的许可</a></li>
                 </ul>
             </div>
             <div class="col-lg-3">
-                <h2><i class="fa fa-commenting"></i> 社区资源</h2>
+                <h4><i class="fa fa-commenting"></i> 社区资源</h4>
                 <ul>
                     <li><a href="/question">社区问答</a></li>
                     <li><a href="/topic">社区讨论</a></li>
                     <li><a href="/case">用户案例</a></li>
-                    <li><a href="/video">视频教程</a></li>
-                    <li><a href="/top">会员排行</a></li>
                 </ul>
             </div>
             <div class="col-lg-3">
-                <h2><i class="fa fa-qq"></i> QQ交流群</h2>
-                <ul class="list-unstyled">
-                    <li><a target="_blank" href="#">4241653</a> <font class="fast">(已满)</font>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-lg-3">
-                <h2><i class="fa fa-share-alt"></i> 关注我们</h2>
+                <h4><i class="fa fa-share-alt"></i> 关注我们</h4>
                 <dl>
                     <dt><i class="fa fa-weibo"></i> Yii 中文社区 官方微博</dt>
                     <dd><a href="http://weibo.com/yiichina">http://weibo.com/yiichina</a></dd>

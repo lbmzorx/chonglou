@@ -17,23 +17,6 @@ class User extends \common\models\data\User implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        return [
-            'time'=>[
-                'class'=>TimestampBehavior::className(),
-                'attributes' => [
-                    self::EVENT_BEFORE_INSERT => ['add_time'],
-                    self::EVENT_BEFORE_UPDATE => ['edit_time'],
-                ],
-            ]
-
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         $rules=[
@@ -65,7 +48,7 @@ class User extends \common\models\data\User implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['name' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['name' => $username, 'status' =>[self::STATUS_ACTIVE,self::STATUS_LOGINERROR]]);
     }
 
     /**
@@ -135,7 +118,7 @@ class User extends \common\models\data\User implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return Yii::$app->security->validatePassword($password, $this->password);
     }
 
     /**

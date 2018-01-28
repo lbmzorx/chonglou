@@ -16,9 +16,10 @@ class User extends \common\models\database\User
     const STATUS_LIMITACTIVE=   4; //限制活动
     const STATUS_LOGINERROR =   5; //登录异常
     const STATUS_ACTIVEERROR=   6; //活动异常
+    const STATUS_UNACTIVE   =   9; //账号未激活
     const STATUS_ACTIVE     =   10; //正常
 
-    public static $status_code=[0=>'删除',1=>'冻结',2=>'未通过审核',3=>'限制登录',4=>'限制活动',5=>'登录异常',6=>'活动异常',10=>'正常',];
+    public static $status_code=[0=>'删除',1=>'冻结',2=>'未通过审核',3=>'限制登录',4=>'限制活动',5=>'登录异常',6=>'活动异常',9=>'未激活',10=>'正常',];
 
     /**
      * @inheritdoc

@@ -1,17 +1,29 @@
 <?php
 
-namespace common\models\data;
+namespace common\models\database;
 
 use Yii;
 
 /**
  * This is the model class for table "{{%user_action}}".
  *
+ * @property string $id
+ * @property string $user_id
+ * @property string $action 动作内容
+ * @property string $action_id 动作ID
+ * @property int $action_type 动作类型
+ * @property int $status 状态，0未读，1已读，2未知
+ * @property string $add_time 添加时间
  */
 class UserAction extends \yii\db\ActiveRecord
 {
-
-    public static $status_code=[0=>'未读',1=>'已读',2=>'未知'];
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%user_action}}';
+    }
 
     /**
      * @inheritdoc
@@ -36,23 +48,8 @@ class UserAction extends \yii\db\ActiveRecord
             'action' => Yii::t('app', '动作内容'),
             'action_id' => Yii::t('app', '动作ID'),
             'action_type' => Yii::t('app', '动作类型'),
-            'status' => Yii::t('app', '状态'), //，0未读，1已读，2未知
+            'status' => Yii::t('app', '状态，0未读，1已读，2未知'),
             'add_time' => Yii::t('app', '添加时间'),
-        ];
-    }
-
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => \yii\behaviors\TimestampBehavior::className(),
-                'attributes' => [
-                    self::EVENT_BEFORE_INSERT => ['add_time'],
-                ],
-            ],
-            'getStatusCode'=>[
-                'class' => \common\component\StatusCode::className(),
-            ],
         ];
     }
 }

@@ -7,45 +7,9 @@ use Yii;
 /**
  * This is the model class for table "{{%topic}}".
  *
- * @property string $id
- * @property int $cate_id 分类
- * @property string $title 标题
- * @property string $author 作者
- * @property string $content 内容
- * @property int $remain 提醒,0未提醒，1已经提醒
- * @property int $publish 发布,0不发布，1发布,2发布当前
- * @property int $status 状态值，0待审核,1审核通过,2正在审核,3审核不通过
- * @property string $tags 标签
- * @property string $commit 评论
- * @property string $view 浏览
- * @property string $collection 收藏
- * @property int $thumbup 点赞
- * @property int $add_time 添加时间
- * @property int $edit_time 编辑时间
- * @property string $user_id
  */
-class Topic extends \yii\db\ActiveRecord
+class Topic extends \common\models\database\Topic
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%topic}}';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['cate_id', 'remain', 'publish', 'status', 'commit', 'view', 'collection', 'thumbup', 'add_time', 'edit_time', 'user_id'], 'integer'],
-            [['content'], 'string'],
-            [['title'], 'string', 'max' => 50],
-            [['author', 'tags'], 'string', 'max' => 20],
-        ];
-    }
 
     /**
      * @inheritdoc

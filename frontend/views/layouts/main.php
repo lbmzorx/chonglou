@@ -25,7 +25,7 @@ CommonAsset::register($this);
         .wrap{
                 min-height: 100%;
                 height: auto;
-                margin: 0 auto -237px;
+                margin: 0 auto -230px;
                 padding: 0 0 237px;
             }
         .main-container{ 

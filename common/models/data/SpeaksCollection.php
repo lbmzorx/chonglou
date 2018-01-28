@@ -7,20 +7,9 @@ use Yii;
 /**
  * This is the model class for table "{{%speaks_collection}}".
  *
- * @property string $id
- * @property string $speaks_id 说说ID
- * @property string $user_id 用户ID
- * @property string $add_time 添加时间
  */
-class SpeaksCollection extends \yii\db\ActiveRecord
+class SpeaksCollection extends \common\models\database\SpeaksCollection
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%speaks_collection}}';
-    }
 
     /**
      * @inheritdoc
@@ -32,16 +21,15 @@ class SpeaksCollection extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
+    public function behaviors()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'speaks_id' => Yii::t('app', '说说ID'),
-            'user_id' => Yii::t('app', '用户ID'),
-            'add_time' => Yii::t('app', '添加时间'),
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'attributes' => [
+                    self::EVENT_BEFORE_INSERT => ['add_time'],
+                ],
+            ],
         ];
     }
 }

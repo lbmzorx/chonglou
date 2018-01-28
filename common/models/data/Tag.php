@@ -7,12 +7,8 @@ use Yii;
 /**
  * This is the model class for table "{{%tag}}".
  *
- * @property string $id
- * @property string $name
- * @property int $frequence 频率
- * @property int $content_type 标签类型
  */
-class Tag extends \yii\db\ActiveRecord
+class Tag extends \common\models\database\Tag
 {
 
     /**
@@ -40,16 +36,5 @@ class Tag extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'frequence' => Yii::t('app', '频率'),
-            'content_type' => Yii::t('app', '标签类型'),
-        ];
-    }
+
 }

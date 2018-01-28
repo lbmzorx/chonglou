@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "{{%user_action}}".
  *
  */
-class UserAction extends \yii\db\ActiveRecord
+class UserAction extends \common\models\database\UserAction
 {
 
     public static $status_code=[0=>'未读',1=>'已读',2=>'未知'];
@@ -18,11 +18,10 @@ class UserAction extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
-            [['user_id'], 'required'],
-            [['user_id', 'action_id', 'action_type', 'status', 'add_time'], 'integer'],
-            [['action'], 'string', 'max' => 200],
+        $rules=[
+
         ];
+        return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
     }
 
     /**
@@ -30,16 +29,12 @@ class UserAction extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'action' => Yii::t('app', '动作内容'),
-            'action_id' => Yii::t('app', '动作ID'),
-            'action_type' => Yii::t('app', '动作类型'),
+        $lables= [
             'status' => Yii::t('app', '状态'), //，0未读，1已读，2未知
-            'add_time' => Yii::t('app', '添加时间'),
         ];
+        return \yii\helpers\ArrayHelper::merge(parent::attributeLabels(),$lables);
     }
+
 
     public function behaviors()
     {

@@ -19,7 +19,18 @@ class ArticleCollection extends \common\models\database\ArticleCollection
         $rules=[
 
         ];
-        return array_merge($rules,parent::rules());
+        return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        $lables= [
+
+        ];
+        return \yii\helpers\ArrayHelper::merge(parent::attributeLabels(),$lables);
     }
 
     public function behaviors()

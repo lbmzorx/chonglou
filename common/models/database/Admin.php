@@ -17,8 +17,8 @@ use Yii;
  * @property string $password 密码
  * @property string $password_reset_token 密码重置口令
  * @property int $role_id 角色
- * @property int $add_time
- * @property int $edit_time
+ * @property int $add_time 添加时间
+ * @property int $edit_time 编辑时间
  */
 class Admin extends \yii\db\ActiveRecord
 {
@@ -59,8 +59,8 @@ class Admin extends \yii\db\ActiveRecord
             'password' => Yii::t('app', '密码'),
             'password_reset_token' => Yii::t('app', '密码重置口令'),
             'role_id' => Yii::t('app', '角色'),
-            'add_time' => Yii::t('app', 'Add Time'),
-            'edit_time' => Yii::t('app', 'Edit Time'),
+            'add_time' => Yii::t('app', '添加时间'),
+            'edit_time' => Yii::t('app', '编辑时间'),
         ];
     }
 }

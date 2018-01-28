@@ -14,14 +14,25 @@ class ArticleCate extends \common\models\database\ArticleCate
     /**
      * @inheritdoc
      */
-
     public function rules()
     {
-       $rules=[
-           [['title','content','cate_id'],'required'],
-       ];
-       return array_merge($rules,parent::rules());
+        $rules=[
+
+        ];
+        return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        $lables= [
+
+        ];
+        return \yii\helpers\ArrayHelper::merge(parent::attributeLabels(),$lables);
+    }
+
 
     public function behaviors()
     {

@@ -20,21 +20,34 @@ class Tag extends \common\models\database\Tag
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public function rules()
     {
-        return '{{%tag}}';
+        $rules=[
+
+        ];
+        return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function attributeLabels()
     {
-        return [
-            [['frequence', 'content_type'], 'integer'],
-            [['name'], 'string', 'max' => 100],
+        $lables= [
+
         ];
+        return \yii\helpers\ArrayHelper::merge(parent::attributeLabels(),$lables);
     }
 
-
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'getStatusCode'=>[
+                'class' => \common\component\StatusCode::className(),
+            ],
+        ];
+    }
 }

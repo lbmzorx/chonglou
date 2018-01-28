@@ -16,8 +16,36 @@ class TopicThumbup extends \common\models\database\TopicThumbup
      */
     public function rules()
     {
+        $rules=[
+
+        ];
+        return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        $lables= [
+
+        ];
+        return \yii\helpers\ArrayHelper::merge(parent::attributeLabels(),$lables);
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
         return [
-            [['topic_id', 'user_id', 'add_time'], 'integer'],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'attributes' => [
+                    self::EVENT_BEFORE_INSERT => ['add_time'],
+                ],
+            ],
+
         ];
     }
 

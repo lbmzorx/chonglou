@@ -24,7 +24,7 @@ class Article extends \common\models\database\Article
         $rules=[
 
         ];
-        return array_merge($rules,parent::rules());
+        return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
     }
 
     /**
@@ -37,9 +37,12 @@ class Article extends \common\models\database\Article
             'publish' => Yii::t('app', '发布'),//,0不发布，1发布,2发布当前
             'status' => Yii::t('app', '状态'),//，0待审核,1审核通过,2正在审核,3审核不通过
         ];
-        return ArrayHelper::merge(parent::attributeLabels(),$lables);
+        return \yii\helpers\ArrayHelper::merge(parent::attributeLabels(),$lables);
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [

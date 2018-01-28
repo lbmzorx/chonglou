@@ -15,9 +15,21 @@ class SpeaksThumbup extends \common\models\database\SpeaksThumbup
      */
     public function rules()
     {
-        return [
-            [['speaks_id', 'user_id', 'add_time'], 'integer'],
+        $rules=[
+
         ];
+        return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        $lables= [
+
+        ];
+        return \yii\helpers\ArrayHelper::merge(parent::attributeLabels(),$lables);
     }
 
     /**

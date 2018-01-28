@@ -13,8 +13,8 @@ use Yii;
  * @property int $level 级别
  * @property string $path 路径
  * @property int $status 状态
- * @property int $add_time
- * @property int $edit_time
+ * @property int $add_time 添加时间
+ * @property int $edit_time 编辑时间
  */
 class ArticleCate extends \yii\db\ActiveRecord
 {
@@ -50,8 +50,8 @@ class ArticleCate extends \yii\db\ActiveRecord
             'level' => Yii::t('app', '级别'),
             'path' => Yii::t('app', '路径'),
             'status' => Yii::t('app', '状态'),
-            'add_time' => Yii::t('app', 'Add Time'),
-            'edit_time' => Yii::t('app', 'Edit Time'),
+            'add_time' => Yii::t('app', '添加时间'),
+            'edit_time' => Yii::t('app', '编辑时间'),
         ];
     }
 }

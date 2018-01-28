@@ -11,16 +11,42 @@ use Yii;
 class TopicCollection extends \common\models\database\TopicCollection
 {
 
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
-        return [
-            [['topic_id', 'user_id', 'add_time'], 'integer'],
+        $rules=[
+
         ];
+        return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        $lables= [
+
+        ];
+        return \yii\helpers\ArrayHelper::merge(parent::attributeLabels(),$lables);
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'attributes' => [
+                    self::EVENT_BEFORE_INSERT => ['add_time'],
+                ],
+            ],
+
+        ];
+    }
 
 }

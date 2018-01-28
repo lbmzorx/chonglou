@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "{{%article_commit}}".
  *
  */
-class ArticleCommit extends \yii\db\ActiveRecord
+class ArticleCommit extends \common\models\database\ArticleCommit
 {
 
     public static $status_code=[0=>'已经发表',1=>'评论成功',2=>'非法评论',3=>'包含敏感字符',4=>'垃圾评论'];
@@ -22,7 +22,7 @@ class ArticleCommit extends \yii\db\ActiveRecord
         $rules=[
 
         ];
-        return array_merge($rules,parent::rules());
+        return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
     }
 
     /**
@@ -30,15 +30,10 @@ class ArticleCommit extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'article_id' => Yii::t('app', '文章ID'),
-            'user_id' => Yii::t('app', '用户ID'),
-            'commit_id' => Yii::t('app', '评论ID'),
-            'content' => Yii::t('app', '内容'),
+        $lables= [
             'status' => Yii::t('app', '状态'), //，0，已发表，1评论成功，3非法评论，2审核不通过
-            'add_time' => Yii::t('app', '添加时间'),
         ];
+        return \yii\helpers\ArrayHelper::merge(parent::attributeLabels(),$lables);
     }
 
     public function behaviors()

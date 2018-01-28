@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "{{%user}}".
  */
-class User extends \yii\db\ActiveRecord
+class User extends \common\models\database\User
 {
 
     /**
@@ -15,14 +15,22 @@ class User extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
-            [['status', 'role_id', 'add_time', 'edit_time'], 'integer'],
-            [['name', 'nick'], 'string', 'max' => 50],
-            [['email', 'mobile'], 'string', 'max' => 20],
-            [['auth_key', 'password', 'password_reset_token', 'head'], 'string', 'max' => 255],
+        $rules=[
+
         ];
+        return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        $lables= [
+
+        ];
+        return \yii\helpers\ArrayHelper::merge(parent::attributeLabels(),$lables);
+    }
 
 
     public function behaviors()

@@ -9,6 +9,16 @@ use Yii;
  */
 class User extends \common\models\database\User
 {
+    const STATUS_DELETE     =   0; //删除账号
+    const STATUS_FROOZE     =   1; //冻结
+    const STATUS_AUDITFAILED=   2; //未通过审核
+    const STATUS_LIMITLOGIN =   3; //限制登录
+    const STATUS_LIMITACTIVE=   4; //限制活动
+    const STATUS_LOGINERROR =   5; //登录异常
+    const STATUS_ACTIVEERROR=   6; //活动异常
+    const STATUS_ACTIVE     =   10; //正常
+
+    public static $status_code=[0=>'删除',1=>'冻结',2=>'未通过审核',3=>'限制登录',4=>'限制活动',5=>'登录异常',6=>'活动异常',10=>'正常',];
 
     /**
      * @inheritdoc
@@ -36,7 +46,7 @@ class User extends \common\models\database\User
     public function behaviors()
     {
         return [
-            [
+            'activeTime'=>[
                 'class' => \yii\behaviors\TimestampBehavior::className(),
                 'attributes' => [
                     self::EVENT_BEFORE_INSERT => ['add_time'],
@@ -44,6 +54,9 @@ class User extends \common\models\database\User
                 ],
                 // if you're using datetime instead of UNIX timestamp:
                 // 'value' => new Expression('NOW()'),
+            ],
+            'getStatusCode'=>[
+                'class' => \common\component\StatusCode::className(),
             ],
         ];
     }

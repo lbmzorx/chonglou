@@ -13,8 +13,6 @@ use yii\web\IdentityInterface;
  */
 class User extends \common\models\data\User implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
 
     /**
      * @inheritdoc
@@ -67,7 +65,7 @@ class User extends \common\models\data\User implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['name' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**

@@ -58,13 +58,15 @@ class LoginForm extends Model
     public function checkPasswordCache($cache,$key){
 
         $error=$cache->get($key);
+
+        $emptyTotalErr   = empty($error[0]);
         $totalErrNumLimit= (isset($error[0]) && $error[0]<20);
         $userErrNum      = isset($error[$this->username]['num']);
         $userErrNumLimit = ($userErrNum) && $error[$this->username]['num']<5;
         $userErrNumOver  = ($userErrNum) && $error[$this->username]['num']>=5;
         $userErrTimeLimit= isset($error[$this->username]['lock'])&& time()>$error[$this->username]['lock'];
 
-        return ($totalErrNumLimit && $userErrNumLimit) || ($totalErrNumLimit  && $userErrNumOver && $userErrTimeLimit);
+        return $emptyTotalErr || ($totalErrNumLimit && $userErrNumLimit) || ($totalErrNumLimit  && $userErrNumOver && $userErrTimeLimit);
 
     }
 
@@ -108,7 +110,7 @@ class LoginForm extends Model
             $key=['type'=>'login-error','ip'=>\yii::$app->request->userIP];
             $error=$cache->get($key);
 
-            if( empty( $error[$this->username]['num']) || $this->checkPasswordCache($cache,$key) ){
+            if( $this->checkPasswordCache($cache,$key) ){
                 if ($user){
                     if( $user->status==User::STATUS_LOGINERROR && (time()-$user->edit_time)>72*3600){
                         $this->addError($attribute, Yii::t('app','还有'.(($user->edit_time)*72*3600-time()).'秒才可重新登录'));
@@ -127,7 +129,7 @@ class LoginForm extends Model
                     $this->addErrorPassworCache($cache,$key);
                 }
             }else{
-                if($error[$this->username]['num']>10){
+                if(isset($error[$this->username]['num']) && $error[$this->username]['num']>10){
                     if($user){
                         $user->status=User::STATUS_LOGINERROR;
                         $user->save();

@@ -17,7 +17,7 @@ class UserLoginLog extends \common\models\database\UserLoginLog
     public function rules()
     {
         $rules=[
-            ['ip','ip'],
+//            ['ip','ip'],
         ];
         return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
     }

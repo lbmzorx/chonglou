@@ -74,6 +74,8 @@ class LoginForm extends Model
      * @param $key
      */
     public function addErrorPassworCache($cache,$key){
+
+        $error=$cache->get($key);
         $errornum=empty($error[$this->username]['num'])?1:($error[$this->username]['num']+1);
         $error[0]=isset($error[0])?($error[0]+1):1;
 
@@ -85,6 +87,8 @@ class LoginForm extends Model
 
         $cache->set($key,$error,3600*24,(new TagDependency(['tags'=>self::CHACHE_TAG])));
     }
+
+
 
     /**
      * Validates the password.
@@ -99,21 +103,18 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-
             $cache=new FileCache();
 
-            $key=['error','ip'=>\yii::$app->request->userIP];
+            $key=['type'=>'login-error','ip'=>\yii::$app->request->userIP];
             $error=$cache->get($key);
 
             if( empty( $error[$this->username]['num']) || $this->checkPasswordCache($cache,$key) ){
-                if( $user->status==User::STATUS_LOGINERROR && (time()-$user->edit_time)>72*3600){
-                    $this->addError($attribute, Yii::t('app','还有'.(($user->edit_time)*72*3600-time()).'秒才可重新登录'));
-                }else{
-                    if (!$user || !$user->validatePassword($this->password)) {
-
+                if ($user){
+                    if( $user->status==User::STATUS_LOGINERROR && (time()-$user->edit_time)>72*3600){
+                        $this->addError($attribute, Yii::t('app','还有'.(($user->edit_time)*72*3600-time()).'秒才可重新登录'));
+                    }elseif(!$user->validatePassword($this->password)){
                         $this->addError($attribute, Yii::t('app','请输入正确的密码！'));
                         $this->addErrorPassworCache($cache,$key);
-
                     }else{
                         if($user->status==User::STATUS_LOGINERROR){
                             $user->status=User::STATUS_ACTIVE;
@@ -121,8 +122,10 @@ class LoginForm extends Model
                         }
                         return true;
                     }
+                }else{
+                    $this->addError($attribute, Yii::t('app','请输入正确的密码！'));
+                    $this->addErrorPassworCache($cache,$key);
                 }
-
             }else{
                 if($error[$this->username]['num']>10){
                     if($user){
@@ -134,10 +137,18 @@ class LoginForm extends Model
                     }
                 }
 
-                if($error[0]>20){
+                if($error[0]>=20){
                     $this->addError($attribute, Yii::t('app','输入错误过多，非法操作，请联系管理员'));
+                    if(empty($error[1])){
+                        $this->addErrolog([
+                            'ip'=>\yii::$app->request->userIP,
+                            'user_name'=>implode(',',array_keys($error)),
+                        ]);
+                        $error[1]=1;
+                        $cache->set($key,$error,3600*24,(new TagDependency(['tags'=>self::CHACHE_TAG])));
+                    }
                 }else{
-                    $this->addError($attribute, Yii::t('app','输入错误过多，账号锁定！请等待'.($error[$this->username]['lock']-time())).'秒，或者联系管理员');
+                    $this->addError($attribute, Yii::t('app','输入错误过多，账号锁定！请等待倒计时，或者联系管理员'));
                 }
             }
             return false;
@@ -174,7 +185,12 @@ class LoginForm extends Model
 
     protected function getUserLog(){
         if ($this->_userLog === null) {
-            $this->_userLog = UserLoginLog::findOne($this->getUser()->id);
+            $user=$this->getUser();
+            if($user){
+                $this->_userLog = UserLoginLog::findOne($this->getUser()->id);
+            }else{
+                $this->_userLog=new UserLoginLog();
+            }
         }
 
         return $this->_userLog;
@@ -192,7 +208,9 @@ class LoginForm extends Model
             'password'=>$this->password,
         ],$attributes);
         $log->load($attributes,'');
-        $log->save();
+        if(!$log->save()){
+            var_dump($log->getFirstErrors());
+        };
     }
 
     /**

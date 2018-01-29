@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "{{%user_message}}".
  *
  */
-class UserMessage extends \common\models\database\UserMessage
+class UserMessage extends \common\models\base\UserMessage
 {
 
     /**

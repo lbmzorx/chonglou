@@ -30,9 +30,9 @@ class UserLoginLog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id'], 'required'],
+            [['user_id'], 'integer'],
             [['user_id', 'add_time'], 'integer'],
-            [['ip'], 'string', 'max' => 129],
+            [['ip'], 'string', 'max' => 255],
             [['user_name'], 'string', 'max' => 50],
             [['password'], 'string', 'max' => 255],
         ];

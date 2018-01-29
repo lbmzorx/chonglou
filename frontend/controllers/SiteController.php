@@ -54,9 +54,20 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-
+        $request=\yii::$app->request;
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
+        }
+
+        $cache=new \yii\caching\FileCache();
+        $error=$cache->get(['type'=>'login-error','ip'=>\yii::$app->request->userIP]);
+
+        $time=0;
+        if(isset($request->post('LoginForm')['username'])){
+            echo $username=$request->post('LoginForm')['username'];
+            if(isset($error[$username]['num'])){
+                $time=$error[$username]['lock']-time();
+            }
         }
 
         $model = new LoginForm();
@@ -65,6 +76,7 @@ class SiteController extends Controller
         } else {
             return $this->render('login', [
                 'model' => $model,
+                'time'=>$time,
             ]);
         }
     }

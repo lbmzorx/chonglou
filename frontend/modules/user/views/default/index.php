@@ -57,21 +57,21 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel panel-default" id="main-article-introduce">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <i class="fa fa-comments-o"></i>&nbsp;文章列表
+                    <i class="fa fa-comments-o"></i>&nbsp;动态
                     <span class="pull-right"><a href="#">更多...</a></span>
                 </h3>
             </div>
             <div class="panel-body">
                 <div class="col-lg-12 col-md-12">
                     <ul class="list-group">
-                        <?php foreach ($articles as $article):?>
+                        <?php foreach ($messages as $msg):?>
                             <li class="list-group-item list-sm-body">
-                                <a href="<?=\yii\helpers\Url::to(['article/detail','id'=>$article['id']])?>">
+                                <a href="<?=\yii\helpers\Url::to(['article/detail','id'=>$msg['id']])?>">
                                     <i class="fa fa-angle-right"></i>
-                                    <?=$article['title']?>
-                                    <span class="pull-right"><i class="fa fa-comment "></i><?=$article['commit']?>&nbsp;</span>
-                                    <span class="pull-right"><i class="fa fa-thumbs-o-up "></i><?=$article['thumbup']?>&nbsp;</span>
-                                    <span class="pull-right"><i class="fa fa-folder "></i><?=$article['collection']?>&nbsp;</span>
+                                    <?=$msg['title']?>
+                                    <span class="pull-right"><i class="fa fa-comment "></i><?=$msg['commit']?>&nbsp;</span>
+                                    <span class="pull-right"><i class="fa fa-thumbs-o-up "></i><?=$msg['thumbup']?>&nbsp;</span>
+                                    <span class="pull-right"><i class="fa fa-folder "></i><?=$msg['collection']?>&nbsp;</span>
                                 </a>
                             </li>
                         <?php endforeach;?>

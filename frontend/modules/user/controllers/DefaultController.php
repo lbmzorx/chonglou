@@ -2,6 +2,7 @@
 
 namespace frontend\modules\user\controllers;
 
+use frontend\models\user\UserMessage;
 use yii\web\Controller;
 
 /**
@@ -15,8 +16,8 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+        $model=new UserMessage();
 
-
-        return $this->render('index');
+        return $this->render('index',$model);
     }
 }

@@ -1,7 +1,9 @@
 <?php
 namespace frontend\controllers;
 
+use common\component\tools\Rsaenctype;
 use common\models\data\Article;
+use common\models\safe\Rsa;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\helpers\ArrayHelper;
@@ -55,6 +57,7 @@ class SiteController extends Controller
     public function actionLogin()
     {
         $request=\yii::$app->request;
+        $rsa=new Rsa();
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -69,16 +72,21 @@ class SiteController extends Controller
                 $time=$error[$username]['lock']-time();
             }
         }
-
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-                'time'=>$time,
-            ]);
+        if($model->load(Yii::$app->request->post())){
+            $rsa->decrypt($model,'password');
+            if ($model->login()) {
+                return $this->goBack();
+            }
         }
+        $rsa->keepKeys();
+
+        return $this->render('login', [
+            'model' => $model,
+            'time'=>$time,
+            'pubKey'=>$rsa->pubKey,
+        ]);
+
     }
 
     /**

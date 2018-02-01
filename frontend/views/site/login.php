@@ -82,6 +82,12 @@ function timedCount(count,callback){
     }
 }
 
+function do_encrypt() {
+    var encrypt = new JSEncrypt();
+    encrypt.setPublicKey($('#pubKey').val().trim());
+    var encrypted = encrypt.encrypt($('#passwd_submit').val().trim());
+    return encrypted;
+}
 
 SCRYPT
-,\yii\web\View::POS_END)?>
+)?>

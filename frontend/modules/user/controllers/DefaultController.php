@@ -3,6 +3,7 @@
 namespace frontend\modules\user\controllers;
 
 use frontend\models\user\UserMessage;
+use frontend\models\user\UserInfo;
 use yii\web\Controller;
 
 /**
@@ -16,8 +17,13 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $model=new UserMessage();
+        $umsgModel=new UserMessage();
+        $umsg=$umsgModel->active();
 
-        return $this->render('index',$model);
+        $userInfo=new UserInfo();
+        $umsg['uscore']=$userInfo->score();
+        $umsg['ubaseinfo']=$userInfo->baseInfo();
+
+        return $this->render('index',$umsg);
     }
 }

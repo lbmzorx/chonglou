@@ -47,6 +47,10 @@ return [
         'formatter' => [
             'datetimeFormat' => 'y-M-d H:i:s',
         ],
+
+        'fileCache'=>[
+            'class'=>'yii\caching\FileCache',
+        ],
     ],
 
 

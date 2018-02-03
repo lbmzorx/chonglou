@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <li class="list-group-item">图像的数量</li>
                         <li class="list-group-item">
                             <span class="badge">新</span>
-                            24*7 支持
+                            24 7 支持
                         </li>
                         <li class="list-group-item">每年更新成本</li>
                         <li class="list-group-item">
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <!--main body-->
-    <div class="col-lg-8 col-md-8" id="home-main">
+    <div class="col-lg-7 col-md-7" id="home-main">
 
         <?= \yii\widgets\Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -55,23 +55,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
         <div class="panel panel-default" id="main-article-introduce">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <i class="fa fa-comments-o"></i>&nbsp;动态
-                    <span class="pull-right"><a href="#">更多...</a></span>
-                </h3>
-            </div>
             <div class="panel-body">
                 <div class="col-lg-12 col-md-12">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="<?=\yii\helpers\Url::to(['user'])?>">全部</a></li>
+                        <li><a href="<?=\yii\helpers\Url::to(['user','action_type'=>'speak'])?>">说说</a></li>
+                        <li><a href="<?=\yii\helpers\Url::to(['user','action_type'=>'article'])?>">文章</a></li>
+                        <li><a href="<?=\yii\helpers\Url::to(['user','action_type'=>'topic'])?>">话题</a></li>
+                    </ul>
                     <ul class="list-group">
-                        <?php foreach ($messages as $msg):?>
+                        <?php foreach ($umsg as $m):?>
                             <li class="list-group-item list-sm-body">
-                                <a href="<?=\yii\helpers\Url::to(['article/detail','id'=>$msg['id']])?>">
+                                <a href="<?=\yii\helpers\Url::to(['article/detail','id'=>$m['id']])?>">
                                     <i class="fa fa-angle-right"></i>
-                                    <?=$msg['title']?>
-                                    <span class="pull-right"><i class="fa fa-comment "></i><?=$msg['commit']?>&nbsp;</span>
-                                    <span class="pull-right"><i class="fa fa-thumbs-o-up "></i><?=$msg['thumbup']?>&nbsp;</span>
-                                    <span class="pull-right"><i class="fa fa-folder "></i><?=$msg['collection']?>&nbsp;</span>
+                                    <?=$m['action']?>
+                                    <span class="pull-right"><?=\yii::$app->formatter->format($m['add_time'],'datetime')?>&nbsp;</span>
                                 </a>
                             </li>
                         <?php endforeach;?>
@@ -82,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <!--/mian body-->
     <!--side body-->
-    <div class="col-lg-2 col-md-2" id="home-right">
+    <div class="col-lg-3 col-md-3" id="home-right">
 
         <div class="panel panel-default" id="side-article-news">
             <div class="panel-heading">
@@ -91,14 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="panel-body">
                 <div class="nano">
                     <ul class="list-group nano-content" tabindex="0" style="right: -10px;">
-                        <?php $tag_color=\frontend\models\Tag::$tag_color?>
-                        <?php $tag_dim=\frontend\models\Tag::$tag_dim?>
-                        <?php foreach ($tags as $tag):?>
-                            <a href="<?=\yii\helpers\Url::to(['article/detail','tag'=>$tag['name']])?>">
-                                <?php $span=\yii\helpers\Html::tag('span',$tag['name'],['class'=>'label label-'.$tag_color[intval($tag['frequence']%5)]])?>
-                                <?=\yii\helpers\Html::tag($tag_dim[intval($tag['frequence']%6)],$span)?>
-                            </a>
-                        <?php endforeach;?>
+
                     </ul>
                 </div>
             </div>
@@ -125,7 +116,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <li class="list-group-item">图像的数量</li>
                         <li class="list-group-item">
                             <span class="badge">新</span>
-                            24*7 支持
+                            24 7 支持
                         </li>
                         <li class="list-group-item">每年更新成本</li>
                         <li class="list-group-item">

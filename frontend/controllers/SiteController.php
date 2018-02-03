@@ -80,7 +80,6 @@ class SiteController extends Controller
             }
         }
         $rsa->keepKeys();
-
         return $this->render('login', [
             'model' => $model,
             'time'=>$time,

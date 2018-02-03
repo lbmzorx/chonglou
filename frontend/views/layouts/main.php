@@ -70,6 +70,7 @@ CommonAsset::register($this);
             padding:2px 3px;
             background-color:#F9354C;
         }
+        .navbar-default-bg{background-color:#46b8da}
 STYLE
     )?>
 </head>

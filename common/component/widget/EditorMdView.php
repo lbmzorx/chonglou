@@ -8,9 +8,9 @@
 
 namespace common\component\widget;
 
-use backend\assets\EditormdLibAsset;
+use common\assets\EditormdLibAsset;
 use Yii;
-use backend\assets\EditormdAsset;
+use common\assets\EditormdAsset;
 
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
@@ -81,7 +81,7 @@ class EditorMdView extends Widget
         $view=\yii::$app->getView();
         EditormdAsset::register($view);
         EditormdLibAsset::register($view);
-        $editormdUrl=$view->assetBundles[\backend\assets\EditormdAsset::className()]->baseUrl;
+        $editormdUrl=$view->assetBundles[\common\assets\EditormdAsset::className()]->baseUrl;
         $idMd=$this->getMdeditorId();
 
         $mdJsOptions=ArrayHelper::merge($this->mdJsOptions,[

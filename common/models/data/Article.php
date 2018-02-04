@@ -11,7 +11,7 @@ use yii\helpers\ArrayHelper;
  */
 class Article extends \common\models\database\Article
 {
-    public static $publish_code=[0=>'未发布',1=>'发布'];
+    public static $publish_code=[0=>'草稿',1=>'发布'];
     public static $status_code=[0=>'未待审核',1=>'审核通过',2=>'审核不通过'];
     public static $remain_code=[0=>'未提醒',1=>'已经提醒'];
 
@@ -61,5 +61,15 @@ class Article extends \common\models\database\Article
 
     public function getCateName(){
         return $this->hasOne(ArticleCate::className(),['id'=>'cate_id']);
+    }
+
+    public function getUser(){
+        return $this->hasOne(User::className(),['id'=>'user_id'])->select('id,name,head')->asArray();
+    }
+    public function getUserInfo(){
+        return $this->hasOne(UserInfo::className(),['id'=>'user_id'])->asArray();
+    }
+    public function getUserScore(){
+        return $this->hasOne(UserScore::className(),['id'=>'user_id'])->asArray();
     }
 }

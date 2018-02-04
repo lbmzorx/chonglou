@@ -2,34 +2,6 @@
 
 $this->title='我的主页';
 $this->params['breadcrumbs'][] = $this->title;
-$this->registerCss(<<<STYLE
-    .media-left, .media-right, .media-body{
-        display: table-cell;
-        vertical-align: top;
-    }
-    .media-left, .media > .pull-left {
-        padding-right: 10px;
-    }
-    
-    .media-object, .media-user .media-object {
-        width: 48px;
-        height: 48px;
-        padding: 2px;
-        border: #ddd solid 1px;
-        border-radius: 6px;
-        -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, .05);
-        box-shadow: 0px 1px 2px rgba(0, 0, 0, .05);
-    }   
-    .media-object {
-        display: block;
-    }
-    scaffolding.less:81
-    img {
-        vertical-align: middle;
-    }
-    
-STYLE
-);
 
 ?>
 <div class="row">

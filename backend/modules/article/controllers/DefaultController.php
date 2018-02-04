@@ -17,7 +17,7 @@ use yii\filters\VerbFilter;
 class DefaultController extends CommonController
 {
     public $left_nav_id='article';
-    public $enableCsrfValidation=false;
+//    public $enableCsrfValidation=false;
 
     /**
      * @inheritdoc
@@ -129,4 +129,24 @@ class DefaultController extends CommonController
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionChangeStatus(){
+        $request=\yii::$app->request;
+        $id=$request->post('id');
+        $key=$request->post('key');
+        $value=$request->post('value');
+
+        $this->reJson();
+
+        if($id && preg_match('/[\d]+/',$id)){
+            $model=$this->findModel($id);
+            if($model->load([$key=>$value],'')&&$model->save()){
+                return ['status'=>true,'msg'=>Yii::t('app','修改成功')];
+            }else{
+                return ['status'=>true,'msg'=>Yii::t('app',current($model->getFirstErrors()))];
+            }
+        }
+        return ['status'=>false,'msg'=>Yii::t('app','修改失败')];
+    }
+
 }

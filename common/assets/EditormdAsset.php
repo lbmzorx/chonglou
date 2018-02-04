@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class EditormdAsset extends AssetBundle
 {
-    public $sourcePath = '@resource/plugins/editor.md-master/';
+    public $sourcePath = '@resource/vendor/editor.md-master/';
 
     public $css=[
         'css/editormd.css',

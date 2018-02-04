@@ -11,7 +11,7 @@ class CommonAsset extends AssetBundle
 {
     public $sourcePath='@resource/frontend/';
     public $css = [
-
+        'css/site.css',
     ];
     public $js = [
 

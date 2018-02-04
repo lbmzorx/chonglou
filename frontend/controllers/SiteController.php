@@ -67,7 +67,7 @@ class SiteController extends Controller
 
         $time=0;
         if(isset($request->post('LoginForm')['username'])){
-            echo $username=$request->post('LoginForm')['username'];
+            $username=$request->post('LoginForm')['username'];
             if(isset($error[$username]['num'])){
                 $time=$error[$username]['lock']-time();
             }

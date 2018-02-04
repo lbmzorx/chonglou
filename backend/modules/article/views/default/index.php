@@ -9,7 +9,8 @@ use yii\widgets\Pjax;
 \common\assets\LayuiAsset::register($this);
 $this->title = Yii::t('app', '文章');
 $this->params['breadcrumbs'][] = $this->title;
-
+$status_css=[0=>'warning',1=>'success',2=>'danger'];
+$status_css_js=json_encode($status_css);
 ?>
 <div class="article-index">
     <?= \yii\widgets\Breadcrumbs::widget([
@@ -72,22 +73,32 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'remain',
                 'filter'=>\common\models\data\Article::$remain_code,
                 'value'=> function ($model) {
-                    return $model->getStatusCode('remain','remain_code');
+                    return Html::button($model->getStatusCode('remain','remain_code'),
+                        ['class'=>'btn btn-'.($model->publish==1?'success':'warning')]);
                 },
+                'format'=>'raw',
             ],
             [
                 'attribute'=>'publish',
                 'filter'=>\common\models\data\Article::$publish_code,
                 'value'=> function ($model) {
-                    return $model->getStatusCode('publish','publish_code');
+                    return Html::button($model->getStatusCode('publish','publish_code'),
+                        ['class'=>'btn btn-'.($model->publish==1?'success':'warning')]);
                 },
+                'format'=>'raw',
             ],
             [
                 'attribute'=>'status',
                 'filter'=>\common\models\data\Article::$status_code,
-                'value'=> function ($model) {
-                    return $model->getStatusCode('status','status_code');
+                'value'=> function ($model) use ($status_css){
+                    return Html::button($model->getStatusCode('status','status_code'),
+                        [
+                            'class'=>'status-change btn btn-'.(isset($status_css[$model->status])?$status_css[$model->status]:'default'),
+                            'key'=>$model->status,
+                            'id-key'=>$model->id,
+                        ]);
                 },
+                'format'=>'raw',
             ],
              [
                  'attribute'=>'add_time',
@@ -101,7 +112,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'buttonOptions'=>['data-pjax'=>['_csrf-backend'=>Yii::$app->request->csrfToken,'id'=>'id']],
             ],
         ],
     ]); ?>
@@ -118,7 +128,7 @@ layui.use(['laydate','layer'], function(){
     ,range: true    
     ,calendar: true
     ,range: '~'
-    ,closeStop: '#add-time-input' //这里代表的意思是：点击 test1 所在元素阻止关闭事件冒泡。如果不设定，则无法弹出控件
+    ,closeStop: '#add-time-input'
     ,done: function(value, date, endDate){      
         $(this.elem).val(value);
         $(this.elem).change();
@@ -135,7 +145,7 @@ layui.use(['laydate','layer'], function(){
     ,type: 'datetime'
     ,range: true
     ,calendar: true
-    ,closeStop: '#add-time-input' //这里代表的意思是：点击 test1 所在元素阻止关闭事件冒泡。如果不设定，则无法弹出控件
+    ,closeStop: '#add-time-input' 
     ,done: function(value, date, endDate){       
         $(this.elem).val(value);
         $(this.elem).change();
@@ -148,11 +158,58 @@ $('#edit-time-input').mouseover(function(){
         tips: [1, '#78BA32']
     });
 });
+
+$('.status-change').click(function(){
+    var sval=$(this).attr('key'),this_dom=$(this),
+        sid=$(this).attr('id-key');
+    var dom_status_change=$('#status-change');
+    var status_css=$status_css_js;
+    
+    dom_status_change.find('input[value="'+sval+'"]').prop('checked','true');
+    dom_status_change.find('input[name="id"]').val(sid);
+    
+    layer.open({
+        'type':1,
+        'content':dom_status_change,
+        btn:['确定','取消'],
+        yes:function(layindex,laydom){
+            var dom_form=laydom.find('form');
+            $.post(dom_form.attr('action'),dom_form.serialize(),function(res){
+                if(res.status){
+                    layer.msg(res.msg,{time:1000},function(){
+                        location.reload();
+                    });
+                }else{
+                   layer.msg(res.msg); 
+                }
+                layer.close(layindex);
+            },'json');
+        }
+    });
+});
+
 SCRIPT
-                ,\yii\web\View::POS_END)?>
+              )?>
 
 <?php Pjax::end(); ?>
         </div>
     </div>
 </div>
+<div id="status-change" style="display: block;">
+    <div style="padding: 10px;">
+        <?=Html::beginForm(['change-status'],'post')?>
+        <input type="hidden" name="key" value="status">
+        <input type="hidden" name="id" value="">
+        <?php foreach (\common\models\data\Article::$status_code as $k=>$v):?>
+            <?php if($k>0):?>
+            <label class="checkbox-inline" style="margin: 5px 10px;">
+                <?=Html::input('radio','value',$k)?><?=Html::tag('span',$v,[
+                    'class'=>'btn btn-'.(isset($status_css[$k])?$status_css[$k]:'default'),])?>
+            </label>
+            <?php endif;?>
+        <?php endforeach;?>
+        <?=Html::endForm()?>
+    </div>
+</div>
+
 

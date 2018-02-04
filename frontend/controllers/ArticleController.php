@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use frontend\models\Article;
 use frontend\models\ArticleCate;
+use frontend\models\FormArticle;
 use frontend\models\Tag;
 use frontend\models\Topic;
 use Yii;
@@ -22,13 +23,32 @@ class ArticleController extends Controller
     public function actionIndex()
     {
 
-        $articles=new Article();
-        $data=$articles->index();
+        $article=new Article();
+        $data=$article->index();
         $cate = ArticleCate::home();
         $data['cate']=$cate;
         $tags=Tag::home();
         $data['tags']=$tags;
-        return $this->render('index',['articles'=>$articles,'tags'=>$tags]);
+        return $this->render('index',$data);
+    }
+
+    public function actionDetail($id){
+        $articles=new Article();
+        $article=$articles->detail($id);
+        return $this->render('detail',['article'=>$article]);
+
+    }
+
+    public function actionAdd(){
+        $model=new FormArticle();
+        $model->user_id=\yii::$app->user->identity->id;
+        $article=new Article();
+        if ($model->load(Yii::$app->request->post()) && $model->save($article)) {
+            return $this->redirect(['index',]);
+        } else {
+            return $this->render('add',['model'=>$model]);
+        }
+
     }
 
 

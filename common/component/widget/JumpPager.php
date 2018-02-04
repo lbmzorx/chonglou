@@ -13,7 +13,7 @@ class JumpPager extends LinkPager
     /**跳转**/    
     public $jOptions=[                  //跳转容器
         'class' => 'pagination',
-        'style'=>"margin-left: 10px;vertical-align: middle;",
+        'style'=>"margin-left: 10px;vertical-align: top;",
     ];
 
     public $jLiInputCssClass='';        //跳转输入框li元素类

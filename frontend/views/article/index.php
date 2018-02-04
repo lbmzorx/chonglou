@@ -27,18 +27,25 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="panel-body">
                 <div class="col-lg-12 col-md-12">
                     <ul class="list-group">
-                        <?php foreach ($articles as $article):?>
+                        <?php foreach ($data as $v):?>
                             <li class="list-group-item list-sm-body">
-                                <a href="<?=\yii\helpers\Url::to(['article/detail','id'=>$article['id']])?>">
+                                <a href="<?=\yii\helpers\Url::to(['article/detail','id'=>$v['id']])?>">
                                     <i class="fa fa-angle-right"></i>
-                                    <?=$article['title']?>
-                                    <span class="pull-right"><i class="fa fa-comment "></i><?=$article['commit']?>&nbsp;</span>
-                                    <span class="pull-right"><i class="fa fa-thumbs-o-up "></i><?=$article['thumbup']?>&nbsp;</span>
-                                    <span class="pull-right"><i class="fa fa-folder "></i><?=$article['collection']?>&nbsp;</span>
+                                    <span><?=$v['title']?></span>
+                                    <span class="pull-right"><i class="fa fa-comment "></i><?=$v['commit']?>&nbsp;</span>
+                                    <span class="pull-right"><i class="fa fa-thumbs-o-up "></i><?=$v['thumbup']?>&nbsp;</span>
+                                    <span class="pull-right"><i class="fa fa-folder "></i><?=$v['collection']?>&nbsp;</span>
                                 </a>
                             </li>
                         <?php endforeach;?>
                     </ul>
+                    <?=\yii\widgets\LinkPager::widget([
+                        'pagination'=>$page,
+                        'firstPageLabel'=>Yii::t('app','首页'),
+                        'nextPageLabel'=>Yii::t('app','下一页'),
+                        'prevPageLabel'=>Yii::t('app','上一页'),
+                        'lastPageLabel'=>Yii::t('app','尾页'),
+                    ])?>
                 </div>
             </div>
         </div>
@@ -46,6 +53,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <!--/mian body-->
     <!--side body-->
     <div class="col-lg-3 col-md-3" id="home-right">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-default btn-block" href="<?=\yii\helpers\Url::to(['article/add'])?>"><span class="glyphicon glyphicon-plus"></span>添加文章</a>
+            </div>
+        </div>
 
         <div class="panel panel-default" id="side-article-news">
             <div class="panel-heading">

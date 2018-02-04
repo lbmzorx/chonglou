@@ -21,47 +21,7 @@ CommonAsset::register($this);
     <title><?= Html::encode($this->title)?></title>
     <?php $this->head() ?>
     <?=$this->registerCss(<<<STYLE
-         html,body,.wrap{height: 100%;}
-        .wrap{
-                min-height: 100%;
-                height: auto;
-                margin: 0 auto -230px;
-                padding: 0 0 237px;
-            }
-        .main-container{ 
-            height: auto;  
-            min-height: 100%;  
-            _height: 100%;  
-        }
-        .nano{
-            height: 300px;
-            font-size: 12px;
-            line-height: 1.5em;
-        }
-        .list-group-item{
-            border-left:none ;
-            border-right:none;
-        }
-        .nano > .nano-pane {
-            width: 6px;
-        }
-        .list-group-item{
-            padding-left:0px ;padding-right: 0px;
-        }
-        .nano-content {
-            padding-right: 8px;
-        }
 
-        .list-sm-body{
-            border: none;
-        }
-       
-        .table-bottom{
-            margin-bottom: 0px;
-        }
-//        footer li,h2,h3,h4{
-//            color:#CDCDCD ;
-//        }        
         #msg-count{
             position:absolute;
             top:-7px;
@@ -70,7 +30,7 @@ CommonAsset::register($this);
             padding:2px 3px;
             background-color:#F9354C;
         }
-        .navbar-default-bg{background-color:#46b8da}
+
 STYLE
     )?>
 </head>

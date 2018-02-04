@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'author',
             'cover',
             'abstract:ntext',
-            'add_admin_id',
             'remain',
             'view',
             'thumbup',

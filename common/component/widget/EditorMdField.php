@@ -8,7 +8,7 @@
 
 namespace common\component\widget;
 
-use backend\assets\EditormdAsset;
+use common\assets\EditormdAsset;
 
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -39,7 +39,7 @@ class EditorMdField extends ActiveField
     public function renderMdJs(){
         $view=\yii::$app->getView();
         EditormdAsset::register($view);
-        $editormdUrl=$view->assetBundles[\backend\assets\EditormdAsset::className()]->baseUrl;
+        $editormdUrl=$view->assetBundles[\common\assets\EditormdAsset::className()]->baseUrl;
         $idMd=$this->getMdeditorId();
 
         $mdJsOptions=ArrayHelper::merge($this->mdJsOptions,[

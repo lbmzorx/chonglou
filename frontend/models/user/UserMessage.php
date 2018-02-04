@@ -3,8 +3,7 @@
 namespace frontend\models\user;
 
 use common\models\data\UserAction as UserActionModel;
-use yii\base\Model;
-use common\models\data\UserMessage as UserMessageModel;
+use yii\base\Object;
 use yii\caching\TagDependency;
 use yii\data\Pagination;
 
@@ -12,15 +11,18 @@ use yii\data\Pagination;
  * This is the model class for table "{{%user_message}}".
  *
  */
-class UserMessage extends Model
+class UserMessage extends Object
 {
 
 
     public function active(){
         $request=\yii::$app->request;
 
-        $query = UserActionModel::find()->alias('a')->select(['a.*'])->where(['user_id'=>\yii::$app->user->id]);
-        $query->andFilterWhere(['action_type'=>$request->get('action_type')]);
+        $query = UserActionModel::find()->alias('a')->select(['a.*'])->where(['user_id'=>\yii::$app->user->id])->with('user');
+        $query->andFilterWhere([
+            'action_type'=>$request->get('action_type'),
+            'user_id'=>$request->get('user_id'),
+        ]);
 
         $key=['class'=>self::className(),'method'=>__METHOD__,'type'=>'count'];
 
@@ -39,5 +41,6 @@ class UserMessage extends Model
             ->all();
         return ['umsg'=>$data,'pages'=>$pages];
     }
+
 
 }

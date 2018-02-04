@@ -2,6 +2,35 @@
 
 $this->title='我的主页';
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCss(<<<STYLE
+    .media-left, .media-right, .media-body{
+        display: table-cell;
+        vertical-align: top;
+    }
+    .media-left, .media > .pull-left {
+        padding-right: 10px;
+    }
+    
+    .media-object, .media-user .media-object {
+        width: 48px;
+        height: 48px;
+        padding: 2px;
+        border: #ddd solid 1px;
+        border-radius: 6px;
+        -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, .05);
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, .05);
+    }   
+    .media-object {
+        display: block;
+    }
+    scaffolding.less:81
+    img {
+        vertical-align: middle;
+    }
+    
+STYLE
+);
+
 ?>
 <div class="row">
     <div class="col-lg-2 col-md-2" id="home-right">
@@ -48,12 +77,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!--main body-->
     <div class="col-lg-7 col-md-7" id="home-main">
-
-        <?= \yii\widgets\Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-
-
         <div class="panel panel-default" id="main-article-introduce">
             <div class="panel-body">
                 <div class="col-lg-12 col-md-12">
@@ -66,11 +89,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     <ul class="list-group">
                         <?php foreach ($umsg as $m):?>
                             <li class="list-group-item list-sm-body">
-                                <a href="<?=\yii\helpers\Url::to(['article/detail','id'=>$m['id']])?>">
-                                    <i class="fa fa-angle-right"></i>
-                                    <?=$m['action']?>
-                                    <span class="pull-right"><?=\yii::$app->formatter->format($m['add_time'],'datetime')?>&nbsp;</span>
-                                </a>
+                                <div class="media-left"><a href="<?=\yii\helpers\Url::to(['user'])?>">
+                                        <img class="media-object" src="<?=$umsg['user']['head']?>" alt="<?=$umsg['user']['name']?>">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <div class="media-heading">
+                                        <a href="/user/44032" ><h6><?=$umsg['user']['user_name']?></h6></a>
+                                        <span><?=date("Y-m-d H:i:s",$umsg['add_time'])?></span>
+                                        <span><?=$umsg['action_type']?></span>
+                                    </div>
+                                    <div class="media-content"><?=$umsg['action']?></div>
+                                </div>
                             </li>
                         <?php endforeach;?>
                     </ul>

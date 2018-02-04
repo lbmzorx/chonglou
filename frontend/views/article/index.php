@@ -7,16 +7,18 @@
  */
 $this->title='文章列表';
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCss(<<<STYLE
+  
+
+STYLE
+);
 ?>
 <div class="row">
     <!--main body-->
     <div class="col-lg-9 col-md-9" id="home-main">
-
         <?= \yii\widgets\Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-
-
         <div class="panel panel-default" id="main-article-introduce">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -29,13 +31,49 @@ $this->params['breadcrumbs'][] = $this->title;
                     <ul class="list-group">
                         <?php foreach ($data as $v):?>
                             <li class="list-group-item list-sm-body">
-                                <a href="<?=\yii\helpers\Url::to(['article/detail','id'=>$v['id']])?>">
-                                    <i class="fa fa-angle-right"></i>
-                                    <span><?=$v['title']?></span>
-                                    <span class="pull-right"><i class="fa fa-comment "></i><?=$v['commit']?>&nbsp;</span>
-                                    <span class="pull-right"><i class="fa fa-thumbs-o-up "></i><?=$v['thumbup']?>&nbsp;</span>
-                                    <span class="pull-right"><i class="fa fa-folder "></i><?=$v['collection']?>&nbsp;</span>
-                                </a>
+                                <div class="media-left"><a href="<?=\yii\helpers\Url::to(['user/default/index','id'=>$v['user_id']])?>">
+                                        <img class="media-object" src="<?=$v['user']['head']?>" alt="<?=$v['user']['name']?>">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <div class="media-heading">
+                                        <a href="<?=\yii\helpers\Url::to(['user/default/index','id'=>$v['user_id']])?>">
+                                            <span><?=$v['user']['name']?></span>
+                                        </a>
+                                        发布于<span><?=date("Y-m-d H:i:s",$v['add_time'])?></span>
+                                    </div>
+                                    <div class="media-content">
+                                        <a href="<?=\yii\helpers\Url::to(['article/detail','id'=>$v['id']])?>'"><h4><?=$v['title']?></h4></a>
+                                    </div>
+                                </div>
+                                <div class="media-right">
+                                    <h4>
+                                        <span class="label label-success">
+                                             <i class="fa fa-eye "></i>&nbsp;<?=$v['view']?>
+                                        </span>
+                                    </h4>
+                                </div>
+                                <div class="media-right">
+                                    <h4>
+                                        <span class="label label-success">
+                                             <i class="fa fa-commenting-o "></i>&nbsp;<?=$v['commit']?>
+                                        </span>
+                                    </h4>
+                                </div>
+                                <div class="media-right">
+                                    <h4>
+                                    <span class="label label-success">
+                                        <i class="fa fa-thumbs-o-up "></i>&nbsp;<?=$v['thumbup']?>
+                                    </span>
+                                    </h4>
+                                </div>
+                                <div class="media-right">
+                                     <h4>
+                                         <span class="label label-success">
+                                          <i class="fa fa-folder "></i>&nbsp;<?=$v['collection']?>
+                                        </span>
+                                     </h4>
+                                </div>
                             </li>
                         <?php endforeach;?>
                     </ul>

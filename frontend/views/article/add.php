@@ -12,6 +12,10 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 $this->registerCss(<<<STYLE
     .readme-button:hover{cursor:pointer}
+    .media-right .media-additional-info{
+    width:40px;
+}
+    
 STYLE
 );
 ?>
@@ -57,7 +61,7 @@ STYLE
         <div class="panel panel-default" >
             <div class="panel-body">
                 <?php $form = ActiveForm::begin(); ?>
-                <input type="hidden" name="publish" value="1">
+                <input type="hidden" name="FormArticle[publish]" value="1">
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
                         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
@@ -95,7 +99,7 @@ STYLE
         $('#readme-attention').toggle('fast');
     });    
     $('#submit-as-script').click(function(){
-        $('#$form->id').find('input[name="publish"]').val(0);
+        $('#$form->id').find('input[name="FormArticle[publish]"]').val(0);
     });
 SCRIPT
 )?>

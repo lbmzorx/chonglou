@@ -41,11 +41,10 @@ html,body,.wrap{height: 100%;}
 /*}*/
 .navbar-default-bg{background-color:#46b8da}
 
-
-.media-left, .media-right, .media-body{
-    display: table-cell;
-    vertical-align: top;
+.media-right .media-additional-info{
+    width:40px;
 }
+
 .media-left, .media > .pull-left {
     padding-right: 10px;
 }
@@ -65,3 +64,15 @@ html,body,.wrap{height: 100%;}
 img {
     vertical-align: middle;
 }
+
+.addtional-o{ margin-right:10px; }
+
+.article-commit{
+    margin-top: 10px;
+}
+
+.page-header{ margin-top: 20px; }
+.page-header h4{ display: inline-block; }
+.page-header .nav-sub{ float: right;border-bottom: none; }
+.article-commit .list-group-item:first-child{ border-top:none; }
+.article-commit .page-header{ padding-bottom:2px; }

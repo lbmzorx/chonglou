@@ -60,7 +60,7 @@ class Article extends \common\models\data\Article
      * @return array|null|\yii\db\ActiveRecord
      */
     public function detail($id){
-        return self::find()->where(['id'=>$id])->with('user')->with('userInfo')->with('UserScore')->asArray()->one();
+        return self::find()->where(['id'=>$id])->with('user')->with('userInfo')->with('userScore')->asArray()->one();
     }
 
 

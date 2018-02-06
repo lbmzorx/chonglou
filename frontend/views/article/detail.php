@@ -153,17 +153,16 @@ $this->params['breadcrumbs'][] = $this->title;
         ])?>';
         var skipkey=new Array();
         data=tree_sub(JSON.parse(data),0,'pid','id','sub',skipkey);
-
-        console.log(data);
         $('#article-commit-list').html(inner_commit(data,$('#article-commit-list'),0));
+        return true;
     }
 
     function inner_commit(data,dom,level){
         var user_url='<?=\yii\helpers\Url::to(['/user/default/index'])?>/';
         $.each(data,function(k,v){
-            var commit_dom=$('#commit-out').html();
+            var commit_dom=$('#commit-out .media').clone(true);
             if(level>0){
-                commit_dom=$('#commit-inner').html();
+                commit_dom=$('#commit-inner .media').clone(true);
             }
             $(commit_dom).find('.commit-author-head').attr('src',(v['head']||'#'));
             $(commit_dom).find('.commit-author-head').attr('alt',(v['name']||''));
@@ -172,22 +171,14 @@ $this->params['breadcrumbs'][] = $this->title;
             $(commit_dom).find('.commit-author-name').attr('href',(user_url+((v['user_id']||''))));
             $(commit_dom).find('.commit-date').html((v['add_time']||''));
             $(commit_dom).find('.commit-content').html((v['content']||''));
-            $(commit_dom).find('.commit-total em').text((v['name']||''));
-
-            alert(v['id']);
+            $(commit_dom).find('.commit-total em').text((v['total_recommit']||''));
 
             if(typeof v['sub']=='object'){
-
-                console.log(v['sub']);
                 var innerhtml=inner_commit(v['sub'],$(commit_dom).find('.commit-sub'),(parseInt(level)+1));
-                console.log(innerhtml);
-                alert('haha');
                 $(commit_dom).find('.commit-sub').html(innerhtml);
-                console.log($(commit_dom).find('.commit-sub'));
             }
             $(dom).append($(commit_dom));
         });
-        console.log($(dom).html());
         return $(dom).html();
     }
 </script>

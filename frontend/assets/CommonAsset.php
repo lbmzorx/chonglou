@@ -14,7 +14,7 @@ class CommonAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
-
+        'js/jsonOperator.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',

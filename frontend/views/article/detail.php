@@ -46,28 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </ul>
                     </div>
                     <ul class="media-list" id="article-commit-list">
-                        <li class="media" data-key="6882">
-                            <div class="media-left">
-                                <a href="/user/44032" rel="author"><img class="media-object" src="/uploads/avatar/000/04/40/32_avatar_small.jpg" alt="lbmzorx"></a></div>
-                            <div class="media-body">
-                                <div class="media-heading">
-                                    <a href="/user/44032" rel="author">lbmzorx</a> 评论于 2018-01-24 18:37        <span class="pull-right">
-            <a class="report" data-type="comment" data-id="6882" href="javascript:void(0);"><i class="fa fa-flag-checkered"></i> 举报</a>
-                                </span>
-                                </div>
-                                <div class="media-content">
-                                    <p>加密方法都是 php 函数 password_hash()</p>
-                                    <div class="hint">共 <em>1</em> 条回复</div>
-                                </div>
-                                <div class="media-action">
-                                    <a class="reply" href="javascript:void(0);"><i class="fa fa-reply"></i> 回复</a>
-                                    <span class="pull-right"><a class="vote up" href="javascript:void(0);" title="" data-type="comment" data-id="6882" data-toggle="tooltip" data-original-title="顶"><i class="fa fa-thumbs-o-up"></i> 0</a><a class="vote down" href="javascript:void(0);" title="" data-type="comment" data-id="6882" data-toggle="tooltip" data-original-title="踩"><i class="fa fa-thumbs-o-down"></i> 0</a></span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">图像的数量</li>
-                        <li class="list-group-item">24*7 支持</li>
-                        <li class="list-group-item">每年更新成本</li>
+
                     </ul>
                 </div>
             </div>
@@ -128,19 +107,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="media">
         <div class="media-left">
             <a href="" rel="author">
-                <img class="media-object" src="" alt="">
+                <img class="media-object commit-author-head" src="" alt="">
             </a>
         </div>
         <div class="media-body">
             <div class="media-heading">
-                <a href="" rel="author"></a>评论于<span class="commit-date"></span>
-                <span class="pull-right">
-                    <a class="reply" href="javascript:void(0);"><i class="fa fa-reply"></i> 回复</a>
-                 </span>
+                <a href="" class="commit-author-name" rel="author"></a>评论于<span class="commit-date"></span>
+                <a class="vote down" href="javascript:void(0);"><i class="fa fa-reply"></i>回复</a>
             </div>
             <div class="media-content">
-                <div class="commit-content">aldfjklasjlkf</div>
-                <div class="hint">共 <em></em> 条回复</div>
+                <div class="commit-content"></div>
+                <div class="hint commit-total">共 <em></em> 条回复</div>
+                <div class="commit-sub"></div>
             </div>
         </div>
     </div>
@@ -148,28 +126,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <!--<div id="commit-out" style="display: none;">-->
 <div id="commit-out">
-    <li class="media" data-key="6882">
+    <li class="media" data-key="">
         <div class="media-left">
-            <a href="" rel="author"><img class="media-object" src="" alt=""></a></div>
+            <a href="" class="commit-author-url" rel="author"><img class="media-object commit-author-head" src="" alt=""></a></div>
         <div class="media-body">
             <div class="media-heading">
-                <a href="" rel="author"></a>评论于<span class="commit-date"></span>
-                <span class="pull-right">
-                    <a class="reply" href="javascript:void(0);"><i class="fa fa-reply"></i> 回复</a>
-                 </span>
+                <a href="" class="commit-author-name" rel="author"></a>评论于<span class="commit-date"></span>
+                <a class="vote down" href="javascript:void(0);"><i class="fa fa-reply"></i>回复</a>
             </div>
             <div class="media-content">
                 <div class="commit-content"></div>
-                <div class="hint">共 <em></em> 条回复</div>
-            </div>
-            <div class="media-action">
-                <a class="reply" href="javascript:void(0);"><i class="fa fa-reply"></i>回复</a>
-                <span class="pull-right">
-                    <a class="vote up" href="javascript:void(0);" title="" data-type="" data-id="" data-toggle="" data-original-title="顶">
-                        <i class="fa fa-thumbs-o-up"></i> 0</a>
-                    <a class="vote down" href="javascript:void(0);" title="" data-type="comment" data-id="6882" data-toggle="tooltip" data-original-title="踩">
-                        <i class="fa fa-thumbs-o-down"></i> 0</a>
-                </span>
+                <div class="hint commit-total">共 <em></em> 条回复</div>
+                <div class="commit-sub"></div>
             </div>
         </div>
     </li>
@@ -177,16 +145,49 @@ $this->params['breadcrumbs'][] = $this->title;
 <script >
 
     function li_commit(){
-        var commit_data="",
-            commit_out=$('#commit-out');
-        $.each(commit_data,function(k,v){
-            $(commit_out).find();
+        var data='<?=\yii\helpers\Json::encode([
+            ['id'=>1,'pid'=>0,],
+            ['id'=>2,'pid'=>1,],
+            ['id'=>3,'pid'=>1,],
+
+        ])?>';
+        var skipkey=new Array();
+        data=tree_sub(JSON.parse(data),0,'pid','id','sub',skipkey);
+
+        console.log(data);
+        $('#article-commit-list').html(inner_commit(data,$('#article-commit-list'),0));
+    }
+
+    function inner_commit(data,dom,level){
+        var user_url='<?=\yii\helpers\Url::to(['/user/default/index'])?>/';
+        $.each(data,function(k,v){
+            var commit_dom=$('#commit-out').html();
+            if(level>0){
+                commit_dom=$('#commit-inner').html();
+            }
+            $(commit_dom).find('.commit-author-head').attr('src',(v['head']||'#'));
+            $(commit_dom).find('.commit-author-head').attr('alt',(v['name']||''));
+            $(commit_dom).find('.commit-author-url').attr('href',(user_url+(v['user_id']||'')));
+            $(commit_dom).find('.commit-author-name').html((v['name']||''));
+            $(commit_dom).find('.commit-author-name').attr('href',(user_url+((v['user_id']||''))));
+            $(commit_dom).find('.commit-date').html((v['add_time']||''));
+            $(commit_dom).find('.commit-content').html((v['content']||''));
+            $(commit_dom).find('.commit-total em').text((v['name']||''));
+
+            alert(v['id']);
+
+            if(typeof v['sub']=='object'){
+
+                console.log(v['sub']);
+                var innerhtml=inner_commit(v['sub'],$(commit_dom).find('.commit-sub'),(parseInt(level)+1));
+                console.log(innerhtml);
+                alert('haha');
+                $(commit_dom).find('.commit-sub').html(innerhtml);
+                console.log($(commit_dom).find('.commit-sub'));
+            }
+            $(dom).append($(commit_dom));
         });
+        console.log($(dom).html());
+        return $(dom).html();
     }
-
-    function create_commit(data,){
-
-    }
-
-
 </script>

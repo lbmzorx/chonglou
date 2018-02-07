@@ -12,6 +12,13 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'redis' =>[
+            'class' => 'yii\redis\Connection',
+            'hostname' => '127.0.0.1',  //你的redis地址
+            'port' => 6379, //端口
+            'database' => 4,
+        ],
+
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],

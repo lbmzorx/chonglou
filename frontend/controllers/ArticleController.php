@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use frontend\models\Article;
 use frontend\models\ArticleCate;
+use frontend\models\ArticleCommit;
 use frontend\models\FormArticle;
 use frontend\models\Tag;
 use frontend\models\Topic;
@@ -35,7 +36,11 @@ class ArticleController extends Controller
     public function actionDetail($id){
         $articles=new Article();
         $article=$articles->detail($id);
-        return $this->render('detail',['article'=>$article]);
+
+        $articleCommit=new ArticleCommit();
+        $commit=$articleCommit->articleCommit($id);
+        $commit['article']=$article;
+        return $this->render('detail',$commit);
 
     }
 

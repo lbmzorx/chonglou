@@ -54,8 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <!--/mian body-->
     <!--side body-->
-    <div class="col-lg-3 col-md-3" id="home-right">
-
+    <div class="col-lg-3 col-md-3" id="home-right" >
         <div class="panel panel-default" id="side-article-news">
             <div class="panel-body">
                 <div class="nano">
@@ -102,8 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <?php //=$this->registerJs()?>
-<!--<div id="commit-inner" style="display: none;">-->
-<div id="commit-inner" >
+<div id="commit-inner" style="display: none;">
     <div class="media">
         <div class="media-left">
             <a href="" rel="author">
@@ -124,8 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-<!--<div id="commit-out" style="display: none;">-->
-<div id="commit-out">
+<div id="commit-out" style="display: none;">
     <li class="media" data-key="">
         <div class="media-left">
             <a href="" class="commit-author-url" rel="author"><img class="media-object commit-author-head" src="" alt=""></a></div>
@@ -142,23 +139,26 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </li>
 </div>
-<script >
 
+<?php
+$userUrl=\yii\helpers\Url::to(['/user/default/index']);
+$data=json_encode($commit);
+?>
+    <?=$this->registerJs(<<<SCRITP
+    li_commit()
     function li_commit(){
-        var data='<?=\yii\helpers\Json::encode([
-            ['id'=>1,'pid'=>0,],
-            ['id'=>2,'pid'=>1,],
-            ['id'=>3,'pid'=>1,],
-
-        ])?>';
+        var data=$data||0;
         var skipkey=new Array();
+        if(data==0){
+            return false;
+        }
         data=tree_sub(JSON.parse(data),0,'pid','id','sub',skipkey);
         $('#article-commit-list').html(inner_commit(data,$('#article-commit-list'),0));
         return true;
     }
 
     function inner_commit(data,dom,level){
-        var user_url='<?=\yii\helpers\Url::to(['/user/default/index'])?>/';
+        var user_url='$userUrl/';
         $.each(data,function(k,v){
             var commit_dom=$('#commit-out .media').clone(true);
             if(level>0){
@@ -172,7 +172,6 @@ $this->params['breadcrumbs'][] = $this->title;
             $(commit_dom).find('.commit-date').html((v['add_time']||''));
             $(commit_dom).find('.commit-content').html((v['content']||''));
             $(commit_dom).find('.commit-total em').text((v['total_recommit']||''));
-
             if(typeof v['sub']=='object'){
                 var innerhtml=inner_commit(v['sub'],$(commit_dom).find('.commit-sub'),(parseInt(level)+1));
                 $(commit_dom).find('.commit-sub').html(innerhtml);
@@ -181,4 +180,5 @@ $this->params['breadcrumbs'][] = $this->title;
         });
         return $(dom).html();
     }
-</script>
+SCRITP
+);?>

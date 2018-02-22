@@ -52,6 +52,4 @@ class FormArticleCommit extends Model
         return false;
     }
 
-
-
 }

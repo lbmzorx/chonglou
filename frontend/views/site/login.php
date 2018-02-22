@@ -7,6 +7,8 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
+\common\assets\JsencryptAsset::register($this);
+
 $this->title = '用户登录';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -28,9 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
                             <?= $form->field($model, 'password')->passwordInput() ?>
-
                             <?= $form->field($model, 'rememberMe')->checkbox() ?>
-
+                            <?= $form->field($model, 'pubKey')->textarea(['style'=>'display:none;','id'=>'loginform-pubkey'])?>
                             <div style="color:#999;margin:1em 0">
                                 If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
                             </div>
@@ -82,12 +83,19 @@ function timedCount(count,callback){
     }
 }
 
-function do_encrypt() {
-    var encrypt = new JSEncrypt();
-    encrypt.setPublicKey($('#pubKey').val().trim());
-    var encrypted = encrypt.encrypt($('#passwd_submit').val().trim());
-    return encrypted;
+var encrypt = new JSEncrypt();
+    encrypt.setPublicKey($('#loginform-pubkey').val().trim());
+    
+function do_encrypt() {    
+    return encrypt.encrypt($('#loginform-password').val().trim());   
 }
 
+var count=1;
+$('#login-form').submit(function(){
+if(count==1){
+     $('#loginform-password').val(do_encrypt());
+}
+count++;
+});
 SCRYPT
 )?>

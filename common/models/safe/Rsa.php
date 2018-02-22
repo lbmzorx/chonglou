@@ -9,7 +9,6 @@
 namespace common\models\safe;
 
 
-use common\component\tools\Rsaenctype;
 use yii\base\Model;
 
 class Rsa extends Model

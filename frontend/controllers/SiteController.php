@@ -57,7 +57,7 @@ class SiteController extends Controller
     public function actionLogin()
     {
         $request=\yii::$app->request;
-        $rsa=new Rsa();
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -72,18 +72,17 @@ class SiteController extends Controller
                 $time=$error[$username]['lock']-time();
             }
         }
-        $model = new LoginForm();
+        $model = new LoginForm(['rsa'=>(new Rsa())]);
         if($model->load(Yii::$app->request->post())){
-            $rsa->decrypt($model,'password');
             if ($model->login()) {
                 return $this->goBack();
             }
         }
-        $rsa->keepKeys();
+        $model->rsa->keepKeys();
+        $model->pubKey=$model->rsa->getPubKey();
         return $this->render('login', [
             'model' => $model,
             'time'=>$time,
-            'pubKey'=>$rsa->pubKey,
         ]);
 
     }

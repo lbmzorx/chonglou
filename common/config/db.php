@@ -21,4 +21,8 @@ return
     'password' => '1234569',
     'charset' => 'utf8',
     'tablePrefix'=>'chonglou_',
+
+    'enableSchemaCache'=>true,
+
+
 ];

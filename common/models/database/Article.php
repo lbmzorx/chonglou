@@ -15,17 +15,18 @@ use Yii;
  * @property string $author 作者
  * @property string $cover 封面
  * @property string $abstract 摘要
- * @property string $content 内容
+ * @property string $content_id 文章内容
  * @property int $remain 提醒,0未提醒，1已经提醒
- * @property int $publish 发布,0不发布，1发布,2发布当前
- * @property int $status 状态值，0待审核,1审核通过,2正在审核,3审核不通过
- * @property int $add_time 添加时间
- * @property int $edit_time 编辑时间
+ * @property int $auth 权限,0所有人，1好友，2加密，3自己
  * @property string $tags 标签
  * @property string $commit 评论
  * @property string $view 浏览
  * @property string $collection 收藏
  * @property int $thumbup 赞
+ * @property int $publish 发布,0不发布，1发布,2发布当前
+ * @property int $status 状态值，0待审核,1审核通过,2正在审核,3审核不通过
+ * @property int $add_time 添加时间
+ * @property int $edit_time 编辑时间
  */
 class Article extends \yii\db\ActiveRecord
 {
@@ -43,8 +44,8 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'cate_id', 'sort', 'remain', 'publish', 'status', 'add_time', 'edit_time', 'commit', 'view', 'collection', 'thumbup'], 'integer'],
-            [['content'], 'string'],
+            [['user_id', 'cate_id', 'sort', 'content_id', 'remain', 'auth', 'commit', 'view', 'collection', 'thumbup', 'publish', 'status', 'add_time', 'edit_time'], 'integer'],
+            [['content_id'], 'required'],
             [['title'], 'string', 'max' => 50],
             [['author', 'cover', 'abstract'], 'string', 'max' => 255],
             [['tags'], 'string', 'max' => 20],
@@ -65,17 +66,18 @@ class Article extends \yii\db\ActiveRecord
             'author' => Yii::t('app', '作者'),
             'cover' => Yii::t('app', '封面'),
             'abstract' => Yii::t('app', '摘要'),
-            'content' => Yii::t('app', '内容'),
+            'content_id' => Yii::t('app', '文章内容'),
             'remain' => Yii::t('app', '提醒,0未提醒，1已经提醒'),
-            'publish' => Yii::t('app', '发布,0不发布，1发布,2发布当前'),
-            'status' => Yii::t('app', '状态值，0待审核,1审核通过,2正在审核,3审核不通过'),
-            'add_time' => Yii::t('app', '添加时间'),
-            'edit_time' => Yii::t('app', '编辑时间'),
+            'auth' => Yii::t('app', '权限,0所有人，1好友，2加密，3自己'),
             'tags' => Yii::t('app', '标签'),
             'commit' => Yii::t('app', '评论'),
             'view' => Yii::t('app', '浏览'),
             'collection' => Yii::t('app', '收藏'),
             'thumbup' => Yii::t('app', '赞'),
+            'publish' => Yii::t('app', '发布,0不发布，1发布,2发布当前'),
+            'status' => Yii::t('app', '状态值，0待审核,1审核通过,2正在审核,3审核不通过'),
+            'add_time' => Yii::t('app', '添加时间'),
+            'edit_time' => Yii::t('app', '编辑时间'),
         ];
     }
 }

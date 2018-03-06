@@ -5,17 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace backend\components\gii;
+namespace backend\components\gii\crud;
 
 use Yii;
-use yii\db\ActiveRecord;
-use yii\db\BaseActiveRecord;
-use yii\db\Schema;
 use yii\gii\CodeFile;
-use yii\helpers\Inflector;
-use yii\helpers\VarDumper;
-use yii\web\Controller;
-
 /**
  * Generates CRUD
  *
@@ -34,14 +27,15 @@ class Generator extends \yii\gii\generators\crud\Generator
 {
 
     public $changeStatus = '';
-
+    public $timedate = '';
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return array_merge(parent::rules(), [
-           [['changeStatus'],'string'],
+           [['changeStatus','timedate'],'string'],
             ['viewPath', 'safe'],
         ]);
     }
@@ -53,6 +47,7 @@ class Generator extends \yii\gii\generators\crud\Generator
     {
         return array_merge(parent::attributeLabels(), [
             'changeStatus'=>'Change Status',
+            'timedate'=>'Time Date',
         ]);
     }
 
@@ -63,6 +58,7 @@ class Generator extends \yii\gii\generators\crud\Generator
     {
         return array_merge(parent::hints(), [
             'changeStatus' => 'column you want to change status',
+            'timedate' =>'time with timestamp',
         ]);
     }
 
@@ -72,7 +68,7 @@ class Generator extends \yii\gii\generators\crud\Generator
      */
     public function stickyAttributes()
     {
-        return array_merge(parent::stickyAttributes(), ['changeStatus']);
+        return array_merge(parent::stickyAttributes(), ['changeStatus','timedate']);
     }
 
     /**

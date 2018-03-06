@@ -44,7 +44,9 @@ use backend\actions\UpdateAction;
 use backend\actions\IndexAction;
 use backend\actions\DeleteAction;
 use backend\actions\SortAction;
-
+<?php if($generator->changeStatus):?>
+use backend\actions\ChangeStatusActions;
+<?php endif;?>
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
@@ -94,9 +96,13 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 'class' => SortAction::className(),
                 'modelClass' => <?= $modelClass ?>::className(),
             ],
-<?php if($generator->changeStatus)?>
 
-
+<?php if($generator->changeStatus):?>
+            'change_status'=>[
+                'class'=>ChangeStatusActions::className(),
+                'modelClass'=><?=$modelClass?>::classNmae();
+            ],
+<?php endif; ?>
         ];
         }
     }

@@ -23,6 +23,13 @@ if (!YII_ENV_TEST) {
             'model'=>[
                 'class' => 'backend\components\gii\model\ChongGenerator',
             ],
+            'crud' => [
+                'class' => \backend\components\gii\crud\Generator::className(),
+                'templates' => [
+                    'default' => '@backend/components/gii/crud/default',
+                    'yii' => '@vendor/yiisoft/yii2-gii/generators/crud/default',
+                ]
+            ]
         ],
     ];
 }

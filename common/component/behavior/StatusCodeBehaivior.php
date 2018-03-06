@@ -6,12 +6,12 @@
  * Time: 1:17
  */
 
-namespace common\component;
+namespace common\component\behavior;
 
 
 use yii\base\Behavior;
 
-class StatusCode extends Behavior
+class StatusCodeBehaivior extends Behavior
 {
     /**
      * 获取状态码

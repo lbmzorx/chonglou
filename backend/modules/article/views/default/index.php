@@ -21,8 +21,8 @@ $status_css_js=json_encode($status_css);
         <div class="panel-body">
 
 
-    <p>
-        <?= Html::a(Yii::t('app', '创建文章'), ['create'], ['class' => 'btn btn-success']) ?>
+    <p class="">
+        <?= Html::a(Yii::t('app', '创建文章'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
     </p>
 
 <?php Pjax::begin(); ?>
@@ -33,7 +33,7 @@ $status_css_js=json_encode($status_css);
         'layout'=>'{items}<div><div class="page-summary">{summary}</div><div  class="page-box">{pager}</div></div>',
 
         'pager'=>[
-            'class'=>\common\component\widget\JumpPager::className(),
+            'class'=>\common\components\widget\JumpPager::className(),
             'firstPageLabel'=>Yii::t('app','首页'),
             'nextPageLabel'=>Yii::t('app','下一页'),
             'prevPageLabel'=>Yii::t('app','上一页'),
@@ -74,7 +74,7 @@ $status_css_js=json_encode($status_css);
                 'filter'=>\common\models\data\Article::$remain_code,
                 'value'=> function ($model) {
                     return Html::button($model->getStatusCode('remain','remain_code'),
-                        ['class'=>'btn btn-'.($model->publish==1?'success':'warning')]);
+                        ['class'=>'btn btn-xs btn-'.($model->publish==1?'success':'warning')]);
                 },
                 'format'=>'raw',
             ],
@@ -83,7 +83,7 @@ $status_css_js=json_encode($status_css);
                 'filter'=>\common\models\data\Article::$publish_code,
                 'value'=> function ($model) {
                     return Html::button($model->getStatusCode('publish','publish_code'),
-                        ['class'=>'btn btn-'.($model->publish==1?'success':'warning')]);
+                        ['class'=>'btn btn-xs btn-'.($model->publish==1?'success':'warning')]);
                 },
                 'format'=>'raw',
             ],
@@ -93,7 +93,7 @@ $status_css_js=json_encode($status_css);
                 'value'=> function ($model) use ($status_css){
                     return Html::button($model->getStatusCode('status','status_code'),
                         [
-                            'class'=>'status-change btn btn-'.(isset($status_css[$model->status])?$status_css[$model->status]:'default'),
+                            'class'=>'status-change btn btn-xs btn-'.(isset($status_css[$model->status])?$status_css[$model->status]:'default'),
                             'key'=>$model->status,
                             'id-key'=>$model->id,
                         ]);

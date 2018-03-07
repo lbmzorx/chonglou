@@ -3,8 +3,7 @@
 namespace common\models\data;
 
 use Yii;
-use yii\helpers\ArrayHelper;
-
+use common\components\behaviors\StatusCode;
 /**
  * This is the model class for table "{{%article}}".
  *
@@ -54,7 +53,7 @@ class Article extends \common\models\database\Article
                 ],
             ],
             'getStatusCode'=>[
-                'class' => \common\component\StatusCode::className(),
+                'class' => StatusCode::className(),
             ],
         ];
     }

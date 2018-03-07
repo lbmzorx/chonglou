@@ -6,7 +6,7 @@
  * Time: 12:35
  */
 
-namespace common\component\widget;
+namespace common\components\widget;
 
 
 use yii\base\Widget;

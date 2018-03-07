@@ -6,7 +6,7 @@
  * Time: 1:17
  */
 
-namespace common\component\behavior;
+namespace common\components\behaviors;
 
 use yii\helpers\ArrayHelper;
 

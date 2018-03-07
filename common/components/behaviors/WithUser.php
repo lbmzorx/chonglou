@@ -6,7 +6,7 @@
  * Time: 1:17
  */
 
-namespace common\component\behavior;
+namespace common\components\behavior;
 
 
 use common\models\data\User;

@@ -6,7 +6,7 @@
  * Time: 0:09
  */
 
-namespace common\component\tools;
+namespace common\components\tools;
 
 use yii\base\Object;
 

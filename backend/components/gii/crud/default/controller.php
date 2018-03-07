@@ -53,32 +53,31 @@ use backend\actions\ChangeStatusActions;
  */
 class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
 {
+    public $controller_id='<?=str_replace('Controller','',$controllerClass)?>';
+
     public function actions()
     {
         return [
             'index' => [
-            'class' => IndexAction::className(),
-            'data' => function(){
+                'class' => IndexAction::className(),
+                'data' => function(){
 <?php if (!empty($generator->searchModelClass)): ?>
-
-                $searchModel = new <?=StringHelper::basename($generator->searchModelClass)?>();
-                $dataProvider = $searchModel->search(yii::$app->getRequest()->getQueryParams());
-                return [
-                    'dataProvider' => $dataProvider,
-                    'searchModel' => $searchModel,
-                ];
+                    $searchModel = new <?=StringHelper::basename($generator->searchModelClass)?>();
+                    $dataProvider = $searchModel->search(yii::$app->getRequest()->getQueryParams());
+                    return [
+                        'dataProvider' => $dataProvider,
+                        'searchModel' => $searchModel,
+                    ];
 <?php else: ?>
+                    $dataProvider = new ActiveDataProvider([
+                        'query' => <?= $modelClass ?>::find(),
+                    ]);
 
-                $dataProvider = new ActiveDataProvider([
-                    'query' => <?= $modelClass ?>::find(),
-                ]);
-
-                return [
-                'dataProvider' => $dataProvider,
-                ];
+                    return [
+                    'dataProvider' => $dataProvider,
+                    ];
 <?php endif; ?>
-
-            }
+                }
             ],
             'create' => [
                 'class' => CreateAction::className(),
@@ -96,7 +95,6 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 'class' => SortAction::className(),
                 'modelClass' => <?= $modelClass ?>::className(),
             ],
-
 <?php if($generator->changeStatus):?>
             'change_status'=>[
                 'class'=>ChangeStatusActions::className(),
@@ -104,5 +102,5 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             ],
 <?php endif; ?>
         ];
-        }
     }
+}

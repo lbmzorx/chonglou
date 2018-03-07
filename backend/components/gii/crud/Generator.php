@@ -100,4 +100,39 @@ class Generator extends \yii\gii\generators\crud\Generator
 
         return $files;
     }
+
+    public function generateStatusCodeColum($column){
+        if($this->changeStatus){
+            $changeStatus=explode(',',$this->changeStatus);
+            if(in_array($column,$changeStatus)){
+                $string="[\n".
+"               'class'=>\common\components\grid\StatusColumn::className(),\n".
+"               'attribute'=>'{$column}',\n".
+"               'filter'=>{$this->modelClass}::\${$column}_code,\n".
+"               'value'=> function (\$model) {\n".
+"                   return Html::button(\$model->getStatusCode('{$column}','{$column}_code'),\n".
+"                       ['class'=>'btn btn-xs btn-'.\$model->getStatusCode('{$column}','{$column}_css',0);\n".
+"               },\n".
+"               'format'=>'raw',\n".
+"            ]";
+                return $string;
+            }
+        }
+        return false;
+    }
+
+    public function generateTimeDate($column){
+        if($this->timedate){
+            $timedate=explode(',',$this->timedate);
+            if(in_array($column,$timedate)){
+                $string="[\n".
+                    "               'class'=>\common\components\grid\DateTimeColumn::className(),\n".
+                    "               'attribute'=>'{$column}',\n".
+                    "            ]";
+                return $string;
+            }
+        }
+        return false;
+    }
+
 }

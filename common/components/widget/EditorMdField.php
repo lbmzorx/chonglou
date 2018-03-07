@@ -6,7 +6,7 @@
  * Time: 21:20
  */
 
-namespace common\component\widget;
+namespace common\components\widget;
 
 use common\assets\EditormdAsset;
 

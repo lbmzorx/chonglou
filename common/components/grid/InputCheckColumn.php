@@ -6,7 +6,7 @@
  * Time: 22:00
  */
 
-namespace common\component\grid;
+namespace common\components\grid;
 
 use yii\grid\Column;
 use yii\widgets\InputWidget;

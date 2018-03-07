@@ -10,7 +10,7 @@ namespace common\components\behaviors;
 
 use common\components\events\SearchEvent;
 
-class TimeSearchBehavior extends \yii\base\Behavior
+class TimeSearch extends \yii\base\Behavior
 {
 
     public $timeAttributes = ['add_time','edit_time'];

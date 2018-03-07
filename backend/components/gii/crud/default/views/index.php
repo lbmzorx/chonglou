@@ -4,7 +4,7 @@ use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 
 /* @var $this yii\web\View */
-/* @var $generator yii\gii\generators\crud\Generator */
+/* @var $generator backend\components\gii\crud\Generator */
 
 $urlParams = $generator->generateUrlParams();
 $nameAttribute = $generator->getNameAttribute();
@@ -13,6 +13,7 @@ echo "<?php\n";
 ?>
 
 use yii\helpers\Html;
+use common\components\widget\BatchDelete;
 use <?= $generator->indexWidgetType === 'grid' ? "backend\\components\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
 <?= $generator->enablePjax ? 'use yii\widgets\Pjax;' : '' ?>
 
@@ -33,14 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php endif; ?>
 
     <p>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Create ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>, ['create'], ['class' => 'btn btn-success']) ?>
+        <?= "<?= " ?>Html::a(<?= $generator->generateString('Create ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>, ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+        <?= "<?= " ?>BatchDelete::widget(['name'=>'Batch Deletes']) ?>
     </p>
 
 <?php if ($generator->indexWidgetType === 'grid'): ?>
     <?= "<?= " ?>GridView::widget([
         'dataProvider' => $dataProvider,
         <?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n        'columns' => [\n" : "'columns' => [\n"; ?>
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\CheckboxColumn'],
 
 <?php
 $count = 0;
@@ -55,10 +57,26 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 } else {
     foreach ($tableSchema->columns as $column) {
         $format = $generator->generateColumnFormat($column);
-        if (++$count < 6) {
-            echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
-        } else {
-            echo "            //'" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+
+        $statusCode = $generator->generateStatusCodeColum($column->name);
+        $statusCodeList=[];
+        if($statusCode){
+            echo "            " .$statusCode.",\n";
+            $statusCodeList[]=\common\components\widget\StatusCode::widget([
+                'dataClass'=>$generator->modelClass,
+                'attribute'=>$column->name,
+            ]);
+        }else{
+            $datetime=$generator->generateTimeDate($column->name);
+            if($datetime){
+                echo "            " .$datetime.",\n";
+            }else{
+                if (++$count < 6) {
+                    echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+                } else {
+                    echo "            //'" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+                }
+            }
         }
     }
 }
@@ -80,3 +98,10 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
         </div>
     </div>
 </div>
+<?php
+    if(!empty($statusCodeList)){
+        foreach ($statusCodeList as $v){
+            echo $v;
+        }
+    }
+?>

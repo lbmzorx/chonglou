@@ -8,7 +8,7 @@
 
 namespace common\components\grid;
 
-use common\components\widgets\LayuiUse;
+use common\components\widget\LayuiUse;
 use Yii;
 use yii\helpers\Html;
 

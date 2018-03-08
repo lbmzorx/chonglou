@@ -41,7 +41,7 @@ use yii\widgets\ActiveForm;
                 </div>
             </div>
             <?= $form->field($model, 'content',[
-                    'class'=>\common\component\widget\EditorMdField::className(),
+                    'class'=>\common\components\widget\EditorMdField::className(),
                     'mdJsOptions'=>[
                         'placeholder'=>'请输入内容',
                     ],

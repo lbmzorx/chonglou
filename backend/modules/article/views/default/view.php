@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'content',
                 'format'=>'raw',
-                'value'=>\common\component\widget\EditorMdView::widget([
+                'value'=>\common\components\widget\EditorMdView::widget([
                     'model' => $model,
                     'attribute' => 'content',
                    ]),

@@ -28,14 +28,15 @@ class Generator extends \yii\gii\generators\crud\Generator
 
     public $changeStatus = '';
     public $timedate = '';
-    
+    public $topSideMemu;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return array_merge(parent::rules(), [
-           [['changeStatus','timedate'],'string'],
+           [['changeStatus','timedate','topSideMemu'],'string'],
             ['viewPath', 'safe'],
         ]);
     }
@@ -48,6 +49,7 @@ class Generator extends \yii\gii\generators\crud\Generator
         return array_merge(parent::attributeLabels(), [
             'changeStatus'=>'Change Status',
             'timedate'=>'Time Date',
+            'topSideMemu'=>'Top Side Menu Id'
         ]);
     }
 
@@ -59,6 +61,7 @@ class Generator extends \yii\gii\generators\crud\Generator
         return array_merge(parent::hints(), [
             'changeStatus' => 'column you want to change status',
             'timedate' =>'time with timestamp',
+            'topSideMemu'=>'top side memu'
         ]);
     }
 
@@ -68,7 +71,7 @@ class Generator extends \yii\gii\generators\crud\Generator
      */
     public function stickyAttributes()
     {
-        return array_merge(parent::stickyAttributes(), ['changeStatus','timedate']);
+        return array_merge(parent::stickyAttributes(), ['changeStatus','timedate','topSideMemu']);
     }
 
     /**
@@ -106,12 +109,12 @@ class Generator extends \yii\gii\generators\crud\Generator
             $changeStatus=explode(',',$this->changeStatus);
             if(in_array($column,$changeStatus)){
                 $string="[\n".
-"               'class'=>\common\components\grid\StatusColumn::className(),\n".
+"               'class'=>\common\components\grid\StatusCodeColumn::className(),\n".
 "               'attribute'=>'{$column}',\n".
 "               'filter'=>{$this->modelClass}::\${$column}_code,\n".
 "               'value'=> function (\$model) {\n".
 "                   return Html::button(\$model->getStatusCode('{$column}','{$column}_code'),\n".
-"                       ['class'=>'btn btn-xs btn-'.\$model->getStatusCode('{$column}','{$column}_css',0);\n".
+"                       ['class'=>'btn btn-xs btn-'.\$model->getStatusCss('{$column}','{$column}_css',0)]);\n".
 "               },\n".
 "               'format'=>'raw',\n".
 "            ]";
@@ -133,6 +136,39 @@ class Generator extends \yii\gii\generators\crud\Generator
             }
         }
         return false;
+    }
+
+    public function generateStatusCodeDom($column){
+        $string=
+            <<<DOM
+<div id="{$column}-change" style="display: none;">
+    <div style="padding: 10px;">
+        <?=Html::beginForm(['change-status'],'post')?>
+        <input type="hidden" name="key" value="status">
+        <input type="hidden" name="id" value="">
+        <?php foreach ( {$this->modelClass}::\${$column}_code as \$k=>\$v):?>
+            <?php if(\$k>0):?>
+            <label class="checkbox-inline" style="margin: 5px 10px;">
+                <?php
+                    \$css='warning';
+                    if( isset({$this->modelClass}::\${$column}_css) && isset({$this->modelClass}::\${$column}_css[\$k])){
+                        \$css = {$this->modelClass}::\${$column}_css [\$k];
+                    }else{
+                        if( isset(\common\components\behaviors\StatusCode::\$cssCode[\$k]) ){
+                            \$css=\common\components\behaviors\StatusCode::\$cssCode[\$k];
+                        }
+                    }
+                ?>               
+                <?=Html::input('radio','value',\$k)?>
+                <?=Html::tag('span',\$v,['class'=>'btn btn-'.\$css])?>
+            </label>
+            <?php endif;?>
+        <?php endforeach;?>
+        <?=Html::endForm()?>
+    </div>
+</div>
+DOM;
+        return $string;
     }
 
 }

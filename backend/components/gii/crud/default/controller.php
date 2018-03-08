@@ -16,7 +16,7 @@ $searchModelClass = StringHelper::basename($generator->searchModelClass);
 if ($modelClass === $searchModelClass) {
     $searchModelAlias = $searchModelClass . 'Search';
 }
-
+$module=StringHelper::basename(StringHelper::basename($generator->controllerClass));
 /* @var $class ActiveRecordInterface */
 $class = $generator->modelClass;
 $pks = $class::primaryKey();
@@ -39,13 +39,13 @@ use yii\data\ActiveDataProvider;
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use backend\actions\CreateAction;
-use backend\actions\UpdateAction;
-use backend\actions\IndexAction;
-use backend\actions\DeleteAction;
-use backend\actions\SortAction;
+use backend\components\actions\CreateAction;
+use backend\components\actions\UpdateAction;
+use backend\components\actions\IndexAction;
+use backend\components\actions\DeleteAction;
+use backend\components\actions\SortAction;
 <?php if($generator->changeStatus):?>
-use backend\actions\ChangeStatusActions;
+use backend\components\actions\ChangeStatusAction;
 <?php endif;?>
 
 /**
@@ -53,7 +53,8 @@ use backend\actions\ChangeStatusActions;
  */
 class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
 {
-    public $controller_id='<?=str_replace('Controller','',$controllerClass)?>';
+    public $controller_id='<?=strtolower(str_replace('Controller','',$controllerClass))?>';
+    public $left_nav_id='<?=$generator->topSideMemu?:$module?>';
 
     public function actions()
     {
@@ -96,9 +97,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 'modelClass' => <?= $modelClass ?>::className(),
             ],
 <?php if($generator->changeStatus):?>
-            'change_status'=>[
-                'class'=>ChangeStatusActions::className(),
-                'modelClass'=><?=$modelClass?>::classNmae();
+            'change-status'=>[
+                'class'=>ChangeStatusAction::className(),
+                'modelClass'=><?=$modelClass?>::className(),
             ],
 <?php endif; ?>
         ];

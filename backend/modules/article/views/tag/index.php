@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'layout'=>'{items}<div><div class="page-summary">{summary}</div><div  class="page-box">{pager}</div></div>',
 
         'pager'=>[
-            'class'=>\common\component\widget\JumpPager::className(),
+            'class'=>\common\components\widget\JumpPager::className(),
             'firstPageLabel'=>Yii::t('app','首页'),
             'nextPageLabel'=>Yii::t('app','下一页'),
             'prevPageLabel'=>Yii::t('app','上一页'),

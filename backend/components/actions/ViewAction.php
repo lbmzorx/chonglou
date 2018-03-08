@@ -6,7 +6,7 @@
  * Created at: 2017-08-13 10:10
  */
 
-namespace backend\actions;
+namespace backend\components\actions;
 
 
 class ViewAction extends \yii\base\Action

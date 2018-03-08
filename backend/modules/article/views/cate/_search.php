@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\search\ArticleCate */
+/* @var $model common\models\search\AritcleCate */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -13,6 +13,9 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
+        'options' => [
+            'data-pjax' => 1
+        ],
     ]); ?>
 
     <?= $form->field($model, 'id') ?>
@@ -24,6 +27,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'level') ?>
 
     <?= $form->field($model, 'path') ?>
+
+    <?php // echo $form->field($model, 'status') ?>
 
     <?php // echo $form->field($model, 'add_time') ?>
 

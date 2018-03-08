@@ -1,5 +1,5 @@
 <?php
-namespace common\components\widgets;
+namespace common\components\widget;
 
 use common\assets\LayerAsset;
 use common\assets\LayuiAsset;

@@ -9,10 +9,11 @@ $modelFullClassName = $ns. '\\' . $modelFullClassName;
 $revert=strrev(rtrim($generator->dataModelClass,'\\'));
 $dataClass=strrev(substr($revert,0,strpos($revert,'\\')));
 
+$namespace=rtrim(str_replace($dataClass,'',ltrim($generator->dataModelClass ,'\\')),'\\');
 
 echo "<?php\n";
 ?>
-namespace <?= $generator->dataModelClass ?>;
+namespace <?= $namespace ?>;
 
 use Yii;
 
@@ -25,14 +26,21 @@ class <?= $dataClass?> extends \<?= $modelFullClassName?>
 
 {
 
-<?php if($generator->behaviorCode):?>
+<?php if($generator->statusCode):?>
 <?php
-    $behaviorCodes=$generator->behaviorCode;
-    $behaviorCodes=explode(',',$behaviorCodes);
+    $statusCodes=$generator->statusCode;
+    $statusCodes=explode(',',$statusCodes);
+    $generator->statusCodeArray;
     ?>
-<?php foreach ($behaviorCodes as $bcode ):?>
-    public static $<?=$bcode?>_code = [0=>'',1=>'',2=>''];
-    <?php endforeach;?>
+<?php foreach ($statusCodes as $bcode ):?>
+<?php if($generator->keysExist($bcode,array_keys($labels))):?>
+        <?php $msg='';foreach ($generator->statusCodeArray[$bcode] as $k=>$v)
+            $msg.=(is_numeric($k)?$k:"'".$k."'")."=>'".($v)."',";
+            ?>
+
+    public static $<?=$bcode?>_code = [<?=$msg?>];
+<?php endif;?>
+<?php endforeach;?>
 <?php endif;?>
 
     /**
@@ -55,35 +63,47 @@ class <?= $dataClass?> extends \<?= $modelFullClassName?>
         ]);
     }
 
-    <?php if($generator->behaviorTimeUpdate||$generator->behaviorTimeAdd|| $generator->behaviorCode):?>
+    <?php if($generator->timeUpdate||$generator->timeAdd|| $generator->statusCode):?>
 public function behaviors()
     {
         return [
-<?php if($generator->behaviorTimeUpdate||$generator->behaviorTimeAdd):?>
+<?php if($generator->timeUpdate||$generator->timeAdd):?>
             'timeUpdate'=>[
                 'class' => \yii\behaviors\TimestampBehavior::className(),
                 'attributes' => [
-<?php if($generator->behaviorTimeAdd):?>
+<?php if($generator->timeAdd):?>
+<?php if($generator->keysExist($generator->timeUpdate,array_keys($labels))):?>
 <?php
-            $timeAdd=explode(',',$generator->behaviorTimeAdd);
+            $timeAdd=explode(',',$generator->timeAdd);
             $timeAdd=implode('\',\'',$timeAdd);
             ?>
                     self::EVENT_BEFORE_INSERT => ['<?=$timeAdd ?>'],
-<?php endif;?>
-<?php if($generator->behaviorTimeUpdate):?>
+<?php endif;?><?php endif;?>
+<?php if($generator->timeUpdate):?>
+<?php if($generator->keysExist($generator->timeUpdate,array_keys($labels))):?>
 <?php
-            $timeUpdate=explode(',',$generator->behaviorTimeUpdate);
+            $timeUpdate=explode(',',$generator->timeUpdate);
             $timeUpdate=implode('\',\'',$timeUpdate);
             ?>
                     self::EVENT_BEFORE_UPDATE => ['<?=$timeUpdate?>'],
 <?php endif;?>
+<?php endif;?>
                 ],
             ],
 <?php endif;?>
-<?php if($generator->behaviorTimeUpdate):?>
+<?php if($generator->statusCode):?>
+<?php if($generator->keysExist($generator->statusCode,array_keys($labels))):?>
             'getStatusCode'=>[
-                'class' => \common\component\StatusCode::className(),
+                'class' => \common\components\behaviors\StatusCode::className(),
             ],
+<?php endif;?>
+<?php endif;?>
+<?php if($generator->withOneUser):?>
+<?php if(array_key_exists('user_id',$labels)):?>
+        'withOneUser'=>[
+                'class' => \common\components\behaviors\WithOneUser::className(),
+            ],
+<?php endif;?>
 <?php endif;?>
         ];
     }

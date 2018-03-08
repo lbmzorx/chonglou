@@ -12,7 +12,7 @@ use yii\base\Behavior;
 
 class StatusCode extends Behavior
 {
-    public static $cssCode=[0=>'warning',1=>'success',2=>'danger',3=>'info',4=>'primary'];
+    public static $cssCode=['cssCode'=>[0=>'warning',1=>'success',2=>'danger',3=>'info',4=>'primary',],];
 
     /**
      * 获取状态码
@@ -24,21 +24,18 @@ class StatusCode extends Behavior
      public function getStatusCode($attribute,$statuCode,$default=''){
          $class=get_class($this->owner);
          $value=$this->owner->{$attribute};
-         return empty($class::${$statuCode}[$value])?$default:($class::${$statuCode}[$value]);
+         return isset($class::${$statuCode}[$value])?($class::${$statuCode}[$value]):$default;
     }
 
     public function getStatusCss($attribute,$statuCode,$default=0){
         $class=get_class($this->owner);
         $value=$this->owner->{$attribute};
-
-        if(empty($class::${$statuCode}[$value])){
-            if(isset(static::$cssCode[$statuCode])){
-                return static::$cssCode[$statuCode];
-            }else{
-                return isset($this->cssCode[$default])?$this->cssCode[$default]:$default;
+        if(property_exists($class,$statuCode)){
+            if(isset($class::${$statuCode}[$value])){
+                return $class::${$statuCode}[$value];
             }
         }
-        return $class::${$statuCode}[$value];
+        return isset(static::$cssCode[$default])?static::$cssCode[$default]:$default;
     }
 
 }

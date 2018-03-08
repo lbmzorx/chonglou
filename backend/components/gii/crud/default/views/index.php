@@ -8,7 +8,7 @@ use yii\helpers\StringHelper;
 
 $urlParams = $generator->generateUrlParams();
 $nameAttribute = $generator->getNameAttribute();
-
+$statusCodeList=[];
 echo "<?php\n";
 ?>
 
@@ -59,13 +59,9 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
         $format = $generator->generateColumnFormat($column);
 
         $statusCode = $generator->generateStatusCodeColum($column->name);
-        $statusCodeList=[];
         if($statusCode){
             echo "            " .$statusCode.",\n";
-            $statusCodeList[]=\common\components\widget\StatusCode::widget([
-                'dataClass'=>$generator->modelClass,
-                'attribute'=>$column->name,
-            ]);
+            $statusCodeList[]=$generator->generateStatusCodeDom($column->name);
         }else{
             $datetime=$generator->generateTimeDate($column->name);
             if($datetime){

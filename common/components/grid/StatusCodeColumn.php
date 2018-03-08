@@ -30,7 +30,7 @@ class StatusCodeColumn extends \yii\grid\DataColumn
     protected function renderFilterCellContent()
     {
 
-        $btn = explode('\',\'',$this->jsOptions['btn']);
+        $btn = implode('\',\'',$this->jsOptions['btn']);
         $laydateJs =<<<str
             $('.{$this->attribute}-change').click(function(){
                 var sval=$(this).attr('key'),this_dom=$(this),

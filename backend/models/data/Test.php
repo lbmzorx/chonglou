@@ -44,7 +44,7 @@ class Test extends \backend\models\database\Test
                 ],
             ],
             'getStatusCode'=>[
-                'class' => \common\component\StatusCode::className(),
+                'class' => \common\components\behaviors\StatusCode::className(),
             ],
         ];
     }

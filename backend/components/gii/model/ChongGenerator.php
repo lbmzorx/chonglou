@@ -9,19 +9,29 @@
 namespace backend\components\gii\model;
 
 use Yii;
+use yii\base\InvalidParamException;
 use yii\gii\CodeFile;
 use yii\gii\generators\model\Generator;
+use yii\helpers\Json;
 
 class ChongGenerator extends Generator
 {
     public $dataModelClass;
-    public $behaviorTimeAdd;
-    public $behaviorTimeUpdate;
-    public $behaviorCode;
+    public $timeAdd;
+    public $timeUpdate;
+    public $statusCode;
+    public $statusCodeJson;
+    public $withOneUser = true;
+    public $statusCodeArray;
+
     public function rules()
     {
         $rules = [
-            [['dataModelClass','behaviorTimeAdd','behaviorTimeUpdate','behaviorCode'] , 'filter' , 'filter' => 'trim'] ,
+            [['dataModelClass','statusCode','timeUpdate','timeAdd'] , 'filter' , 'filter' => 'trim'] ,
+            [['statusCodeJson'] , 'filter' , 'filter' => 'trim'],
+            [['statusCodeJson'],'required','when' => function($model){return !empty($model->statusCode);}],
+            [['statusCodeJson'],'transferJson',],
+            [['withOneUser'] , 'boolean' ,] ,
         ];
         return array_merge($rules , parent::rules());
     }
@@ -30,9 +40,14 @@ class ChongGenerator extends Generator
     {
         return array_merge(parent::hints() , [
             'dataModelClass' => 'data of the model' ,
-            'behaviorTimeAdd'=>'insert event insert timestamp',
-            'behaviorTimeUpdate'=>'update event update timestamp',
-            'behaviorCode'=>'status code',
+            'timeAdd'=>'insert event insert timestamp',
+            'timeUpdate'=>'update event update timestamp',
+            'statusCode'=>'status code',
+            'statusCodeJson'=>"status Code with Json form,like ".
+             "\$status=[0=>'waition',1=>'success',9=>'unknown'],Array in serialized like : \$publish=['no','yes'],".
+             "you should input \n{\n\t\"cssCode\":{\"0\":\"warning\",\"1\":\"success\",\"9\":\"unknown\"},\n".
+                "\t\"publish\":[\"no\",\"yes\"]\n}",
+            'withOneUser'=>'With One User,Only id,name,head, if table has column of \'user_id\', you can use model as $model->with(\'user\') as one to one.',
         ]);
     }
 
@@ -41,7 +56,7 @@ class ChongGenerator extends Generator
      */
     public function stickyAttributes()
     {
-        return array_merge(parent::stickyAttributes() , ['dataModelClass','behaviorTimeAdd','behaviorTimeUpdate','behaviorCode',]);
+        return array_merge(parent::stickyAttributes() , ['dataModelClass','timeAdd','timeUpdate','statusCode','statusCodeJson','withOneUser']);
     }
 
     /**
@@ -67,7 +82,6 @@ class ChongGenerator extends Generator
                 'labels' => $this->generateLabels($tableSchema) ,
                 'rules' => $this->generateRules($tableSchema) ,
                 'relations' => isset($relations[$tableName]) ? $relations[$tableName] : [] ,
-
             ];
             $files[] = new CodeFile(
                 Yii::getAlias('@' . str_replace('\\' , '/' , $this->ns)) . '/' . $modelClassName . '.php' ,
@@ -88,12 +102,45 @@ class ChongGenerator extends Generator
             if ($this->dataModelClass) {
                 $params['dataModelClass'] = $this->dataModelClass;
                 $files[] = new CodeFile(
-                    Yii::getAlias('@' . str_replace('\\' , '/' , $this->dataModelClass)) . '.php' ,
+                    Yii::getAlias('@' . str_replace('\\' , '/' , ltrim($this->dataModelClass,'\\'))) . '.php' ,
                     $this->render('data.php' , $params)
                 );
             }
         }
 
         return $files;
+    }
+
+    public function transferJson(){
+        try{
+            $json=Json::decode($this->statusCodeJson);
+            $statusCode=explode(',',$this->statusCode);
+            if($json ){
+                foreach ($statusCode as $s){
+                    if(!array_key_exists($s,$json)){
+                        $this->addError('statusCodeJson',"{$s} should be existed in Status Json Code!");
+                    }else{
+                        $this->statusCodeArray[$s]=$json[$s];
+                    }
+                }
+                if($this->hasErrors('statusCodeJson')){
+                    return false;
+                }
+                return true;
+            }
+        }catch (InvalidParamException $e){
+            $this->addError('statusCodeJson',$e->getMessage());
+            return false;
+        }
+    }
+
+    public function keysExist($key,$colums=[]){
+        $statusCode=explode(',',$key);
+        $in=array_intersect($statusCode,$colums);
+        if(empty($in)){
+            return false;
+        }else{
+            return true;
+        }
     }
 }

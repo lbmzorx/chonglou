@@ -17,3 +17,4 @@ echo $form->field($generator, 'enablePjax')->checkbox();
 echo $form->field($generator, 'messageCategory');
 echo $form->field($generator, 'changeStatus');
 echo $form->field($generator, 'timedate');
+echo $form->field($generator, 'topSideMemu');

@@ -1,25 +1,27 @@
 <?php
-
 namespace common\models\data;
 
 use Yii;
 
 /**
- * This is the model class for table "{{%article_cate}}".
- *
- */
+* This is the data class for [[common\models\database\ArticleCate]].
+*
+* @see \common\models\database\ArticleCate
+*/
 class ArticleCate extends \common\models\database\ArticleCate
 {
+
+        
+    public static $status_code = [0=>'warning',1=>'success',9=>'unknown',];
 
     /**
      * @inheritdoc
      */
     public function rules()
     {
-        $rules=[
+        return array_merge(parent::rules(),[
 
-        ];
-        return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
+        ]);
     }
 
     /**
@@ -27,24 +29,23 @@ class ArticleCate extends \common\models\database\ArticleCate
      */
     public function attributeLabels()
     {
-        $lables= [
+        return array_merge(parent::attributeLabels(),[
 
-        ];
-        return \yii\helpers\ArrayHelper::merge(parent::attributeLabels(),$lables);
+        ]);
     }
-
 
     public function behaviors()
     {
         return [
-            [
+            'timeUpdate'=>[
                 'class' => \yii\behaviors\TimestampBehavior::className(),
                 'attributes' => [
                     self::EVENT_BEFORE_INSERT => ['add_time'],
                     self::EVENT_BEFORE_UPDATE => ['edit_time'],
                 ],
-                // if you're using datetime instead of UNIX timestamp:
-                // 'value' => new Expression('NOW()'),
+            ],
+            'getStatusCode'=>[
+                'class' => \common\components\behaviors\StatusCode::className(),
             ],
         ];
     }

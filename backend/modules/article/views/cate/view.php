@@ -7,17 +7,16 @@ use yii\widgets\DetailView;
 /* @var $model common\models\data\ArticleCate */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', '文章分类'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Article Cates'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-cate-view">
-    <?= \yii\widgets\Breadcrumbs::widget([
-        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-    ]) ?>
+
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', '更新'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', '删除'), ['delete', 'id' => $model->id], [
+        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
@@ -34,14 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'parent_id',
             'level',
             'path',
-            [
-                'attribute'=>'add_time',
-                'value'=>date("Y-m-d H:i:s",$model->add_time),
-            ],
-            [
-                'attribute'=>'edit_time',
-                'value'=>date("Y-m-d H:i:s",$model->edit_time),
-            ],
+            'status',
+            'add_time:datetime',
+            'edit_time:datetime',
         ],
     ]) ?>
 

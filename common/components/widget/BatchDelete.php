@@ -76,7 +76,7 @@ class BatchDelete extends Widget
     public function renderJs(){
         $view = \yii::$app->getView();
 
-        $msg=Yii::t('app',$this->confirmMsg);
+        $msg=Yii::t('app',$this->jsConfirmMsg);
         $delimeter='';
         $data='';
         if($this->jsParams){

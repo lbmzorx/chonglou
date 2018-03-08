@@ -17,7 +17,7 @@ class GridView extends \yii\grid\GridView
     {
         parent::init();
         $this->pager = [
-            'class'=>\common\component\widget\JumpPager::className(),
+            'class'=>\common\components\widget\JumpPager::className(),
             'firstPageLabel'=>Yii::t('app','首页'),
             'nextPageLabel'=>Yii::t('app','下一页'),
             'prevPageLabel'=>Yii::t('app','上一页'),

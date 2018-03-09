@@ -38,6 +38,29 @@ return [
         'errorHandler' => [
             'errorAction' => '/site/error',
         ],
+
+        'i18n' => [
+            'translations' => [//多语言包设置
+                'app*' => [
+                    'class' => yii\i18n\PhpMessageSource::className(),
+                    'basePath' => '@backend/messages',
+                    'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+                'menu' => [
+                    'class' => yii\i18n\PhpMessageSource::className(),
+                    'basePath' => '@backend/messages',
+                    'sourceLanguage' => 'zh-CN',
+                    'fileMap' => [
+                        'app' => 'menu.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+            ],
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

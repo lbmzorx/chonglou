@@ -92,7 +92,12 @@ STYLE
         <div class="sidebar-scroll">
             <nav>
                 <ul class="nav">
-
+                    <?=\backend\components\widget\Leftmenu::widget([
+                        'top'=>isset($this->params['top'])?$this->params['top']:'0',
+                        'left'=>isset($this->params['left'])?$this->params['left']:\Yii::$app->controller->module->id,
+                        'leftsub'=>isset($this->params['leftsub'])?$this->params['leftsub']:\Yii::$app->controller->id,
+                        'leftleftsub'=>isset($this->params['leftleftsub'])?$this->params['leftleftsub']:\Yii::$app->controller->action->id,
+                    ])?>
                 </ul>
             </nav>
         </div>

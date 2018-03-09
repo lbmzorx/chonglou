@@ -37,8 +37,6 @@ use <?= ltrim($generator->searchModelClass, '\\') . (isset($searchModelAlias) ? 
 use yii\data\ActiveDataProvider;
 <?php endif; ?>
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use backend\components\actions\CreateAction;
 use backend\components\actions\UpdateAction;
 use backend\components\actions\IndexAction;
@@ -63,7 +61,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 'class' => IndexAction::className(),
                 'data' => function(){
 <?php if (!empty($generator->searchModelClass)): ?>
-                    $searchModel = new <?=StringHelper::basename($generator->searchModelClass)?>();
+                    $searchModel = new <?=(isset($searchModelAlias) ? "$searchModelAlias" : StringHelper::basename($generator->searchModelClass))?>();
                     $dataProvider = $searchModel->search(yii::$app->getRequest()->getQueryParams());
                     return [
                         'dataProvider' => $dataProvider,

@@ -25,7 +25,6 @@ use Yii;
 class <?= $dataClass?> extends \<?= $modelFullClassName?>
 
 {
-
 <?php if($generator->statusCode):?>
 <?php
     $statusCodes=$generator->statusCode;
@@ -33,11 +32,16 @@ class <?= $dataClass?> extends \<?= $modelFullClassName?>
     $generator->statusCodeArray;
     ?>
 <?php foreach ($statusCodes as $bcode ):?>
-<?php if($generator->keysExist($bcode,array_keys($labels))):?>
-        <?php $msg='';foreach ($generator->statusCodeArray[$bcode] as $k=>$v)
-            $msg.=(is_numeric($k)?$k:"'".$k."'")."=>'".($v)."',";
-            ?>
 
+<?php if($generator->keysExist($bcode,array_keys($labels))):?>
+<?php $msg='';foreach ($generator->statusCodeArray[$bcode] as $k=>$v):?>
+<?php $msg.=(is_numeric($k)?$k:"'".$k."'")."=>'".($v)."',";?>
+    const <?=strtoupper($dataClass)?>_<?=strtoupper($bcode)?>_<?=strtoupper(preg_replace('# #','_',$v))?> = <?=$k?>;
+<?php endforeach;?>
+    /**
+     * @var array $<?=$bcode?>_code <?=$properties[$bcode]['comment']?>
+
+     */
     public static $<?=$bcode?>_code = [<?=$msg?>];
 <?php endif;?>
 <?php endforeach;?>

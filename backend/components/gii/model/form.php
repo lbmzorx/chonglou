@@ -30,5 +30,10 @@ echo $form->field($generator, 'dataModelClass');
 echo $form->field($generator, 'timeAdd');
 echo $form->field($generator, 'timeUpdate');
 echo $form->field($generator, 'statusCode');
-echo $form->field($generator, 'statusCodeJson')->textarea(['style'=>"height:151px",'value'=>"{\n\t\"status\":{\"0\":\"warning\",\"1\":\"success\",\"9\":\"unknown\"},\n\t\"publish\":[\"no\",\"yes\"]\n}"]);
+if($generator->statusCodeJson){
+    $statusCodeJson = $generator->statusCodeJson;
+}else{
+    $statusCodeJson = "{\n\t\"status\":{\"0\":\"warning\",\"1\":\"success\",\"9\":\"unknown\"},\n\t\"publish\":[\"no\",\"yes\"]\n}";
+}
+echo $form->field($generator, 'statusCodeJson')->textarea(['style'=>"height:151px",'value'=>$statusCodeJson]);
 echo $form->field($generator, 'withOneUser')->checkbox();

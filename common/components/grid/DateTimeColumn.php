@@ -50,7 +50,7 @@ class DateTimeColumn extends \yii\grid\DataColumn
                     //显示公历
                     calendar: {$this->layerOptions['calendar']},          
                     done: function(value, date, endDate){                    
-                        $(this).val(value);
+                        $(this.elem).val(value);
                         $(this.elem).change();                   
                     }
                 });

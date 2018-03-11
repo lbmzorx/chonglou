@@ -25,6 +25,9 @@ $this->title = <?= $generator->generateString(Inflector::pluralize(Inflector::ca
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-index">
+    <?='<?='?> \yii\widgets\Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) <?='?>'?>
     <div class="panel">
         <div class="panel-body">
     <h1><?= "<?= " ?>Html::encode($this->title) ?></h1>

@@ -12,7 +12,9 @@ $this->title = Yii::t('app', 'Menus');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="menu-index">
-    <div class="panel">
+    <?= \yii\widgets\Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>    <div class="panel">
         <div class="panel-body">
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>

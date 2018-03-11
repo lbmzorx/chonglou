@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'sign',
             'app_type',
             'position',
             'parent_id',
@@ -43,6 +42,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'add_time',
             'edit_time',
             'top_id',
+            'module',
+            'controller',
+            'action',
         ],
     ]) ?>
 

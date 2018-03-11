@@ -9,20 +9,14 @@ return [
     
 
 	/*start*NameCommon*/
-
-
-
-	'ID'=>'自增id',
-	'Position'=>'位置',//0左，1上',
+	'backend'=>'后台',
+	'frontend'=>'前台',//0左，1上',
 	'Parent ID'=>'上级ID',
 	'Name'=>'名称',
 	'Icon'=>'图标',
 	'Add Time'=>'创建时间',
 	'Edit Time'=>'修改时间',
-			/*end*NameCommon*/
-
-
-
+    /*end*NameCommon*/
 
 	/*start*Menu*/
 	'App Type'=>'菜单类型',//0后台,1前台',
@@ -36,9 +30,5 @@ return [
 	'Controller'=>'控制器',
 	'Action'=>'方法',
 	/*end*Menu*/
-
-
-
-
 
 ];

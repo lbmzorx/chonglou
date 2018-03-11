@@ -24,7 +24,7 @@ class StatusCodeColumn extends \yii\grid\DataColumn
     public function init()
     {
         parent::init();
-        if(empty($this->jsOptions)) $this->jsOptions['btn']=[Yii::t('app','ok'),Yii::t('app','cance')];
+        if(empty($this->jsOptions)) $this->jsOptions['btn']=[Yii::t('app','ok'),Yii::t('app','cancel')];
     }
 
     protected function renderFilterCellContent()
@@ -34,7 +34,7 @@ class StatusCodeColumn extends \yii\grid\DataColumn
         $laydateJs =<<<str
             $('.{$this->attribute}-change').click(function(){
                 var sval=$(this).attr('key'),this_dom=$(this),
-                    sid=$(this).attr('id-key');
+                    sid=$(this).attr('data-id');
                 var dom_status_change=$('#{$this->attribute}-change-dom');
                 
                 dom_status_change.find('input[value="'+sval+'"]').prop('checked','true');
@@ -64,6 +64,6 @@ str;
         if(static::$uesed ==0){
             \yii::$app->getView()->registerJs($laydateJs);
         }
-        return parent::renderFooterCellContent();
+        return parent::renderFilterCellContent();
     }
 }

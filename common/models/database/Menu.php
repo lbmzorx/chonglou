@@ -7,8 +7,7 @@ use Yii;
 /**
  * This is the model class for table "{{%menu}}".
  *
- * @property string $id 自增id
- * @property string $sign 英语标识
+ * @property string $id
  * @property int $app_type 菜单类型.0后台,1前台
  * @property int $position 位置。0左，1上
  * @property string $parent_id 上级菜单id
@@ -42,10 +41,9 @@ class Menu extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['sign', 'name', 'url', 'add_time'], 'required'],
             [['app_type', 'position', 'parent_id', 'is_absolute_url', 'is_display', 'add_time', 'edit_time', 'top_id'], 'integer'],
+            [['name', 'url', 'add_time'], 'required'],
             [['sort'], 'number'],
-            [['sign'], 'string', 'max' => 30],
             [['name', 'url', 'icon', 'target'], 'string', 'max' => 255],
             [['module', 'controller', 'action'], 'string', 'max' => 100],
         ];
@@ -57,8 +55,7 @@ class Menu extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('model', 'ID'), //自增id
-            'sign' => Yii::t('model', 'Sign'), //英语标识
+            'id' => Yii::t('model', 'ID'), //
             'app_type' => Yii::t('model', 'App Type'), //菜单类型.0后台,1前台
             'position' => Yii::t('model', 'Position'), //位置。0左，1上
             'parent_id' => Yii::t('model', 'Parent ID'), //上级菜单id

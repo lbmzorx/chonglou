@@ -20,7 +20,7 @@ class Menu extends MenuModel
     {
         return [
             [['id', 'app_type', 'position', 'parent_id', 'is_absolute_url', 'is_display', 'add_time', 'edit_time', 'top_id'], 'integer'],
-            [['sign', 'name', 'url', 'icon', 'target'], 'safe'],
+            [['name', 'url', 'icon', 'target', 'module', 'controller', 'action'], 'safe'],
             [['sort'], 'number'],
         ];
     }
@@ -73,11 +73,13 @@ class Menu extends MenuModel
             'top_id' => $this->top_id,
         ]);
 
-        $query->andFilterWhere(['like', 'sign', $this->sign])
-            ->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'url', $this->url])
             ->andFilterWhere(['like', 'icon', $this->icon])
-            ->andFilterWhere(['like', 'target', $this->target]);
+            ->andFilterWhere(['like', 'target', $this->target])
+            ->andFilterWhere(['like', 'module', $this->module])
+            ->andFilterWhere(['like', 'controller', $this->controller])
+            ->andFilterWhere(['like', 'action', $this->action]);
         $this->trigger(SearchEvent::BEFORE_SEARCH, new SearchEvent(['query'=>$query]));
         return $dataProvider;
     }

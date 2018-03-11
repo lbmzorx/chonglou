@@ -30,14 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\CheckboxColumn'],
 
             'id',
-            'sign',
             [
                'class'=>\common\components\grid\StatusCodeColumn::className(),
                'attribute'=>'app_type',
                'filter'=>common\models\data\Menu::$app_type_code,
                'value'=> function ($model) {
                    return Html::button($model->getStatusCode('app_type','app_type_code'),
-                       ['class'=>'btn btn-xs btn-'.$model->getStatusCss('app_type','app_type_css',0)]);
+                       ['data-id'=>$model->id,'class'=>'app_type-change btn btn-xs btn-'.$model->getStatusCss('app_type','app_type_css',$model->app_type)]);
                },
                'format'=>'raw',
             ],
@@ -47,14 +46,14 @@ $this->params['breadcrumbs'][] = $this->title;
                'filter'=>common\models\data\Menu::$position_code,
                'value'=> function ($model) {
                    return Html::button($model->getStatusCode('position','position_code'),
-                       ['class'=>'btn btn-xs btn-'.$model->getStatusCss('position','position_css',0)]);
+                       ['data-id'=>$model->id,'class'=>'position-change btn btn-xs btn-'.$model->getStatusCss('position','position_css',$model->position)]);
                },
                'format'=>'raw',
             ],
             'parent_id',
             'name',
             'url:url',
-            //'icon',
+            'icon',
             //'sort',
             [
                'class'=>\common\components\grid\StatusCodeColumn::className(),
@@ -62,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                'filter'=>common\models\data\Menu::$target_code,
                'value'=> function ($model) {
                    return Html::button($model->getStatusCode('target','target_code'),
-                       ['class'=>'btn btn-xs btn-'.$model->getStatusCss('target','target_css',0)]);
+                       ['data-id'=>$model->id,'class'=>'target-change btn btn-xs btn-'.$model->getStatusCss('target','target_css',$model->target)]);
                },
                'format'=>'raw',
             ],
@@ -72,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                'filter'=>common\models\data\Menu::$is_absolute_url_code,
                'value'=> function ($model) {
                    return Html::button($model->getStatusCode('is_absolute_url','is_absolute_url_code'),
-                       ['class'=>'btn btn-xs btn-'.$model->getStatusCss('is_absolute_url','is_absolute_url_css',0)]);
+                       ['data-id'=>$model->id,'class'=>'is_absolute_url-change btn btn-xs btn-'.$model->getStatusCss('is_absolute_url','is_absolute_url_css',$model->is_absolute_url)]);
                },
                'format'=>'raw',
             ],
@@ -82,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                'filter'=>common\models\data\Menu::$is_display_code,
                'value'=> function ($model) {
                    return Html::button($model->getStatusCode('is_display','is_display_code'),
-                       ['class'=>'btn btn-xs btn-'.$model->getStatusCss('is_display','is_display_css',0)]);
+                       ['data-id'=>$model->id,'class'=>'is_display-change btn btn-xs btn-'.$model->getStatusCss('is_display','is_display_css',$model->is_display)]);
                },
                'format'=>'raw',
             ],
@@ -95,6 +94,9 @@ $this->params['breadcrumbs'][] = $this->title;
                'attribute'=>'edit_time',
             ],
             //'top_id',
+            //'module',
+            //'controller',
+            //'action',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
@@ -103,128 +105,108 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
-<div id="app_type-change" style="display: none;">
+<div id="app_type-change-dom" style="display: none;">
     <div style="padding: 10px;">
         <?=Html::beginForm(['change-status'],'post')?>
-        <input type="hidden" name="key" value="status">
+        <input type="hidden" name="key" value="app_type">
         <input type="hidden" name="id" value="">
-        <?php foreach ( common\models\data\Menu::$app_type_code as $k=>$v):?>
-            <?php if($k>0):?>
+        <?php foreach ( common\models\data\Menu::$app_type_code as $k=>$v):?>           
             <label class="checkbox-inline" style="margin: 5px 10px;">
                 <?php
                     $css='warning';
                     if( isset(common\models\data\Menu::$app_type_css) && isset(common\models\data\Menu::$app_type_css[$k])){
                         $css = common\models\data\Menu::$app_type_css [$k];
                     }else{
-                        if( isset(\common\components\behaviors\StatusCode::$cssCode[$k]) ){
-                            $css=\common\components\behaviors\StatusCode::$cssCode[$k];
-                        }
+                        $css=isset(\common\components\behaviors\StatusCode::$cssCode[$k])?\common\components\behaviors\StatusCode::$cssCode[$k]:$css;
                     }
                 ?>               
                 <?=Html::input('radio','value',$k)?>
                 <?=Html::tag('span',$v,['class'=>'btn btn-'.$css])?>
-            </label>
-            <?php endif;?>
+            </label>          
         <?php endforeach;?>
         <?=Html::endForm()?>
     </div>
-</div><div id="position-change" style="display: none;">
+</div><div id="position-change-dom" style="display: none;">
     <div style="padding: 10px;">
         <?=Html::beginForm(['change-status'],'post')?>
-        <input type="hidden" name="key" value="status">
+        <input type="hidden" name="key" value="position">
         <input type="hidden" name="id" value="">
-        <?php foreach ( common\models\data\Menu::$position_code as $k=>$v):?>
-            <?php if($k>0):?>
+        <?php foreach ( common\models\data\Menu::$position_code as $k=>$v):?>           
             <label class="checkbox-inline" style="margin: 5px 10px;">
                 <?php
                     $css='warning';
                     if( isset(common\models\data\Menu::$position_css) && isset(common\models\data\Menu::$position_css[$k])){
                         $css = common\models\data\Menu::$position_css [$k];
                     }else{
-                        if( isset(\common\components\behaviors\StatusCode::$cssCode[$k]) ){
-                            $css=\common\components\behaviors\StatusCode::$cssCode[$k];
-                        }
+                        $css=isset(\common\components\behaviors\StatusCode::$cssCode[$k])?\common\components\behaviors\StatusCode::$cssCode[$k]:$css;
                     }
                 ?>               
                 <?=Html::input('radio','value',$k)?>
                 <?=Html::tag('span',$v,['class'=>'btn btn-'.$css])?>
-            </label>
-            <?php endif;?>
+            </label>          
         <?php endforeach;?>
         <?=Html::endForm()?>
     </div>
-</div><div id="target-change" style="display: none;">
+</div><div id="target-change-dom" style="display: none;">
     <div style="padding: 10px;">
         <?=Html::beginForm(['change-status'],'post')?>
-        <input type="hidden" name="key" value="status">
+        <input type="hidden" name="key" value="target">
         <input type="hidden" name="id" value="">
-        <?php foreach ( common\models\data\Menu::$target_code as $k=>$v):?>
-            <?php if($k>0):?>
+        <?php foreach ( common\models\data\Menu::$target_code as $k=>$v):?>           
             <label class="checkbox-inline" style="margin: 5px 10px;">
                 <?php
                     $css='warning';
                     if( isset(common\models\data\Menu::$target_css) && isset(common\models\data\Menu::$target_css[$k])){
                         $css = common\models\data\Menu::$target_css [$k];
                     }else{
-                        if( isset(\common\components\behaviors\StatusCode::$cssCode[$k]) ){
-                            $css=\common\components\behaviors\StatusCode::$cssCode[$k];
-                        }
+                        $css=isset(\common\components\behaviors\StatusCode::$cssCode[$k])?\common\components\behaviors\StatusCode::$cssCode[$k]:$css;
                     }
                 ?>               
                 <?=Html::input('radio','value',$k)?>
                 <?=Html::tag('span',$v,['class'=>'btn btn-'.$css])?>
-            </label>
-            <?php endif;?>
+            </label>          
         <?php endforeach;?>
         <?=Html::endForm()?>
     </div>
-</div><div id="is_absolute_url-change" style="display: none;">
+</div><div id="is_absolute_url-change-dom" style="display: none;">
     <div style="padding: 10px;">
         <?=Html::beginForm(['change-status'],'post')?>
-        <input type="hidden" name="key" value="status">
+        <input type="hidden" name="key" value="is_absolute_url">
         <input type="hidden" name="id" value="">
-        <?php foreach ( common\models\data\Menu::$is_absolute_url_code as $k=>$v):?>
-            <?php if($k>0):?>
+        <?php foreach ( common\models\data\Menu::$is_absolute_url_code as $k=>$v):?>           
             <label class="checkbox-inline" style="margin: 5px 10px;">
                 <?php
                     $css='warning';
                     if( isset(common\models\data\Menu::$is_absolute_url_css) && isset(common\models\data\Menu::$is_absolute_url_css[$k])){
                         $css = common\models\data\Menu::$is_absolute_url_css [$k];
                     }else{
-                        if( isset(\common\components\behaviors\StatusCode::$cssCode[$k]) ){
-                            $css=\common\components\behaviors\StatusCode::$cssCode[$k];
-                        }
+                        $css=isset(\common\components\behaviors\StatusCode::$cssCode[$k])?\common\components\behaviors\StatusCode::$cssCode[$k]:$css;
                     }
                 ?>               
                 <?=Html::input('radio','value',$k)?>
                 <?=Html::tag('span',$v,['class'=>'btn btn-'.$css])?>
-            </label>
-            <?php endif;?>
+            </label>          
         <?php endforeach;?>
         <?=Html::endForm()?>
     </div>
-</div><div id="is_display-change" style="display: none;">
+</div><div id="is_display-change-dom" style="display: none;">
     <div style="padding: 10px;">
         <?=Html::beginForm(['change-status'],'post')?>
-        <input type="hidden" name="key" value="status">
+        <input type="hidden" name="key" value="is_display">
         <input type="hidden" name="id" value="">
-        <?php foreach ( common\models\data\Menu::$is_display_code as $k=>$v):?>
-            <?php if($k>0):?>
+        <?php foreach ( common\models\data\Menu::$is_display_code as $k=>$v):?>           
             <label class="checkbox-inline" style="margin: 5px 10px;">
                 <?php
                     $css='warning';
                     if( isset(common\models\data\Menu::$is_display_css) && isset(common\models\data\Menu::$is_display_css[$k])){
                         $css = common\models\data\Menu::$is_display_css [$k];
                     }else{
-                        if( isset(\common\components\behaviors\StatusCode::$cssCode[$k]) ){
-                            $css=\common\components\behaviors\StatusCode::$cssCode[$k];
-                        }
+                        $css=isset(\common\components\behaviors\StatusCode::$cssCode[$k])?\common\components\behaviors\StatusCode::$cssCode[$k]:$css;
                     }
                 ?>               
                 <?=Html::input('radio','value',$k)?>
                 <?=Html::tag('span',$v,['class'=>'btn btn-'.$css])?>
-            </label>
-            <?php endif;?>
+            </label>          
         <?php endforeach;?>
         <?=Html::endForm()?>
     </div>

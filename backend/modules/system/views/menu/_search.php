@@ -20,15 +20,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'sign') ?>
-
     <?= $form->field($model, 'app_type') ?>
 
     <?= $form->field($model, 'position') ?>
 
     <?= $form->field($model, 'parent_id') ?>
 
-    <?php // echo $form->field($model, 'name') ?>
+    <?= $form->field($model, 'name') ?>
 
     <?php // echo $form->field($model, 'url') ?>
 
@@ -47,6 +45,12 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'edit_time') ?>
 
     <?php // echo $form->field($model, 'top_id') ?>
+
+    <?php // echo $form->field($model, 'module') ?>
+
+    <?php // echo $form->field($model, 'controller') ?>
+
+    <?php // echo $form->field($model, 'action') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

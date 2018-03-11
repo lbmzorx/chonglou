@@ -30,6 +30,7 @@ class LayuiUse extends Widget
 
     public $options=[];
     public $layuiUse=['layerdate'];
+    public $content='';
     public static $used=0;
 
     /**
@@ -63,6 +64,7 @@ class LayuiUse extends Widget
         var laydate;
         layui.use(['laydate'], function(){
             laydate=layui.laydate;
+            {$this->content}
         });
 SCRITYT
             );

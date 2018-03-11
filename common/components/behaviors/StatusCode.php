@@ -12,7 +12,7 @@ use yii\base\Behavior;
 
 class StatusCode extends Behavior
 {
-    public static $cssCode=['cssCode'=>[0=>'warning',1=>'success',2=>'danger',3=>'info',4=>'primary',],];
+    public static $cssCode=[0=>'warning',1=>'success',2=>'danger',3=>'info',4=>'primary',];
 
     /**
      * 获取状态码

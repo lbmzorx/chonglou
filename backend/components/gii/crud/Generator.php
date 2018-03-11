@@ -114,7 +114,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 "               'filter'=>{$this->modelClass}::\${$column}_code,\n".
 "               'value'=> function (\$model) {\n".
 "                   return Html::button(\$model->getStatusCode('{$column}','{$column}_code'),\n".
-"                       ['class'=>'btn btn-xs btn-'.\$model->getStatusCss('{$column}','{$column}_css',0)]);\n".
+"                       ['data-id'=>\$model->id,'class'=>'{$column}-change btn btn-xs btn-'.\$model->getStatusCss('{$column}','{$column}_css',\$model->{$column})]);\n".
 "               },\n".
 "               'format'=>'raw',\n".
 "            ]";
@@ -141,28 +141,24 @@ class Generator extends \yii\gii\generators\crud\Generator
     public function generateStatusCodeDom($column){
         $string=
             <<<DOM
-<div id="{$column}-change" style="display: none;">
+<div id="{$column}-change-dom" style="display: none;">
     <div style="padding: 10px;">
         <?=Html::beginForm(['change-status'],'post')?>
-        <input type="hidden" name="key" value="status">
+        <input type="hidden" name="key" value="{$column}">
         <input type="hidden" name="id" value="">
-        <?php foreach ( {$this->modelClass}::\${$column}_code as \$k=>\$v):?>
-            <?php if(\$k>0):?>
+        <?php foreach ( {$this->modelClass}::\${$column}_code as \$k=>\$v):?>           
             <label class="checkbox-inline" style="margin: 5px 10px;">
                 <?php
                     \$css='warning';
                     if( isset({$this->modelClass}::\${$column}_css) && isset({$this->modelClass}::\${$column}_css[\$k])){
                         \$css = {$this->modelClass}::\${$column}_css [\$k];
                     }else{
-                        if( isset(\common\components\behaviors\StatusCode::\$cssCode[\$k]) ){
-                            \$css=\common\components\behaviors\StatusCode::\$cssCode[\$k];
-                        }
+                        \$css=isset(\common\components\behaviors\StatusCode::\$cssCode[\$k])?\common\components\behaviors\StatusCode::\$cssCode[\$k]:\$css;
                     }
                 ?>               
                 <?=Html::input('radio','value',\$k)?>
                 <?=Html::tag('span',\$v,['class'=>'btn btn-'.\$css])?>
-            </label>
-            <?php endif;?>
+            </label>          
         <?php endforeach;?>
         <?=Html::endForm()?>
     </div>

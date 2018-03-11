@@ -39,12 +39,16 @@ class DateTimeColumn extends \yii\grid\DataColumn
 
     protected function renderFilterCellContent()
     {
-        $config=json_encode($this->layerOptions);
         $laydateJs =<<<str
             $('.date-time').each(function(){
                 laydate.render({
                     elem: this,
-                    {$config},              
+                    type: '{$this->layerOptions['type']}',
+                    range: '{$this->layerOptions['range']}',
+                    theme: '{$this->layerOptions['theme']}',
+                    max: {$this->layerOptions['max']},
+                    //显示公历
+                    calendar: {$this->layerOptions['calendar']},          
                     done: function(value, date, endDate){                    
                         $(this).val(value);
                         $(this.elem).change();                   
@@ -57,10 +61,10 @@ class DateTimeColumn extends \yii\grid\DataColumn
                 });
             });
 str;
-      LayuiUse::widget([]);
-        if(static::$layUsed==0){
-            yii::$app->getView()->registerJs($laydateJs);
-        }
+      LayuiUse::widget(['content'=>$laydateJs]);
+//        if(static::$layUsed==0){
+//            yii::$app->getView()->registerJs($laydateJs);
+//        }
 
         if ($this->grid->filterModel->hasErrors($this->attribute)) {
             Html::addCssClass($this->filterOptions, 'has-error');

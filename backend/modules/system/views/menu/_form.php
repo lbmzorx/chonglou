@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'sign')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'app_type')->textInput() ?>
 
     <?= $form->field($model, 'position')->textInput() ?>
@@ -39,6 +37,12 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'edit_time')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'top_id')->textInput() ?>
+
+    <?= $form->field($model, 'module')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'controller')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'action')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

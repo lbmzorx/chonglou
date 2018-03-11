@@ -69,7 +69,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     {
         return [
 <?php foreach ($labels as $name => $label): ?>
-            <?= "'$name' => " . $generator->generateString($label) . ",\n" ?>
+            <?= "'$name' => " . $generator->generateString($label) . "," ?> //<?php if($generator->labelExplain==true) echo $properties[$name]['comment']?><?="\n"?>
 <?php endforeach; ?>
         ];
     }
@@ -98,3 +98,8 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     }
 <?php endif; ?>
 }
+
+
+<?php
+
+?>

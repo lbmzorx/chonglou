@@ -65,38 +65,39 @@ class Leftmenu extends Widget
 
     public function renderSide(){
 
-//        $cache=$this->getCache();
-//        $key = ['top','top'=>$this->top,__METHOD__];
-//        $string=$cache->get($key);
-//        if( $string ){
-//            return $string;
-//        }
+        $cache=$this->getCache();
+        $key = ['top','top'=>$this->top,__METHOD__];
+        $string=$cache->get($key);
+        if( $string ){
+            return $string;
+        }
         $string='';
         if($menu=$this->getMenuSide()){
             foreach ($menu as $k=>$v){
                 if(!empty($v['sub'])) {
-                    $string .= '<li><a href="#' . md5($v['url'].$v['sign']) . '" data-toggle="collapse"' .
+                    $string .= '<li data-id=""><a href="#' . md5($v['url'].$v['sign']) . '" data-toggle="collapse"' .
                         'class="' . ($v['sign'] == $this->left ? 'active' : 'collapsed') . '"' .
                         'aria-expanded="'. ($v['sign'] == $this->left ? 'true' : 'false') . '">' .
-                        '<i class="' . $v['icon'] . '"></i>' .
-                        '<span>' . Html::encode($v['name']) . '</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>' .
-                        '<div id="' . md5($v['url'].$v['sign']) . '"' .
-                        'class="' . ($v['sign'] == $this->left ? 'collapse in' : 'collapse') . '">' .
-                        '<ul class="nav">';
+                            '<i class="' . Html::encode($v['icon']) . '"></i>' .
+                            '<span>' . Html::encode($v['name']) . '</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>' .
+                            '<div id="' . md5($v['url'].$v['sign']) . '"' .
+                            'class="' . ($v['sign'] == $this->left ? 'collapse in' : 'collapse') . '">' .
+                            '<ul class="nav">';
                     foreach ($v['sub'] as $vv) {
                         $string .= '<li><a href="' . Html::encode($vv['url']) . '" class="' . ($this->leftsub == $vv['sign'] ? 'active' : '') . '">' .
+                            '<i class="' . Html::encode($v['icon']) . '"></i>' .
                             Html::encode($vv['name']) . '</a></li>';
                     };
                     $string .= '</ul></div></li>';
                 }else{
                     $string.='<li><a href="'.Html::encode($v['url']).'" class="'.($this->left==$v['sign']?'active':'').'">'.
-                        '<i class="'.$v['icon'].'"></i> <span>'.Html::encode($v['name']).'</span></a></li>';
+                        '<i class="'.Html::encode($v['icon']).'"></i> <span>'.Html::encode($v['name']).'</span></a></li>';
                 }
             }
         }
 
-//        $dependency = new \yii\caching\FileDependency(['fileName' => $this->depency_filename]);
-//        $cache->set($key,$string,$this->duration,$dependency);
+        $dependency = new \yii\caching\FileDependency(['fileName' => $this->depency_filename]);
+        $cache->set($key,$string,$this->duration,$dependency);
 
         return $string;
     }

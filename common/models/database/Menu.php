@@ -10,7 +10,7 @@ use Yii;
  * @property string $id 自增id
  * @property string $sign 英语标识
  * @property int $app_type 菜单类型.0后台,1前台
- * @property int $position 位置，0左，1上
+ * @property int $position 位置。0左，1上
  * @property string $parent_id 上级菜单id
  * @property string $name 名称
  * @property string $url url地址
@@ -22,6 +22,9 @@ use Yii;
  * @property string $add_time 创建时间
  * @property string $edit_time 修改时间
  * @property int $top_id 顶部菜单
+ * @property string $module 模块
+ * @property string $controller 控制器
+ * @property string $action 方法
  */
 class Menu extends \yii\db\ActiveRecord
 {
@@ -44,6 +47,7 @@ class Menu extends \yii\db\ActiveRecord
             [['sort'], 'number'],
             [['sign'], 'string', 'max' => 30],
             [['name', 'url', 'icon', 'target'], 'string', 'max' => 255],
+            [['module', 'controller', 'action'], 'string', 'max' => 100],
         ];
     }
 
@@ -53,21 +57,26 @@ class Menu extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('menu', '自增id'),
-            'sign' => Yii::t('menu', '英语标识'),
-            'app_type' => Yii::t('menu', '菜单类型'),//.0后台,1前台
-            'position' => Yii::t('menu', '位置'),//，0左，1上
-            'parent_id' => Yii::t('menu', '上级菜单id'),
-            'name' => Yii::t('menu', '名称'),
-            'url' => Yii::t('menu', 'url地址'),
-            'icon' => Yii::t('menu', '图标'),
-            'sort' => Yii::t('menu', '排序'),
-            'target' => Yii::t('menu', '打开方式'),//._blank新窗口,_self本窗口
-            'is_absolute_url' => Yii::t('menu', '是否绝对地址'),
-            'is_display' => Yii::t('menu', '是否显示'),//.0否,1是
-            'add_time' => Yii::t('menu', '创建时间'),
-            'edit_time' => Yii::t('menu', '修改时间'),
-            'top_id' => Yii::t('menu', '顶部菜单'),
+            'id' => Yii::t('model', 'ID'), //自增id
+            'sign' => Yii::t('model', 'Sign'), //英语标识
+            'app_type' => Yii::t('model', 'App Type'), //菜单类型.0后台,1前台
+            'position' => Yii::t('model', 'Position'), //位置。0左，1上
+            'parent_id' => Yii::t('model', 'Parent ID'), //上级菜单id
+            'name' => Yii::t('model', 'Name'), //名称
+            'url' => Yii::t('model', 'Url'), //url地址
+            'icon' => Yii::t('model', 'Icon'), //图标
+            'sort' => Yii::t('model', 'Sort'), //排序
+            'target' => Yii::t('model', 'Target'), //打开方式._blank新窗口,_self本窗口
+            'is_absolute_url' => Yii::t('model', 'Is Absolute Url'), //是否绝对地址
+            'is_display' => Yii::t('model', 'Is Display'), //是否显示.0否,1是
+            'add_time' => Yii::t('model', 'Add Time'), //创建时间
+            'edit_time' => Yii::t('model', 'Edit Time'), //修改时间
+            'top_id' => Yii::t('model', 'Top ID'), //顶部菜单
+            'module' => Yii::t('model', 'Module'), //模块
+            'controller' => Yii::t('model', 'Controller'), //控制器
+            'action' => Yii::t('model', 'Action'), //方法
         ];
     }
 }
+
+

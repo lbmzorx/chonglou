@@ -5,7 +5,15 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-
+        'i18n' => [
+            'translations' => [//多语言包设置
+                'model' => [
+                    'class' => yii\i18n\PhpMessageSource::className(),
+                    'basePath' => '@common/messages',
+//                    'sourceLanguage' => 'zh-CN',
+                ],
+            ],
+        ],
         'assetManager' => [
             'bundles' => [
                 'yii\web\JqueryAsset' => [
@@ -37,5 +45,5 @@ return [
 
     ],
     'timeZone' => 'Asia/Shanghai',
-    'language'=>'zh-CN',
+//    'language'=>'zh-CN',
 ];

@@ -15,16 +15,16 @@ class Rsa extends Model
 {
     public $rsaClass='common\component\tools\Rsaenctype';
     public $rsaConfig=[];
-    public $sessionRsaKey='rsa_key';
+    public static $sessionRsaKey='rsa_key';
     /**
-     * @var \common\component\tools\Rsaenctype $_rsa
+     * @var \common\components\tools\Rsaenctype $_rsa
      */
     private $_rsa;
 
 
     /**
      * 获取rsa
-     * @return \common\component\tools\Rsaenctype|object
+     * @return \common\components\tools\Rsaenctype|object
      */
     public function getRsa(){
         if($this->_rsa==null){
@@ -76,19 +76,44 @@ class Rsa extends Model
     }
 
     /**
+     *
+     * @param array $config
+     * @return object \common\components\tools\Rsaenctype
+     */
+    public static function createRsa($config=[]){
+        $config['class']=isset($config['class'])?:(static::className());
+        $rsa =\yii::createObject($config);
+        return $rsa;
+    }
+
+    /**
      * 获取公钥
      * @return mixed
      */
-    public function getPubKey(){
-        if($sessionRsa=$this->getSessionRsa() == false){
-            $rsa=$this->getRsa();
-            if($rsa->pubKey ==null ){
-                $rsa->create_key();
-                return $rsa->pubKey;
+    public static function getPubKey(){
+        $session=\yii::$app->getSession();
+        if( $rsa=$session->get(static::$sessionRsaKey)){
+            if( $rsa['public_key'] ){
+                return $rsa['public_key'];
             }
-        }else{
-            return $sessionRsa['public_key'];
         }
+        $rsa = static::createRsa();
+        $rsa->getRsa()->create_key();
+        return $rsa->_rsa->pubKey;
+    }
+
+    /**
+     * 解密
+     * @return bool|string
+     */
+    public static function decrypt(){
+        if(($rsaKey=\yii::$app->session->get(static::$sessionRsaKey))){
+            if( isset($rsaKey['private_key'])){
+                $rsa=static ::createRsa();
+                return $rsa->getRsa()->private_decrypt($rsaKey['private_key']);
+            }
+        }
+        return false;
     }
 
     /**

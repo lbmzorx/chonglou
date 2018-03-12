@@ -7,7 +7,7 @@
  */
 namespace common\components\behaviors;
 
-
+use Yii;
 use yii\base\Behavior;
 
 class StatusCode extends Behavior
@@ -24,7 +24,7 @@ class StatusCode extends Behavior
      public function getStatusCode($attribute,$statuCode,$default=''){
          $class=get_class($this->owner);
          $value=$this->owner->{$attribute};
-         return isset($class::${$statuCode}[$value])?($class::${$statuCode}[$value]):$default;
+         return isset($class::${$statuCode}[$value])?Yii::t('app',$class::${$statuCode}[$value]):$default;
     }
 
     public function getStatusCss($attribute,$statuCode,$default=0){
@@ -36,6 +36,14 @@ class StatusCode extends Behavior
             }
         }
         return isset(static::$cssCode[$default])?static::$cssCode[$default]:$default;
+    }
+
+    public static function tranStatusCode($statusCode,$category){
+        $tran=[];
+        foreach ($statusCode  as $k=>$v){
+            $tran[$k]=Yii::t($category,$v);
+        }
+        return $tran;
     }
 
 }

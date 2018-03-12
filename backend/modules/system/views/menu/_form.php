@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use common\models\data\Menu;
+use common\components\behaviors\StatusCode;
 /* @var $this yii\web\View */
 /* @var $model common\models\data\Menu */
 /* @var $form yii\widgets\ActiveForm */
@@ -18,10 +19,10 @@ use yii\widgets\ActiveForm;
 
 <div class="row">
 	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'app_type')->textInput() ?>
+	    <?= $form->field($model, 'app_type')->dropDownList(StatusCode::tranStatusCode(Menu::$app_type_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>
 	</div>
 	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'position')->textInput() ?>
+	    <?= $form->field($model, 'position')->dropDownList(StatusCode::tranStatusCode(Menu::$position_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>
 	</div>
 	<div class="col-lg-3 col-sm-3">
 	    <?= $form->field($model, 'parent_id')->textInput(['maxlength' => true]) ?>
@@ -43,35 +44,27 @@ use yii\widgets\ActiveForm;
 	    <?= $form->field($model, 'sort')->textInput() ?>
 	</div>
 	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'target')->textInput(['maxlength' => true]) ?>
+	    <?= $form->field($model, 'target')->dropDownList(StatusCode::tranStatusCode(Menu::$target_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>
 	</div>
 	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'is_absolute_url')->textInput() ?>
+	    <?= $form->field($model, 'is_absolute_url')->dropDownList(StatusCode::tranStatusCode(Menu::$is_absolute_url_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>
 	</div>
 </div>
 <div class="row">
 	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'is_display')->textInput() ?>
+	    <?= $form->field($model, 'is_display')->dropDownList(StatusCode::tranStatusCode(Menu::$is_display_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>
 	</div>
-	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'add_time')->textInput(['maxlength' => true]) ?>
-	</div>
-	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'edit_time')->textInput(['maxlength' => true]) ?>
-	</div>
-</div>
-<div class="row">
 	<div class="col-lg-3 col-sm-3">
 	    <?= $form->field($model, 'top_id')->textInput() ?>
 	</div>
 	<div class="col-lg-3 col-sm-3">
 	    <?= $form->field($model, 'module')->textInput(['maxlength' => true]) ?>
 	</div>
+</div>
+<div class="row">
 	<div class="col-lg-3 col-sm-3">
 	    <?= $form->field($model, 'controller')->textInput(['maxlength' => true]) ?>
 	</div>
-</div>
-<div class="row">
 	<div class="col-lg-3 col-sm-3">
 	    <?= $form->field($model, 'action')->textInput(['maxlength' => true]) ?>
 	</div>
@@ -79,7 +72,7 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <div class="col-lg-12 col-sm-12">
             <div class="form-group">
-                <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton(Yii::t('app',Yii::t('app', 'Save')), ['class' => 'btn btn-success']) ?>
             </div>
         </div>
     </div>

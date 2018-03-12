@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php endif; ?>
 
     <p>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Create ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>, ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+        <?= "<?= " ?>Html::a('<i class="fa fa-plus-square"></i> '.<?= $generator->generateString('Create ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>, ['create'], ['class' => 'btn btn-success']) ?>
         <?= "<?= " ?>BatchDelete::widget(['name'=>'Batch Deletes']) ?>
     </p>
 

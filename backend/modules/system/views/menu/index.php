@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Menu'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+        <?= Html::a('<i class="fa fa-plus-square"></i> '.Yii::t('app', 'Create Menu'), ['create'], ['class' => 'btn btn-success']) ?>
         <?= BatchDelete::widget(['name'=>'Batch Deletes']) ?>
     </p>
 
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                'class'=>\common\components\grid\StatusCodeColumn::className(),
                'attribute'=>'app_type',
-               'filter'=>common\models\data\Menu::$app_type_code,
+               'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Menu::$app_type_code,'app'),
                'value'=> function ($model) {
                    return Html::button($model->getStatusCode('app_type','app_type_code'),
                        ['data-id'=>$model->id,'class'=>'app_type-change btn btn-xs btn-'.$model->getStatusCss('app_type','app_type_css',$model->app_type)]);
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                'class'=>\common\components\grid\StatusCodeColumn::className(),
                'attribute'=>'position',
-               'filter'=>common\models\data\Menu::$position_code,
+               'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Menu::$position_code,'app'),
                'value'=> function ($model) {
                    return Html::button($model->getStatusCode('position','position_code'),
                        ['data-id'=>$model->id,'class'=>'position-change btn btn-xs btn-'.$model->getStatusCss('position','position_css',$model->position)]);
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                'class'=>\common\components\grid\StatusCodeColumn::className(),
                'attribute'=>'target',
-               'filter'=>common\models\data\Menu::$target_code,
+               'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Menu::$target_code,'app'),
                'value'=> function ($model) {
                    return Html::button($model->getStatusCode('target','target_code'),
                        ['data-id'=>$model->id,'class'=>'target-change btn btn-xs btn-'.$model->getStatusCss('target','target_css',$model->target)]);
@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                'class'=>\common\components\grid\StatusCodeColumn::className(),
                'attribute'=>'is_absolute_url',
-               'filter'=>common\models\data\Menu::$is_absolute_url_code,
+               'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Menu::$is_absolute_url_code,'app'),
                'value'=> function ($model) {
                    return Html::button($model->getStatusCode('is_absolute_url','is_absolute_url_code'),
                        ['data-id'=>$model->id,'class'=>'is_absolute_url-change btn btn-xs btn-'.$model->getStatusCss('is_absolute_url','is_absolute_url_css',$model->is_absolute_url)]);
@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                'class'=>\common\components\grid\StatusCodeColumn::className(),
                'attribute'=>'is_display',
-               'filter'=>common\models\data\Menu::$is_display_code,
+               'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Menu::$is_display_code,'app'),
                'value'=> function ($model) {
                    return Html::button($model->getStatusCode('is_display','is_display_code'),
                        ['data-id'=>$model->id,'class'=>'is_display-change btn btn-xs btn-'.$model->getStatusCss('is_display','is_display_css',$model->is_display)]);
@@ -123,7 +123,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ?>               
                 <?=Html::input('radio','value',$k)?>
-                <?=Html::tag('span',$v,['class'=>'btn btn-'.$css])?>
+                <?=Html::tag('span',\Yii::t('app',$v),['class'=>'btn btn-'.$css])?>
             </label>          
         <?php endforeach;?>
         <?=Html::endForm()?>
@@ -144,7 +144,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ?>               
                 <?=Html::input('radio','value',$k)?>
-                <?=Html::tag('span',$v,['class'=>'btn btn-'.$css])?>
+                <?=Html::tag('span',\Yii::t('app',$v),['class'=>'btn btn-'.$css])?>
             </label>          
         <?php endforeach;?>
         <?=Html::endForm()?>
@@ -165,7 +165,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ?>               
                 <?=Html::input('radio','value',$k)?>
-                <?=Html::tag('span',$v,['class'=>'btn btn-'.$css])?>
+                <?=Html::tag('span',\Yii::t('app',$v),['class'=>'btn btn-'.$css])?>
             </label>          
         <?php endforeach;?>
         <?=Html::endForm()?>
@@ -186,7 +186,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ?>               
                 <?=Html::input('radio','value',$k)?>
-                <?=Html::tag('span',$v,['class'=>'btn btn-'.$css])?>
+                <?=Html::tag('span',\Yii::t('app',$v),['class'=>'btn btn-'.$css])?>
             </label>          
         <?php endforeach;?>
         <?=Html::endForm()?>
@@ -207,7 +207,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ?>               
                 <?=Html::input('radio','value',$k)?>
-                <?=Html::tag('span',$v,['class'=>'btn btn-'.$css])?>
+                <?=Html::tag('span',\Yii::t('app',$v),['class'=>'btn btn-'.$css])?>
             </label>          
         <?php endforeach;?>
         <?=Html::endForm()?>

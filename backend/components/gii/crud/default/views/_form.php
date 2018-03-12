@@ -18,7 +18,10 @@ echo "<?php\n";
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use <?=$generator->modelClass?>;
+<?php if($generator->changeStatus):?>
+use common\components\behaviors\StatusCode;
+<?php endif;?>
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
 /* @var $form yii\widgets\ActiveForm */
@@ -34,6 +37,18 @@ use yii\widgets\ActiveForm;
 
 <?php foreach ($generator->getColumnNames() as $attribute) {
     if (in_array($attribute, $safeAttributes)) {
+        if($generator->timedate){
+            $time=explode(',',$generator->timedate);
+            $status=false;
+            foreach ($time as $s){
+                if($s==$attribute){
+                    $status=true;
+                }
+            }
+            if($status==true){
+                continue;
+            }
+        }
         $count++;
         if($count==1){
             echo "<div class=\"row\">"."\n";
@@ -61,7 +76,7 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <div class="col-lg-12 col-sm-12">
             <div class="form-group">
-                <?= "<?= " ?>Html::submitButton(<?= $generator->generateString('Save') ?>, ['class' => 'btn btn-success']) ?>
+                <?= "<?= " ?>Html::submitButton(Yii::t('<?=$generator->messageCategory?>',<?= $generator->generateString('Save') ?>), ['class' => 'btn btn-success']) ?>
             </div>
         </div>
     </div>

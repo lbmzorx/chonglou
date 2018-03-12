@@ -9,6 +9,9 @@ namespace backend\components\gii\crud;
 
 use Yii;
 use yii\gii\CodeFile;
+use yii\helpers\Inflector;
+use yii\helpers\StringHelper;
+
 /**
  * Generates CRUD
  *
@@ -104,6 +107,63 @@ class Generator extends \yii\gii\generators\crud\Generator
         return $files;
     }
 
+    /**
+     * Generates code for active field
+     * @param string $attribute
+     * @return string
+     */
+    public function generateActiveField($attribute)
+    {
+        $tableSchema = $this->getTableSchema();
+        if ($tableSchema === false || !isset($tableSchema->columns[$attribute])) {
+            if (preg_match('/^(password|pass|passwd|passcode)$/i', $attribute)) {
+                return "\$form->field(\$model, '$attribute')->passwordInput()";
+            }
+
+            return "\$form->field(\$model, '$attribute')";
+        }
+        $column = $tableSchema->columns[$attribute];
+        if ($column->phpType === 'boolean') {
+            return "\$form->field(\$model, '$attribute')->checkbox()";
+        }
+
+        if($this->changeStatus){
+            $status=explode(',',$this->changeStatus);
+            foreach ($status as $s){
+                if($s==$column->name){
+                    $className=StringHelper::basename($this->modelClass);
+                    return "\$form->field(\$model, '$attribute')->dropDownList(StatusCode::tranStatusCode({$className}::\${$column->name}_code,'{$this->messageCategory}'),['prompt'=>\\Yii::t('{$this->messageCategory}','Please Select')])";
+                }
+            }
+        }
+
+        if ($column->type === 'text') {
+            return "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
+        }
+
+        if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name)) {
+            $input = 'passwordInput';
+        } else {
+            $input = 'textInput';
+        }
+
+        if (is_array($column->enumValues) && count($column->enumValues) > 0) {
+            $dropDownOptions = [];
+            foreach ($column->enumValues as $enumValue) {
+                $dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
+            }
+            return "\$form->field(\$model, '$attribute')->dropDownList("
+                . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)).", ['prompt' => ''])";
+        }
+
+        if ($column->phpType !== 'string' || $column->size === null) {
+            return "\$form->field(\$model, '$attribute')->$input()";
+        }
+
+        return "\$form->field(\$model, '$attribute')->$input(['maxlength' => true])";
+    }
+
+
     public function generateStatusCodeColum($column){
         if($this->changeStatus){
             $changeStatus=explode(',',$this->changeStatus);
@@ -111,7 +171,7 @@ class Generator extends \yii\gii\generators\crud\Generator
                 $string="[\n".
 "               'class'=>\common\components\grid\StatusCodeColumn::className(),\n".
 "               'attribute'=>'{$column}',\n".
-"               'filter'=>{$this->modelClass}::\${$column}_code,\n".
+"               'filter'=>\common\components\behaviors\StatusCode::tranStatusCode({$this->modelClass}::\${$column}_code,'{$this->messageCategory}'),\n".
 "               'value'=> function (\$model) {\n".
 "                   return Html::button(\$model->getStatusCode('{$column}','{$column}_code'),\n".
 "                       ['data-id'=>\$model->id,'class'=>'{$column}-change btn btn-xs btn-'.\$model->getStatusCss('{$column}','{$column}_css',\$model->{$column})]);\n".
@@ -157,7 +217,7 @@ class Generator extends \yii\gii\generators\crud\Generator
                     }
                 ?>               
                 <?=Html::input('radio','value',\$k)?>
-                <?=Html::tag('span',\$v,['class'=>'btn btn-'.\$css])?>
+                <?=Html::tag('span',\Yii::t('{$this->messageCategory}',\$v),['class'=>'btn btn-'.\$css])?>
             </label>          
         <?php endforeach;?>
         <?=Html::endForm()?>

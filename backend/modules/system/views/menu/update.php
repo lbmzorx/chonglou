@@ -13,9 +13,9 @@ $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="menu-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <?= \yii\widgets\Breadcrumbs::widget([
+    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

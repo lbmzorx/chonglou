@@ -14,9 +14,12 @@ return [
     'top'=>'上',
     'ok'=>'确定',
     'cancel'=>'取消',
+    'Update'=>'更新',
 
     'Save'=>'保存',
     'Menus'=>'菜单',
     'Create Menu'=>'创建菜单',
+    'Update Menu'=>'编辑菜单',
+    'Update Menu: {nameAttribute}'=>'更新菜单: {nameAttribute}',
 
 ];

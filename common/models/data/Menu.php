@@ -11,12 +11,12 @@ use Yii;
 class Menu extends \common\models\database\Menu
 {
 
-    const MENU_APP_TYPE_FRONTEND = 0;
-    const MENU_APP_TYPE_BACKEND = 1;
+    const MENU_APP_TYPE_BACKEND = 0;
+    const MENU_APP_TYPE_FRONTEND = 1;
     /**
      * @var array $app_type_code 菜单类型.0后台,1前台
      */
-    public static $app_type_code = [0=>'frontend',1=>'backend',];
+    public static $app_type_code = [0=>'backend',1=>'frontend',];
 
     const MENU_POSITION_LEFT = 0;
     const MENU_POSITION_TOP = 1;

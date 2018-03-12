@@ -22,6 +22,8 @@ class Leftmenu extends Widget
     public $leftsub='';
     public $leftleftsub='';
 
+    public $allpath='';
+
     public $options=[];
 
     public $depency;
@@ -65,39 +67,39 @@ class Leftmenu extends Widget
 
     public function renderSide(){
 
-        $cache=$this->getCache();
-        $key = ['top','top'=>$this->top,__METHOD__];
-        $string=$cache->get($key);
-        if( $string ){
-            return $string;
-        }
+//        $cache=$this->getCache();
+//        $key = ['top','top'=>$this->top,__METHOD__];
+//        $string=$cache->get($key);
+//        if( $string ){
+//            return $string;
+//        }
         $string='';
         if($menu=$this->getMenuSide()){
             foreach ($menu as $k=>$v){
                 if(!empty($v['sub'])) {
-                    $string .= '<li data-id=""><a href="#' . md5($v['url'].$v['sign']) . '" data-toggle="collapse"' .
-                        'class="' . ($v['sign'] == $this->left ? 'active' : 'collapsed') . '"' .
-                        'aria-expanded="'. ($v['sign'] == $this->left ? 'true' : 'false') . '">' .
+                    $string .= '<li data-id=""><a href="#' . md5($v['url'].$v['module']) . '" data-toggle="collapse"' .
+                        'class="' . ($v['module'] == $this->left ? 'active' : 'collapsed') . '"' .
+                        'aria-expanded="'. ($v['module'] == $this->left ? 'true' : 'false') . '">' .
                             '<i class="' . Html::encode($v['icon']) . '"></i>' .
                             '<span>' . Html::encode($v['name']) . '</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>' .
-                            '<div id="' . md5($v['url'].$v['sign']) . '"' .
-                            'class="' . ($v['sign'] == $this->left ? 'collapse in' : 'collapse') . '">' .
+                            '<div id="' . md5($v['url'].$v['module']) . '"' .
+                            'class="' . ($v['module'] == $this->left ? 'collapse in' : 'collapse') . '">' .
                             '<ul class="nav">';
                     foreach ($v['sub'] as $vv) {
-                        $string .= '<li><a href="' . Html::encode($vv['url']) . '" class="' . ($this->leftsub == $vv['sign'] ? 'active' : '') . '">' .
+                        $string .= '<li><a href="' . Html::encode($vv['url']) . '" class="' . ($this->leftsub == $vv['controller'] ? 'active' : '') . '">' .
                             '<i class="' . Html::encode($v['icon']) . '"></i>' .
                             Html::encode($vv['name']) . '</a></li>';
                     };
                     $string .= '</ul></div></li>';
                 }else{
-                    $string.='<li><a href="'.Html::encode($v['url']).'" class="'.($this->left==$v['sign']?'active':'').'">'.
+                    $string.='<li><a href="'.Html::encode($v['url']).'" class="'.($this->left==$v['module']?'active':'').'">'.
                         '<i class="'.Html::encode($v['icon']).'"></i> <span>'.Html::encode($v['name']).'</span></a></li>';
                 }
             }
         }
 
-        $dependency = new \yii\caching\FileDependency(['fileName' => $this->depency_filename]);
-        $cache->set($key,$string,$this->duration,$dependency);
+//        $dependency = new \yii\caching\FileDependency(['fileName' => $this->depency_filename]);
+//        $cache->set($key,$string,$this->duration,$dependency);
 
         return $string;
     }
@@ -110,7 +112,7 @@ class Leftmenu extends Widget
             'app_type'=>Menu::MENU_APP_TYPE_BACKEND,
             'is_display'=>Menu::MENU_IS_DISPLAY_YES,
             'position'=>Menu::MENU_POSITION_LEFT,
-        ])->andFilterWhere(['top_id'=>$this->top])->orderBy(['sort'=>SORT_ASC])->asArray()->all();
+        ])->andFilterWhere(['top_id'=>$this->top])->orderBy(['id'=>SORT_ASC,'sort'=>SORT_ASC])->asArray()->all();
 
         return Cate::array_cate_as_subarray($menu,0,'parent_id');
     }

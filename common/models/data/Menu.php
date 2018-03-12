@@ -52,8 +52,75 @@ class Menu extends \common\models\database\Menu
     public function rules()
     {
         return array_merge(parent::rules(),[
-
+            [['app_type'], 'in', 'range' => [0,1,],],
+            [['position'], 'in', 'range' => [0,1,],],
+            [['target'], 'in', 'range' => [0,1,],],
+            [['is_display'], 'in', 'range' => [0,1,],],
+            [['is_absolute_url'], 'in', 'range' => [0,1,],],
         ]);
+    }
+
+    /**
+    * @inheritdoc
+    */
+    public function scenarios()
+    {
+        return [
+            'default' => [
+                'app_type',
+                'position',
+                'parent_id',
+                'name',
+                'url',
+                'icon',
+                'sort',
+                'target',
+                'is_absolute_url',
+                'is_display',
+                'top_id',
+                'module',
+                'controller',
+                'action',
+            ],
+            'search' => [
+                'id',
+                'app_type',
+                'position',
+                'parent_id',
+                'name',
+                'url',
+                'icon',
+                'sort',
+                'target',
+                'is_absolute_url',
+                'is_display',
+                'add_time',
+                'edit_time',
+                'top_id',
+                'module',
+                'controller',
+                'action',
+            ],
+            'frontend' => [
+                'id',
+                'app_type',
+                'position',
+                'parent_id',
+                'name',
+                'url',
+                'icon',
+                'sort',
+                'target',
+                'is_absolute_url',
+                'is_display',
+                'add_time',
+                'edit_time',
+                'top_id',
+                'module',
+                'controller',
+                'action',
+            ],
+        ];
     }
 
     /**

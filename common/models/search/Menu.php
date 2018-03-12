@@ -19,9 +19,10 @@ class Menu extends MenuModel
     public function rules()
     {
         return [
-            [['id', 'app_type', 'position', 'parent_id', 'is_absolute_url', 'is_display', 'add_time', 'edit_time', 'top_id'], 'integer'],
+            [['id', 'app_type', 'position', 'parent_id', 'is_absolute_url', 'is_display', 'top_id'], 'integer'],
             [['name', 'url', 'icon', 'target', 'module', 'controller', 'action'], 'safe'],
             [['sort'], 'number'],
+            [['add_time','edit_time'],'string'],
         ];
     }
 

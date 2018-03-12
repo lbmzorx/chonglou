@@ -49,6 +49,11 @@ use common\components\behaviors\StatusCode;
                 continue;
             }
         }
+
+        if(strtolower($attribute)=='id'){
+            continue;
+        }
+
         $count++;
         if($count==1){
             echo "<div class=\"row\">"."\n";

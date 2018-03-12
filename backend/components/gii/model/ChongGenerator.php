@@ -195,7 +195,6 @@ class ChongGenerator extends Generator
                     continue;
                 }
             }elseif(preg_match('/(\''.$label.'\'=>\')/',$common_content,$matcha)){
-                var_dump($label);
                 continue;
             }
             $labels[$label] =preg_replace('/[\.]/',"',//",$property['comment']);

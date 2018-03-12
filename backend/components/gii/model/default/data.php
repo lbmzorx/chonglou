@@ -53,8 +53,42 @@ class <?= $dataClass?> extends \<?= $modelFullClassName?>
     public function rules()
     {
         return array_merge(parent::rules(),[
-
+<?php foreach ($statusCodes as $bcode ):?>
+<?php if($generator->keysExist($bcode,array_keys($labels))):?>
+<?php $msg='';foreach ($generator->statusCodeArray[$bcode] as $k=>$v):?>
+<?php $msg.=(is_numeric($k)?$k:"'".$k."'").',';?>
+<?php endforeach;?>
+            [['<?=$bcode?>'], 'in', 'range' => [<?=$msg?>],],
+<?php endif;?>
+<?php endforeach;?>
         ]);
+    }
+
+    /**
+    * @inheritdoc
+    */
+    public function scenarios()
+    {
+        return [
+            'default' => [
+<?php foreach ($properties as $name=>$property):?>
+<?php if(strtolower($name) == 'id') continue;?>
+<?php if($generator->timeAdd && preg_match('/'.$name.'/',$generator->timeAdd)) continue;?>
+<?php if($generator->timeUpdate && preg_match('/'.$name.'/',$generator->timeUpdate)) continue;?>
+                '<?=$name?>',
+<?php endforeach;?>
+            ],
+            'search' => [
+<?php foreach ($properties as $name=>$property):?>
+                '<?=$name?>',
+<?php endforeach;?>
+            ],
+            'frontend' => [
+<?php foreach ($properties as $name=>$property):?>
+                '<?=$name?>',
+<?php endforeach;?>
+            ],
+        ];
     }
 
     /**

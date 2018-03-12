@@ -55,7 +55,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'parent_id',
             'name',
             'url:url',
-            'icon',
+            [
+                'attribute'=>'icon',
+                'filter'=>false,
+                'value'=> function ($model) {
+                    return Html::tag('i','',['class'=>$model->icon]);
+                },
+                'format'=>'raw',
+            ],
             //'sort',
             [
                'class'=>\common\components\grid\StatusCodeColumn::className(),

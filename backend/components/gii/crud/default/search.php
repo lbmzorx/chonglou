@@ -43,6 +43,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
     {
         return [
             <?= implode(",\n            ", $rules) ?>,
+            [['<?= str_replace(',',"','",$generator->timedate)?>'],'string'],
         ];
     }
 

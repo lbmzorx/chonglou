@@ -12,7 +12,10 @@ return [
     'Batch Deletes'=>'批量删除',
     'left'=>'左',
     'top'=>'上',
+    'ok'=>'确定',
+    'cancel'=>'取消',
 
+    'Save'=>'保存',
     'Menus'=>'菜单',
     'Create Menu'=>'创建菜单',
 

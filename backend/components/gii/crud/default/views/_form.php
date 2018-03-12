@@ -12,7 +12,7 @@ $safeAttributes = $model->safeAttributes();
 if (empty($safeAttributes)) {
     $safeAttributes = $model->attributes();
 }
-
+$count=0;
 echo "<?php\n";
 ?>
 
@@ -23,20 +23,49 @@ use yii\widgets\ActiveForm;
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?='<?'?>=\Yii::t('<?=$generator->messageCategory?>',$this->title)<?='?>'?></h3>
+    </div>
+    <div class="panel-body">
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
 
     <?= "<?php " ?>$form = ActiveForm::begin(); ?>
 
 <?php foreach ($generator->getColumnNames() as $attribute) {
     if (in_array($attribute, $safeAttributes)) {
-        echo "    <?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
+        $count++;
+        if($count==1){
+            echo "<div class=\"row\">"."\n";
+            echo "\t<div class=\"col-lg-3 col-sm-3\">\n";
+            echo "\t    <?= " . $generator->generateActiveField($attribute) . " ?>\n";
+            echo "\t</div>\n";
+        }elseif($count>=3){
+            $count=0;
+            echo "\t<div class=\"col-lg-3 col-sm-3\">\n";
+            echo "\t    <?= " . $generator->generateActiveField($attribute) . " ?>\n";
+            echo "\t</div>\n</div>\n";
+        }else{
+            echo "\t<div class=\"col-lg-3 col-sm-3\">\n";
+            echo "\t    <?= " . $generator->generateActiveField($attribute) . " ?>\n";
+            echo "\t</div>\n";
+        }
     }
 } ?>
-    <div class="form-group">
-        <?= "<?= " ?>Html::submitButton(<?= $generator->generateString('Save') ?>, ['class' => 'btn btn-success']) ?>
+    <?php
+        if($count!=0){
+            echo "</div>";
+        }
+    ?>
+
+    <div class="row">
+        <div class="col-lg-12 col-sm-12">
+            <div class="form-group">
+                <?= "<?= " ?>Html::submitButton(<?= $generator->generateString('Save') ?>, ['class' => 'btn btn-success']) ?>
+            </div>
+        </div>
     </div>
-
     <?= "<?php " ?>ActiveForm::end(); ?>
-
+</div>
+    </div>
 </div>

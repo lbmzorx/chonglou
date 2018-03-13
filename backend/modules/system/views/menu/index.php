@@ -3,7 +3,8 @@
 use yii\helpers\Html;
 use common\components\widget\BatchDelete;
 use backend\components\grid\GridView;
-use yii\widgets\Pjax;
+use yii\widgets\Pjax;use common\components\widget\BatchUpdate;
+
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\Menu */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -23,6 +24,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('<i class="fa fa-plus-square"></i> '.Yii::t('app', 'Create Menu'), ['create'], ['class' => 'btn btn-success']) ?>
         <?= BatchDelete::widget(['name'=>'Batch Deletes']) ?>
+        <?= BatchUpdate::widget([ 'name'=>\Yii::t('model','App Type'),'attribute'=>'app_type','btnIcon'=>'app_type', ]) ?>
+        <?= BatchUpdate::widget([ 'name'=>\Yii::t('model','Position'),'attribute'=>'position','btnIcon'=>'position', ]) ?>
+        <?= BatchUpdate::widget([ 'name'=>\Yii::t('model','Target'),'attribute'=>'target','btnIcon'=>'target', ]) ?>
+        <?= BatchUpdate::widget([ 'name'=>\Yii::t('model','Is Display'),'attribute'=>'is_display','btnIcon'=>'is_display', ]) ?>
+        <?= BatchUpdate::widget([ 'name'=>\Yii::t('model','Is Absolute Url'),'attribute'=>'is_absolute_url','btnIcon'=>'is_absolute_url', ]) ?>
     </p>
 
     <?= GridView::widget([
@@ -55,14 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'parent_id',
             'name',
             'url:url',
-            [
-                'attribute'=>'icon',
-                'filter'=>false,
-                'value'=> function ($model) {
-                    return Html::tag('i','',['class'=>$model->icon]);
-                },
-                'format'=>'raw',
-            ],
+            'icon',
             //'sort',
             [
                'class'=>\common\components\grid\StatusCodeColumn::className(),

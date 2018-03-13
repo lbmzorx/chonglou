@@ -11,12 +11,17 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Menus'), 'url' => ['
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="menu-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <?= \yii\widgets\Breadcrumbs::widget([
+    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title"><?=\Yii::t('app',Html::encode($this->title))?></h3>
+        </div>
+        <div class="panel-body">
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+        <?= Html::a('<i class="fa fa-plus-pencil"></i> '.Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<i class="fa fa-plus-trash"></i> '.Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
@@ -29,16 +34,31 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'app_type',
-            'position',
+            [
+               'attribute'=>'app_type',
+               'value'=>$model->getStatusCode('app_type','app_type_code'),
+            ],
+            [
+               'attribute'=>'position',
+               'value'=>$model->getStatusCode('position','position_code'),
+            ],
             'parent_id',
             'name',
             'url:url',
             'icon',
             'sort',
-            'target',
-            'is_absolute_url:url',
-            'is_display',
+            [
+               'attribute'=>'target',
+               'value'=>$model->getStatusCode('target','target_code'),
+            ],
+            [
+               'attribute'=>'is_absolute_url',
+               'value'=>$model->getStatusCode('is_absolute_url','is_absolute_url_code'),
+            ],
+            [
+               'attribute'=>'is_display',
+               'value'=>$model->getStatusCode('is_display','is_display_code'),
+            ],
             'add_time',
             'edit_time',
             'top_id',
@@ -47,5 +67,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'action',
         ],
     ]) ?>
-
+</div>
+    </div>
 </div>

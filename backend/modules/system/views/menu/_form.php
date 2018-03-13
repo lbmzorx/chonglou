@@ -16,7 +16,17 @@ use common\components\behaviors\StatusCode;
 <div class="menu-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
+<div class="row">
+    <div class="col-lg-3 col-sm-3">
+        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    </div>
+    <div class="col-lg-3 col-sm-3">
+        <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+    </div>
+    <div class="col-lg-3 col-sm-3">
+        <?= $form->field($model, 'icon')->textInput(['maxlength' => true]) ?>
+    </div>
+</div>
 <div class="row">
 	<div class="col-lg-3 col-sm-3">
 	    <?= $form->field($model, 'app_type')->dropDownList(StatusCode::tranStatusCode(Menu::$app_type_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>
@@ -25,18 +35,9 @@ use common\components\behaviors\StatusCode;
 	    <?= $form->field($model, 'position')->dropDownList(StatusCode::tranStatusCode(Menu::$position_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>
 	</div>
 	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'parent_id')->textInput(['maxlength' => true]) ?>
-	</div>
-</div>
-<div class="row">
-	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-	</div>
-	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
-	</div>
-	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'icon')->textInput(['maxlength' => true]) ?>
+	    <?= $form->field($model, 'parent_id')->dropDownList(Menu::getMenusName([
+	            'app_type'=>Menu::MENU_APP_TYPE_BACKEND,
+            ]),['prompt'=>\Yii::t('app','Please Select')]) ?>
 	</div>
 </div>
 <div class="row">

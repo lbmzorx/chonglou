@@ -7,6 +7,7 @@ use common\models\data\Menu;
 use common\models\search\Menu as MenuSearch;
 use yii\web\Controller;
 use backend\components\actions\CreateAction;
+use backend\components\actions\ViewAction;
 use backend\components\actions\UpdateAction;
 use backend\components\actions\IndexAction;
 use backend\components\actions\DeleteAction;
@@ -34,6 +35,10 @@ class MenuController extends Controller
                         'searchModel' => $searchModel,
                     ];
                 }
+            ],
+            'view' => [
+                'class' => ViewAction::className(),
+                'modelClass' => Menu::className(),
             ],
             'create' => [
                 'class' => CreateAction::className(),

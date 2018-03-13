@@ -184,6 +184,22 @@ class Generator extends \yii\gii\generators\crud\Generator
         return false;
     }
 
+    public function generateStatusCodeRow($column){
+        if($this->changeStatus){
+            $changeStatus=explode(',',$this->changeStatus);
+            if(in_array($column,$changeStatus)){
+                $string=
+"            [\n".
+"               'attribute'=>'{$column}',\n".
+"               'value'=>\$model->getStatusCode('{$column}','{$column}_code'),\n".
+"            ],\n";
+                return $string;
+            }
+        }
+        return false;
+    }
+
+
     public function generateTimeDate($column){
         if($this->timedate){
             $timedate=explode(',',$this->timedate);

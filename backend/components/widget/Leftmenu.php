@@ -27,7 +27,7 @@ class Leftmenu extends Widget
     public $options=[];
 
     public $depency;
-    public $depency_filename='@backend/runtime/depency/backend_menu.txt';
+    public static $depency_filename='@backend/runtime/depency/backend_menu.txt';
 
     /**
      * @var \yii\caching\FileCache
@@ -67,14 +67,17 @@ class Leftmenu extends Widget
 
     public function renderSide(){
 
-//        $cache=$this->getCache();
-//        $key = ['top','top'=>$this->top,__METHOD__];
-//        $string=$cache->get($key);
-//        if( $string ){
-//            return $string;
-//        }
+        $cache=$this->getCache();
+        $key = ['top','top'=>$this->top,__METHOD__];
+        $menu=$cache->get($key);
+        if( empty($menu) ){
+            $menu=$this->getMenuSide();
+            $dependency = new \yii\caching\FileDependency(['fileName' => static::$depency_filename]);
+            $cache->set($key,$menu,$this->duration,$dependency);
+        }
+
         $string='';
-        if($menu=$this->getMenuSide()){
+        if($menu){
             foreach ($menu as $k=>$v){
                 if(!empty($v['sub'])) {
                     $string .= '<li data-id=""><a href="#' . md5($v['url'].$v['module']) . '" data-toggle="collapse"' .
@@ -97,9 +100,6 @@ class Leftmenu extends Widget
                 }
             }
         }
-
-//        $dependency = new \yii\caching\FileDependency(['fileName' => $this->depency_filename]);
-//        $cache->set($key,$string,$this->duration,$dependency);
 
         return $string;
     }

@@ -17,10 +17,10 @@ class BatchDelete extends Widget
     public $griViewKey;
     public $name = 'Batch Deletes';
     public $isIcon=true;
-    public $deleteUrl='delete';
+    public $deleteUrl='update';
     public $jsParams=[];
     public $jsConfirmMsg="Are you want to delete ";
-    public $jsbtn=['ok','cancer'];
+    public $jsbtn=['ok','cancel'];
     public $btnIcon = 'trash';
 
     /**
@@ -55,7 +55,7 @@ class BatchDelete extends Widget
          }else{
              $name=$this->name;
          }
-         return Html::a($name,$this->deleteUrl,$this->options);
+         return Html::button($name,$this->options);
     }
 
 

@@ -28,7 +28,7 @@ use common\components\behaviors\StatusCode;
 ?>
 <div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title"><?='<?'?>=\Yii::t('<?=$generator->messageCategory?>',$this->title)<?='?>'?></h3>
+        <h3 class="panel-title"><?='<?'?>=\Yii::t('<?=$generator->messageCategory?>',Html::encode($this->title))<?='?>'?></h3>
     </div>
     <div class="panel-body">
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">

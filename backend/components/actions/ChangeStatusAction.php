@@ -31,16 +31,33 @@ class ChangeStatusAction extends Action
         $key=$request->post('key');
         $value=$request->post('value');
 
-        if($id && preg_match('/[\d]+/',$id)){
-            $model = ($this->modelClass)::findOne($id);
-            $model->setScenario( $this->scenario );
-            if($model->load([$key=>$value],'')&&$model->save()){
-                $msg= ['status'=>true,'msg'=>Yii::t('app','edit success')];
+        if($id){
+            $ids = explode(',', $id);
+            $t=Yii::$app->db->beginTransaction();
+            foreach ($ids as $id){
+                if(preg_match('/[\d]+/',$id)){
+                    $model = ($this->modelClass)::findOne($id);
+                    if($model){
+                        $model->setScenario( $this->scenario );
+                        if($model->load([$key=>$value],'')&&$model->save()){
+                            continue;
+                        }else{
+                            $t->rollBack();
+                            $msg= ['status'=>false,'msg'=>Yii::t('app',current($model->getFirstErrors()))];
+                            break;
+                        }
+                    }
+                }
+            }
+            if(isset($msg)){
+                $t->rollBack();
+
             }else{
-                $msg= ['status'=>true,'msg'=>Yii::t('app',current($model->getFirstErrors()))];
+                $t->commit();
+                $msg= ['status'=>true,'msg'=>Yii::t('app','Edit success')];
             }
         }else{
-            $msg= ['status'=>true,'msg'=>"Invalid id"];
+            $msg= ['status'=>true,'msg'=>Yii::t('app',"Invalid id")];
         }
 
         if($request->isAjax){

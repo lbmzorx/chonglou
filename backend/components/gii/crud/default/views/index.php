@@ -16,6 +16,8 @@ use yii\helpers\Html;
 use common\components\widget\BatchDelete;
 use <?= $generator->indexWidgetType === 'grid' ? "backend\\components\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
 <?= $generator->enablePjax ? 'use yii\widgets\Pjax;' : '' ?>
+<?=$generator->changeStatus? "use common\components\widget\BatchUpdate;":''?>
+
 
 /* @var $this yii\web\View */
 <?= !empty($generator->searchModelClass) ? "/* @var \$searchModel " . ltrim($generator->searchModelClass, '\\') . " */\n" : '' ?>
@@ -39,6 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= "<?= " ?>Html::a('<i class="fa fa-plus-square"></i> '.<?= $generator->generateString('Create ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>, ['create'], ['class' => 'btn btn-success']) ?>
         <?= "<?= " ?>BatchDelete::widget(['name'=>'Batch Deletes']) ?>
+<?php if($generator->changeStatus):?>
+<?php $changeStatus=explode(',',$generator->changeStatus); foreach ($changeStatus as $v):?>
+        <?= "<?= " ?>BatchUpdate::widget([ 'name'=>\Yii::t('model','<?=Inflector::camel2words($v)?>'),'attribute'=>'<?=$v?>','btnIcon'=>'<?=$v?>', ]) ?>
+<?php endforeach;?>
+<?php endif;?>
     </p>
 
 <?php if ($generator->indexWidgetType === 'grid'): ?>

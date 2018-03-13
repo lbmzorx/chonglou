@@ -38,6 +38,7 @@ use yii\data\ActiveDataProvider;
 <?php endif; ?>
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use backend\components\actions\CreateAction;
+use backend\components\actions\ViewAction;
 use backend\components\actions\UpdateAction;
 use backend\components\actions\IndexAction;
 use backend\components\actions\DeleteAction;
@@ -80,6 +81,10 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             ],
             'create' => [
                 'class' => CreateAction::className(),
+                'modelClass' => <?= $modelClass ?>::className(),
+            ],
+            'view' => [
+                'class' => ViewAction::className(),
                 'modelClass' => <?= $modelClass ?>::className(),
             ],
             'update' => [

@@ -22,12 +22,18 @@ $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Infl
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view">
+    <?='<?='?> \yii\widgets\Breadcrumbs::widget([
+    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) <?='?>'?>
 
-    <h1><?= "<?= " ?>Html::encode($this->title) ?></h1>
-
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title"><?='<?'?>=\Yii::t('<?=$generator->messageCategory?>',Html::encode($this->title))<?='?>'?></h3>
+        </div>
+        <div class="panel-body">
     <p>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Update') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-primary']) ?>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Delete') ?>, ['delete', <?= $urlParams ?>], [
+        <?= "<?= " ?>Html::a('<i class="fa fa-plus-pencil"></i> '.<?= $generator->generateString('Update') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-primary']) ?>
+        <?= "<?= " ?>Html::a('<i class="fa fa-plus-trash"></i> '.<?= $generator->generateString('Delete') ?>, ['delete', <?= $urlParams ?>], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => <?= $generator->generateString('Are you sure you want to delete this item?') ?>,
@@ -42,16 +48,25 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 if (($tableSchema = $generator->getTableSchema()) === false) {
     foreach ($generator->getColumnNames() as $name) {
-        echo "            '" . $name . "',\n";
+        if($string=$generator->generateStatusCodeRow($name)){
+            echo $string;
+        }else{
+            echo "            '" . $name . "',\n";
+        }
     }
 } else {
     foreach ($generator->getTableSchema()->columns as $column) {
         $format = $generator->generateColumnFormat($column);
-        echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+        if( $string=$generator->generateStatusCodeRow($column->name)){
+            echo $string;
+        }else{
+            echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+        }
     }
 }
 ?>
         ],
     ]) ?>
-
+</div>
+    </div>
 </div>

@@ -12,7 +12,7 @@ return [
 
 
 
-	'ID'=>'自增id',
+	'ID'=>'ID',
 	'Position'=>'位置',//0左，1上',
 	'Parent ID'=>'上级ID',
 	'Name'=>'名称',

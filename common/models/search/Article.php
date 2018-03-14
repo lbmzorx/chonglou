@@ -6,66 +6,23 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\data\Article as ArticleModel;
+use common\components\events\SearchEvent;
 
 /**
- * Article represents the model behind the search form about `common\models\data\Article`.
+ * Article represents the model behind the search form of `common\models\data\Article`.
  */
 class Article extends ArticleModel
 {
-
-    public $add_time_start;
-    public $add_time_end;
-    public $edit_time_start;
-    public $edit_time_end;
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
-        $unsetRules=['add_time','edit_time'];
-        $parent_rules=$this->unsetRules(parent::rules(),$unsetRules);
-
-        $rules=[
-            [['id',],'integer'],
-            [['cateName',],'string',],
-            [['cateName',],'safe',],
-            [['add_time','edit_time'],'string',],
-            [['add_time_start','add_time_end','edit_time_start','edit_time_end'],'integer',],
+        return [
+            [['id', 'user_id', 'cate_id', 'sort', 'content_id', 'remain', 'auth', 'commit', 'view', 'collection', 'thumbup', 'publish', 'status', 'add_time', 'edit_time', 'level', 'score'], 'integer'],
+            [['title', 'author', 'cover', 'abstract', 'tag_id'], 'safe'],
+            [['add_time','edit_time'],'string'],
         ];
-        return array_merge($rules,$parent_rules);
-    }
-
-    /**
-     * 清楚某个属性的规则
-     * @param array $rules
-     * @param array $unsetAttrs
-     * @return array
-     */
-    protected function unsetRules(array $rules, array $unsetAttrs){
-        foreach ($rules as $k=>$rule){
-            $inArr=is_array($rule[0]) && array_intersect($unsetAttrs,$rule[0]);
-            $inString=is_string($rule[0]) && in_array($rule[0],$unsetAttrs);
-
-            if( ($inArr&&count($rule[0])==1) || $inString){
-                unset($rules[$k]);
-            }
-            if($inArr &&count($rule[0])>=1){
-
-                foreach ($unsetAttrs as $unsetAttr){
-                    if(!empty(array_flip($rule[0])[$unsetAttr])){
-                        $key=array_flip($rule[0])[$unsetAttr];
-                        unset($rules[$k][0][$key]);
-                    }
-                }
-            }
-        }
-        return $rules;
-    }
-
-    public function attributes()
-    {
-        return array_merge(parent::attributes(),['cateName']);
     }
 
     /**
@@ -86,7 +43,7 @@ class Article extends ArticleModel
      */
     public function search($params)
     {
-        $query = ArticleModel::find()->alias('a');
+        $query = ArticleModel::find();
 
         // add conditions that should always apply here
 
@@ -94,9 +51,8 @@ class Article extends ArticleModel
             'query' => $query,
         ]);
 
-
         $this->load($params);
-        $this->setTimeRange();
+
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
@@ -105,39 +61,31 @@ class Article extends ArticleModel
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'a.id' => $this->id,
-            'a.user_id' => $this->user_id,
-            'a.remain' => $this->remain,
-            'a.publish' => $this->publish,
-            'a.status' => $this->status,
+            'id' => $this->id,
+            'user_id' => $this->user_id,
+            'cate_id' => $this->cate_id,
+            'sort' => $this->sort,
+            'content_id' => $this->content_id,
+            'remain' => $this->remain,
+            'auth' => $this->auth,
+            'commit' => $this->commit,
+            'view' => $this->view,
+            'collection' => $this->collection,
+            'thumbup' => $this->thumbup,
+            'publish' => $this->publish,
+            'status' => $this->status,
+            'add_time' => $this->add_time,
+            'edit_time' => $this->edit_time,
+            'level' => $this->level,
+            'score' => $this->score,
         ]);
-        $query->join('INNER JOIN',\common\models\data\ArticleCate::tableName().' c','c.id = a.cate_id');
-        $query->andFilterWhere(['like','c.name',$this->cateName]);
 
-        $query->andFilterWhere(['like', 'a.title', $this->title])
-            ->andFilterWhere(['like', 'a.author', $this->author])
-            ->andFilterWhere(['like', 'a.abstract',$this->abstract])
-            ->andFilterWhere(['like', 'a.tags', $this->tags])
-            ->andFilterWhere(['>=','a.add_time',$this->add_time_start])
-            ->andFilterWhere(['<=','a.add_time',$this->add_time_end])
-            ->andFilterWhere(['>=','a.edit_time',$this->edit_time_start])
-            ->andFilterWhere(['<=','a.edit_time',$this->edit_time_end]);
-        $dataProvider->sort->attributes['cateName'] =
-            [
-                'asc'=>['a.cate_id'=>SORT_ASC],
-                'desc'=>['a.cate_id'=>SORT_DESC],
-            ];
-
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'author', $this->author])
+            ->andFilterWhere(['like', 'cover', $this->cover])
+            ->andFilterWhere(['like', 'abstract', $this->abstract])
+            ->andFilterWhere(['like', 'tag_id', $this->tag_id]);
+        $this->trigger(SearchEvent::BEFORE_SEARCH, new SearchEvent(['query'=>$query]));
         return $dataProvider;
     }
-
-    public function setTimeRange(){
-        $tmp=explode('~',$this->add_time);
-        $this->add_time_start   =empty($tmp[0])?null:(strtotime($tmp[0])?:null);
-        $this->add_time_end     =empty($tmp[1])?null:(strtotime($tmp[1])?:null);
-        $tmp=explode('~',$this->edit_time);
-        $this->edit_time_start  =empty($tmp[0])?null:(strtotime($tmp[0])?:null);
-        $this->edit_time_end    =empty($tmp[1])?null:(strtotime($tmp[1])?:null);
-    }
-
 }

@@ -1,215 +1,226 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\widgets\Pjax;
+use common\components\widget\BatchDelete;
+use backend\components\grid\GridView;
+use yii\widgets\Pjax;use common\components\widget\BatchUpdate;
+
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-\common\assets\LayuiAsset::register($this);
-$this->title = Yii::t('app', '文章');
+
+$this->title = Yii::t('app', 'Articles');
 $this->params['breadcrumbs'][] = $this->title;
-$status_css=[0=>'warning',1=>'success',2=>'danger'];
-$status_css_js=json_encode($status_css);
 ?>
 <div class="article-index">
     <?= \yii\widgets\Breadcrumbs::widget([
         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-    ]) ?>
-
-    <div class="panel">
+    ]) ?>    <div class="panel">
         <div class="panel-body">
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php Pjax::begin(); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-
-    <p class="">
-        <?= Html::a(Yii::t('app', '创建文章'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+    <p>
+        <?= Html::a('<i class="fa fa-plus-square"></i> '.Yii::t('app', 'Create Article'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= BatchDelete::widget(['name'=>'Batch Deletes']) ?>
+        <?= BatchUpdate::widget([ 'name'=>\Yii::t('model','Remain'),'attribute'=>'remain','btnIcon'=>'remain', ]) ?>
+        <?= BatchUpdate::widget([ 'name'=>\Yii::t('model','Auth'),'attribute'=>'auth','btnIcon'=>'auth', ]) ?>
+        <?= BatchUpdate::widget([ 'name'=>\Yii::t('model','Publish'),'attribute'=>'publish','btnIcon'=>'publish', ]) ?>
+        <?= BatchUpdate::widget([ 'name'=>\Yii::t('model','Status'),'attribute'=>'status','btnIcon'=>'status', ]) ?>
+        <?= BatchUpdate::widget([ 'name'=>\Yii::t('model','Level'),'attribute'=>'level','btnIcon'=>'level', ]) ?>
     </p>
 
-<?php Pjax::begin(); ?>
-            <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
-            <?= GridView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'layout'=>'{items}<div><div class="page-summary">{summary}</div><div  class="page-box">{pager}</div></div>',
-
-        'pager'=>[
-            'class'=>\common\components\widget\JumpPager::className(),
-            'firstPageLabel'=>Yii::t('app','首页'),
-            'nextPageLabel'=>Yii::t('app','下一页'),
-            'prevPageLabel'=>Yii::t('app','上一页'),
-            'lastPageLabel'=>Yii::t('app','尾页'),
-        ],
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn'],
-            [
-                'attribute'=>'id',
-                'filterInputOptions'=>['class'=>'form-control','style'=>'width:50px'],
-            ],
-            [
-                'attribute'=>'cateName',
-                'label'=>'分类',
-                'value'=>'cateName.name',
-            ],
+
+            'id',
+            'user_id',
+            'cate_id',
+            'sort',
             'title',
-            'author',
-            'cover',
-            'tags',
-            'abstract',
+            //'author',
+            //'cover',
+            //'abstract',
+            //'content_id',
             [
-                'attribute'=>'collection',
-                'filter'=>false,
+               'class'=>\common\components\grid\StatusCodeColumn::className(),
+               'attribute'=>'remain',
+               'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Article::$remain_code,'app'),
+               'value'=> function ($model) {
+                   return Html::button($model->getStatusCode('remain','remain_code'),
+                       ['data-id'=>$model->id,'class'=>'remain-change btn btn-xs btn-'.$model->getStatusCss('remain','remain_css',$model->remain)]);
+               },
+               'format'=>'raw',
             ],
             [
-                'attribute'=>'thumbup',
-                'filter'=>false,
+               'class'=>\common\components\grid\StatusCodeColumn::className(),
+               'attribute'=>'auth',
+               'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Article::$auth_code,'app'),
+               'value'=> function ($model) {
+                   return Html::button($model->getStatusCode('auth','auth_code'),
+                       ['data-id'=>$model->id,'class'=>'auth-change btn btn-xs btn-'.$model->getStatusCss('auth','auth_css',$model->auth)]);
+               },
+               'format'=>'raw',
+            ],
+            //'tag_id',
+            //'commit',
+            //'view',
+            //'collection',
+            //'thumbup',
+            [
+               'class'=>\common\components\grid\StatusCodeColumn::className(),
+               'attribute'=>'publish',
+               'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Article::$publish_code,'app'),
+               'value'=> function ($model) {
+                   return Html::button($model->getStatusCode('publish','publish_code'),
+                       ['data-id'=>$model->id,'class'=>'publish-change btn btn-xs btn-'.$model->getStatusCss('publish','publish_css',$model->publish)]);
+               },
+               'format'=>'raw',
             ],
             [
-                'attribute'=>'commit',
-                'filter'=>false,
+               'class'=>\common\components\grid\StatusCodeColumn::className(),
+               'attribute'=>'status',
+               'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Article::$status_code,'app'),
+               'value'=> function ($model) {
+                   return Html::button($model->getStatusCode('status','status_code'),
+                       ['data-id'=>$model->id,'class'=>'status-change btn btn-xs btn-'.$model->getStatusCss('status','status_css',$model->status)]);
+               },
+               'format'=>'raw',
             ],
-            // 'add_admin_id',
-            // 'content:ntext',
             [
-                'attribute'=>'remain',
-                'filter'=>\common\models\data\Article::$remain_code,
+                'class'=>\common\components\grid\StatusCodeColumn::className(),
+                'attribute'=>'level',
+                'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Article::$level_code,'app'),
                 'value'=> function ($model) {
-                    return Html::button($model->getStatusCode('remain','remain_code'),
-                        ['class'=>'btn btn-xs btn-'.($model->publish==1?'success':'warning')]);
+                    return Html::button($model->getStatusCode('level','level_code'),
+                        ['data-id'=>$model->id,'class'=>'level-change btn btn-xs btn-'.$model->getStatusCss('level','level_css',$model->level)]);
                 },
                 'format'=>'raw',
             ],
             [
-                'attribute'=>'publish',
-                'filter'=>\common\models\data\Article::$publish_code,
-                'value'=> function ($model) {
-                    return Html::button($model->getStatusCode('publish','publish_code'),
-                        ['class'=>'btn btn-xs btn-'.($model->publish==1?'success':'warning')]);
-                },
-                'format'=>'raw',
+               'class'=>\common\components\grid\DateTimeColumn::className(),
+               'attribute'=>'add_time',
             ],
             [
-                'attribute'=>'status',
-                'filter'=>\common\models\data\Article::$status_code,
-                'value'=> function ($model) use ($status_css){
-                    return Html::button($model->getStatusCode('status','status_code'),
-                        [
-                            'class'=>'status-change btn btn-xs btn-'.(isset($status_css[$model->status])?$status_css[$model->status]:'default'),
-                            'key'=>$model->status,
-                            'id-key'=>$model->id,
-                        ]);
-                },
-                'format'=>'raw',
+               'class'=>\common\components\grid\DateTimeColumn::className(),
+               'attribute'=>'edit_time',
             ],
-             [
-                 'attribute'=>'add_time',
-                 'format'=>'datetime',
-                 'filterInputOptions'=>['class'=>'form-control','id'=>'add-time-input'],
-             ],
-            [
-                'attribute'=>'edit_time',
-                'format'=>'datetime',
-                'filterInputOptions'=>['class'=>'form-control','id'=>'edit-time-input'],
-            ],
-            [
-                'class' => 'yii\grid\ActionColumn',
-            ],
+            //'score',
+
+            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-            <?=$this->registerJs(<<<SCRIPT
-var laydate;
-var layuier;
-layui.use(['laydate','layer'], function(){
-  laydate = layui.laydate;
-  layuier = layui.layer;
-   //日期时间范围
-  laydate.render({
-    elem: '#add-time-input'
-    ,type: 'datetime'
-    ,range: true    
-    ,calendar: true
-    ,range: '~'
-    ,closeStop: '#add-time-input'
-    ,done: function(value, date, endDate){      
-        $(this.elem).val(value);
-        $(this.elem).change();
-    }
-  });
-  $('#add-time-input').mouseover(function(){
-    layuier.tips($("#add-time-input").val(),"#add-time-input",{
-        tips: [1, '#78BA32']       
-    });
-  });
-  
-  laydate.render({
-    elem: '#edit-time-input'
-    ,type: 'datetime'
-    ,range: true
-    ,calendar: true
-    ,closeStop: '#add-time-input' 
-    ,done: function(value, date, endDate){       
-        $(this.elem).val(value);
-        $(this.elem).change();
-    }
-  });
-});
-  
-$('#edit-time-input').mouseover(function(){
-    layuier.tips($("#edit-time-input").val(),"#edit-time-input",{
-        tips: [1, '#78BA32']
-    });
-});
-
-$('.status-change').click(function(){
-    var sval=$(this).attr('key'),this_dom=$(this),
-        sid=$(this).attr('id-key');
-    var dom_status_change=$('#status-change');
-    var status_css=$status_css_js;
-    
-    dom_status_change.find('input[value="'+sval+'"]').prop('checked','true');
-    dom_status_change.find('input[name="id"]').val(sid);
-    
-    layer.open({
-        'type':1,
-        'content':dom_status_change,
-        btn:['确定','取消'],
-        yes:function(layindex,laydom){
-            var dom_form=laydom.find('form');
-            $.post(dom_form.attr('action'),dom_form.serialize(),function(res){
-                if(res.status){
-                    layer.msg(res.msg,{time:1000},function(){
-                        location.reload();
-                    });
-                }else{
-                   layer.msg(res.msg); 
-                }
-                layer.close(layindex);
-            },'json');
-        }
-    });
-});
-
-SCRIPT
-              )?>
-
-<?php Pjax::end(); ?>
+    <?php Pjax::end(); ?>
         </div>
     </div>
 </div>
-<div id="status-change" style="display: block;">
+<div id="remain-change-dom" style="display: none;">
+    <div style="padding: 10px;">
+        <?=Html::beginForm(['change-status'],'post')?>
+        <input type="hidden" name="key" value="remain">
+        <input type="hidden" name="id" value="">
+        <?php foreach ( common\models\data\Article::$remain_code as $k=>$v):?>           
+            <label class="checkbox-inline" style="margin: 5px 10px;">
+                <?php
+                    $css='warning';
+                    if( isset(common\models\data\Article::$remain_css) && isset(common\models\data\Article::$remain_css[$k])){
+                        $css = common\models\data\Article::$remain_css [$k];
+                    }else{
+                        $css=isset(\common\components\behaviors\StatusCode::$cssCode[$k])?\common\components\behaviors\StatusCode::$cssCode[$k]:$css;
+                    }
+                ?>               
+                <?=Html::input('radio','value',$k)?>
+                <?=Html::tag('span',\Yii::t('app',$v),['class'=>'btn btn-'.$css])?>
+            </label>          
+        <?php endforeach;?>
+        <?=Html::endForm()?>
+    </div>
+</div><div id="auth-change-dom" style="display: none;">
+    <div style="padding: 10px;">
+        <?=Html::beginForm(['change-status'],'post')?>
+        <input type="hidden" name="key" value="auth">
+        <input type="hidden" name="id" value="">
+        <?php foreach ( common\models\data\Article::$auth_code as $k=>$v):?>           
+            <label class="checkbox-inline" style="margin: 5px 10px;">
+                <?php
+                    $css='warning';
+                    if( isset(common\models\data\Article::$auth_css) && isset(common\models\data\Article::$auth_css[$k])){
+                        $css = common\models\data\Article::$auth_css [$k];
+                    }else{
+                        $css=isset(\common\components\behaviors\StatusCode::$cssCode[$k])?\common\components\behaviors\StatusCode::$cssCode[$k]:$css;
+                    }
+                ?>               
+                <?=Html::input('radio','value',$k)?>
+                <?=Html::tag('span',\Yii::t('app',$v),['class'=>'btn btn-'.$css])?>
+            </label>          
+        <?php endforeach;?>
+        <?=Html::endForm()?>
+    </div>
+</div><div id="publish-change-dom" style="display: none;">
+    <div style="padding: 10px;">
+        <?=Html::beginForm(['change-status'],'post')?>
+        <input type="hidden" name="key" value="publish">
+        <input type="hidden" name="id" value="">
+        <?php foreach ( common\models\data\Article::$publish_code as $k=>$v):?>           
+            <label class="checkbox-inline" style="margin: 5px 10px;">
+                <?php
+                    $css='warning';
+                    if( isset(common\models\data\Article::$publish_css) && isset(common\models\data\Article::$publish_css[$k])){
+                        $css = common\models\data\Article::$publish_css [$k];
+                    }else{
+                        $css=isset(\common\components\behaviors\StatusCode::$cssCode[$k])?\common\components\behaviors\StatusCode::$cssCode[$k]:$css;
+                    }
+                ?>               
+                <?=Html::input('radio','value',$k)?>
+                <?=Html::tag('span',\Yii::t('app',$v),['class'=>'btn btn-'.$css])?>
+            </label>          
+        <?php endforeach;?>
+        <?=Html::endForm()?>
+    </div>
+</div><div id="status-change-dom" style="display: none;">
     <div style="padding: 10px;">
         <?=Html::beginForm(['change-status'],'post')?>
         <input type="hidden" name="key" value="status">
         <input type="hidden" name="id" value="">
-        <?php foreach (\common\models\data\Article::$status_code as $k=>$v):?>
-            <?php if($k>0):?>
+        <?php foreach ( common\models\data\Article::$status_code as $k=>$v):?>           
             <label class="checkbox-inline" style="margin: 5px 10px;">
-                <?=Html::input('radio','value',$k)?><?=Html::tag('span',$v,[
-                    'class'=>'btn btn-'.(isset($status_css[$k])?$status_css[$k]:'default'),])?>
-            </label>
-            <?php endif;?>
+                <?php
+                    $css='warning';
+                    if( isset(common\models\data\Article::$status_css) && isset(common\models\data\Article::$status_css[$k])){
+                        $css = common\models\data\Article::$status_css [$k];
+                    }else{
+                        $css=isset(\common\components\behaviors\StatusCode::$cssCode[$k])?\common\components\behaviors\StatusCode::$cssCode[$k]:$css;
+                    }
+                ?>               
+                <?=Html::input('radio','value',$k)?>
+                <?=Html::tag('span',\Yii::t('app',$v),['class'=>'btn btn-'.$css])?>
+            </label>          
+        <?php endforeach;?>
+        <?=Html::endForm()?>
+    </div>
+</div><div id="level-change-dom" style="display: none;">
+    <div style="padding: 10px;">
+        <?=Html::beginForm(['change-status'],'post')?>
+        <input type="hidden" name="key" value="level">
+        <input type="hidden" name="id" value="">
+        <?php foreach ( common\models\data\Article::$level_code as $k=>$v):?>           
+            <label class="checkbox-inline" style="margin: 5px 10px;">
+                <?php
+                    $css='warning';
+                    if( isset(common\models\data\Article::$level_css) && isset(common\models\data\Article::$level_css[$k])){
+                        $css = common\models\data\Article::$level_css [$k];
+                    }else{
+                        $css=isset(\common\components\behaviors\StatusCode::$cssCode[$k])?\common\components\behaviors\StatusCode::$cssCode[$k]:$css;
+                    }
+                ?>               
+                <?=Html::input('radio','value',$k)?>
+                <?=Html::tag('span',\Yii::t('app',$v),['class'=>'btn btn-'.$css])?>
+            </label>          
         <?php endforeach;?>
         <?=Html::endForm()?>
     </div>
 </div>
-
-

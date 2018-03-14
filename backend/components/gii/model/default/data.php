@@ -61,6 +61,11 @@ class <?= $dataClass?> extends \<?= $modelFullClassName?>
             [['<?=$bcode?>'], 'in', 'range' => [<?=$msg?>],],
 <?php endif;?>
 <?php endforeach;?>
+<?php foreach ($tableSchema->columns as $colum):?>
+<?php if($colum->defaultValue!==null):?>
+            [['<?=$colum->name?>'], 'default', 'value' =><?=is_string($colum->defaultValue)?"'".$colum->defaultValue."'":$colum->defaultValue?>,],
+<?php endif;?>
+<?php endforeach;?>
         ]);
     }
 

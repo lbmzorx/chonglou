@@ -81,7 +81,6 @@ class ChongGenerator extends Generator
             $modelClassName = $this->generateClassName($tableName);
             $queryClassName = ($this->generateQuery) ? $this->generateQueryClassName($modelClassName) : false;
             $tableSchema = $db->getTableSchema($tableName);
-
             $params = [
                 'tableName' => $tableName ,
                 'className' => $modelClassName ,
@@ -117,6 +116,11 @@ class ChongGenerator extends Generator
             }
             if($this->labelTran){
                 $files[] = $this->generateTranslationFile($params['className'],$params['properties']);
+            }
+            //
+            if($this->statusCode && $this->statusCodeJson){
+                $this->transferJson();
+                $files[] = $this->generateStatusTran($params['className'],$this->statusCodeArray,$params['properties']);
             }
 
         }
@@ -257,7 +261,50 @@ class ChongGenerator extends Generator
             $file,
             $this->render('translation.php',['tran'=>$labels])
         );
+    }
 
+    public function generateStatusTran($className,$statusArray,$properties){
+        $messageCategory=\Yii::$app->i18n->translations[$this->messageCategory];
+        $basepath=isset($messageCategory['basePath'])?$messageCategory['basePath']:'@app/messages';
+        $file = Yii::getAlias($basepath).'/'.$this->targetLanguage.'/'.'statusCode.php';
+
+
+        $filestart='<\?php[\s\S.]+return\s+\[';
+        $fileend = '\];';
+
+        $start='\/\*start\*'.$className.'\*\/';
+        $end = '\/\*end\*'.$className.'\*\/';
+
+        $file_content='';
+        $overwrite=false;
+        if( file_exists($file)){
+            $content=file_get_contents($file);
+            if(preg_match('/('.$filestart.')([.\s\S]*)('.$fileend.')/',$content,$match)){
+                $file_content=$match[2];
+            }
+            if(preg_match('/('.$start.')([.\s\S]*)('.$end.')/',$file_content)){
+                $overwrite=true;
+                $file_content=preg_replace('/('.$start.')([.\s\S]*)('.$end.')/','${1}  ${3}',$file_content);
+            }
+        }
+
+        $string='';
+        foreach ($statusArray as $status=>$codes){
+            foreach ($codes as $key=>$code){
+                $string.="\t'".$code."' =>'',//'".$status."'=".$key.', '.$properties[$status]['comment']."\n";
+            }
+        }
+
+        if($overwrite==true){
+            $file_content=preg_replace('/('.$start.')([.\s\S]*)('.$end.')/','${1}'."\n".$string.'${3}',$file_content);
+        }else{
+            $file_content="\t/*start*".$className."*/\n".$string."\t/*end*".$className."*/\n";
+        }
+
+        return new CodeFile(
+            $file,
+            $this->render('statuscode.php',['tran'=>$file_content])
+        );
     }
 
 }

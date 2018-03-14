@@ -10,47 +10,63 @@ use yii\widgets\ActiveForm;
 
 <div class="article-search">
 
+    <?php $form = ActiveForm::begin([
+        'action' => ['index'],
+        'method' => 'get',
+        'options' => [
+            'data-pjax' => 1
+        ],
+    ]); ?>
 
-            <?php $form = ActiveForm::begin([
-                'action' => ['index'],
-                'method' => 'get',
-            ]); ?>
-    <div class="row">
-        <div class="col-lg-2 col-sm-2">
-            <?= $form->field($model, 'id') ?>
-        </div>
-        <div class="col-lg-2 col-sm-2">
-            <?= $form->field($model, 'cate_id') ?>
-        </div>
-        <div class="col-lg-2 col-sm-2">
-            <?= $form->field($model, 'title') ?>
-        </div>
-        <div class="col-lg-2 col-sm-2">
-            <?= $form->field($model, 'author') ?>
-        </div>
+    <?= $form->field($model, 'id') ?>
+
+    <?= $form->field($model, 'user_id') ?>
+
+    <?= $form->field($model, 'cate_id') ?>
+
+    <?= $form->field($model, 'sort') ?>
+
+    <?= $form->field($model, 'title') ?>
+
+    <?php // echo $form->field($model, 'author') ?>
+
+    <?php // echo $form->field($model, 'cover') ?>
+
+    <?php // echo $form->field($model, 'abstract') ?>
+
+    <?php // echo $form->field($model, 'content_id') ?>
+
+    <?php // echo $form->field($model, 'remain') ?>
+
+    <?php // echo $form->field($model, 'auth') ?>
+
+    <?php // echo $form->field($model, 'tag_id') ?>
+
+    <?php // echo $form->field($model, 'commit') ?>
+
+    <?php // echo $form->field($model, 'view') ?>
+
+    <?php // echo $form->field($model, 'collection') ?>
+
+    <?php // echo $form->field($model, 'thumbup') ?>
+
+    <?php // echo $form->field($model, 'publish') ?>
+
+    <?php // echo $form->field($model, 'status') ?>
+
+    <?php // echo $form->field($model, 'add_time') ?>
+
+    <?php // echo $form->field($model, 'edit_time') ?>
+
+    <?php // echo $form->field($model, 'level') ?>
+
+    <?php // echo $form->field($model, 'score') ?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
-            <?php // echo $form->field($model, 'abstract') ?>
 
-            <?php // echo $form->field($model, 'add_admin_id') ?>
-
-            <?php // echo $form->field($model, 'content') ?>
-
-            <?php // echo $form->field($model, 'remain') ?>
-
-            <?php // echo $form->field($model, 'publish') ?>
-
-            <?php // echo $form->field($model, 'status') ?>
-
-            <?php // echo $form->field($model, 'add_time') ?>
-
-            <?php // echo $form->field($model, 'edit_time') ?>
-
-            <div class="form-group">
-                <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-                <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
-            </div>
-
-            <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 </div>
-

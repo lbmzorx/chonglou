@@ -52,9 +52,6 @@ use backend\components\actions\ChangeStatusAction;
  */
 class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
 {
-    public $controller_id='<?=strtolower(str_replace('Controller','',$controllerClass))?>';
-    public $left_nav_id='<?=$generator->topSideMemu?:$module?>';
-
     public function actions()
     {
         return [

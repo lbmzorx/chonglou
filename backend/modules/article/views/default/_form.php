@@ -2,63 +2,100 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use common\models\data\Article;
+use common\components\behaviors\StatusCode;
 /* @var $this yii\web\View */
 /* @var $model common\models\data\Article */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title"><?=Yii::t('app',$this->title)?></h3>
+        <h3 class="panel-title"><?=\Yii::t('app',Html::encode($this->title))?></h3>
     </div>
     <div class="panel-body">
-        <div class="article-form">
-            <?php $form = ActiveForm::begin(); ?>
-            <div class="row">
-                <div class="col-lg-6 col-sm-6">
-                    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-                </div>
-            </div>
+<div class="article-form">
 
-            <div class="row">
-                <div class="col-lg-2 col-sm-2">
-                    <?= $form->field($model, 'cate_id')->dropDownList(\common\models\crud\ArticleCate::find()
-                        ->select(['name','id'])->indexBy('id')->column(),['prompt'=>'请选择状态'])?>
-                </div>
-                <div class="col-lg-2 col-sm-2">
-                    <?= $form->field($model, 'author')->textInput(['maxlength' => true]) ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-2">
-                    <?= $form->field($model, 'cover')->fileInput()?>
-                </div>
-            </div>
-            <?= $form->field($model, 'abstract')->textarea(['maxlength' => true]) ?>
-            <div class="row">
-                <div class="col-lg-2">
-                    <?= $form->field($model, 'tags')->input(['maxlength'=>true])?>
-                </div>
-            </div>
-            <?= $form->field($model, 'content',[
-                    'class'=>\common\components\widget\EditorMdField::className(),
-                    'mdJsOptions'=>[
-                        'placeholder'=>'请输入内容',
-                    ],
-                ])->textarea();?>
+    <?php $form = ActiveForm::begin(); ?>
 
-            <div class="row">
-                <div class="col-lg-2">
-                    <?= $form->field($model, 'publish')->dropDownList(\common\models\search\Article::$publish_code,['prompt'=>'请选择状态'])?>
-                </div>
-                <div class="col-lg-2">
-                    <?= $form->field($model, 'status')->dropDownList(\common\models\search\Article::$status_code,['prompt'=>'请选择状态'])?>
-                </div>
-            </div>
+<div class="row">
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'user_id')->textInput() ?>
+	</div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'cate_id')->textInput() ?>
+	</div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'sort')->textInput() ?>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+	</div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'author')->textInput(['maxlength' => true]) ?>
+	</div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'abstract')->textInput(['maxlength' => true]) ?>
+	</div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'content_id')->textInput(['maxlength' => true]) ?>
+	</div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'remain')->dropDownList(StatusCode::tranStatusCode(Article::$remain_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'auth')->dropDownList(StatusCode::tranStatusCode(Article::$auth_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>
+	</div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'tag_id')->textInput(['maxlength' => true]) ?>
+	</div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'commit')->textInput(['maxlength' => true]) ?>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'view')->textInput(['maxlength' => true]) ?>
+	</div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'collection')->textInput(['maxlength' => true]) ?>
+	</div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'thumbup')->textInput() ?>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'publish')->dropDownList(StatusCode::tranStatusCode(Article::$publish_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>
+	</div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'status')->dropDownList(StatusCode::tranStatusCode(Article::$status_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>
+	</div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'level')->dropDownList(StatusCode::tranStatusCode(Article::$level_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'score')->textInput() ?>
+	</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-sm-12">
             <div class="form-group">
-                <?= Html::submitButton($model->isNewRecord ? Yii::t('app', '创建') : Yii::t('app', '更新'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                <?= Html::submitButton(Yii::t('app',Yii::t('app', 'Save')), ['class' => 'btn btn-success']) ?>
             </div>
-            <?php ActiveForm::end(); ?>
         </div>
+    </div>
+    <?php ActiveForm::end(); ?>
+</div>
     </div>
 </div>

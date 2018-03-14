@@ -1,35 +1,12 @@
 <?php
 /**
-* This is the translation array
+* This is the translation array tt
 *
 */
 return [
-	'backend'=>'后台',
-	'frontend'=>'前台',//0左，1上',
-    'yes'=>'是',
-    'no'=>'否',
-    'Please Select'=>'请选择',
-    'Batch Deletes'=>'批量删除',
-    'left'=>'左',
-    'top'=>'上',
-    'ok'=>'确定',
-    'cancel'=>'取消',
-    'Update'=>'更新',
-    'Delete'=>'删除',
-
-    'Edit success'=>'修改成功',
-    'Invalid id'=>'无效',
-
-    'Save'=>'保存',
-    'Menus'=>'菜单',
-    'Create Menu'=>'创建菜单',
-    'Update Menu'=>'编辑菜单',
-    'Update Menu: {nameAttribute}'=>'更新菜单: {nameAttribute}',
-    'Batch Update {name}'=>'批量修改{name}',
-    'At least Choose One to update!'=>'更新记录至少要选择一条！',
-    'Are you want to update ?'=>'您确实想更新吗？',
-
-	/*start*Article*/
+    
+    
+    	/*start*Article*/
 	'Un remain' =>'未提醒',//'remain'=0, 提醒.0未提醒，1已经提醒
 	'Remained' =>'已提醒',//'remain'=1, 提醒.0未提醒，1已经提醒
 	'All users' =>'所有人',//'auth'=0, 权限.0所有人，1好友，2加密，3自己
@@ -49,6 +26,7 @@ return [
 	'Good' =>'优秀',//'level'=4, 文章级别.0垃圾,1较差,2普通,3较好,4优秀,5天才
 	'Genius' =>'天才',//'level'=5, 文章级别.0垃圾,1较差,2普通,3较好,4优秀,5天才
 /*end*Article*/
+
 
 
 ];

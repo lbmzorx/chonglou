@@ -55,6 +55,7 @@ class Menu extends \common\models\database\Menu
     public function rules()
     {
         return array_merge(parent::rules(),[
+            [['parent_id'],'default','value' =>0],
             [['app_type'], 'in', 'range' => [0,1,],],
             [['position'], 'in', 'range' => [0,1,],],
             [['target'], 'in', 'range' => [0,1,],],

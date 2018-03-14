@@ -32,8 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="panel-body">
     <p>
-        <?= "<?= " ?>Html::a('<i class="fa fa-plus-pencil"></i> '.<?= $generator->generateString('Update') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-primary']) ?>
-        <?= "<?= " ?>Html::a('<i class="fa fa-plus-trash"></i> '.<?= $generator->generateString('Delete') ?>, ['delete', <?= $urlParams ?>], [
+        <?= "<?= " ?>Html::a('<i class="fa fa-pencil"></i> '.<?= $generator->generateString('Update') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-primary']) ?>
+        <?= "<?= " ?>Html::a('<i class="fa fa-trash"></i> '.<?= $generator->generateString('Delete') ?>, ['delete', <?= $urlParams ?>], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => <?= $generator->generateString('Are you sure you want to delete this item?') ?>,

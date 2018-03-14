@@ -29,6 +29,7 @@ return [
     'At least Choose One to update!'=>'更新记录至少要选择一条！',
     'Are you want to update ?'=>'您确实想更新吗？',
 
+    'Articles'=>'文章',
 	/*start*Article*/
 	'Un remain' =>'未提醒',//'remain'=0, 提醒.0未提醒，1已经提醒
 	'Remained' =>'已提醒',//'remain'=1, 提醒.0未提醒，1已经提醒

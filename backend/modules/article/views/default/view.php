@@ -41,7 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'author',
             'cover',
             'abstract',
-            'content_id',
             [
                'attribute'=>'remain',
                'value'=>$model->getStatusCode('remain','remain_code'),
@@ -55,6 +54,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'view',
             'collection',
             'thumbup',
+            'score',
+            [
+                'attribute'=>'level',
+                'value'=>$model->getStatusCode('level','level_code'),
+            ],
             [
                'attribute'=>'publish',
                'value'=>$model->getStatusCode('publish','publish_code'),
@@ -66,10 +70,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'add_time:datetime',
             'edit_time:datetime',
             [
-               'attribute'=>'level',
-               'value'=>$model->getStatusCode('level','level_code'),
+                'attribute'=>'content_id',
+                'format'=>'raw',
+                'value'=>\common\components\widget\EditorMdView::widget([
+                    'model' => \common\models\database\ArticleContent::findOne($model->content_id),
+                    'attribute' => 'content',
+                ]),
             ],
-            'score',
         ],
     ]) ?>
 </div>

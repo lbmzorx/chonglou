@@ -43,9 +43,6 @@ class EditorMdView extends Widget
      */
     public function init()
     {
-        if ($this->model === null) {
-            throw new InvalidConfigException('Please specify the "model" property.');
-        }
         if ($this->attribute === null) {
             throw new InvalidConfigException('Please specify the "attribute" property.');
         }
@@ -61,9 +58,10 @@ class EditorMdView extends Widget
      */
     public function run()
     {
-
-        $this->renderMdJs();
-        echo $this->renderTextarea();
+        if($this->model){
+            $this->renderMdJs();
+            echo $this->renderTextarea();
+        }
     }
 
 

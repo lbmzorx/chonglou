@@ -12,7 +12,7 @@ use Yii;
  * @property int $parent_id 父级分类
  * @property int $level 级别
  * @property string $path 路径
- * @property int $status 状态
+ * @property int $status 状态.0未开启，1启用
  * @property int $add_time 添加时间
  * @property int $edit_time 编辑时间
  */
@@ -44,14 +44,16 @@ class ArticleCate extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', '名称'),
-            'parent_id' => Yii::t('app', '父级分类'),
-            'level' => Yii::t('app', '级别'),
-            'path' => Yii::t('app', '路径'),
-            'status' => Yii::t('app', '状态'),
-            'add_time' => Yii::t('app', '添加时间'),
-            'edit_time' => Yii::t('app', '编辑时间'),
+            'id' => Yii::t('model', 'ID'), //
+            'name' => Yii::t('model', 'Name'), //名称
+            'parent_id' => Yii::t('model', 'Parent ID'), //父级分类
+            'level' => Yii::t('model', 'Level'), //级别
+            'path' => Yii::t('model', 'Path'), //路径
+            'status' => Yii::t('model', 'Status'), //状态.0未开启，1启用
+            'add_time' => Yii::t('model', 'Add Time'), //添加时间
+            'edit_time' => Yii::t('model', 'Edit Time'), //编辑时间
         ];
     }
 }
+
+

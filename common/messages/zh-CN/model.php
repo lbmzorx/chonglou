@@ -11,8 +11,10 @@ return [
     
     
     
+    
 
 	/*start*NameCommon*/
+
 
 
 
@@ -28,7 +30,10 @@ return [
 	'Add Time'=>'创建时间',
 	'Edit Time'=>'修改时间',
 	'Sort'=>'排序',
-				/*end*NameCommon*/
+					'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',',
+	'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',',
+	/*end*NameCommon*/
+
 
 
 
@@ -69,10 +74,10 @@ return [
 	'View'=>'浏览',
 	'Collection'=>'收藏',
 	'Thumbup'=>'赞',
-	'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',
+	//'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',
 	'Score'=>'评分',
 	'Publish'=>'发布',//0草稿,1发布',
-	'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',
+	//'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',
 	/*end*Article*/
 
 
@@ -80,5 +85,9 @@ return [
 
 
 
+
+	/*start*ArticleCate*/
+	'Path'=>'路径',
+	/*end*ArticleCate*/
 
 ];

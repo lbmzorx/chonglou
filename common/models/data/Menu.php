@@ -207,7 +207,7 @@ class Menu extends \common\models\database\Menu
         $path=Leftmenu::$depency_filename;
         $file=\yii::getAlias($path);
         if (file_exists($file)) {
-            file_put_contents($file, uniqid());
+            file_put_contents($file, microtime(true));
         }
     }
 }

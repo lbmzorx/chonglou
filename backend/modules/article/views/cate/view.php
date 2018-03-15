@@ -11,12 +11,17 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Article Cates'), 'ur
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-cate-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <?= \yii\widgets\Breadcrumbs::widget([
+    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title"><?=\Yii::t('app',Html::encode($this->title))?></h3>
+        </div>
+        <div class="panel-body">
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+        <?= Html::a('<i class="fa fa-pencil"></i> '.Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<i class="fa fa-trash"></i> '.Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
@@ -33,10 +38,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'parent_id',
             'level',
             'path',
-            'status',
+            [
+               'attribute'=>'status',
+               'value'=>$model->getStatusCode('status','status_code'),
+            ],
             'add_time:datetime',
             'edit_time:datetime',
         ],
     ]) ?>
-
+</div>
+    </div>
 </div>

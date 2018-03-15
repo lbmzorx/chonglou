@@ -21,6 +21,7 @@ class AritcleCate extends ArticleCate
         return [
             [['id', 'parent_id', 'level', 'status', 'add_time', 'edit_time'], 'integer'],
             [['name', 'path'], 'safe'],
+            [['add_time','edit_time'],'string'],
         ];
     }
 

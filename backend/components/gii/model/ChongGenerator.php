@@ -298,7 +298,7 @@ class ChongGenerator extends Generator
         if($overwrite==true){
             $file_content=preg_replace('/('.$start.')([.\s\S]*)('.$end.')/','${1}'."\n".$string.'${3}',$file_content);
         }else{
-            $file_content="\t/*start*".$className."*/\n".$string."\t/*end*".$className."*/\n";
+            $file_content=$file_content."\t/*start*".$className."*/\n".$string."\t/*end*".$className."*/\n";
         }
 
         return new CodeFile(

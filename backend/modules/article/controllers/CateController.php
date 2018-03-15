@@ -6,9 +6,8 @@ use Yii;
 use common\models\data\ArticleCate;
 use common\models\search\AritcleCate;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use backend\components\actions\CreateAction;
+use backend\components\actions\ViewAction;
 use backend\components\actions\UpdateAction;
 use backend\components\actions\IndexAction;
 use backend\components\actions\DeleteAction;
@@ -20,9 +19,6 @@ use backend\components\actions\ChangeStatusAction;
  */
 class CateController extends Controller
 {
-    public $controller_id='cate';
-    public $left_nav_id='article';
-
     public function actions()
     {
         return [
@@ -39,6 +35,10 @@ class CateController extends Controller
             ],
             'create' => [
                 'class' => CreateAction::className(),
+                'modelClass' => ArticleCate::className(),
+            ],
+            'view' => [
+                'class' => ViewAction::className(),
                 'modelClass' => ArticleCate::className(),
             ],
             'update' => [

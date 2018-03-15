@@ -6,6 +6,7 @@
 return [
     
     
+    
     	/*start*Article*/
 	'Un remain' =>'未提醒',//'remain'=0, 提醒.0未提醒，1已经提醒
 	'Remained' =>'已提醒',//'remain'=1, 提醒.0未提醒，1已经提醒
@@ -28,5 +29,10 @@ return [
 /*end*Article*/
 
 
+
+	/*start*ArticleCate*/
+	'Unavailable' =>'',//'status'=0, 状态.0未开启，1启用
+	'Enable' =>'',//'status'=1, 状态.0未开启，1启用
+	/*end*ArticleCate*/
 
 ];

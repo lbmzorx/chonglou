@@ -34,8 +34,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'user_id',
-            'cate_id',
+            [
+                'attribute'=>'cate.name',
+                'label'=>Yii::t('app','Cate Name'),
+            ],
+            [
+                'attribute'=>'user.name',
+                'format'=>'raw',
+                'label'=>Yii::t('app','User Name'),
+                'value'=>Html::a(Html::img($model->user['head'],['style'=>"width:70px;heigth:70px;",'alt'=>$model->user['name']]),['/user/default/index','User[id]'=>$model->user_id]),
+            ],
             'sort',
             'title',
             'author',
@@ -49,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                'attribute'=>'auth',
                'value'=>$model->getStatusCode('auth','auth_code'),
             ],
-            'tag_id',
+            'tag',
             'commit',
             'view',
             'collection',

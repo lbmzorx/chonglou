@@ -53,6 +53,7 @@ class <?= $dataClass?> extends \<?= $modelFullClassName?>
     public function rules()
     {
         return array_merge(parent::rules(),[
+<?php if($generator->statusCode):?>
 <?php foreach ($statusCodes as $bcode ):?>
 <?php if($generator->keysExist($bcode,array_keys($labels))):?>
 <?php $msg='';foreach ($generator->statusCodeArray[$bcode] as $k=>$v):?>
@@ -61,6 +62,7 @@ class <?= $dataClass?> extends \<?= $modelFullClassName?>
             [['<?=$bcode?>'], 'in', 'range' => [<?=$msg?>],],
 <?php endif;?>
 <?php endforeach;?>
+<?php endif;?>
 <?php foreach ($tableSchema->columns as $colum):?>
 <?php if($colum->defaultValue!==null):?>
             [['<?=$colum->name?>'], 'default', 'value' =><?=is_string($colum->defaultValue)?"'".$colum->defaultValue."'":$colum->defaultValue?>,],

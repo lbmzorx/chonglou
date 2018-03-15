@@ -1,31 +1,49 @@
 <?php
-
 namespace common\models\data;
 
 use Yii;
 
 /**
- * This is the model class for table "{{%tag}}".
- *
- */
+* This is the data class for [[common\models\database\Tag]].
+*
+* @see \common\models\database\Tag
+*/
 class Tag extends \common\models\database\Tag
 {
-
-    /**
-     * $content_type_code
-     * @var array
-     */
-    public static $content_type_code=[0=>'文章',1=>'说说',2=>'话题'];
 
     /**
      * @inheritdoc
      */
     public function rules()
     {
-        $rules=[
+        return array_merge(parent::rules(),[
+        ]);
+    }
 
+    /**
+    * @inheritdoc
+    */
+    public function scenarios()
+    {
+        return [
+            'default' => [
+                'name',
+                'frequence',
+                'content_type',
+            ],
+            'search' => [
+                'id',
+                'name',
+                'frequence',
+                'content_type',
+            ],
+            'frontend' => [
+                'id',
+                'name',
+                'frequence',
+                'content_type',
+            ],
         ];
-        return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
     }
 
     /**
@@ -33,21 +51,9 @@ class Tag extends \common\models\database\Tag
      */
     public function attributeLabels()
     {
-        $lables= [
+        return array_merge(parent::attributeLabels(),[
 
-        ];
-        return \yii\helpers\ArrayHelper::merge(parent::attributeLabels(),$lables);
+        ]);
     }
 
-    /**
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-            'getStatusCode'=>[
-                'class' => \common\component\StatusCode::className(),
-            ],
-        ];
     }
-}

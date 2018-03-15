@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\data\Article;
 use common\components\behaviors\StatusCode;
+use common\models\data\ArticleCate;
+use common\components\tools\Cate;
 /* @var $this yii\web\View */
 /* @var $model common\models\data\Article */
 /* @var $form yii\widgets\ActiveForm */
@@ -19,10 +21,7 @@ use common\components\behaviors\StatusCode;
 
 <div class="row">
 	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'user_id')->textInput() ?>
-	</div>
-	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'cate_id')->textInput() ?>
+	    <?= $form->field($model, 'cate_id')->dropDownList(Cate::treeArray(Cate::array_cate_as_subarray(ArticleCate::find()->select('id,name,parent_id')->asArray()->indexBy('id')->all(),0,'parent_id')),[]) ?>
 	</div>
 	<div class="col-lg-3 col-sm-3">
 	    <?= $form->field($model, 'sort')->textInput() ?>
@@ -55,21 +54,7 @@ use common\components\behaviors\StatusCode;
 	    <?= $form->field($model, 'auth')->dropDownList(StatusCode::tranStatusCode(Article::$auth_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>
 	</div>
 	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'tag_id')->textInput(['maxlength' => true]) ?>
-	</div>
-	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'commit')->textInput(['maxlength' => true]) ?>
-	</div>
-</div>
-<div class="row">
-	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'view')->textInput(['maxlength' => true]) ?>
-	</div>
-	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'collection')->textInput(['maxlength' => true]) ?>
-	</div>
-	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'thumbup')->textInput() ?>
+	    <?= $form->field($model, 'tag')->textInput(['maxlength' => true]) ?>
 	</div>
 </div>
 <div class="row">

@@ -254,5 +254,27 @@ class Cate
     }
 
 
+    public static function treeArray($input,$symbol='└'){
+        $data = [];
+        foreach ($input as $k => $menu){
+            if(isset($menu['sub'])){
+                $data[$menu['id']]= $menu['name'];
+                foreach ($menu['sub'] as $mm){
+                    if(isset($mm['sub'])){
+                        $data[$mm['id']]= "&emsp;".$symbol.$mm['name'];
+                        foreach ($mm['sub'] as $mmm){
+                            $data[$mmm['id']]= "&emsp;&emsp;".$symbol.$mmm['name'];
+                        }
+                    }else{
+                        $data[$mm['id']]="&emsp;└'".$mm['name'];
+                    }
+                }
+            }else{
+                $data[$menu['id']]= $menu['name'];
+            }
+        }
+        return $data;
+    }
+
 
 }

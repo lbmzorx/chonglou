@@ -2,131 +2,56 @@
 
 namespace backend\modules\article\controllers;
 
-use backend\controllers\CommonController;
 use Yii;
-use common\models\crud\Tag;
+use common\models\data\Tag;
 use common\models\search\Tag as TagSearch;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\Controller;
+use backend\components\actions\CreateAction;
+use backend\components\actions\ViewAction;
+use backend\components\actions\UpdateAction;
+use backend\components\actions\IndexAction;
+use backend\components\actions\DeleteAction;
+use backend\components\actions\SortAction;
 
 /**
  * TagController implements the CRUD actions for Tag model.
  */
-class TagController extends CommonController
+class TagController extends Controller
 {
-
-    public $left_nav_id='article';
-    public $enableCsrfValidation=false;
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
+    public function actions()
     {
-        $rules= [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
+        return [
+            'index' => [
+                'class' => IndexAction::className(),
+                'data' => function(){
+                    $searchModel = new TagSearch();
+                    $dataProvider = $searchModel->search(yii::$app->getRequest()->getQueryParams());
+                    return [
+                        'dataProvider' => $dataProvider,
+                        'searchModel' => $searchModel,
+                    ];
+                }
+            ],
+            'create' => [
+                'class' => CreateAction::className(),
+                'modelClass' => Tag::className(),
+            ],
+            'view' => [
+                'class' => ViewAction::className(),
+                'modelClass' => Tag::className(),
+            ],
+            'update' => [
+                'class' => UpdateAction::className(),
+                'modelClass' => Tag::className(),
+            ],
+            'delete' => [
+                'class' => DeleteAction::className(),
+                'modelClass' => Tag::className(),
+            ],
+            'sort' => [
+                'class' => SortAction::className(),
+                'modelClass' => Tag::className(),
             ],
         ];
-        return array_merge($rules,parent::behaviors());
-    }
-
-
-    /**
-     * Lists all Tag models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new TagSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single Tag model.
-     * @param string $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new Tag model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Tag();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing Tag model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing Tag model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Tag model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Tag the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Tag::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

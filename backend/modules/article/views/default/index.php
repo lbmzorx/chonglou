@@ -118,7 +118,23 @@ $this->params['breadcrumbs'][] = $this->title;
                'class'=>\common\components\grid\DateTimeColumn::className(),
                'attribute'=>'edit_time',
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'commit' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa  fa-commenting-o" aria-hidden="true"></i> ', \yii\helpers\Url::to([
+                            'commit/index',
+                            'Commit[article_id]=' => $model->id,
+                        ]), [
+                            'data-pjax' => '0',
+                            'title' => Yii::t('app','Commit'),
+                            'aria-label'=>Yii::t('app','Commit'),
+                        ]);
+                    }
+                ],
+                'template' => '{view} {update} {delete} {commit}',
+
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

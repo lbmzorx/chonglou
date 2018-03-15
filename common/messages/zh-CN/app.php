@@ -4,9 +4,6 @@
 *
 */
 return [
-    
-    
-    
 
 	/*start*NameCommon*/
 	'backend'=>'后台',
@@ -30,5 +27,7 @@ return [
 	'Controller'=>'控制器',
 	'Action'=>'方法',
 	/*end*Menu*/
+
+
 
 ];

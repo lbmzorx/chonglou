@@ -42,13 +42,15 @@ class ArticleCommit extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'article_id' => Yii::t('app', '文章ID'),
-            'user_id' => Yii::t('app', '用户ID'),
-            'commit_id' => Yii::t('app', '评论ID'),
-            'content' => Yii::t('app', '内容'),
-            'status' => Yii::t('app', '状态，0，已发表，1评论成功，3非法评论，2审核不通过'),
-            'add_time' => Yii::t('app', '添加时间'),
+            'id' => Yii::t('model', 'ID'), //
+            'article_id' => Yii::t('model', 'Article ID'), //文章ID
+            'user_id' => Yii::t('model', 'User ID'), //用户ID
+            'commit_id' => Yii::t('model', 'Commit ID'), //评论ID
+            'content' => Yii::t('model', 'Content'), //内容
+            'status' => Yii::t('model', 'Status'), //状态，0，已发表，1评论成功，3非法评论，2审核不通过
+            'add_time' => Yii::t('model', 'Add Time'), //添加时间
         ];
     }
 }
+
+

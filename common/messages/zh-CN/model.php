@@ -4,25 +4,9 @@
 *
 */
 return [
-    
-    
-    
-    
-    
-    
-    
-    
-
-	/*start*NameCommon*/
-
-
-
-
-
-
-
-
-	'ID'=>'ID',
+    /*start*NameCommon*/
+    'ID'=>'ID',
+    'User ID'=>'用户ID',
 	'Position'=>'位置',//0左，1上',
 	'Parent ID'=>'上级ID',
 	'Name'=>'名称',
@@ -30,17 +14,9 @@ return [
 	'Add Time'=>'创建时间',
 	'Edit Time'=>'修改时间',
 	'Sort'=>'排序',
-					'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',',
-	'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',',
+    'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',',
+	'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',',	'User ID'=>'用户ID',',
 	/*end*NameCommon*/
-
-
-
-
-
-
-
-
 
 	/*start*Menu*/
 	'App Type'=>'菜单类型',//0后台,1前台',
@@ -55,12 +31,8 @@ return [
 	'Action'=>'方法',
 	/*end*Menu*/
 
-
-
-
-
 	/*start*Article*/
-	'User ID'=>'用户ID',
+	//'User ID'=>'用户ID',
 	'Cate ID'=>'分类',
 	'Title'=>'标题',
 	'Author'=>'作者',
@@ -77,17 +49,20 @@ return [
 	//'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',
 	'Score'=>'评分',
 	'Publish'=>'发布',//0草稿,1发布',
-	//'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',
+	////'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',
 	/*end*Article*/
-
-
-
-
-
-
 
 	/*start*ArticleCate*/
 	'Path'=>'路径',
 	/*end*ArticleCate*/
+
+	/*start*Tag*/
+	'Frequence'=>'频率',
+	'Content Type'=>'标签类型',
+	/*end*Tag*/	/*start*ArticleCommit*/
+	'Article ID'=>'文章ID',
+	'Commit ID'=>'评论ID',
+	'Content'=>'内容',
+	/*end*ArticleCommit*/
 
 ];

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\data\ArticleCate;
 use common\components\behaviors\StatusCode;
+use common\components\tools\Cate;
 /* @var $this yii\web\View */
 /* @var $model common\models\data\ArticleCate */
 /* @var $form yii\widgets\ActiveForm */
@@ -22,7 +23,7 @@ use common\components\behaviors\StatusCode;
 	    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 	</div>
 	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'parent_id')->textInput() ?>
+	    <?= $form->field($model, 'parent_id')->dropDownList(Cate::treeArray(Cate::array_cate_as_subarray(ArticleCate::find()->select('id,name,parent_id')->asArray()->indexBy('id')->all(),0,'parent_id')),[]) ?>
 	</div>
 	<div class="col-lg-3 col-sm-3">
 	    <?= $form->field($model, 'level')->textInput() ?>

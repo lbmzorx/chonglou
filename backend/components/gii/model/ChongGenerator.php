@@ -172,7 +172,7 @@ class ChongGenerator extends Generator
         $common_content='';
         if($file_content){
             if(preg_match('/('.$commontstart.')([.\s\S]*)('.$commontend.')/',$file_content,$match)){
-                $common_content=$match[2];
+                $common_content=trim($match[2]);
                 $file_content=preg_replace('/('.$commontstart.')([.\s\S]*)('.$commontend.')/','${1} ${3}',$file_content);
             }
         }
@@ -208,11 +208,11 @@ class ChongGenerator extends Generator
         foreach ($commonName as $name=>$attribute){
             $common_content.="\t'{$name}'=>'{$attribute}',\n";
         }
-        $tranCommon="\t".'/*start*NameCommon*/'."\n".$commontend."\t/*end*NameCommon*/\n";
+        $tranCommon="\t".'/*start*NameCommon*/'."\n\t".$commontend."\t/*end*NameCommon*/\n\n";
         if(preg_match('/('.$commontstart.')([.\s\S]*)('.$commontend.')/',$file_content)){
-            $tranCommon=preg_replace('/('.$commontstart.')([.\s\S]*)('.$commontend.')/','${1}'."\n".$common_content."\t".'${3}'."\n",$file_content);
+            $tranCommon=preg_replace('/('.$commontstart.')([.\s\S]*)('.$commontend.')/','${1}'."\n".$common_content."\t".'${3}'."\n\n",trim($file_content));
         }else{
-            $tranCommon=$tranCommon.$file_content;
+            $tranCommon=$tranCommon.trim($file_content);
         }
 
         $replace='';

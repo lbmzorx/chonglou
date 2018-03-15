@@ -39,10 +39,12 @@ class Tag extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', '名称'),
-            'frequence' => Yii::t('app', '频率'),
-            'content_type' => Yii::t('app', '标签类型'),
+            'id' => Yii::t('model', 'ID'), //
+            'name' => Yii::t('model', 'Name'), //名称
+            'frequence' => Yii::t('model', 'Frequence'), //频率
+            'content_type' => Yii::t('model', 'Content Type'), //标签类型
         ];
     }
 }
+
+

@@ -38,8 +38,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\CheckboxColumn'],
 
             'id',
-            'user_id',
-            'cate_id',
+            [
+                'class'=>\common\components\grid\UserColumn::className(),
+                'label'=>Yii::t('app','User Name'),
+                'attribute'=>'user.name',
+            ],
+            [
+                'attribute'=>'cate.name',
+                'label'=>Yii::t('app','Cate Name'),
+                'value'=>'cate.name',
+            ],
             'sort',
             'title',
             //'author',
@@ -66,11 +74,11 @@ $this->params['breadcrumbs'][] = $this->title;
                },
                'format'=>'raw',
             ],
-            //'tag_id',
-            //'commit',
-            //'view',
-            //'collection',
-            //'thumbup',
+            //'tag',
+            'commit',
+            'view',
+            'collection',
+            'thumbup',
             [
                'class'=>\common\components\grid\StatusCodeColumn::className(),
                'attribute'=>'publish',
@@ -101,6 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format'=>'raw',
             ],
+            'score',
             [
                'class'=>\common\components\grid\DateTimeColumn::className(),
                'attribute'=>'add_time',
@@ -109,8 +118,6 @@ $this->params['breadcrumbs'][] = $this->title;
                'class'=>\common\components\grid\DateTimeColumn::className(),
                'attribute'=>'edit_time',
             ],
-            //'score',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

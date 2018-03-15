@@ -13,6 +13,13 @@ use common\components\events\SearchEvent;
  */
 class Article extends ArticleModel
 {
+
+
+    public function attributes()
+    {
+        return array_merge(parent::attributes(),['user.name','cate.name']);
+    }
+
     /**
      * @inheritdoc
      */
@@ -20,8 +27,8 @@ class Article extends ArticleModel
     {
         return [
             [['id', 'user_id', 'cate_id', 'sort', 'content_id', 'remain', 'auth', 'commit', 'view', 'collection', 'thumbup', 'publish', 'status', 'add_time', 'edit_time', 'level', 'score'], 'integer'],
-            [['title', 'author', 'cover', 'abstract', 'tag_id'], 'safe'],
-            [['add_time','edit_time'],'string'],
+            [['title', 'author', 'cover', 'abstract', 'tag','cate.name','user.name'], 'safe'],
+            [['add_time','edit_time',],'string'],
         ];
     }
 
@@ -43,7 +50,7 @@ class Article extends ArticleModel
      */
     public function search($params)
     {
-        $query = ArticleModel::find();
+        $query = ArticleModel::find()->alias('a');
 
         // add conditions that should always apply here
 
@@ -61,30 +68,46 @@ class Article extends ArticleModel
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'user_id' => $this->user_id,
-            'cate_id' => $this->cate_id,
-            'sort' => $this->sort,
-            'content_id' => $this->content_id,
-            'remain' => $this->remain,
-            'auth' => $this->auth,
-            'commit' => $this->commit,
-            'view' => $this->view,
-            'collection' => $this->collection,
-            'thumbup' => $this->thumbup,
-            'publish' => $this->publish,
-            'status' => $this->status,
-            'add_time' => $this->add_time,
-            'edit_time' => $this->edit_time,
-            'level' => $this->level,
-            'score' => $this->score,
+            'a.id' => $this->id,
+            'a.user_id' => $this->user_id,
+            'a.cate_id' => $this->cate_id,
+            'a.sort' => $this->sort,
+            'a.content_id' => $this->content_id,
+            'a.remain' => $this->remain,
+            'a.auth' => $this->auth,
+            'a.commit' => $this->commit,
+            'a.view' => $this->view,
+            'a.collection' => $this->collection,
+            'a.thumbup' => $this->thumbup,
+            'a.publish' => $this->publish,
+            'a.status' => $this->status,
+            'a.add_time' => $this->add_time,
+            'a.edit_time' => $this->edit_time,
+            'a.level' => $this->level,
+            'a.score' => $this->score,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'author', $this->author])
-            ->andFilterWhere(['like', 'cover', $this->cover])
-            ->andFilterWhere(['like', 'abstract', $this->abstract])
-            ->andFilterWhere(['like', 'tag_id', $this->tag_id]);
+        $query->andFilterWhere(['like', 'a.title', $this->title])
+            ->andFilterWhere(['like', 'a.author', $this->author])
+            ->andFilterWhere(['like', 'a.cover', $this->cover])
+            ->andFilterWhere(['like', 'a.abstract', $this->abstract])
+            ->andFilterWhere(['like', 'a.tag', $this->tag])
+            ->with('user')->with('cate');
+        $query->join('INNER JOIN',\common\models\data\ArticleCate::tableName().' c','c.id = a.cate_id');
+        $query->andFilterWhere(['like','c.name',$this->getAttribute('user.name')]);
+        $query->join('LEFT JOIN',\common\models\data\User::tableName().' u','u.id = a.user_id');
+        $query->andFilterWhere(['like','u.name',$this->getAttribute('cate.name')]);
+
+        $dataProvider->sort->attributes['user.name'] =
+            [
+                'asc'=>['a.user_id'=>SORT_ASC],
+                'desc'=>['a.user_id'=>SORT_DESC],
+            ];
+        $dataProvider->sort->attributes['cate.name'] =
+            [
+                'asc'=>['a.cate_id'=>SORT_ASC],
+                'desc'=>['a.cate_id'=>SORT_DESC],
+            ];
         $this->trigger(SearchEvent::BEFORE_SEARCH, new SearchEvent(['query'=>$query]));
         return $dataProvider;
     }

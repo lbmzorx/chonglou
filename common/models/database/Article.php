@@ -18,7 +18,7 @@ use Yii;
  * @property string $content_id 文章内容
  * @property int $remain 提醒.0未提醒，1已经提醒
  * @property int $auth 权限.0所有人，1好友，2加密，3自己
- * @property string $tag_id 标签
+ * @property string $tag 标签
  * @property string $commit 评论
  * @property string $view 浏览
  * @property string $collection 收藏
@@ -50,7 +50,7 @@ class Article extends \yii\db\ActiveRecord
             [['content_id'], 'required'],
             [['title'], 'string', 'max' => 50],
             [['author', 'cover', 'abstract'], 'string', 'max' => 255],
-            [['tag_id'], 'string', 'max' => 20],
+            [['tag'], 'string', 'max' => 20],
         ];
     }
 
@@ -71,7 +71,7 @@ class Article extends \yii\db\ActiveRecord
             'content_id' => Yii::t('model', 'Content ID'), //文章内容
             'remain' => Yii::t('model', 'Remain'), //提醒.0未提醒，1已经提醒
             'auth' => Yii::t('model', 'Auth'), //权限.0所有人，1好友，2加密，3自己
-            'tag_id' => Yii::t('model', 'Tag ID'), //标签
+            'tag' => Yii::t('model', 'Tag ID'), //标签
             'commit' => Yii::t('model', 'Commit'), //评论
             'view' => Yii::t('model', 'View'), //浏览
             'collection' => Yii::t('model', 'Collection'), //收藏

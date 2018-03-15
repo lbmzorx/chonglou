@@ -73,6 +73,7 @@ class Article extends \common\models\database\Article
             [['thumbup'], 'default', 'value' =>0,],
             [['level'], 'default', 'value' =>2,],
             [['score'], 'default', 'value' =>0,],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ]);
     }
 
@@ -93,7 +94,7 @@ class Article extends \common\models\database\Article
                 'content_id',
                 'remain',
                 'auth',
-                'tag_id',
+                'tag',
                 'commit',
                 'view',
                 'collection',
@@ -115,7 +116,7 @@ class Article extends \common\models\database\Article
                 'content_id',
                 'remain',
                 'auth',
-                'tag_id',
+                'tag',
                 'commit',
                 'view',
                 'collection',
@@ -139,7 +140,7 @@ class Article extends \common\models\database\Article
                 'content_id',
                 'remain',
                 'auth',
-                'tag_id',
+                'tag',
                 'commit',
                 'view',
                 'collection',
@@ -177,9 +178,14 @@ class Article extends \common\models\database\Article
             'getStatusCode'=>[
                 'class' => \common\components\behaviors\StatusCode::className(),
             ],
-        'withOneUser'=>[
+            'withOneUser'=>[
                 'class' => \common\components\behaviors\WithOneUser::className(),
             ],
         ];
     }
+
+    public function getCate(){
+        return $this->hasOne(ArticleCate::className(),['id'=>'cate_id'])->select('id,name')->asArray();
+    }
+
 }

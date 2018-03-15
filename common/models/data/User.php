@@ -57,7 +57,7 @@ class User extends \common\models\database\User
                 // 'value' => new Expression('NOW()'),
             ],
             'getStatusCode'=>[
-                'class' => \common\component\StatusCode::className(),
+                'class' => \common\components\behaviors\StatusCode::className(),
             ],
         ];
     }

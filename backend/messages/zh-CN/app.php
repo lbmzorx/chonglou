@@ -51,5 +51,9 @@ return [
 	'Genius' =>'天才',//'level'=5, 文章级别.0垃圾,1较差,2普通,3较好,4优秀,5天才
 /*end*Article*/
 
+    /*Article*start*/
+    'User Name'=>'用户名',
+    'Cate Name'=>'分类',
+    /*Article*end*/
 
 ];

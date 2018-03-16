@@ -4,8 +4,9 @@
 *
 */
 return [
-    /*start*NameCommon*/
-    'ID'=>'ID',
+    
+/*start*NameCommon*/
+'ID'=>'ID',
     'User ID'=>'用户ID',
 	'Position'=>'位置',//0左，1上',
 	'Parent ID'=>'上级ID',
@@ -15,8 +16,10 @@ return [
 	'Edit Time'=>'修改时间',
 	'Sort'=>'排序',
     'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',',
-	'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',',	'User ID'=>'用户ID',',
+	'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',',	'User ID'=>'用户ID',',	'Content'=>'内容',',
 	/*end*NameCommon*/
+
+
 
 	/*start*Menu*/
 	'App Type'=>'菜单类型',//0后台,1前台',
@@ -62,7 +65,9 @@ return [
 	/*end*Tag*/	/*start*ArticleCommit*/
 	'Article ID'=>'文章ID',
 	'Commit ID'=>'评论ID',
-	'Content'=>'内容',
+	//'Content'=>'内容',
 	/*end*ArticleCommit*/
+	/*start*ArticleContent*/
+	/*end*ArticleContent*/
 
 ];

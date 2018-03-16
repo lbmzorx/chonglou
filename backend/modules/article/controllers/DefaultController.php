@@ -2,6 +2,7 @@
 
 namespace backend\modules\article\controllers;
 
+use common\models\data\ArticleContent;
 use Yii;
 use common\models\data\Article;
 use common\models\search\Article as ArticleSearch;
@@ -44,6 +45,11 @@ class DefaultController extends Controller
             'update' => [
                 'class' => UpdateAction::className(),
                 'modelClass' => Article::className(),
+                'transation'=>true,
+                'depandeClass'=>[
+                    'class'=>ArticleContent::className(),
+                    'condition'=>['id'=>'{model:content_id}'],
+                ],
             ],
             'delete' => [
                 'class' => DeleteAction::className(),

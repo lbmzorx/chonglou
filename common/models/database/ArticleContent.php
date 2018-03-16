@@ -37,8 +37,10 @@ class ArticleContent extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'content' => Yii::t('app', '文章内容'),
+            'id' => Yii::t('model', 'ID'), //
+            'content' => Yii::t('model', 'Content'), //文章内容
         ];
     }
 }
+
+

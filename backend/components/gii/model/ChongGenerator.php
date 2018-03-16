@@ -34,7 +34,7 @@ class ChongGenerator extends Generator
         $rules = [
             [['dataModelClass','statusCode','timeUpdate','timeAdd'] , 'filter' , 'filter' => 'trim'] ,
             [['statusCodeJson'] , 'filter' , 'filter' => 'trim'],
-            [['statusCodeJson'],'required','when' => function($model){return !empty($model->statusCode);}],
+            [['statusCodeJson'],'required','when' => function($model){return empty($model->statusCode)?false:true;}],
             [['statusCodeJson'],'transferJson',],
             [['withOneUser','labelExplain','labelTran'] , 'boolean' ,] ,
         ];
@@ -208,9 +208,9 @@ class ChongGenerator extends Generator
         foreach ($commonName as $name=>$attribute){
             $common_content.="\t'{$name}'=>'{$attribute}',\n";
         }
-        $tranCommon="\t".'/*start*NameCommon*/'."\n\t".$commontend."\t/*end*NameCommon*/\n\n";
+        $tranCommon="\n\t".'/*start*NameCommon*/'."\n\t".$commontend."\t/*end*NameCommon*/\n\n";
         if(preg_match('/('.$commontstart.')([.\s\S]*)('.$commontend.')/',$file_content)){
-            $tranCommon=preg_replace('/('.$commontstart.')([.\s\S]*)('.$commontend.')/','${1}'."\n".$common_content."\t".'${3}'."\n\n",trim($file_content));
+            $tranCommon=preg_replace('/('.$commontstart.')([.\s\S]*)('.$commontend.')/',"\n".'${1}'."\n".$common_content."\t".'${3}'."\n\n",trim($file_content));
         }else{
             $tranCommon=$tranCommon.trim($file_content);
         }
@@ -220,9 +220,9 @@ class ChongGenerator extends Generator
             $replace.="\t'{$name}'=>'{$label}',\n";
         }
 
-        $tran="\t".'/*start*'.$className.'*/'."\n".$replace."\t/*end*$className*/\n";
+        $tran="\n\t".'/*start*'.$className.'*/'."\n".$replace."\t/*end*$className*/\n";
         if(preg_match('/('.$start.')([.\s\S]*)('.$end.')/',$tranCommon)){
-            $tran=preg_replace('/('.$start.')([.\s\S]*)('.$end.')/','${1}'."\n".$replace."\t".'${3}'."\n",$tranCommon);
+            $tran=preg_replace('/('.$start.')([.\s\S]*)('.$end.')/',"\n".'${1}'."\n".$replace."\t".'${3}'."\n",$tranCommon);
         }else{
             $tran=$tranCommon.$tran;
         }
@@ -291,14 +291,14 @@ class ChongGenerator extends Generator
         $string='';
         foreach ($statusArray as $status=>$codes){
             foreach ($codes as $key=>$code){
-                $string.="\t'".$code."' =>'',//'".$status."'=".$key.', '.$properties[$status]['comment']."\n";
+                $string.="\n\t'".$code."' =>'',//'".$status."'=".$key.', '.$properties[$status]['comment']."\n";
             }
         }
 
         if($overwrite==true){
             $file_content=preg_replace('/('.$start.')([.\s\S]*)('.$end.')/','${1}'."\n".$string.'${3}',$file_content);
         }else{
-            $file_content=$file_content."\t/*start*".$className."*/\n".$string."\t/*end*".$className."*/\n";
+            $file_content=$file_content."\n\t/*start*".$className."*/\n".$string."\t/*end*".$className."*/\n";
         }
 
         return new CodeFile(

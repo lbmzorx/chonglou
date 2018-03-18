@@ -50,6 +50,7 @@ class EditorMdField extends ActiveField
             'markdown'=>'md',
             'emoji' => true,
             'codeFold'=>true,
+            'preview'=>false,
             //syncScrolling'=>'false',
             'saveHTMLToTextarea'=>true,    // 保存 HTML 到 Textarea
             'searchReplace'=>true,
@@ -64,15 +65,6 @@ class EditorMdField extends ActiveField
             'tex'=>true,                   // 开启科学公式TeX语言支持，默认关闭
             'flowChart'=>true,             // 开启流程图支持，默认关闭
             'sequenceDiagram'=>true,       // 开启时序/序列图支持，默认关闭',
-            'imageUpload'=>true,
-            'imageFormats'=>'["jpg", "jpeg", "png",]',
-            'imageUploadURL'=>' "./php/upload.php"',
-            'onload'=><<<func
-                function() {
-                   
-                }
-func
-            ,
         ]);
         $mdJsOptions=ArrayHelper::merge($mdJsOptions,[
             'path'=>$editormdUrl.'/lib/',
@@ -81,7 +73,7 @@ func
 
         $mdJsOptionsJson=Json::encode($mdJsOptions);
         $keymd=substr(md5($idMd),0,10);
-        $view->registerJs("$(function() {var md$keymd=editormd('$idMd',$mdJsOptionsJson);})");
+        $view->registerJs("var md{$keymd}; $(function() { md{$keymd}=editormd('$idMd',$mdJsOptionsJson);$('.editormd-preview-close-btn').hide()})");
     }
 
     public function getMdeditorId(){

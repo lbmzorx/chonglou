@@ -220,7 +220,10 @@
         imageUploadURL       : "",
         crossDomainUpload    : false,
         uploadCallbackURL    : "",
-        
+        imageInputName       : 'UploadImg[imageFile]',
+        imageCsrfName        :'_csrf',
+        imageCsrfTocken      :'_csrf',
+
         toc                  : true,           // Table of contents
         tocm                 : false,           // Using [TOCM], auto create ToC dropdown menu
         tocTitle             : "",             // for ToC dropdown menu btn

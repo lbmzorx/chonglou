@@ -28,6 +28,9 @@
             var classPrefix = this.classPrefix;
             var iframeName  = classPrefix + "image-iframe";
 			var dialogName  = classPrefix + pluginName, dialog;
+            var imageName   = "UploadImg[imageFile]";
+            var csrfName    = '_csrf';
+            var csrfValue   = '';
 
 			cm.focus();
 
@@ -51,7 +54,8 @@
                                         "<label>" + imageLang.url + "</label>" +
                                         "<input type=\"text\" data-url />" + (function(){
                                             return (settings.imageUpload) ? "<div class=\"" + classPrefix + "file-input\">" +
-                                                                                "<input type=\"file\" name=\"" + classPrefix + "image-file\" accept=\"image/*\" />" +
+                                                                                "<input type=\"hidden\" name=\"+csrfName+\" value=\""+csrfValue+"\" class=\"csrf-token\"/>"+
+                                                                                "<input type=\"file\" name=\"" + imageName + "\" accept=\"image/*\" />" +
                                                                                 "<input type=\"submit\" value=\"" + imageLang.uploadButton + "\" />" +
                                                                             "</div>" : "";
                                         })() +
@@ -125,7 +129,19 @@
                     return ;
                 }
 
-				var fileInput  = dialog.find("[name=\"" + classPrefix + "image-file\"]");
+                if( settings.imageInputName){
+                    imageName = settings.imageInputName;
+                }
+                var fileInput  = dialog.find("[name=\"" + imageName + "\"]");
+
+                if( settings.imageCsrfName){
+                    csrfName = settings.imageCsrfName;
+                }
+                if( settings.imageCsrfTocken){
+                    csrfValue = settings.imageCsrfTocken;
+                }
+                dialog.find(".csrf-token").attr('name',csrfName);
+                dialog.find(".csrf-token").attr('value',csrfValue);
 
 				fileInput.bind("change", function() {
 					var fileName  = fileInput.val();

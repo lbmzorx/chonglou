@@ -63,7 +63,7 @@ use common\components\tools\Cate;
     <div class="row">
         <div class="col-lg-12 col-sm-12">
             <?= $form->field($depance, 'content',[
-                'class'=>\common\components\widget\EditorMdField::className(),
+                'class'=>\backend\components\widget\EditorMdField::className(),
                 'mdJsOptions'=>[
                     'placeholder'=>'请输入内容',
                 ],

@@ -70,15 +70,16 @@ class UploadAction extends \yii\base\Action
                 $status=false;
             }
         }else{
-            throw new BadRequestHttpException(yii::t('app', "Upload only support post data"));
+            return "{msg:ok}";
+//            throw new BadRequestHttpException(yii::t('app', "Upload only support post data"));
         }
 
         if($request->isAjax){
             yii::$app->getSession()->setFlash('success', yii::t('app', 'Success'));
             if($status==true){
-                return ['status'=>true,'url'=>$imgModel->out_name];
+                return ['success'=>1,'message'=>yii::t('app','Upload Success'),'url'=>$imgModel->out_name];
             }else {
-                return ['status' => true , 'msg' => $err];
+                return ['success' =>0,'message' =>$err];
             }
         }else{
             if($status==true){

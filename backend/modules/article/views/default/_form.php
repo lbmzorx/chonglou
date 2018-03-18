@@ -40,7 +40,7 @@ use common\components\tools\Cate;
     </div>
     <div class="row">
         <div class="col-lg-3 col-sm-3">
-            <?= $form->field($model, 'cate_id')->dropDownList(Cate::treeArray(Cate::array_cate_as_subarray(ArticleCate::find()->select('id,name,parent_id')->asArray()->indexBy('id')->all(),0,'parent_id')),[]) ?>
+            <?= $form->field($model, 'cate_id')->dropDownList(Cate::treeArray(Cate::array_cate_as_subarray(ArticleCate::find()->select('id,name,parent_id')->asArray()->indexBy('id')->all(),0,'parent_id')),['format'=>'raw','prompt'=>\Yii::t('app','Please Select')]) ?>
         </div>
         <div class="col-lg-3 col-sm-3">
             <?= $form->field($model, 'sort')->textInput() ?>

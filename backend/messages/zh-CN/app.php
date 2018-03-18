@@ -68,4 +68,6 @@ return [
     'Commit'=>'评论',
     /*end*ArticleCommit*/
 
+    'Upload only support post data'=>'上传文件仅仅支持',
+
 ];

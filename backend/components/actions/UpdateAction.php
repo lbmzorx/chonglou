@@ -111,10 +111,10 @@ class UpdateAction extends \yii\base\Action
 
     /**
      * @param \yii\db\ActiveRecord $model
-     * @param array $depances
+     * @param $depances
      * @return bool
      */
-    protected function save($model,$depances=[]){
+    protected function save($model,$depances){
         $status=false;
         if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
             $status= true;
@@ -122,16 +122,27 @@ class UpdateAction extends \yii\base\Action
             yii::$app->getSession()->setFlash('error', current($model->getFirstErrors()));
         }
         if($status&&!empty($depances)){
-            foreach ($depances as $depance){
-                if(!$status){
-                    break;
-                }
-                if ($depance->load(Yii::$app->getRequest()->post()) && $depance->save()) {
+            if(is_object($depances)){
+                if ($depances->load(Yii::$app->getRequest()->post()) && $depances->save()) {
                     $status= true;
                 }else{
-                    yii::$app->getSession()->setFlash('error', current($depance->getFirstErrors()));
+                    yii::$app->getSession()->setFlash('error', current($depances->getFirstErrors()));
                     $status= false;
                 }
+            }elseif(is_array($depances)){
+                foreach ($depances as $depance){
+                    if(!$status){
+                        break;
+                    }
+                    if ($depance->load(Yii::$app->getRequest()->post()) && $depance->save()) {
+                        $status= true;
+                    }else{
+                        yii::$app->getSession()->setFlash('error', current($depance->getFirstErrors()));
+                        $status= false;
+                    }
+                }
+            }else{
+                $status= false;
             }
         }
         return $status;

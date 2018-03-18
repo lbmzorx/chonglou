@@ -261,12 +261,12 @@ class Cate
                 $data[$menu['id']]= $menu['name'];
                 foreach ($menu['sub'] as $mm){
                     if(isset($mm['sub'])){
-                        $data[$mm['id']]= "&emsp;".$symbol.$mm['name'];
+                        $data[$mm['id']]= "    ".$symbol.$mm['name'];
                         foreach ($mm['sub'] as $mmm){
-                            $data[$mmm['id']]= "&emsp;&emsp;".$symbol.$mmm['name'];
+                            $data[$mmm['id']]= "        ".$symbol.$mmm['name'];
                         }
                     }else{
-                        $data[$mm['id']]="&emsp;└'".$mm['name'];
+                        $data[$mm['id']]="    └".$mm['name'];
                     }
                 }
             }else{

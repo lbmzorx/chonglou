@@ -81,8 +81,6 @@ class Article extends ArticleModel
             'a.thumbup' => $this->thumbup,
             'a.publish' => $this->publish,
             'a.status' => $this->status,
-            'a.add_time' => $this->add_time,
-            'a.edit_time' => $this->edit_time,
             'a.level' => $this->level,
             'a.score' => $this->score,
         ]);

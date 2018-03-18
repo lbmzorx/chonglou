@@ -49,15 +49,4 @@ class ArticleContent extends \common\models\database\ArticleContent
 
         ]);
     }
-
-    public function behaviors()
-    {
-        return [
-            'timeUpdate'=>[
-                'class' => \yii\behaviors\TimestampBehavior::className(),
-                'attributes' => [
-                ],
-            ],
-        ];
-    }
 }

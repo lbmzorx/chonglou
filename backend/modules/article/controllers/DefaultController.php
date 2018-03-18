@@ -2,7 +2,9 @@
 
 namespace backend\modules\article\controllers;
 
+use backend\components\actions\UploadAction;
 use common\models\data\ArticleContent;
+use common\models\tool\UploadImg;
 use Yii;
 use common\models\data\Article;
 use common\models\search\Article as ArticleSearch;
@@ -62,6 +64,11 @@ class DefaultController extends Controller
             'change-status'=>[
                 'class'=>ChangeStatusAction::className(),
                 'modelClass'=>Article::className(),
+            ],
+            'upload' => [
+                'class' => UploadAction::className(),
+                'modelClass' => Article::className(),
+                'imgClass'=>UploadImg::className(),
             ],
         ];
     }

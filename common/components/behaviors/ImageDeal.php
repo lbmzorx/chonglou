@@ -7,7 +7,7 @@
  */
 namespace common\components\behaviors;
 
-use app\models\UploadImg;
+use common\models\tool\UploadImg;
 use common\components\tools\Gd;
 use yii\base\Behavior;
 use yii\base\Exception;

@@ -77,14 +77,15 @@ class UploadAction extends \yii\base\Action
         if($request->isAjax){
             yii::$app->getSession()->setFlash('success', yii::t('app', 'Success'));
             if($status==true){
-                return ['success'=>1,'message'=>yii::t('app','Upload Success'),'url'=>$imgModel->out_name];
+                return ['success'=>1,'message'=>yii::t('app','Upload Success'),'url'=>$imgModel->urlName];
             }else {
                 return ['success' =>0,'message' =>$err];
             }
         }else{
             if($status==true){
-                if( $this->successRedirect ) return $this->controller->redirect($this->successRedirect);
-                return $this->controller->refresh();
+                return json_encode(['success'=>1,'message'=>yii::t('app','Upload Success'),'url'=>$imgModel->urlName]);
+//                if( $this->successRedirect ) return $this->controller->redirect($this->successRedirect);
+//                return $this->controller->refresh();
             }else {
                 yii::$app->getSession()->setFlash('error', $err);
                 return $this->controller->redirect($this->viewFile);

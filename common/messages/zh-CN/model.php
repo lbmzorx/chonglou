@@ -16,8 +16,13 @@ return [
 	'Edit Time'=>'修改时间',
 	'Sort'=>'排序',
     'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',',
-	'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',',	'User ID'=>'用户ID',',	'Content'=>'内容',',
-	/*end*NameCommon*/
+	'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',',
+    //	'User ID'=>'用户ID',',
+    'Content'=>'内容',	/*end*NameCommon*/
+
+
+
+
 
 
 
@@ -35,7 +40,7 @@ return [
 	/*end*Menu*/
 
 	/*start*Article*/
-	//'User ID'=>'用户ID',
+	//////'User ID'=>'用户ID',
 	'Cate ID'=>'分类',
 	'Title'=>'标题',
 	'Author'=>'作者',
@@ -69,5 +74,12 @@ return [
 	/*end*ArticleCommit*/
 	/*start*ArticleContent*/
 	/*end*ArticleContent*/
+	
+/*start*ImgUpload*/
+	'File Path'=>'文件路径',
+	'Admin ID'=>'管理员ID',
+	/*end*ImgUpload*/
 
+
+    'There is no {$attribut}!'=>'无{$attribut}!',
 ];

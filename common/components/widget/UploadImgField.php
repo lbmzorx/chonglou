@@ -65,7 +65,7 @@ class UploadImgField extends ActiveField
                 }
                 ,done: function(res){
                   //如果上传失败
-                  if(res.code > 0){
+                  if(res.success != 1){
                     return layer.msg(res.msg);
                   }else{
                     $("#{$id}").val(res.url);

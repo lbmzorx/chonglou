@@ -64,7 +64,7 @@ class ImageDeal extends Behavior
     public function events()
     {
         return [
-            UploadImg::EVENT_BEFORE_UPLOAD => 'operation',
+            UploadImg::EVENT_AFTER_SAVEIMG => 'operation',
         ];
     }
 
@@ -73,15 +73,9 @@ class ImageDeal extends Behavior
      * @return bool
      */
     public function getImgFullName(){
-        if(!$this->imgFullName){
-            if($this->owner->hasProperty('out_name') && $this->owner->out_name){
-                $this->imgFullName=$this->owner->out_name;
-            }
-        }
-        if(!$this->imgFullName){
-            return false;
-        }
-        return true;
+        $imgmodel=$this->owner;
+        $this->imgFullName=$imgmodel->getFullFile();
+        return $this->imgFullName;
     }
 
     /**
@@ -93,7 +87,8 @@ class ImageDeal extends Behavior
             if(!$this->getImgFullName()){
                 $this->throwOnTool('image file');
             }
-            $this->_imgTool=new Gd(\yii::getAlias('@web').$this->imgFullName);
+
+            $this->_imgTool=new Gd($this->imgFullName);
         }
         return $this->_imgTool;
     }
@@ -104,7 +99,7 @@ class ImageDeal extends Behavior
      * @throws Exception
      */
     public function throwOnTool($attribut){
-        $msg="there is no {$attribut}!";
+        $msg=\Yii::t('app',"There is no {$attribut}!");
         throw new Exception($msg);
     }
 

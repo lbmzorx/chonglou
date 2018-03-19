@@ -35,9 +35,7 @@ class EditorMdField extends \common\components\widget\EditorMdField
 
         $view=\yii::$app->getView();
         $view->registerJs(<<<script
-                $("#goto-line-btn").bind("click", function(){
-                    testEditor.gotoLine(90);
-                });
+
 script
 );
     }

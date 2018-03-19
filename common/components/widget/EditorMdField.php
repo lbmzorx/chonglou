@@ -47,7 +47,6 @@ class EditorMdField extends ActiveField
             'height'=>'640',
             'syncScrolling'=>"single",
             'watch'=> true,
-            'markdown'=>'md',
             'emoji' => true,
             'codeFold'=>true,
             'preview'=>false,

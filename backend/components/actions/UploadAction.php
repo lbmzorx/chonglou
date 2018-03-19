@@ -76,6 +76,7 @@ class UploadAction extends \yii\base\Action
 
         if($request->isAjax){
             yii::$app->getSession()->setFlash('success', yii::t('app', 'Success'));
+            \yii::$app->response->format=yii\web\Response::FORMAT_JSON;
             if($status==true){
                 return ['success'=>1,'message'=>yii::t('app','Upload Success'),'url'=>$imgModel->urlName];
             }else {

@@ -11,7 +11,7 @@ use common\models\search\Article as ArticleSearch;
 use yii\web\Controller;
 use backend\components\actions\CreateAction;
 use backend\components\actions\ViewAction;
-use backend\components\actions\UpdateAction;
+use backend\components\actions\MutiUpdateAction;
 use backend\components\actions\IndexAction;
 use backend\components\actions\DeleteAction;
 use backend\components\actions\SortAction;
@@ -45,7 +45,7 @@ class DefaultController extends Controller
                 'modelClass' => Article::className(),
             ],
             'update' => [
-                'class' => UpdateAction::className(),
+                'class' => MutiUpdateAction::className(),
                 'modelClass' => Article::className(),
                 'transation'=>true,
                 'depandeClass'=>[

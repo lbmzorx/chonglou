@@ -11,6 +11,9 @@ use common\components\tools\Cate;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $depance \common\models\data\ArticleContent*/
 
+var_dump(\yii::$app->session->getFlash('success'));
+var_dump(\yii::$app->session->getFlash('error'));
+
 ?>
 <div class="panel">
     <div class="panel-heading">
@@ -32,8 +35,9 @@ use common\components\tools\Cate;
         <div class="col-lg-3 col-sm-3">
             <?= $form->field($model, 'cover',[
                 'class'=>\common\components\widget\UploadImgField::className(),
-                'imgOptions'=>[
-                    'placeholder'=>'请输入内容',
+                'jsOptions'=>[
+                    'urlUpload'=>\yii\helpers\Url::to(['upload']),
+                    'field'=>'UploadImg[imageFile]',
                 ],
             ])->fileInput([]);?>
         </div>

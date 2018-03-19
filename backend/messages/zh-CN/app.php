@@ -70,4 +70,5 @@ return [
 
     'Upload only support post data'=>'上传文件仅仅支持',
 
+    'Upload Image'=>'上传图片',
 ];

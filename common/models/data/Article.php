@@ -188,4 +188,5 @@ class Article extends \common\models\database\Article
     public function getCate(){
         return $this->hasOne(ArticleCate::className(),['id'=>'cate_id'])->select('id,name')->asArray();
     }
+
 }

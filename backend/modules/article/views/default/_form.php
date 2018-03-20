@@ -9,10 +9,7 @@ use common\components\tools\Cate;
 /* @var $this yii\web\View */
 /* @var $model common\models\data\Article */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $depance \common\models\data\ArticleContent*/
-
-var_dump(\yii::$app->session->getFlash('success'));
-var_dump(\yii::$app->session->getFlash('error'));
+/* @var $ArticleContent \common\models\data\ArticleContent*/
 
 ?>
 <div class="panel">
@@ -66,7 +63,7 @@ var_dump(\yii::$app->session->getFlash('error'));
     </div>
     <div class="row">
         <div class="col-lg-12 col-sm-12">
-            <?= $form->field($depance, 'content',[
+            <?= $form->field($ArticleContent, 'content',[
                 'class'=>\backend\components\widget\EditorMdField::className(),
                 'mdJsOptions'=>[
                     'placeholder'=>'请输入内容',

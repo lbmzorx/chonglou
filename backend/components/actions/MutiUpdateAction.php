@@ -162,7 +162,8 @@ class MutiUpdateAction extends \yii\base\Action
                     }
                 }
             }else{
-                $depanceModel=$this->creatDepanceModel($this->depandeClass,$model);
+                $name=yii\helpers\StringHelper::basename($this->depandeClass['class']);
+                $depanceModel[$name]=$this->creatDepanceModel($this->depandeClass,$model);
                 if( $depanceModel == false ){
                     return false;
                 }

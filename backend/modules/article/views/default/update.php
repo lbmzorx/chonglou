@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\data\Article */
-/* @var $depance \common\models\data\ArticleContent*/
+/* @var $ArticleContent \common\models\data\ArticleContent*/
 
 $this->title = Yii::t('app', 'Update Article: {nameAttribute}', [
     'nameAttribute' => $model->title,
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     ]) ?>
     <?= $this->render('_form', [
         'model' => $model,
-        'depance'=>$depance,
+        'ArticleContent'=>$ArticleContent,
     ]) ?>
 
 </div>

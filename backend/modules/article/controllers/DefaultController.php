@@ -2,6 +2,7 @@
 
 namespace backend\modules\article\controllers;
 
+use backend\components\actions\MutiCreateAction;
 use backend\components\actions\UploadAction;
 use common\models\data\ArticleContent;
 use common\models\tool\UploadImg;
@@ -37,8 +38,12 @@ class DefaultController extends Controller
                 }
             ],
             'create' => [
-                'class' => CreateAction::className(),
+                'class' => MutiCreateAction::className(),
                 'modelClass' => Article::className(),
+                'depandeClass'=>[
+                    'class'=>ArticleContent::className(),
+                    'condition'=>['id'=>'{model:content_id}'],  //依赖关系
+                ],
             ],
             'view' => [
                 'class' => ViewAction::className(),

@@ -72,4 +72,12 @@ return [
     'Upload Image'=>'上传图片',
     'Failed Upload'=>'上传失败',
     'Retry'=>'重试',
+    'Created Success'=>'添加成功',
+    'Success'=>'成功',
+    'Error'=>'失败',
+    'Created Error'=>'添加错误',
+
+    'error'=>'错误',
+
+    'Create Article'=>'添加文章',
 ];

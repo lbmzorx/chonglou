@@ -71,7 +71,7 @@ class Article extends \yii\db\ActiveRecord
             'content_id' => Yii::t('model', 'Content ID'), //文章内容
             'remain' => Yii::t('model', 'Remain'), //提醒.0未提醒，1已经提醒
             'auth' => Yii::t('model', 'Auth'), //权限.0所有人，1好友，2加密，3自己
-            'tag' => Yii::t('model', 'Tag ID'), //标签
+            'tag' => Yii::t('model', 'Tag'), //标签
             'commit' => Yii::t('model', 'Commit'), //评论
             'view' => Yii::t('model', 'View'), //浏览
             'collection' => Yii::t('model', 'Collection'), //收藏

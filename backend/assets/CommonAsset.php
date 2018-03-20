@@ -23,5 +23,6 @@ class CommonAsset extends AssetBundle
         'common\assets\LineariconsAsset',
         'common\assets\FontAwesomeAsset',
         'common\assets\JquerySlimscroll',
+        'common\assets\ToastrAsset',
     ];
 }

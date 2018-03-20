@@ -70,4 +70,6 @@ return [
 
     'Upload only support post data'=>'上传文件仅仅支持',
     'Upload Image'=>'上传图片',
+    'Failed Upload'=>'上传失败',
+    'Retry'=>'重试',
 ];

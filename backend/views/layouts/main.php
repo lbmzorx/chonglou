@@ -121,6 +121,7 @@ STYLE
 </div>
 <!-- END WRAPPER -->
 <!-- Javascript -->
+<?= $this->render('//widgets/_flash') ?>
 <?=$this->endBody()?>
 </body>
 

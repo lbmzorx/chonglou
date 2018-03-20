@@ -47,6 +47,9 @@ class UploadImgField extends ActiveField
         $url=$this->jsOptions['urlUpload'];
         $uploadName=$this->jsOptions['field'];
 
+        $failedmsg=\Yii::t('app','Failed Upload');
+        $retry = \yii::t('app','Retry');
+
         LayuiAsset::register($view);
         $view->registerJs(<<<SCRIPT
         
@@ -69,12 +72,13 @@ class UploadImgField extends ActiveField
                     return layer.msg(res.msg);
                   }else{
                     $("#{$id}").val(res.url);
+                    $('#p-{$id}').html('');
                   }
                 }
                 ,error: function(){
                     //演示失败状态，并实现重传
                     var demoText = $('#p-{$id}');
-                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                    demoText.html('<span style="color: #FF5722;">{$failedmsg}</span> <a class="layui-btn layui-btn-mini demo-reload">{$retry}</a>');
                     demoText.find('.demo-reload').on('click', function(){
                         uploadInst.upload();
                     });

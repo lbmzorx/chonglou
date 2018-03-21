@@ -69,11 +69,10 @@ $assets_url=$this->assetBundles[LoginAsset::className()]->baseUrl;
     </div>
 </div>
 <?=$this->render('//widgets/_flash')?>
-<textarea id="loginform-pubkey" style="display: none"><?=\common\components\tools\Rsaenctype::getPubKey(true)?></textarea>
+<?php $pubkey=\common\components\tools\Rsaenctype::getPubKey(true)?>
 <?php $passwordId=Html::getInputId($model,'password')?>
 <?=$this->registerJs(<<<SCRYPT
-var encrypt = new JSEncrypt();
-    encrypt.setPublicKey($('#loginform-pubkey').val().trim());    
+var encrypt = new JSEncrypt();encrypt.setPublicKey('{$pubkey}');    
 function do_encrypt(str) { return encrypt.encrypt(str);}
 var count=1;
 $('#login-form').submit(function(){

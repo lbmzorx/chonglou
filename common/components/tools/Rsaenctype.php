@@ -94,7 +94,15 @@ class Rsaenctype extends BaseObject
             if( !$this->privKey || !$this->pubKey){
                 $this->create_key();
             }
-            $session->set(self::$sessionRsaKey,['public_key'=>$this->pubKey,'private_key'=>$this->privKey]);
+            $session->set(self::$sessionRsaKey,['public_key'=>static::trimPubKey($this->pubKey),'private_key'=>$this->privKey]);
+        }
+    }
+
+    public static function trimPubKey($pubKey){
+        if(preg_match('/[\-]+BEGIN\sPUBLIC\sKEY[\-]+(?P<pubKey>[.\s\S]+)\-\-\-\-\-END\sPUBLIC\sKEY[\-]+/',$pubKey,$match)){
+            return trim(str_replace("\n",'',$match['pubKey']));
+        }else{
+            return false;
         }
     }
 
@@ -105,17 +113,17 @@ class Rsaenctype extends BaseObject
                 return $rsa['public_key'];
             }
         }
-//        try{
+        try{
             $rsa = \Yii::createObject(self::className());
             $rsa->create_key();
             if($isSession){
                 $rsa->keepSessionRsa();
             }
-            return $rsa->pubKey;
-//        }catch (Exception $e){
-//            \yii::$app->getSession()->setFlash('error','Failed get public key');
-//        }
-//        return false;
+            return static::trimPubKey($rsa->pubKey);
+        }catch (Exception $e){
+            \yii::$app->getSession()->setFlash('error','Failed get public key');
+        }
+        return false;
     }
 
     public static function sessionDecryptPrivate($input,$reRsa=false){

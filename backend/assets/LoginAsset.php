@@ -22,5 +22,6 @@ class LoginAsset extends AssetBundle
     public $depends=[
         'yii\bootstrap\BootstrapAsset',
         '\common\assets\JsencryptAsset',
+        '\common\assets\ToastrAsset',
     ];
 }

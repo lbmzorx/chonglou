@@ -68,6 +68,7 @@ $assets_url=$this->assetBundles[LoginAsset::className()]->baseUrl;
         </div>
     </div>
 </div>
+<?=$this->render('//widgets/_flash')?>
 <textarea id="loginform-pubkey" style="display: none"><?=\common\components\tools\Rsaenctype::getPubKey(true)?></textarea>
 <?php $passwordId=Html::getInputId($model,'password')?>
 <?=$this->registerJs(<<<SCRYPT

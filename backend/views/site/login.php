@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \common\models\LoginForm */
+/* @var $model \common\models\admin\LoginForm */
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
@@ -21,6 +21,7 @@ $assets_url=$this->assetBundles[LoginAsset::className()]->baseUrl;
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <?= \yii\helpers\Html::csrfMetaTags() ?>
     <!-- VENDOR CSS -->
     <?=$this->head()?>
 </head>
@@ -50,7 +51,7 @@ $assets_url=$this->assetBundles[LoginAsset::className()]->baseUrl;
                             </div>
                         <?= Html::submitButton('登录',['class' =>'btn btn-primary btn-lg btn-block','name' =>'login-button']) ?>
                             <div class="bottom">
-                                <span class="helper-text"><i class="fa fa-lock"></i> <a href="#">Forgot password?</a></span>
+                                <span class="helper-text"><i class="fa fa-lock"></i></span>
                             </div>
                         <?php ActiveForm::end(); ?>
                     </div>
@@ -67,6 +68,21 @@ $assets_url=$this->assetBundles[LoginAsset::className()]->baseUrl;
         </div>
     </div>
 </div>
+<textarea id="loginform-pubkey" style="display: none"><?=\common\components\tools\Rsaenctype::getPubKey(true)?></textarea>
+<?php $passwordId=Html::getInputId($model,'password')?>
+<?=$this->registerJs(<<<SCRYPT
+var encrypt = new JSEncrypt();
+    encrypt.setPublicKey($('#loginform-pubkey').val().trim());    
+function do_encrypt(str) { return encrypt.encrypt(str);}
+var count=1;
+$('#login-form').submit(function(){
+    if(count==1){
+         $('#{$passwordId}').val(do_encrypt($('#{$passwordId}').val().trim()));
+    }
+    count++;
+});
+SCRYPT
+)?>
 <!-- END WRAPPER -->
 <?=$this->endBody()?>
 </body>

@@ -82,4 +82,5 @@ return [
 
 
     'There is no {$attribut}!'=>'无{$attribut}!',
+    'Incorrect username or password!'=>'用户名或密码错误',
 ];

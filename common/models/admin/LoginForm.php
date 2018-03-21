@@ -1,9 +1,11 @@
 <?php
 namespace common\models\admin;
 
+
 use Yii;
 use yii\base\Model;
-
+use common\components\behaviors\RsaAttribute;
+use common\components\events\LoginEvent;
 /**
  * Login form
  */
@@ -11,10 +13,11 @@ class LoginForm extends Model
 {
     public $name;
     public $password;
-    public $rememberMe = false;
 
+    /**
+     * @var Admin
+     */
     private $_user;
-
 
     /**
      * @inheritdoc
@@ -23,11 +26,19 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['name', 'password'], 'required','message'=>'账号或密码不能为空'],
-            // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
+            [['name', 'password'], 'required',],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'bs_rsa'=>[
+                'class'=>RsaAttribute::className(),
+                'rsaAtAttributes'=>'password',
+            ],
         ];
     }
 
@@ -43,7 +54,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, '错误用户名或密码');
+                $this->addError($attribute, \Yii::t('model','Incorrect username or password!'));
             }
         }
     }
@@ -55,9 +66,14 @@ class LoginForm extends Model
      */
     public function login()
     {
+        $loginEvent =new LoginEvent();
+        $this->trigger(LoginEvent::EVENT_BEFORE_LOGIN,$loginEvent);
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            $status = Yii::$app->user->login($this->getUser(),0);
+            $this->trigger(LoginEvent::EVENT_BEFORE_LOGIN,$loginEvent);
+            return $status;
         } else {
+            $this->trigger(LoginEvent::EVENT_FAILED_LOGIN,$loginEvent);
             return false;
         }
     }
@@ -65,7 +81,7 @@ class LoginForm extends Model
     /**
      * Finds user by [[username]]
      *
-     * @return User|null
+     * @return Admin User|null
      */
     protected function getUser()
     {

@@ -1,8 +1,11 @@
 <?php
 namespace backend\controllers;
 
+use common\components\behaviors\LimitLogin;
+use common\components\events\LoginEvent;
 use Yii;
 use common\models\admin\LoginForm;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 /**
@@ -10,6 +13,18 @@ use yii\web\Controller;
  */
 class SiteController extends Controller
 {
+
+    const EVENT_BEFORE_LOGIN='beforeLogin';
+
+
+    public function behaviors()
+    {
+        return [
+            'check_login'=>[
+                'class'=>LimitLogin::className(),
+            ],
+        ];
+    }
 
     /**
      * Displays homepage.
@@ -31,9 +46,10 @@ class SiteController extends Controller
         if(!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
+        $this->trigger(LoginEvent::EVENT_BEFORE_LOGIN,new LoginEvent());
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            \yii::$app->getSession()->setFlash('Success',Yii::t('app','Login Success!'));
             return $this->goBack();
         } else {
             return $this->renderPartial('login', [
@@ -55,7 +71,11 @@ class SiteController extends Controller
     }
 
     public function actionError(){
-        return $this->render('error');
+        if(Yii::$app->user->isGuest){
+            return $this->renderPartial('badrequest');
+        }else{
+            return $this->render('error');
+        }
     }
 
 }

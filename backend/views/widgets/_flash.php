@@ -10,22 +10,8 @@ if (Yii::$app->getSession()->hasFlash('success')) {
     $successTitle = addslashes( yii::t('app', 'Success') );
     $info = addslashes( Yii::$app->getSession()->getFlash('success') );
     $str = <<<EOF
-        toastr.options = {
-           "closeButton": true,
-            "debug": false,
-            "progressBar": false,
-            "positionClass": "toast-top-center",
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-       };
-       toastr.success("{$successTitle}", "{$info}");
+        toastr.options=toastrOption.success;
+        toastr.success("{$successTitle}", "{$info}");
 EOF;
     $this->registerJs($str);
 }
@@ -33,20 +19,7 @@ if (Yii::$app->getSession()->hasFlash('error')) {
     $errorTitle = addslashes( yii::t('app', 'Error') );
     $info = addslashes( Yii::$app->getSession()->getFlash('error') );
     $str = <<<EOF
-       toastr.options = {
-          "closeButton": true,
-          "debug": false,
-          "progressBar": true,
-          "positionClass": "toast-top-center",
-          "showDuration": "400",
-          "hideDuration": "1000",
-          "timeOut": "1000",
-          "extendedTimeOut": "1000",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
-       };
+       toastr.options = toastrOption.error;
        toastr.error("{$errorTitle}", "{$info}");
 EOF;
     $this->registerJs($str);
@@ -55,21 +28,7 @@ if (Yii::$app->getSession()->hasFlash('warning')) {
     $errorTitle = addslashes( yii::t('app', 'Warning') );
     $info = addslashes( Yii::$app->getSession()->getFlash('warning') );
     $str = <<<EOF
-       toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "progressBar": false,
-            "positionClass": "toast-top-center",
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-       };
+       toastr.options = toastrOption.warning;
        toastr.warning("{$errorTitle}", "{$info}");
 EOF;
     $this->registerJs($str);
@@ -78,21 +37,7 @@ if (Yii::$app->getSession()->hasFlash('info')) {
     $infoTitle = addslashes( yii::t('app', 'Info') );
     $info = addslashes( Yii::$app->getSession()->getFlash('info') );
     $str = <<<EOF
-       toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "progressBar": false,
-        "positionClass": "toast-top-center",
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-       };
+       toastr.options = toastrOption.info;
        toastr.info("{$infoTitle}", "{$info}");
 EOF;
     $this->registerJs($str);

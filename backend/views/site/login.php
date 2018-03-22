@@ -15,7 +15,6 @@ $assets_url=$this->assetBundles[LoginAsset::className()]->baseUrl;
 <?=$this->beginPage()?>
 <!doctype html>
 <html lang="en" class="fullscreen-bg">
-
 <head>
     <title>后台登录</title>
     <meta charset="utf-8">

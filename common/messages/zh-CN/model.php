@@ -83,4 +83,7 @@ return [
 
     'There is no {$attribut}!'=>'无{$attribut}!',
     'Incorrect username or password!'=>'用户名或密码错误',
+    'You have failed to try login at least fifth , please wait {time}s'=>'您已经登录失败超过5次了，请等待{time}秒',
+    'You have failed to try login more than {count}times, please wait {time}s'=>'您已经登录失败超过{count}次了，请等待{time}秒',
+    'You have failed to try login more than 10times, please try tomorrow!'=>'您登录失败超过10次，请联系管理员，或者明天再试一试',
 ];

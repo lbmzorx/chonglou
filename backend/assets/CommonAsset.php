@@ -21,7 +21,6 @@ class CommonAsset extends AssetBundle
         'common\assets\BootstrapAsset',
         'common\assets\JquerySlimscroll',
         'common\assets\LineariconsAsset',
-        'common\assets\FontAwesomeAsset',
         'common\assets\JquerySlimscroll',
         'common\assets\ToastrAsset',
     ];

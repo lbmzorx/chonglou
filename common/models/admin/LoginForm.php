@@ -2,6 +2,7 @@
 namespace common\models\admin;
 
 
+use common\components\behaviors\LimitLogin;
 use Yii;
 use yii\base\Model;
 use common\components\behaviors\RsaAttribute;
@@ -38,6 +39,9 @@ class LoginForm extends Model
             'bs_rsa'=>[
                 'class'=>RsaAttribute::className(),
                 'rsaAtAttributes'=>'password',
+            ],
+            'check_login'=>[
+                'class'=>LimitLogin::className(),
             ],
         ];
     }

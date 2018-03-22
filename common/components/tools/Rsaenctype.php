@@ -10,6 +10,7 @@ namespace common\components\tools;
 
 use yii\base\BaseObject;
 use yii\base\Exception;
+use yii\web\BadRequestHttpException;
 
 class Rsaenctype extends BaseObject
 {
@@ -131,11 +132,16 @@ class Rsaenctype extends BaseObject
         if(empty($rsaSession['private_key'])){
             return false;
         }
-        $rsa=\yii::createObject(['class'=>self::className(),'privKey'=>$rsaSession['private_key']]);
-        if($reRsa==true){
-            return ['res'=>$rsa->private_decrypt($input),'rsa'=>$rsa];
-        }
-        return $rsa->private_decrypt($input);
+        $rsa=\yii::createObject(['class'=>self::className(),'privKey'=>$rsaSession['private_key'].'asdf']);
+        return '.';
+//        try{
+//            if($reRsa==true){
+//                return ['res'=>$rsa->private_decrypt($input),'rsa'=>$rsa];
+//            }
+//            return $rsa->private_decrypt($input);
+//        }catch (Exception $e){
+//            return false;
+//        }
     }
 
 }

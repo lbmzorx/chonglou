@@ -7,23 +7,19 @@ use yii\web\AssetBundle;
 /**
  * Main backend application asset bundle.
  */
-class LoginAsset extends AssetBundle
+class BadRequestAsset extends AssetBundle
 {
     public $sourcePath = '@resource/admin';
 
     public $css = [
         'css/main.css',
     ];
-
     public $js =[
         'js/toastroption.js',
     ];
-
     public $depends=[
         'yii\bootstrap\BootstrapAsset',
         'common\assets\FontAwesomeAsset',
-        'common\assets\LineariconsAsset',
-        '\common\assets\JsencryptAsset',
         '\common\assets\ToastrAsset',
     ];
 }

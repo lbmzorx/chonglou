@@ -131,5 +131,4 @@ class CommonController extends Controller
     protected function reJson(){
         \yii::$app->response->format=Response::FORMAT_JSON;
     }
-
 }

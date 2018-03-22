@@ -80,4 +80,7 @@ return [
     'error'=>'错误',
 
     'Create Article'=>'添加文章',
+    'Login Success!'=>'登录成功',
+    'Warning'=>'警告',
+    'Error'=>'错误',
 ];

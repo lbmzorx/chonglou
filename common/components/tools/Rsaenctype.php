@@ -130,18 +130,17 @@ class Rsaenctype extends BaseObject
     public static function sessionDecryptPrivate($input,$reRsa=false){
         $rsaSession=\yii::$app->getSession()->get(self::$sessionRsaKey);
         if(empty($rsaSession['private_key'])){
-            return false;
+            return '.';
         }
-        $rsa=\yii::createObject(['class'=>self::className(),'privKey'=>$rsaSession['private_key'].'asdf']);
-        return '.';
-//        try{
-//            if($reRsa==true){
-//                return ['res'=>$rsa->private_decrypt($input),'rsa'=>$rsa];
-//            }
-//            return $rsa->private_decrypt($input);
-//        }catch (Exception $e){
-//            return false;
-//        }
+        $rsa=\yii::createObject(['class'=>self::className(),'privKey'=>$rsaSession['private_key']]);
+        try{
+            if($reRsa==true){
+                return ['res'=>$rsa->private_decrypt($input),'rsa'=>$rsa];
+            }
+            return $rsa->private_decrypt($input);
+        }catch (Exception $e){
+            return '.';
+        }
     }
 
 }

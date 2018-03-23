@@ -19,6 +19,7 @@ class CommonAsset extends AssetBundle
     public $depends = [
         'common\assets\JqueryAsset',
         'common\assets\BootstrapAsset',
+        'common\assets\FontAwesomeAsset',
         'common\assets\JquerySlimscroll',
         'common\assets\LineariconsAsset',
         'common\assets\JquerySlimscroll',

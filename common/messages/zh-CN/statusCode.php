@@ -8,6 +8,7 @@ return [
     
     
     
+    
     	/*start*Article*/
 	'Un remain' =>'未提醒',//'remain'=0, 提醒.0未提醒，1已经提醒
 	'Remained' =>'已提醒',//'remain'=1, 提醒.0未提醒，1已经提醒
@@ -41,5 +42,19 @@ return [
 	'Audit Pass' =>'评论成功',//'status'=1, 状态，0，已发表，1评论成功，3非法评论，2审核不通过
 	'Audit Failed' =>'非法评论',//'status'=2, 状态，0，已发表，1评论成功，3非法评论，2审核不通过
 	/*end*ArticleCommit*/
+
+
+	/*start*Options*/
+	'system' =>'',//'type'=0, 类型.0系统,1自定义,2banner,3广告
+	'self' =>'',//'type'=1, 类型.0系统,1自定义,2banner,3广告
+	'banner' =>'',//'type'=2, 类型.0系统,1自定义,2banner,3广告
+	'ad' =>'',//'type'=3, 类型.0系统,1自定义,2banner,3广告
+	'input' =>'',//'input_type'=0, 输入框类型
+	'texteare' =>'',//'input_type'=1, 输入框类型
+	'img' =>'',//'input_type'=2, 输入框类型
+	'markdown' =>'',//'input_type'=3, 输入框类型
+	'no' =>'',//'autoload'=0, 自动加载.0否,1是
+	'yes' =>'',//'autoload'=1, 自动加载.0否,1是
+	/*end*Options*/
 
 ];

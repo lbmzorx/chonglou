@@ -26,10 +26,12 @@ return [
 
 
 
+
+
 	/*start*Menu*/
 	'App Type'=>'菜单类型',//0后台,1前台',
 	'Url'=>'url地址',
-	////////'Sort'=>'排序',
+	//////////'Sort'=>'排序',
 	'Target'=>'打开方式',//_blank新窗口,_self本窗口',
 	'Is Absolute Url'=>'是否绝对地址',
 	'Is Display'=>'是否显示',//0否,1是',
@@ -86,4 +88,12 @@ return [
     'You have failed to try login at least fifth , please wait {time}s'=>'您已经登录失败超过5次了，请等待{time}秒',
     'You have failed to try login more than {count}times, please wait {time}s'=>'您已经登录失败超过{count}次了，请等待{time}秒',
     'You have failed to try login more than 10times, please try tomorrow!'=>'您登录失败超过10次，请联系管理员，或者明天再试一试',
+	/*start*Options*/
+	'Type'=>'类型',//0系统,1自定义,2banner,3广告',
+	'Value'=>'值',
+	'Input Type'=>'输入框类型',
+	'Autoload'=>'自动加载',//0否,1是',
+	'Tips'=>'提示备注信息',
+	/*end*Options*/
+
 ];

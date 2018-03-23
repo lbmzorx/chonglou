@@ -291,7 +291,7 @@ class ChongGenerator extends Generator
         $string='';
         foreach ($statusArray as $status=>$codes){
             foreach ($codes as $key=>$code){
-                $string.="\n\t'".$code."' =>'',//'".$status."'=".$key.', '.$properties[$status]['comment']."\n";
+                $string.="\t'".$code."' =>'',//'".$status."'=".$key.', '.$properties[$status]['comment']."\n";
             }
         }
 

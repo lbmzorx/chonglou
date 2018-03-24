@@ -4,6 +4,7 @@ namespace common\models\data;
 use Yii;
 use yii\base\Exception;
 use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -13,6 +14,15 @@ use yii\web\NotFoundHttpException;
 */
 class Options extends \common\models\database\Options
 {
+
+    public static $depency_filename='@backend/runtime/depency/backend_options.txt';
+
+    const OPTIONS_SITE_STATUS_CLOSE = 1;
+    const OPTIONS_SITE_STATUS_OPEN = 0;
+    /**
+     * @var array $site_status_code 0 网站状态, 0关闭,1开放
+     */
+    public static $site_status_code=[0=>'close',1=>'open'];
 
     const OPTIONS_TYPE_SYSTEM = 0;
     const OPTIONS_TYPE_SELF = 1;
@@ -126,11 +136,7 @@ class Options extends \common\models\database\Options
      */
     public function afterSave($insert, $changedAttributes)
     {
-        $object = yii::createObject([
-            'class' => FileDependencyHelper::className(),
-            'fileName' => 'options.txt',
-        ]);
-        $object->updateFile();
+        $this->removeBackendMenuCache();
         parent::afterSave($insert, $changedAttributes);
     }
 
@@ -141,38 +147,7 @@ class Options extends \common\models\database\Options
                 $temp = explode('\\', self::className());
                 $modelName = end( $temp );
                 $key = "{$modelName}[{$this->id}][value]";
-                $upload = UploadedFile::getInstanceByName($key);
-                $old = Options::findOne($this->id);
-                /* @var $cdn \feehi\cdn\TargetInterface */
-                $cdn = yii::$app->get('cdn');
-                if($upload !== null){
-                    $uploadPath = yii::getAlias('@uploads/setting/custom-setting/');
-                    if (! FileHelper::createDirectory($uploadPath)) {
-                        $this->addError($key, "Create directory failed " . $uploadPath);
-                        return false;
-                    }
-                    $fullName = $uploadPath . date('YmdHis') . '_' . uniqid() . '.' . $upload->getExtension();
-                    if (! $upload->saveAs($fullName)) {
-                        $this->addError($key, yii::t('app', 'Upload {attribute} error: ' . $upload->error, ['attribute' => yii::t('app', 'Picture')]) . ': ' . $fullName);
-                        return false;
-                    }
-                    $this->value = str_replace(yii::getAlias('@frontend/web'), '', $fullName);
-                    $cdn->upload($fullName, $this->value);
-                    if( $old !== null ){
-                        $file = yii::getAlias('@frontend/web') . $old->value;
-                        if( file_exists($file) && is_file($file) ) unlink($file);
-                        if( $cdn->exists($old->value) ) $cdn->delete($old->value);
-                    }
-                }else{
-                    if( $this->value !== '' ){
-                        $file = yii::getAlias('@frontend/web') . $old->value;
-                        if( file_exists($file) && is_file($file) ) unlink($file);
-                        if( $cdn->exists($old->value) ) $cdn->delete($old->value);
-                        $this->value = '';
-                    }else {
-                        $this->value = $old->value;
-                    }
-                }
+
             }
         }
         return true;
@@ -204,4 +179,26 @@ class Options extends \common\models\database\Options
     {
         return AdForm::findOne(['type'=>self::TYPE_AD, 'name'=>$name]);
     }
+
+    /**
+     * 菜单缓存失效
+     */
+    public function removeBackendMenuCache()
+    {
+        $path=self::$depency_filename;
+        $file=\yii::getAlias($path);
+        $path=pathinfo($file);
+        if (file_exists($file)) {
+            file_put_contents($file, date("Y-m-d H:i:s").'-'.microtime(true));
+        }else{
+            FileHelper::createDirectory($path['dirname']);
+            try{
+                $depanceFile=fopen($file,'w');
+                fwrite($depanceFile, date("Y-m-d H:i:s").'-'.microtime(true));
+                fclose($depanceFile);
+            }catch (Exception $e){
+            }
+        }
+    }
+
 }

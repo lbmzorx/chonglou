@@ -65,14 +65,17 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'upload/<default:[\w\d]+(/[\w\d]+)*\.(png|jpg|jpeg)>'=>'upload/default/index',
                 '<controller:\w+>'=>'<controller>/index',
                 '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
                 '<controller:\w+>/<action:\w+>.<id:\d+>'=>'<controller>/<action>',
                 '<module:\w+>/<controller:\w+>'=>'<module>/<controller>/index',
+                '<module:\w+>'=>'<module>/default/index',
                 '<module:\w+>/<controller:\w+>/<id:\d+>'=>'<module>/<controller>/index',
                 '<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'=>'<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>/<page:\d+>/<per-page:\d+>'=>'<module>/<controller>/<action>',
+
             ],
         ],
         'formatter' => [
@@ -107,6 +110,9 @@ return [
         ],
         'setting' => [
             'class' => 'backend\modules\setting\Module',
+        ],
+        'upload' => [
+            'class' => 'backend\modules\upload\Module',
         ],
     ],
 

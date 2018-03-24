@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = yii::t('app', 'Website Setting');
 </div>
 <div class="row">
     <div class="col-lg-6 col-sm-6">
-        <?= $form->field($model, 'website_status')->radioList(StatusCode::tranStatusCode(Options::$autoload_code,'app')) ?>
+        <?= $form->field($model, 'website_status')->radioList(StatusCode::tranStatusCode(Options::$site_status_code,'app')) ?>
     </div>
 </div>
 <div class="row">

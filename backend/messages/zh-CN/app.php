@@ -125,5 +125,8 @@ return [
     'SMTP Setting' => 'SMTP设置',
     'Test' => '测试',
     'Type restrict, please type in after create' => '类型受限，请创建完成后再录入值',
+    'open'=>'开放',
+    'close'=>'关闭',
     /*end*Options*/
+
 ];

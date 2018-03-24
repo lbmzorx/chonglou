@@ -30,7 +30,8 @@ class UploadImg extends Model
     /**
      * @var string
      */
-    public $imgServer='http://www.chongloua.com/upload/';
+//    public $imgServer='http://www.chongloua.com/upload/';
+    public $imgServer='/upload/';
     public $imgServerPath='@frontend/web/upload/';
    
     /**

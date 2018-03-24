@@ -90,7 +90,7 @@ class Leftmenu extends Widget
                             '<ul class="nav">';
                     foreach ($v['sub'] as $vv) {
                         $string .= '<li><a href="' . Html::encode($vv['url']) . '" class="' . ($this->leftsub == $vv['controller'] ? 'active' : '') . '">' .
-                            '<i class="' . Html::encode($v['icon']) . '"></i>' .
+                            '<i class="' . Html::encode($vv['icon']) . '"></i>' .
                             Html::encode($vv['name']) . '</a></li>';
                     };
                     $string .= '</ul></div></li>';

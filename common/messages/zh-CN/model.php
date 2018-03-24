@@ -93,7 +93,7 @@ return [
 	'Value'=>'值',
 	'Input Type'=>'输入框类型',
 	'Autoload'=>'自动加载',//0否,1是',
-	'Tips'=>'提示备注信息',
+	'Tips'=>'提示',
 	/*end*Options*/
 
 ];

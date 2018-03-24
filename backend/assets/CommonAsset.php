@@ -15,6 +15,7 @@ class CommonAsset extends AssetBundle
     ];
     public $js = [
         'js/klorofil-common.js',
+        'js/admin.js',
     ];
     public $depends = [
         'common\assets\JqueryAsset',

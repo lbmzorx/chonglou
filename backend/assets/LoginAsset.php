@@ -16,14 +16,14 @@ class LoginAsset extends AssetBundle
     ];
 
     public $js =[
-        'js/toastroption.js',
+        'js/admin.js',
     ];
 
     public $depends=[
         'yii\bootstrap\BootstrapAsset',
         'common\assets\FontAwesomeAsset',
         'common\assets\LineariconsAsset',
-        '\common\assets\JsencryptAsset',
-        '\common\assets\ToastrAsset',
+        'common\assets\JsencryptAsset',
+        'common\assets\ToastrAsset',
     ];
 }

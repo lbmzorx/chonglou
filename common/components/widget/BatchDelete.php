@@ -14,7 +14,7 @@ class BatchDelete extends Widget
 {
 
     public $options=[];
-    public $griViewKey;
+    public $griViewKey=0;
     public $name = 'Batch Deletes';
     public $isIcon=true;
     public $deleteUrl='update';

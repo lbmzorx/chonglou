@@ -78,36 +78,15 @@ class BatchUpdate extends Widget
         $('#{$this->options['id']}').click(function(){           
             var keys = $('#w{$this->griViewKey}').yiiGridView('getSelectedRows');
             var dom_status_change=$('#{$this->attribute}-change-dom');
-            console.log(keys);
+          
             if( typeof keys !="undefined" && keys.length>0){
                 dom_status_change.find('input[name="id"]').val(keys);                     
-                layer.open({
-                    'type':1,
-                    'content':dom_status_change,
-                    btn:['{$jsSelect}'],
-                    yes:function(layindex,laydom){
-                        var dom_form=laydom.find('form');
-                        layer.confirm("{$confimMsg}",{
-                            btn:['{$jsConfirm}'],
-                            yes:function(){                                
-                                $.post(dom_form.attr('action'),dom_form.serialize(),function(res){
-                                    if(res.status){
-                                        layer.msg(res.msg,{time:1300},function(){
-                                            $.pjax.reload('#w{$this->griViewKey}');
-                                        });
-                                    }else{
-                                       layer.alert(res.msg); 
-                                    }
-                                    layer.close(layindex);
-                                },'json');
-                            }
-                        });
-                    }
-                });
+                batchUpdate(dom_status_change,'#w{$this->griViewKey}',['{$jsSelect}'],"{$confimMsg}",['{$jsConfirm}'])
             }else{
                 layer.alert('$unChoose');            
             }
         });
+        
 SCRITYT
         );
     }

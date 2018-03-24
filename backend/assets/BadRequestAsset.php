@@ -15,11 +15,11 @@ class BadRequestAsset extends AssetBundle
         'css/main.css',
     ];
     public $js =[
-        'js/toastroption.js',
+        'js/admin.js',
     ];
     public $depends=[
         'yii\bootstrap\BootstrapAsset',
         'common\assets\FontAwesomeAsset',
-        '\common\assets\ToastrAsset',
+        'common\assets\ToastrAsset',
     ];
 }

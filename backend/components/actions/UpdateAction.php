@@ -50,9 +50,10 @@ class UpdateAction extends \yii\base\Action
         if (yii::$app->getRequest()->getIsPost()) {
             if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
                 if( yii::$app->getRequest()->getIsAjax() ){
+                    yii::$app->getSession()->setFlash('success', yii::t('app', 'Update Success'));
                     return [];
                 }else {
-                    yii::$app->getSession()->setFlash('success', yii::t('app', 'Success'));
+                    yii::$app->getSession()->setFlash('success', yii::t('app', 'Update Success'));
                     if( $this->successRedirect ) return $this->controller->redirect($this->successRedirect);
                     return $this->controller->refresh();
                 }

@@ -4,7 +4,9 @@ namespace common\models\data;
 use backend\components\widget\Leftmenu;
 use common\components\tools\Cate;
 use Yii;
+use yii\base\Exception;
 use yii\caching\FileDependency;
+use yii\helpers\FileHelper;
 
 /**
 * This is the data class for [[common\models\database\Menu]].
@@ -206,8 +208,19 @@ class Menu extends \common\models\database\Menu
     {
         $path=Leftmenu::$depency_filename;
         $file=\yii::getAlias($path);
+        $path=pathinfo($file);
         if (file_exists($file)) {
-            file_put_contents($file, microtime(true));
+            file_put_contents($file, date("Y-m-d H:i:s").'-'.microtime(true));
+        }else{
+            FileHelper::createDirectory($path['dirname']);
+            try{
+                $depanceFile=fopen($file,'w');
+                fwrite($depanceFile, date("Y-m-d H:i:s").'-'.microtime(true));
+                fclose($depanceFile);
+            }catch (Exception $e){
+
+            }
+
         }
     }
 }

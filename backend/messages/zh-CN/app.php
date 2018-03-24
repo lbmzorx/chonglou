@@ -80,7 +80,18 @@ return [
     'error'=>'错误',
 
     'Create Article'=>'添加文章',
+    'Update Success'=>'更新成功',
     'Login Success!'=>'登录成功',
     'Warning'=>'警告',
-    'Error'=>'错误',
+
+    /*start*Options*/
+    'system' =>'系统',//'type'=0, 类型.0系统,1自定义,2banner,3广告
+    'self' =>'自定义',//'type'=1, 类型.0系统,1自定义,2banner,3广告
+    'banner' =>'Banner',//'type'=2, 类型.0系统,1自定义,2banner,3广告
+    'ad' =>'广告',//'type'=3, 类型.0系统,1自定义,2banner,3广告
+    'input' =>'输入框',//'input_type'=0, 输入框类型
+    'texteare' =>'文本框',//'input_type'=1, 输入框类型
+    'img' =>'图片',//'input_type'=2, 输入框类型
+    'markdown' =>'Markdown',//'input_type'=3, 输入框类型
+    /*end*Options*/
 ];

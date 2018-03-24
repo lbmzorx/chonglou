@@ -93,5 +93,37 @@ return [
     'texteare' =>'文本框',//'input_type'=1, 输入框类型
     'img' =>'图片',//'input_type'=2, 输入框类型
     'markdown' =>'Markdown',//'input_type'=3, 输入框类型
+
+    'Website Setting'=>'网站设置',
+    'Seo Keywords' => 'seo关键字',
+    'Website Title' => '网站标题',
+    'Website Description' => '网站描述',
+    'Website Email' => '联系邮箱',
+    'Website Language' => '站点语言',
+    'Icp Sn' => 'ICP备案号',
+    'Statics Script' => '统计代码',
+    'Website Status' => '站点状态',
+    'Website Timezone' => '时区设置',
+    'Open Comment' => '开启评论',
+    'Open Comment Verify' => '开启评论审核',
+    'Website Url' => '网站域名',
+
+    'Seo Setting' => 'Seo设置',
+    'Input Type' => '输入框类型',
+    'Autoload' => '自动加载',
+    'Tips' => '提示',
+    'Custom Setting' => '自定义设置',
+    'Must begin with alphabet and can only includes alphabet,_,and number' => '必须以字母开头,只能包含字母和数字及下划线',
+    'Opened' => '开放',
+    'Closed' => '关闭',
+    'SMTP Host' => 'SMTP地址',
+    'SMTP Port' => 'SMTP端口',
+    'SMTP Username' => 'SMTP用户名',
+    'SMTP Password' => 'SMTP密码',
+    'Sender' => '发件人',
+    'Encryption' => '连接类型',
+    'SMTP Setting' => 'SMTP设置',
+    'Test' => '测试',
+    'Type restrict, please type in after create' => '类型受限，请创建完成后再录入值',
     /*end*Options*/
 ];

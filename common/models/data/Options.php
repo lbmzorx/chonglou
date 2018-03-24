@@ -2,6 +2,9 @@
 namespace common\models\data;
 
 use Yii;
+use yii\base\Exception;
+use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 
 /**
 * This is the data class for [[common\models\database\Options]].
@@ -108,5 +111,97 @@ class Options extends \common\models\database\Options
                 'class' => \common\components\behaviors\StatusCode::className(),
             ],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getNames()
+    {
+        return array_keys($this->attributeLabels());
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        $object = yii::createObject([
+            'class' => FileDependencyHelper::className(),
+            'fileName' => 'options.txt',
+        ]);
+        $object->updateFile();
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    public function beforeSave($insert)
+    {
+        if(!$insert){
+            if( $this->input_type == self::OPTIONS_INPUT_TYPE_IMG ) {
+                $temp = explode('\\', self::className());
+                $modelName = end( $temp );
+                $key = "{$modelName}[{$this->id}][value]";
+                $upload = UploadedFile::getInstanceByName($key);
+                $old = Options::findOne($this->id);
+                /* @var $cdn \feehi\cdn\TargetInterface */
+                $cdn = yii::$app->get('cdn');
+                if($upload !== null){
+                    $uploadPath = yii::getAlias('@uploads/setting/custom-setting/');
+                    if (! FileHelper::createDirectory($uploadPath)) {
+                        $this->addError($key, "Create directory failed " . $uploadPath);
+                        return false;
+                    }
+                    $fullName = $uploadPath . date('YmdHis') . '_' . uniqid() . '.' . $upload->getExtension();
+                    if (! $upload->saveAs($fullName)) {
+                        $this->addError($key, yii::t('app', 'Upload {attribute} error: ' . $upload->error, ['attribute' => yii::t('app', 'Picture')]) . ': ' . $fullName);
+                        return false;
+                    }
+                    $this->value = str_replace(yii::getAlias('@frontend/web'), '', $fullName);
+                    $cdn->upload($fullName, $this->value);
+                    if( $old !== null ){
+                        $file = yii::getAlias('@frontend/web') . $old->value;
+                        if( file_exists($file) && is_file($file) ) unlink($file);
+                        if( $cdn->exists($old->value) ) $cdn->delete($old->value);
+                    }
+                }else{
+                    if( $this->value !== '' ){
+                        $file = yii::getAlias('@frontend/web') . $old->value;
+                        if( file_exists($file) && is_file($file) ) unlink($file);
+                        if( $cdn->exists($old->value) ) $cdn->delete($old->value);
+                        $this->value = '';
+                    }else {
+                        $this->value = $old->value;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public static function getBannersByType($name)
+    {
+        $model = Options::findOne(['type'=>self::TYPE_BANNER, 'name'=>$name, 'autoload'=>Constants::Status_Enable]);
+        if( $model == null ) throw new NotFoundHttpException("None banner type named $name");
+        if( $model->value == '' ) $model->value = '[]';
+        $banners = json_decode($model->value, true);
+        ArrayHelper::multisort($banners, 'sort');
+
+        try{
+            /** @var $cdn \feehi\cdn\TargetInterface */
+            $cdn = yii::$app->get('cdn');
+            if($cdn){
+                foreach ($banners as $k => &$banner){
+                    if( $banner['status'] == Constants::Status_Desable ) unset($banners[$k]);
+                    $banner['img'] = $cdn->getCdnUrl($banner['img']);
+                }
+            }
+        }catch (Exception $e){
+        }
+        return $banners;
+    }
+
+    public static function getAdByName($name)
+    {
+        return AdForm::findOne(['type'=>self::TYPE_AD, 'name'=>$name]);
     }
 }

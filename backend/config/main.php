@@ -105,6 +105,9 @@ return [
         'giiarticle' => [
             'class' => 'backend\modules\giiarticle\Module',
         ],
+        'setting' => [
+            'class' => 'backend\modules\setting\Module',
+        ],
     ],
 
     'params' => $params,

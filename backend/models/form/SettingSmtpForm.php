@@ -8,10 +8,11 @@
 
 namespace backend\models\form;
 
+use common\components\tools\ModelHelper;
 use yii;
 use common\models\data\Options as DataOptions;
 
-class SettingSmtpForm extends DataOptions
+class SettingSmtpForm extends SettingOptionsForm
 {
     public $smtp_host;
 
@@ -53,50 +54,6 @@ class SettingSmtpForm extends DataOptions
             [['smtp_port'], 'compare', 'compareValue' => 0, 'operator' => '>='],
             [['smtp_port'], 'compare', 'compareValue' => 65535, 'operator' => '<='],
         ];
-    }
-
-    /**
-     * 填充smtp配置
-     *
-     */
-    public function getSmtpConfig()
-    {
-        $names = $this->getNames();
-        foreach ($names as $name) {
-            $model = self::findOne(['name' => $name]);
-            if ($model != null) {
-                $this->$name = $model->value;
-            } else {
-                $this->$name = '';
-            }
-        }
-    }
-
-
-    /**
-     * 写入smtp配置
-     *
-     * @return bool
-     */
-    public function setSmtpConfig()
-    {
-        $names = $this->getNames();
-        foreach ($names as $name) {
-            $model = self::findOne(['name' => $name]);
-            if ($model != null) {
-                $model->value = $this->$name;
-                $result = $model->save(false);
-            } else {
-                $model = new DataOptions();
-                $model->name = $name;
-                $model->value = $this->$name;
-                $result = $model->save(false);
-            }
-            if ($result == false) {
-                return $result;
-            }
-        }
-        return true;
     }
 
     /**

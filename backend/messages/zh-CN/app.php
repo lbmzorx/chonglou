@@ -134,4 +134,6 @@ return [
     'Please contact us if you think this is a server error. Thank you.'=>'如果是系统错误请联系我们，谢谢。',
     'Internal Server Error (#500)'=>'错误 (#500)',
     'Base Setting'=>'基本设置',
+    'Smtp Setting'=>'SMTP邮件设置',
+    'Reset'=>'重置',
 ];

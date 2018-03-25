@@ -5,6 +5,7 @@ namespace backend\modules\setting\controllers;
 use backend\models\form\SettingSmtpForm;
 use backend\models\form\SettingWebsiteForm;
 use common\components\behaviors\StatusCode;
+use common\components\tools\ModelHelper;
 use Yii;
 use common\models\data\Options;
 use backend\Controllers\CommonController;
@@ -28,26 +29,61 @@ class DefaultController extends CommonController
      */
     public function actionWebsite()
     {
-        $model = new SettingWebsiteForm();
-        if (yii::$app->getRequest()->getIsPost()) {
-            $model->load(yii::$app->getRequest()->post());
-            if ($model->load(yii::$app->getRequest()->post()) && $model->validate() && $model->setWebsiteConfig()) {
+        $website = new SettingWebsiteForm();
+        $smtp = new SettingSmtpForm();
+        $website->readOptions();
+        $smtp->readOptions();
+        return $this->render('website', [
+            'website' => $website,
+            'smtp' => $smtp,
+        ]);
+    }
+
+    public function actionSaveWebsite()
+    {
+        $website = new SettingWebsiteForm();
+        $request=yii::$app->getRequest();
+        if ($request->getIsPost()) {
+            if ($website->load(yii::$app->getRequest()->post()) && $website->validate() && $website->saveOptions()) {
                 yii::$app->getSession()->setFlash('success', yii::t('app', 'Success'));
+                $res=['status'=>true,'msg'=>'Success'];
             } else {
-                $errors = $model->getErrors();
-                $err = '';
-                foreach ($errors as $k=>$v) {
-                    $err .= $k.$v[0] . '<br>';
-                }
+                $errors = $website->getErrors();
+                $err = ModelHelper::getErrorAsString($errors);
+                $res=['status'=>false,'msg'=>$err];
                 yii::$app->getSession()->setFlash('error', $err);
             }
+            if($request->isAjax){
+                \yii::$app->getResponse()->format=Response::FORMAT_JSON;
+                return $res;
+            }
         }
+        return $this->redirect('website');
+    }
 
-        $model->getWebsiteSetting();
-        return $this->render('website', [
-            'model' => $model
-        ]);
-
+    /**
+     * 邮件smtp设置
+     */
+    public function actionSaveSmtp()
+    {
+        $smtp = new SettingSmtpForm();
+        $request=yii::$app->getRequest();
+        if ($request->getIsPost()) {
+            if ($smtp->load(yii::$app->getRequest()->post()) && $smtp->validate() && $smtp->saveOptions()) {
+                yii::$app->getSession()->setFlash('success', yii::t('app', 'Success'));
+                $res=['status'=>true,'msg'=>'Success'];
+            } else {
+                $errors = $smtp->getErrors();
+                $err = ModelHelper::getErrorAsString($errors);
+                $res=['status'=>false,'msg'=>$err];
+                yii::$app->getSession()->setFlash('error', $err);
+            }
+            if($request->isAjax){
+                \yii::$app->getResponse()->format=Response::FORMAT_JSON;
+                return $res;
+            }
+        }
+        return $this->redirect('website');
     }
 
     /**
@@ -139,33 +175,8 @@ class DefaultController extends CommonController
         }
     }
 
-    /**
-     * 邮件smtp设置
-     *
-     * @return string
-     */
-    public function actionSmtp()
-    {
-        $model = new SettingSmtpForm();
-        if (yii::$app->getRequest()->getIsPost()) {
-            if ($model->load(yii::$app->getRequest()->post()) && $model->validate() && $model->setSmtpConfig()) {
-                yii::$app->getSession()->setFlash('success', yii::t('app', 'Success'));
-            } else {
-                $errors = $model->getErrors();
-                $err = '';
-                foreach ($errors as $v) {
-                    $err .= $v[0] . '<br>';
-                }
-                yii::$app->getSession()->setFlash('error', $err);
-            }
-        }
 
-        $model->getSmtpConfig();
-        return $this->render('smtp', [
-            'model' => $model
-        ]);
 
-    }
 
     /**
      * 发送测试邮件确认smtp设置是否正确

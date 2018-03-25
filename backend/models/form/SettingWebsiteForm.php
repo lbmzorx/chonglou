@@ -9,9 +9,7 @@ namespace backend\models\form;
 
 
 use yii;
-use common\models\data\Options as DataOptions;
-use yii\helpers\VarDumper;
-class SettingWebsiteForm extends yii\base\Model
+class SettingWebsiteForm extends SettingOptionsForm
 {
     public $website_title;
 
@@ -81,57 +79,6 @@ class SettingWebsiteForm extends yii\base\Model
             ],
             [['website_status', 'website_comment', 'website_comment_need_verify'], 'integer'],
         ];
-    }
-
-    /**
-     * 填充网站配置
-     *
-     */
-    public function getWebsiteSetting()
-    {
-        $names = $this->getAttributes();
-        foreach ($names as $name=>$value) {
-            $model = DataOptions::findOne(['name' => $name]);
-            if ($model != null) {
-                $this->$name = $model->value;
-            }
-        }
-    }
-
-    /**
-     * 写入网站配置到数据库
-     *
-     * @return bool
-     */
-    public function setWebsiteConfig()
-    {
-        $t=\yii::$app->db->beginTransaction();
-        $names = $this->getAttributes();
-        foreach ($names as $name=>$value) {
-            $model = DataOptions::findOne(['name' => $name]);
-            if ($model != null) {
-                $value === null && $value = '';
-                $model->value = $value;
-                $result = $model->save();
-            } else {
-                $model = new DataOptions();
-                $model->name = $name;
-                $model->value = $value;
-                $result = $model->save();
-            }
-            if ($result == false) {
-                $errors = $model->getErrors();
-                $err = '';
-                foreach ($errors as $k=>$v) {
-                    $err .=$k.$v[0] . '<br>';
-                }
-                $this->addError($name,$err);
-                $t->rollBack();
-                return $result;
-            }
-        }
-        $t->commit();
-        return true;
     }
 
 }

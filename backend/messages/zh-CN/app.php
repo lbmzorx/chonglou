@@ -136,4 +136,8 @@ return [
     'Base Setting'=>'基本设置',
     'Smtp Setting'=>'SMTP邮件设置',
     'Reset'=>'重置',
+    'Create Custom Setting'=>'添加自定义设置',
+    'Update Options: {nameAttribute}'=>'更新设置 :{nameAttribute}',
+    'Options'=>'设置',
+    'Are you want to delete these items?'=>'您确定删除这些项？',
 ];

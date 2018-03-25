@@ -101,6 +101,16 @@ class Options extends \common\models\database\Options
                 'tips',
                 'sort',
             ],
+            'custom'=>[
+                'id',
+                'type',
+                'name',
+                'value',
+                'input_type',
+                'autoload',
+                'tips',
+                'sort',
+            ]
         ];
     }
 

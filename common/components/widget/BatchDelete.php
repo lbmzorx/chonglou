@@ -5,6 +5,7 @@ use common\assets\LayerAsset;
 use Yii;
 use yii\helpers\Html;
 use yii\base\Widget;
+use yii\helpers\Url;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
@@ -17,9 +18,9 @@ class BatchDelete extends Widget
     public $griViewKey=0;
     public $name = 'Batch Deletes';
     public $isIcon=true;
-    public $deleteUrl='update';
+    public $deleteUrl='delete';
     public $jsParams=[];
-    public $jsConfirmMsg="Are you want to delete ";
+    public $jsConfirmMsg="Are you want to delete these items?";
     public $jsbtn=['ok','cancel'];
     public $btnIcon = 'trash';
 
@@ -34,6 +35,7 @@ class BatchDelete extends Widget
         if( empty($this->options['class'])){
             $this->options['class']='btn btn-success';
         }
+        $this->deleteUrl=Url::to([$this->deleteUrl]);
         parent::init();
     }
 
@@ -58,7 +60,6 @@ class BatchDelete extends Widget
          return Html::button($name,$this->options);
     }
 
-
     public function renderJs(){
         $view = \yii::$app->getView();
 
@@ -80,9 +81,9 @@ class BatchDelete extends Widget
         $view->registerJs(<<<SCRITYT
          $('#{$this->options['id']}').click(function(){
             var keys = $('#w{$this->griViewKey}').yiiGridView('getSelectedRows');            
-            layer.comfirm("{$msg}",{
+            layer.confirm("{$msg}",{
                 btn:['{$btn}'],
-                function(){
+                yes:function(){
                     $.post('{$this->deleteUrl}',{id:keys{$delimeter}{$data}},function(res){
                         if(res.status){
                             layer.msg(res.msg,{time:1000},function(){

@@ -40,8 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
                'attribute'=>'type',
                'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Options::$type_code,'app'),
                'value'=> function ($model) {
-                   return Html::button($model->getStatusCode('type','type_code'),
-                       ['data-id'=>$model->id,'class'=>'type-change btn btn-xs btn-'.$model->getStatusCss('type','type_css',$model->type)]);
+                   return Html::tag('span',$model->getStatusCode('type','type_code'),
+                       ['data-id'=>$model->id,'class'=>'type-change label label-'.$model->getStatusCss('type','type_css',$model->type)]);
                },
                'format'=>'raw',
             ],
@@ -52,8 +52,8 @@ $this->params['breadcrumbs'][] = $this->title;
                'attribute'=>'input_type',
                'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Options::$input_type_code,'app'),
                'value'=> function ($model) {
-                   return Html::button($model->getStatusCode('input_type','input_type_code'),
-                       ['data-id'=>$model->id,'class'=>'input_type-change btn btn-xs btn-'.$model->getStatusCss('input_type','input_type_css',$model->input_type)]);
+                   return Html::tag('span',$model->getStatusCode('input_type','input_type_code'),
+                       ['data-id'=>$model->id,'class'=>'input_type-change label label-'.$model->getStatusCss('input_type','input_type_css',$model->input_type)]);
                },
                'format'=>'raw',
             ],
@@ -62,8 +62,8 @@ $this->params['breadcrumbs'][] = $this->title;
                'attribute'=>'autoload',
                'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Options::$autoload_code,'app'),
                'value'=> function ($model) {
-                   return Html::button($model->getStatusCode('autoload','autoload_code'),
-                       ['data-id'=>$model->id,'class'=>'autoload-change btn btn-xs btn-'.$model->getStatusCss('autoload','autoload_css',$model->autoload)]);
+                   return Html::tag('span',$model->getStatusCode('autoload','autoload_code'),
+                       ['data-id'=>$model->id,'class'=>'autoload-change label label-'.$model->getStatusCss('autoload','autoload_css',$model->autoload)]);
                },
                'format'=>'raw',
             ],

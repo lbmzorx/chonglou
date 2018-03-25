@@ -60,7 +60,12 @@ class DeleteAction extends \yii\base\Action
             if (! $id) {
                 throw new BadRequestHttpException(yii::t('app', "Id doesn't exit"));
             }
-            $ids = explode(',', $id);
+            if(is_array($id)){
+                $ids = $id;
+            }else{
+                $ids = explode(',', $id);
+            }
+
             $errorIds = [];
             /* @var $model yii\db\ActiveRecord */
             $model = null;
@@ -75,7 +80,7 @@ class DeleteAction extends \yii\base\Action
             }
             if (count($errorIds) == 0) {
                 if( !yii::$app->getRequest()->getIsAjax() ) return $this->controller->redirect(yii::$app->getRequest()->headers['referer']);
-                return [];
+                return ['status'=>true,'msg'=>yii::t('app','Success')];
             } else {
                 $errors = $model->getErrors();
                 $err = '';

@@ -127,6 +127,11 @@ return [
     'Type restrict, please type in after create' => '类型受限，请创建完成后再录入值',
     'open'=>'开放',
     'close'=>'关闭',
+    'Seo Description'=>'SEO描述',
     /*end*Options*/
-
+    /*start*Error*/
+    'The above error occurred while the Web server was processing your request.'=>'Web请求过程中发生了错误。',
+    'Please contact us if you think this is a server error. Thank you.'=>'如果是系统错误请联系我们，谢谢。',
+    'Internal Server Error (#500)'=>'错误 (#500)',
+    'Base Setting'=>'基本设置',
 ];

@@ -7,7 +7,7 @@
 
 use yii\helpers\Html;
 
-$this->title = $name;
+$this->title = yii::t('app',$name);
 ?>
 <div class="site-error">
 
@@ -17,13 +17,12 @@ $this->title = $name;
         <?= nl2br(Html::encode($message)) ?>
     </div>
     <p>
-        url:<?=\yii::$app->request->getUrl();?>
+        Url:<?=\yii::$app->request->getUrl();?>
     </p>
     <p>
-        The above error occurred while the Web server was processing your request.
+        <?=\yii::t('app','The above error occurred while the Web server was processing your request.')?>
     </p>
     <p>
-        Please contact us if you think this is a server error. Thank you.
+        <?=\yii::t('app','Please contact us if you think this is a server error. Thank you.')?>
     </p>
-
 </div>

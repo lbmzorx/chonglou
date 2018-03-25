@@ -15,7 +15,7 @@ use yii\web\NotFoundHttpException;
 class Options extends \common\models\database\Options
 {
 
-    public static $depency_filename='@backend/runtime/depency/backend_options.txt';
+    public static $depency_filename='@common/runtime/depency/backend_options.txt';
 
     const OPTIONS_SITE_STATUS_CLOSE = 1;
     const OPTIONS_SITE_STATUS_OPEN = 0;
@@ -155,7 +155,7 @@ class Options extends \common\models\database\Options
 
     public static function getBannersByType($name)
     {
-        $model = Options::findOne(['type'=>self::TYPE_BANNER, 'name'=>$name, 'autoload'=>Constants::Status_Enable]);
+        $model = Options::findOne(['type'=>self::OPTIONS_TYPE_BANNER, 'name'=>$name, 'autoload'=>self::OPTIONS_AUTOLOAD_YES]);
         if( $model == null ) throw new NotFoundHttpException("None banner type named $name");
         if( $model->value == '' ) $model->value = '[]';
         $banners = json_decode($model->value, true);
@@ -166,7 +166,7 @@ class Options extends \common\models\database\Options
             $cdn = yii::$app->get('cdn');
             if($cdn){
                 foreach ($banners as $k => &$banner){
-                    if( $banner['status'] == Constants::Status_Desable ) unset($banners[$k]);
+                    if( $banner['status'] == self::OPTIONS_SITE_STATUS_OPEN ) unset($banners[$k]);
                     $banner['img'] = $cdn->getCdnUrl($banner['img']);
                 }
             }
@@ -177,11 +177,11 @@ class Options extends \common\models\database\Options
 
     public static function getAdByName($name)
     {
-        return AdForm::findOne(['type'=>self::TYPE_AD, 'name'=>$name]);
+        return AdForm::findOne(['type'=>self::OPTIONS_TYPE_AD, 'name'=>$name]);
     }
 
     /**
-     * 菜单缓存失效
+     * 站点缓存失效
      */
     public function removeBackendMenuCache()
     {

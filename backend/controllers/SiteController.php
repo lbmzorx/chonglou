@@ -16,6 +16,18 @@ class SiteController extends Controller
 
     const EVENT_BEFORE_LOGIN='beforeLogin';
 
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'backend\components\actions\ErrorAction',
+                'guestView'=>'error-guest',
+                'userView'=>'error-user',
+            ],
+        ];
+
+
+    }
 
     public function behaviors()
     {
@@ -66,16 +78,6 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
-
-    public function actionError(){
-        if(Yii::$app->user->isGuest){
-            return $this->renderPartial('badrequest');
-        }else{
-            return $this->render('error');
-        }
-    }
-
 }

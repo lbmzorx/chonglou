@@ -7,10 +7,11 @@
  */
 namespace backend\models\form;
 
+
 use yii;
 use common\models\data\Options as DataOptions;
-
-class SettingWebsiteForm extends DataOptions
+use yii\helpers\VarDumper;
+class SettingWebsiteForm extends yii\base\Model
 {
     public $website_title;
 
@@ -44,7 +45,7 @@ class SettingWebsiteForm extends DataOptions
     {
         return [
             'website_title' => yii::t('app', 'Website Title'),
-            'website_email' => yii::t('app', 'Website Email'),
+            'website_email' =>yii::t('app','Website Email'),
             'website_language' => yii::t('app', 'Website Language'),
             'website_icp' => yii::t('app', 'Icp Sn'),
             'website_statics_script' => yii::t('app', 'Statics Script'),
@@ -88,17 +89,14 @@ class SettingWebsiteForm extends DataOptions
      */
     public function getWebsiteSetting()
     {
-        $names = $this->getNames();
-        foreach ($names as $name) {
-            $model = self::findOne(['name' => $name]);
+        $names = $this->getAttributes();
+        foreach ($names as $name=>$value) {
+            $model = DataOptions::findOne(['name' => $name]);
             if ($model != null) {
                 $this->$name = $model->value;
-            } else {
-                $this->name = '';
             }
         }
     }
-
 
     /**
      * 写入网站配置到数据库
@@ -107,24 +105,32 @@ class SettingWebsiteForm extends DataOptions
      */
     public function setWebsiteConfig()
     {
-        $names = $this->getNames();
-        foreach ($names as $name) {
-            $model = self::findOne(['name' => $name]);
+        $t=\yii::$app->db->beginTransaction();
+        $names = $this->getAttributes();
+        foreach ($names as $name=>$value) {
+            $model = DataOptions::findOne(['name' => $name]);
             if ($model != null) {
-                $value = $this->$name;
                 $value === null && $value = '';
                 $model->value = $value;
                 $result = $model->save();
             } else {
                 $model = new DataOptions();
                 $model->name = $name;
-                $model->value = '';
+                $model->value = $value;
                 $result = $model->save();
             }
             if ($result == false) {
+                $errors = $model->getErrors();
+                $err = '';
+                foreach ($errors as $k=>$v) {
+                    $err .=$k.$v[0] . '<br>';
+                }
+                $this->addError($name,$err);
+                $t->rollBack();
                 return $result;
             }
         }
+        $t->commit();
         return true;
     }
 

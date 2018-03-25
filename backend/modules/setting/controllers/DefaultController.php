@@ -2,13 +2,16 @@
 
 namespace backend\modules\setting\controllers;
 
+use backend\models\form\SettingSmtpForm;
 use backend\models\form\SettingWebsiteForm;
 use common\components\behaviors\StatusCode;
 use Yii;
 use common\models\data\Options;
-use common\models\search\Options as OptionsSearch;
 use backend\Controllers\CommonController;
 use yii\base\Model;
+use yii\helpers\VarDumper;
+use yii\swiftmailer\Mailer;
+use yii\web\BadRequestHttpException;
 use yii\web\Response;
 use yii\web\UnprocessableEntityHttpException;
 use yii\widgets\ActiveForm;
@@ -27,13 +30,14 @@ class DefaultController extends CommonController
     {
         $model = new SettingWebsiteForm();
         if (yii::$app->getRequest()->getIsPost()) {
+            $model->load(yii::$app->getRequest()->post());
             if ($model->load(yii::$app->getRequest()->post()) && $model->validate() && $model->setWebsiteConfig()) {
                 yii::$app->getSession()->setFlash('success', yii::t('app', 'Success'));
             } else {
                 $errors = $model->getErrors();
                 $err = '';
-                foreach ($errors as $v) {
-                    $err .= $v[0] . '<br>';
+                foreach ($errors as $k=>$v) {
+                    $err .= $k.$v[0] . '<br>';
                 }
                 yii::$app->getSession()->setFlash('error', $err);
             }

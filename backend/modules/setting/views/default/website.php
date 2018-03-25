@@ -23,24 +23,23 @@ $this->params['breadcrumbs'][] = yii::t('app', 'Website Setting');
 
 <div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title"><?=\Yii::t('app',\yii\helpers\Html::encode($this->title))?></h3>
+        <h3 class="panel-title"><?=\Yii::t('app','Base Setting')?></h3>
     </div>
     <div class="panel-body">
 <?php $form = \yii\widgets\ActiveForm::begin(); ?>
-
 <div class="row">
     <div class="col-lg-6 col-sm-6"><?= $form->field($model, 'website_title') ?></div>
     <div class="col-lg-6 col-sm-6"><?= $form->field($model, 'website_url') ?></div>
 </div>
 <div class="row">
     <div class="col-lg-6 col-sm-6"><?= $form->field($model, 'seo_keywords') ?></div>
-    <div class="col-lg-6 col-sm-6"><?= $form->field($model, 'seo_description')->textarea() ?></div>
+    <div class="col-lg-6 col-sm-6"><?= $form->field($model, 'website_email')?></div>
 </div>
 <div class="row">
+    <div class="col-lg-6 col-sm-6"><?= $form->field($model, 'seo_description')->textarea() ?></div>
     <div class="col-lg-3 col-sm-3">
         <?= $form->field($model, 'website_language')->dropDownList([
             'zh-CN' => '简体中文',
-            'zh-TW' => '繁体中文',
             'en-US' => 'English'
         ]) ?>
     </div>
@@ -54,10 +53,13 @@ $this->params['breadcrumbs'][] = yii::t('app', 'Website Setting');
         ?>
         <?= $form->field($model, 'website_timezone')->dropDownList($timezones) ?>
     </div>
-    <div class="col-lg-6 col-sm-6"><?= $form->field($model, 'website_icp') ?></div>
 </div>
 <div class="row">
 
+</div>
+<div class="row">
+    <div class="col-lg-6 col-sm-6"><?= $form->field($model, 'website_icp') ?></div>
+    <div class="col-lg-6 col-sm-6"><?= $form->field($model, 'website_statics_script')->textarea() ?></div>
 </div>
 <div class="row">
     <div class="col-lg-3 col-sm-3">
@@ -66,9 +68,6 @@ $this->params['breadcrumbs'][] = yii::t('app', 'Website Setting');
     <div class="col-lg-3 col-sm-3">
         <?= $form->field($model, 'website_comment_need_verify')->radioList(StatusCode::tranStatusCode(Options::$autoload_code,'app')) ?>
     </div>
-    <div class="col-lg-6 col-sm-6"><?= $form->field($model, 'website_statics_script')->textarea() ?></div>
-</div>
-<div class="row">
     <div class="col-lg-6 col-sm-6">
         <?= $form->field($model, 'website_status')->radioList(StatusCode::tranStatusCode(Options::$site_status_code,'app')) ?>
     </div>

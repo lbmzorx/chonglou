@@ -9,9 +9,9 @@
 namespace backend\models\form;
 
 use yii;
-use common\models\Options;
+use common\models\data\Options as DataOptions;
 
-class SettingSmtpForm extends \common\models\data\Options
+class SettingSmtpForm extends DataOptions
 {
     public $smtp_host;
 
@@ -87,7 +87,7 @@ class SettingSmtpForm extends \common\models\data\Options
                 $model->value = $this->$name;
                 $result = $model->save(false);
             } else {
-                $model = new Options();
+                $model = new DataOptions();
                 $model->name = $name;
                 $model->value = $this->$name;
                 $result = $model->save(false);

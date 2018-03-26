@@ -114,6 +114,9 @@ return [
         'upload' => [
             'class' => 'backend\modules\upload\Module',
         ],
+        'log' => [
+            'class' => 'backend\modules\log\Module',
+        ],
     ],
 
     'params' => $params,

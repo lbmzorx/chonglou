@@ -28,6 +28,8 @@ return [
 
 
 
+
+
 	/*start*Menu*/
 	'App Type'=>'菜单类型',//0后台,1前台',
 	'Url'=>'url地址',
@@ -42,7 +44,7 @@ return [
 	/*end*Menu*/
 
 	/*start*Article*/
-	//////'User ID'=>'用户ID',
+	////////'User ID'=>'用户ID',
 	'Cate ID'=>'分类',
 	'Title'=>'标题',
 	'Author'=>'作者',
@@ -95,5 +97,9 @@ return [
 	'Autoload'=>'自动加载',//0否,1是',
 	'Tips'=>'提示',
 	/*end*Options*/
+	/*start*AdminLog*/
+	'Route'=>'操作路由',
+	'Description'=>'操作描述',
+	/*end*AdminLog*/
 
 ];

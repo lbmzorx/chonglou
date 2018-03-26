@@ -112,7 +112,7 @@ class Leftmenu extends Widget
             'app_type'=>Menu::MENU_APP_TYPE_BACKEND,
             'is_display'=>Menu::MENU_IS_DISPLAY_YES,
             'position'=>Menu::MENU_POSITION_LEFT,
-        ])->andFilterWhere(['top_id'=>$this->top])->orderBy(['id'=>SORT_ASC,'sort'=>SORT_ASC])->asArray()->all();
+        ])->andFilterWhere(['top_id'=>$this->top])->orderBy(['sort'=>SORT_ASC,'id'=>SORT_ASC])->asArray()->all();
 
         return Cate::array_cate_as_subarray($menu,0,'parent_id');
     }

@@ -141,4 +141,12 @@ return [
     'Options'=>'设置',
     'Are you want to delete these items?'=>'您确定删除这些项？',
     'Not Found (#404)'=>'找不到页面(#404)',
+
+    'Admin user'=>'管理员',
+    'through'=>'通过',
+    'created'=>'添加',
+    'updated'=>'更新',
+    'deleted'=>'删除',
+    'id'=>'ID',
+    'record'=>'记录',
 ];

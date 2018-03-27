@@ -34,7 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'user_id',
             'route',
-            'description:ntext',
+            [
+                'attribute'=>'description',
+                'format'=>'raw',
+            ],
             [
                'class'=>\common\components\grid\DateTimeColumn::className(),
                'attribute'=>'add_time',

@@ -105,9 +105,6 @@ return [
         'test' => [
             'class' => 'backend\modules\test\Module',
         ],
-        'giiarticle' => [
-            'class' => 'backend\modules\giiarticle\Module',
-        ],
         'setting' => [
             'class' => 'backend\modules\setting\Module',
         ],
@@ -116,6 +113,9 @@ return [
         ],
         'log' => [
             'class' => 'backend\modules\log\Module',
+        ],
+        'auth' => [
+            'class' => 'backend\modules\auth\Module',
         ],
     ],
 

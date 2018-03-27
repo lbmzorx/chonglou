@@ -140,4 +140,5 @@ return [
     'Update Options: {nameAttribute}'=>'更新设置 :{nameAttribute}',
     'Options'=>'设置',
     'Are you want to delete these items?'=>'您确定删除这些项？',
+    'Not Found (#404)'=>'找不到页面(#404)',
 ];

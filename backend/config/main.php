@@ -117,6 +117,9 @@ return [
         'auth' => [
             'class' => 'backend\modules\auth\Module',
         ],
+        'maintain' => [
+            'class' => 'backend\modules\maintain\Module',
+        ],
     ],
 
     'params' => $params,

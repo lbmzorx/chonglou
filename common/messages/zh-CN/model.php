@@ -18,21 +18,14 @@ return [
     'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',',
 	'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',',
     //	'User ID'=>'用户ID',',
-    'Content'=>'内容',	/*end*NameCommon*/
-
-
-
-
-
-
-
-
-
-
+    'Content'=>'内容',
+    'Value'=>'值',
+	'Url'=>'url地址',
+	/*end*NameCommon*/
 
 	/*start*Menu*/
 	'App Type'=>'菜单类型',//0后台,1前台',
-	'Url'=>'url地址',
+	//'Url'=>'url地址',
 	//////////'Sort'=>'排序',
 	'Target'=>'打开方式',//_blank新窗口,_self本窗口',
 	'Is Absolute Url'=>'是否绝对地址',
@@ -92,7 +85,7 @@ return [
     'You have failed to try login more than 10times, please try tomorrow!'=>'您登录失败超过10次，请联系管理员，或者明天再试一试',
 	/*start*Options*/
 	'Type'=>'类型',//0系统,1自定义,2banner,3广告',
-	'Value'=>'值',
+	//'Value'=>'值',
 	'Input Type'=>'输入框类型',
 	'Autoload'=>'自动加载',//0否,1是',
 	'Tips'=>'提示',
@@ -101,5 +94,11 @@ return [
 	'Route'=>'操作路由',
 	'Description'=>'操作描述',
 	/*end*AdminLog*/
+	/*start*Maintain*/
+	'Position Type'=>'位置类型',//0首页轮播,1侧栏1,2侧栏2',
+	'Show Type'=>'显示类型',//0图片,2文字,3markdown',
+	'Sign'=>'标识',
+	'Info'=>'备注',
+	/*end*Maintain*/
 
 ];

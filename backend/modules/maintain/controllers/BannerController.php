@@ -15,9 +15,9 @@ use backend\components\actions\SortAction;
 use backend\components\actions\ChangeStatusAction;
 
 /**
- * MaintainController implements the CRUD actions for Maintain model.
+ * BannerController implements the CRUD actions for Maintain model.
  */
-class MaintainController extends CommonController
+class BannerController extends CommonController
 {
     public function actions()
     {

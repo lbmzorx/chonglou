@@ -55,7 +55,12 @@ $this->params['breadcrumbs'][] = $this->title;
                'format'=>'raw',
             ],
             'name',
-            'value',
+            [
+                'attribute'=>'value',
+                'value'=>function ($model){ return Html::img($model->value,['alt'=>'image','style'=>'width:70px;height:70px;']);},
+                'format'=>'raw',
+                'filter'=>false,
+            ],
             'sign',
             'url:url',
             //'info',

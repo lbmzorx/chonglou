@@ -34,7 +34,7 @@ $assets_url=$this->assetBundles[LoginAsset::className()]->baseUrl;
                 <div class="left">
                     <div class="content">
                         <div class="header">
-                            <div class="logo text-center"><img src="<?=$assets_url?>/img/logo-dark.png" alt="Klorofil Logo"></div>
+                            <div class="logo text-center"><img src="/img/logo-main.png" alt="Klorofil Logo"></div>
                             <p class="lead">登录后台</p>
                         </div>
                         <?php $form = ActiveForm::begin(['id' => 'login-form','class'=>'form-auth-small']); ?>

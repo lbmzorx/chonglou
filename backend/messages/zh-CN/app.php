@@ -158,6 +158,9 @@ return [
     'Image' =>'图片',//'show_type'=0, 显示类型.0图片,2文字,3markdown
     'Text' =>'文本',//'show_type'=1, 显示类型.0图片,2图片,3markdown
     'Markdown' =>'Markdown',//'show_type'=2, 显示类型.0图片,2文字,3markdown
+    'Maintains'=>'运营',
+    'Create Maintain'=>'添加运营信息',
     /*end*Maintain*/
+
 
 ];

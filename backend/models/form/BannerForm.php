@@ -9,12 +9,13 @@
 namespace backend\models\form;
 
 use common\helpers\Util;
+use common\models\data\Maintain;
 use yii;
 use common\libs\Constants;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
-class BannerForm extends \Common\models\data\Options
+class BannerForm extends Maintain
 {
     public $sign;
 

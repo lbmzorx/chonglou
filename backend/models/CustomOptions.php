@@ -19,8 +19,6 @@ class CustomOptions extends DateOptions
                 'class' =>AttributeBehavior::className(),
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_VALIDATE =>'type',
-                    ActiveRecord::EVENT_BEFORE_INSERT =>'type',
-                    ActiveRecord::EVENT_BEFORE_UPDATE =>'type',
                 ],
                 'value'=>self::OPTIONS_TYPE_SELF,
             ],

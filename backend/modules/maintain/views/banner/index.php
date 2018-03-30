@@ -35,12 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             [
-               'class'=>\common\components\grid\StatusCodeColumn::className(),
                'attribute'=>'position_type',
                'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Maintain::$position_type_code,'app'),
                'value'=> function ($model) {
-                   return Html::button($model->getStatusCode('position_type','position_type_code'),
-                       ['data-id'=>$model->id,'class'=>'position_type-change btn btn-xs btn-'.$model->getStatusCss('position_type','position_type_css',$model->position_type)]);
+                   return Html::tag('span',$model->getStatusCode('position_type','position_type_code'),
+                       ['data-id'=>$model->id,'class'=>'position_type-change label label-'.$model->getStatusCss('position_type','position_type_css',$model->position_type)]);
                },
                'format'=>'raw',
             ],
@@ -62,6 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter'=>false,
             ],
             'sign',
+            'sort',
             'url:url',
             //'info',
             [
@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?=Html::beginForm(['change-status'],'post')?>
         <input type="hidden" name="key" value="position_type">
         <input type="hidden" name="id" value="">
-        <?php foreach ( common\models\data\Maintain::$position_type_code as $k=>$v):?>           
+        <?php foreach ( common\models\data\Maintain::$position_type_code as $k=>$v):?>
             <label class="checkbox-inline" style="margin: 5px 10px;">
                 <?php
                     $css='warning';
@@ -94,10 +94,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     }else{
                         $css=isset(\common\components\behaviors\StatusCode::$cssCode[$k])?\common\components\behaviors\StatusCode::$cssCode[$k]:$css;
                     }
-                ?>               
+                ?>
                 <?=Html::input('radio','value',$k)?>
                 <?=Html::tag('span',\Yii::t('app',$v),['class'=>'btn btn-'.$css])?>
-            </label>          
+            </label>
         <?php endforeach;?>
         <?=Html::endForm()?>
     </div>

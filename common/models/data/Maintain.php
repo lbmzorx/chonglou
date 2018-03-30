@@ -56,6 +56,7 @@ class Maintain extends \common\models\database\Maintain
                 'sign',
                 'url',
                 'info',
+                'sort',
             ],
             'search' => [
                 'id',
@@ -66,6 +67,7 @@ class Maintain extends \common\models\database\Maintain
                 'sign',
                 'url',
                 'info',
+                'sort',
                 'add_time',
                 'edit_time',
             ],
@@ -78,6 +80,7 @@ class Maintain extends \common\models\database\Maintain
                 'sign',
                 'url',
                 'info',
+                'sort',
                 'add_time',
                 'edit_time',
             ],

@@ -19,7 +19,7 @@ class Maintain extends MaintainModel
     public function rules()
     {
         return [
-            [['id', 'position_type', 'show_type', 'add_time', 'edit_time'], 'integer'],
+            [['id', 'position_type', 'show_type','sort', 'add_time', 'edit_time'], 'integer'],
             [['name', 'value', 'sign', 'url', 'info'], 'safe'],
             [['add_time','edit_time'],'string'],
         ];

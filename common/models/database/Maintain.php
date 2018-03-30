@@ -15,6 +15,7 @@ use Yii;
  * @property string $sign 标识
  * @property string $url URL
  * @property string $info 备注
+ * @property int $sort 排序
  * @property int $add_time 添加时间
  * @property int $edit_time 修改时间
  */
@@ -34,8 +35,8 @@ class Maintain extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['position_type', 'show_type', 'add_time', 'edit_time'], 'integer'],
-            [['name', 'value', 'sign', 'url', 'info'], 'required'],
+            [['position_type', 'show_type', 'sort', 'add_time', 'edit_time'], 'integer'],
+            [['name', 'value', 'sign', 'url', 'info', 'sort'], 'required'],
             [['name', 'sign'], 'string', 'max' => 50],
             [['value', 'url', 'info'], 'string', 'max' => 255],
         ];
@@ -55,6 +56,7 @@ class Maintain extends \yii\db\ActiveRecord
             'sign' => Yii::t('model', 'Sign'), //标识
             'url' => Yii::t('model', 'Url'), //URL
             'info' => Yii::t('model', 'Info'), //备注
+            'sort' => Yii::t('model', 'Sort'), //排序
             'add_time' => Yii::t('model', 'Add Time'), //添加时间
             'edit_time' => Yii::t('model', 'Edit Time'), //修改时间
         ];

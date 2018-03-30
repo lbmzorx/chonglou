@@ -36,7 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             [
-               'class'=>\common\components\grid\StatusCodeColumn::className(),
                'attribute'=>'type',
                'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Options::$type_code,'app'),
                'value'=> function ($model) {
@@ -48,7 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'value:ntext',
             [
-               'class'=>\common\components\grid\StatusCodeColumn::className(),
                'attribute'=>'input_type',
                'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Options::$input_type_code,'app'),
                'value'=> function ($model) {
@@ -58,7 +56,6 @@ $this->params['breadcrumbs'][] = $this->title;
                'format'=>'raw',
             ],
             [
-               'class'=>\common\components\grid\StatusCodeColumn::className(),
                'attribute'=>'autoload',
                'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Options::$autoload_code,'app'),
                'value'=> function ($model) {

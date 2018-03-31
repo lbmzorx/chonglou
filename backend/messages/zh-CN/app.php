@@ -172,4 +172,8 @@ return [
     'Permissions'=>'权限',
     'New Input'=>'新建',
     'Build From Select'=>'选择',
+    'Permission exists'=>'权限已存在',
+    'Role exists'=>'角色已存在',
+    'Cannot find permission {name}'=>'不能找出{name}的权限',
+    'Must begin with "/" like "/module/controller/action" format'=>'必须以"/"开头，例如"/module/controller/action"',
 ];

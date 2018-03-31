@@ -32,7 +32,7 @@ class PermissionController extends CommonController
         if( Yii::$app->getRequest()->getIsPost() ) {
             if ($model->load(Yii::$app->getRequest()->post()) && $model->validate() && $model->createPermission()) {
                 Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Success'));
-                return $this->redirect(['permissions']);
+                return $this->redirect(['index']);
             } else {
                 $errors = $model->getErrors();
                 $err = '';

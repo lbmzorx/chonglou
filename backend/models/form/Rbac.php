@@ -327,7 +327,7 @@ class Rbac extends Model
         $authManager = yii::$app->getAuthManager();
         if( $this->getScenario() == 'permission' ){
             $permission = $authManager->getPermission($name);
-            if( $permission === null ) throw new NotFoundHttpException("Cannot find permission $name");
+            if( $permission === null ) throw new NotFoundHttpException( yii::t('app',"Cannot find permission {name}",['name'=>$name]));
             $data = json_decode($permission->data, true);
             $temp = explode(":", $permission->name);
             $this->name = $permission->name;

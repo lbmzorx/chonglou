@@ -179,4 +179,6 @@ return [
     'Roles'=>'角色',
     'Create Role'=>'添加角色',
     'All Permissions'=>'所有权限',
+    'Delete must be POST http method'=>'删除请求必须是POST方法',
+    'Update Permission: {nameAttribute}'=>'更新权限: {nameAttribute}',
 ];

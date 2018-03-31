@@ -46,7 +46,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class'=>'backend\components\grid\SortColumn',
                 'primaryKey'=>'name',
             ],
-            ['class' => 'yii\grid\ActionColumn','template'=>'{update} {delete}'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template'=>'{update} {delete}',
+                'buttons'=>[
+                    'update' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', \yii\helpers\Url::to([
+                            'update',
+                            'name' => $model['name'],
+                        ]), [
+                            'title' => Yii::t('app', 'Update'),
+                            'data-pjax' => '0',
+                        ]);
+                    },
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span> ', \yii\helpers\Url::to(['delete', 'name'=>$model['name']]), [
+                            'title' => yii::t('app', 'Delete'),
+                            'data-pjax' => '0',
+                            'data-confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                        ]);
+                    },
+                ],
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

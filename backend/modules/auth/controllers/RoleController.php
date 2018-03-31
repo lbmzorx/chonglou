@@ -25,6 +25,29 @@ class RoleController extends CommonController
         ]);
     }
 
+
+    public function actionCreate()
+    {
+        $model = new Rbac(['scenario'=>'role']);
+        if( yii::$app->getRequest()->getIsPost() ) {
+            if ($model->load(yii::$app->getRequest()->post()) && $model->validate() && $model->createRole()) {
+                yii::$app->getSession()->setFlash('success', yii::t('app', 'Success'));
+                return $this->redirect(['roles']);
+            } else {
+                $errors = $model->getErrors();
+                $err = '';
+                foreach ($errors as $v) {
+                    $err .= $v[0] . '<br>';
+                }
+                Yii::$app->getSession()->setFlash('error', $err);
+            }
+        }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+
     public function actionRoles()
     {
         $searchModel = new RbacSearch(['scenario'=>'role']);
@@ -34,6 +57,8 @@ class RoleController extends CommonController
             'searchModel' => $searchModel,
         ]);
     }
+
+
 
     public function actionRoleCreate()
     {

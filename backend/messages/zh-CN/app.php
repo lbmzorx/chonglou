@@ -176,4 +176,7 @@ return [
     'Role exists'=>'角色已存在',
     'Cannot find permission {name}'=>'不能找出{name}的权限',
     'Must begin with "/" like "/module/controller/action" format'=>'必须以"/"开头，例如"/module/controller/action"',
+    'Roles'=>'角色',
+    'Create Role'=>'添加角色',
+    'All Permissions'=>'所有权限',
 ];

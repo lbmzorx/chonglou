@@ -5,7 +5,6 @@ use common\components\behaviors\LimitLogin;
 use common\components\events\LoginEvent;
 use Yii;
 use common\models\admin\LoginForm;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 
 /**
@@ -13,9 +12,6 @@ use yii\web\Controller;
  */
 class SiteController extends Controller
 {
-
-    const EVENT_BEFORE_LOGIN='beforeLogin';
-
     public function actions()
     {
         return [
@@ -25,8 +21,6 @@ class SiteController extends Controller
                 'userView'=>'error-user',
             ],
         ];
-
-
     }
 
     public function behaviors()
@@ -36,16 +30,6 @@ class SiteController extends Controller
                 'class'=>LimitLogin::className(),
             ],
         ];
-    }
-
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
     }
 
     /**

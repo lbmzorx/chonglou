@@ -30,7 +30,7 @@ STYLE
     <!-- NAVBAR -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="brand" style="padding: 15px 39px">
-            <a href="index.html"><img src="/img/logo-small-x.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+            <a href="<?=\yii\helpers\Url::to(['/'])?>"><img src="/img/logo-small-x.png" alt="Klorofil Logo" class="img-responsive logo"></a>
         </div>
         <div class="container-fluid">
             <div class="navbar-btn">

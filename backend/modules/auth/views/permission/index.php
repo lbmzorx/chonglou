@@ -41,7 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'POST' => 'POST',
                 ]
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute'=>'sort',
+                'class'=>'backend\components\grid\SortColumn',
+                'primaryKey'=>'name',
+            ],
+            ['class' => 'yii\grid\ActionColumn','template'=>'{update} {delete}'],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

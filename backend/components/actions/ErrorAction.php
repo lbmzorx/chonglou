@@ -58,9 +58,10 @@ class ErrorAction extends \yii\web\ErrorAction
     public $view;
 
     public $guestView;
+    public $guestLayout='guest';
 
     public $userView;
-
+    public $userLayout='main';
 
     /**
      * Runs the action.
@@ -82,11 +83,13 @@ class ErrorAction extends \yii\web\ErrorAction
     protected function chooseView(){
         if($this->guestView){
             if(Yii::$app->user->isGuest){
+                $this->controller->layout=$this->guestLayout;
                 $this->view=$this->guestView;
             }
         }
         if($this->userView){
             if(!Yii::$app->user->isGuest){
+                $this->controller->layout=$this->userLayout;
                 $this->view=$this->userView;
             }
         }

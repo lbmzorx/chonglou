@@ -15,6 +15,7 @@ class SortColumn extends \yii\grid\DataColumn
     public $attribute='sort';
     public $griViewKey=0;
     public static $renderSortJsCount=[];
+    public $primaryKey='id';
 
     public function init()
     {
@@ -32,16 +33,16 @@ class SortColumn extends \yii\grid\DataColumn
         $class_change=StringHelper::basename(get_class($model)).'_'.$this->attribute.'-sort-change';
         $this->sortInputOptions['class']=(isset($this->sortInputOptions['class'])?$this->sortInputOptions['class'].' ':'').$class_change;
 
-        if(empty($this->sortInputOptions['data-id'])){
-            $this->sortInputOptions['data-id']=$model->id;
+        if(empty($this->sortInputOptions['data-'.$this->primaryKey])){
+            $this->sortInputOptions['data-'.$this->primaryKey]=$model->{$this->primaryKey};
         }
 
         $url=Url::to($this->sortInputOptions['url']);
         if(empty(static::$renderSortJsCount[$this->attribute])){
             $js=<<<str
-            $('.{$class_change}').change(function(){
-                var sort=$(this).val(),id=$(this).attr('data-id'),name=$(this).attr('name'); 
-                var data={id:id};
+            $('.{$class_change}').blur(function(){
+                var sort=$(this).val(),id=$(this).attr('data-{$this->primaryKey}'),name=$(this).attr('name'); 
+                var data={{$this->primaryKey}:id};
                 data[name]=sort;               
                 $.post('{$url}',data,function(res){
                     if(res.status){

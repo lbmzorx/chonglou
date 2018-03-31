@@ -15,7 +15,6 @@ class UploadController extends CommonController
 {
     public function actions()
     {
-
         return array_merge(parent::actions(),[
             'up' => [
                 'class' => UploadAction::className(),

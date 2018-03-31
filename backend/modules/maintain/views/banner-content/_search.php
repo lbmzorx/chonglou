@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\search\Options */
+/* @var $model common\models\search\Maintain */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="options-search">
+<div class="maintain-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -20,19 +20,23 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'type') ?>
+    <?= $form->field($model, 'position_type') ?>
+
+    <?= $form->field($model, 'show_type') ?>
 
     <?= $form->field($model, 'name') ?>
 
     <?= $form->field($model, 'value') ?>
 
-    <?= $form->field($model, 'input_type') ?>
+    <?php // echo $form->field($model, 'sign') ?>
 
-    <?php // echo $form->field($model, 'autoload') ?>
+    <?php // echo $form->field($model, 'url') ?>
 
-    <?php // echo $form->field($model, 'tips') ?>
+    <?php // echo $form->field($model, 'info') ?>
 
-    <?php // echo $form->field($model, 'sort') ?>
+    <?php // echo $form->field($model, 'add_time') ?>
+
+    <?php // echo $form->field($model, 'edit_time') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

@@ -11,14 +11,6 @@ use Yii;
 class Maintain extends \common\models\database\Maintain
 {
 
-    const MAINTAIN_POSITION_TYPE_INDEX_BANNER = 0;
-    const MAINTAIN_POSITION_TYPE_SIDE_BANNER = 1;
-    const MAINTAIN_POSITION_TYPE_FIRM_AD = 2;
-    /**
-     * @var array $position_type_code 位置类型.0首页轮播,1侧栏1,2侧栏2
-     */
-    public static $position_type_code = [0=>'Index Banner',1=>'Side Banner',2=>'Firm Ad',];
-
     const MAINTAIN_SHOW_TYPE_IMAGE = 0;
     const MAINTAIN_SHOW_TYPE_TEXT = 1;
     const MAINTAIN_SHOW_TYPE_MARKDOWN = 2;
@@ -27,18 +19,26 @@ class Maintain extends \common\models\database\Maintain
      */
     public static $show_type_code = [0=>'Image',1=>'Text',2=>'Markdown',];
 
+    const MAINTAIN_STATUS_UNAVAILABLE = 0;
+    const MAINTAIN_STATUS_AVAILABLE = 1;
+    /**
+     * @var array $status_code 状态.0禁用,1启用
+     */
+    public static $status_code = [0=>'Unavailable',1=>'Available',];
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return array_merge(parent::rules(),[
-            [['position_type'], 'in', 'range' => [0,1,2,],],
             [['show_type'], 'in', 'range' => [0,1,2,],],
-            [['position_type'], 'default', 'value' =>0,],
+            [['status'], 'in', 'range' => [0,1,],],
+            [['options_id'], 'default', 'value' =>'0',],
             [['show_type'], 'default', 'value' =>0,],
             [['add_time'], 'default', 'value' =>0,],
             [['edit_time'], 'default', 'value' =>0,],
+            [['status'], 'default', 'value' =>1,],
         ]);
     }
 
@@ -49,7 +49,7 @@ class Maintain extends \common\models\database\Maintain
     {
         return [
             'default' => [
-                'position_type',
+                'options_id',
                 'show_type',
                 'name',
                 'value',
@@ -57,10 +57,11 @@ class Maintain extends \common\models\database\Maintain
                 'url',
                 'info',
                 'sort',
+                'status',
             ],
             'search' => [
                 'id',
-                'position_type',
+                'options_id',
                 'show_type',
                 'name',
                 'value',
@@ -70,10 +71,11 @@ class Maintain extends \common\models\database\Maintain
                 'sort',
                 'add_time',
                 'edit_time',
+                'status',
             ],
             'frontend' => [
                 'id',
-                'position_type',
+                'options_id',
                 'show_type',
                 'name',
                 'value',
@@ -83,6 +85,7 @@ class Maintain extends \common\models\database\Maintain
                 'sort',
                 'add_time',
                 'edit_time',
+                'status',
             ],
         ];
     }

@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "{{%maintain}}".
  *
  * @property string $id
- * @property int $position_type 位置类型.0首页轮播,1侧栏1,2侧栏2
+ * @property string $options_id 位置类型.0首页轮播,1侧栏1,2侧栏2
  * @property int $show_type 显示类型.0图片,2文字,3markdown
  * @property string $name 名称
  * @property string $value 值
@@ -18,6 +18,7 @@ use Yii;
  * @property int $sort 排序
  * @property int $add_time 添加时间
  * @property int $edit_time 修改时间
+ * @property int $status 状态.0禁用,1启用
  */
 class Maintain extends \yii\db\ActiveRecord
 {
@@ -35,7 +36,7 @@ class Maintain extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['position_type', 'show_type', 'sort', 'add_time', 'edit_time'], 'integer'],
+            [['options_id', 'show_type', 'sort', 'add_time', 'edit_time', 'status'], 'integer'],
             [['name', 'value', 'sign', 'url', 'info', 'sort'], 'required'],
             [['name', 'sign'], 'string', 'max' => 50],
             [['value', 'url', 'info'], 'string', 'max' => 255],
@@ -49,7 +50,7 @@ class Maintain extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('model', 'ID'), //
-            'position_type' => Yii::t('model', 'Position Type'), //位置类型.0首页轮播,1侧栏1,2侧栏2
+            'options_id' => Yii::t('model', 'Options ID'), //位置类型.0首页轮播,1侧栏1,2侧栏2
             'show_type' => Yii::t('model', 'Show Type'), //显示类型.0图片,2文字,3markdown
             'name' => Yii::t('model', 'Name'), //名称
             'value' => Yii::t('model', 'Value'), //值
@@ -59,6 +60,7 @@ class Maintain extends \yii\db\ActiveRecord
             'sort' => Yii::t('model', 'Sort'), //排序
             'add_time' => Yii::t('model', 'Add Time'), //添加时间
             'edit_time' => Yii::t('model', 'Edit Time'), //修改时间
+            'status' => Yii::t('model', 'Status'), //状态.0禁用,1启用
         ];
     }
 }

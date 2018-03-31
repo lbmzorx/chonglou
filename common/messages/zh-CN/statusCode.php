@@ -10,6 +10,7 @@ return [
     
     
     
+    
     	/*start*Article*/
 	'Un remain' =>'未提醒',//'remain'=0, 提醒.0未提醒，1已经提醒
 	'Remained' =>'已提醒',//'remain'=1, 提醒.0未提醒，1已经提醒
@@ -60,12 +61,12 @@ return [
 
 
 	/*start*Maintain*/
-	'Index Banner' =>'首页轮播',//'position_type'=0, 位置类型.0首页轮播,1侧栏1,2侧栏2
-	'Side Banner' =>'侧栏轮播',//'position_type'=1, 位置类型.0首页轮播,1侧栏1,2侧栏2
-	'Firm Ad' =>'固定广告',//'position_type'=2, 位置类型.0首页轮播,1侧栏1,2侧栏2
-	'Image' =>'图片',//'show_type'=0, 显示类型.0图片,2文字,3markdown
-	'Text' =>'文本',//'show_type'=1, 显示类型.0图片,2图片,3markdown
-	'Markdown' =>'Markdown',//'show_type'=2, 显示类型.0图片,2文字,3markdown
-	/*end*Maintain*/
+	'Image' =>'',//'show_type'=0, 显示类型.0图片,2文字,3markdown
+	'Text' =>'',//'show_type'=1, 显示类型.0图片,2文字,3markdown
+	'Markdown' =>'',//'show_type'=2, 显示类型.0图片,2文字,3markdown
+	'Unavailable' =>'',//'status'=0, 状态.0禁用,1启用
+	'Available' =>'',//'status'=1, 状态.0禁用,1启用
+/*end*Maintain*/
+
 
 ];

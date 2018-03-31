@@ -1,13 +1,10 @@
 <?php
-/**
- * bannre controller
- */
+
 namespace backend\modules\maintain\controllers;
 
-use common\models\data\Options;
 use Yii;
-use backend\models\form\SettingBannerForm;
-use common\models\search\Options as OptionsSearch;
+use backend\models\form\BannerForm;
+use common\models\search\Maintain as MaintainSearch;
 use backend\Controllers\CommonController;
 use backend\components\actions\CreateAction;
 use backend\components\actions\ViewAction;
@@ -18,9 +15,9 @@ use backend\components\actions\SortAction;
 use backend\components\actions\ChangeStatusAction;
 
 /**
- * WebsiteController implements the CRUD actions for Options model.
+ * BannerController implements the CRUD actions for Maintain model.
  */
-class BannerController extends CommonController
+class BannerContentController extends CommonController
 {
     public function actions()
     {
@@ -28,8 +25,8 @@ class BannerController extends CommonController
             'index' => [
                 'class' => IndexAction::className(),
                 'data' => function(){
-                    $searchModel = new OptionsSearch();
-                    $dataProvider = $searchModel->search(array_merge(yii::$app->getRequest()->getQueryParams(),['Options'=>['type'=>Options::OPTIONS_TYPE_BANNER]]));
+                    $searchModel = new MaintainSearch();
+                    $dataProvider = $searchModel->search(yii::$app->getRequest()->getQueryParams());
                     return [
                         'dataProvider' => $dataProvider,
                         'searchModel' => $searchModel,
@@ -38,27 +35,27 @@ class BannerController extends CommonController
             ],
             'create' => [
                 'class' => CreateAction::className(),
-                'modelClass' =>SettingBannerForm::className(),
+                'modelClass' => BannerForm::className(),
             ],
             'view' => [
                 'class' => ViewAction::className(),
-                'modelClass' => SettingBannerForm::className(),
+                'modelClass' => BannerForm::className(),
             ],
             'update' => [
                 'class' => UpdateAction::className(),
-                'modelClass' => SettingBannerForm::className(),
+                'modelClass' => BannerForm::className(),
             ],
             'delete' => [
                 'class' => DeleteAction::className(),
-                'modelClass' => SettingBannerForm::className(),
+                'modelClass' => BannerForm::className(),
             ],
             'sort' => [
                 'class' => SortAction::className(),
-                'modelClass' => SettingBannerForm::className(),
+                'modelClass' => BannerForm::className(),
             ],
             'change-status'=>[
                 'class'=>ChangeStatusAction::className(),
-                'modelClass'=>SettingBannerForm::className(),
+                'modelClass'=>BannerForm::className(),
             ],
         ];
     }

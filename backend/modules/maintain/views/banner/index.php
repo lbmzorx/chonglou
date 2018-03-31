@@ -6,13 +6,13 @@ use backend\components\grid\GridView;
 use yii\widgets\Pjax;use common\components\widget\BatchUpdate;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\search\Maintain */
+/* @var $searchModel common\models\search\Options */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Maintains');
+$this->title = Yii::t('app', 'Options');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="maintain-index">
+<div class="options-index">
     <?= \yii\widgets\Breadcrumbs::widget([
         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
     ]) ?>    <div class="panel">
@@ -21,10 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('<i class="fa fa-plus-square"></i> '.Yii::t('app', 'Create Maintain'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fa fa-plus-square"></i> '.Yii::t('app', 'Create Banner'), ['create'], ['class' => 'btn btn-success']) ?>
         <?= BatchDelete::widget(['name'=>'Batch Deletes']) ?>
-        <?= BatchUpdate::widget([ 'name'=>\Yii::t('model','Position Type'),'attribute'=>'position_type','btnIcon'=>'position_type', ]) ?>
-        <?= BatchUpdate::widget([ 'name'=>\Yii::t('model','Show Type'),'attribute'=>'show_type','btnIcon'=>'show_type', ]) ?>
     </p>
 
     <?= GridView::widget([
@@ -32,94 +30,28 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn'],
-
             'id',
-            [
-               'attribute'=>'position_type',
-               'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Maintain::$position_type_code,'app'),
-               'value'=> function ($model) {
-                   return Html::tag('span',$model->getStatusCode('position_type','position_type_code'),
-                       ['data-id'=>$model->id,'class'=>'position_type-change label label-'.$model->getStatusCss('position_type','position_type_css',$model->position_type)]);
-               },
-               'format'=>'raw',
-            ],
-            [
-               'class'=>\common\components\grid\StatusCodeColumn::className(),
-               'attribute'=>'show_type',
-               'filter'=>\common\components\behaviors\StatusCode::tranStatusCode(common\models\data\Maintain::$show_type_code,'app'),
-               'value'=> function ($model) {
-                   return Html::button($model->getStatusCode('show_type','show_type_code'),
-                       ['data-id'=>$model->id,'class'=>'show_type-change btn btn-xs btn-'.$model->getStatusCss('show_type','show_type_css',$model->show_type)]);
-               },
-               'format'=>'raw',
-            ],
             'name',
+            'value:ntext',
             [
-                'attribute'=>'value',
-                'value'=>function ($model){ return Html::img($model->value,['alt'=>'image','style'=>'width:70px;height:70px;']);},
-                'format'=>'raw',
-                'filter'=>false,
+                'class' => 'yii\grid\ActionColumn',
+                'template'=>'{turn-into} {update} {delete}',
+                'buttons' => [
+                    'turn-into' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa fa-mail-reply-all" aria-hidden="true"></i> ', \yii\helpers\Url::to([
+                            'banner-content/index',
+                            'options_id' => $model->id,
+                            'options_name'=>$model->name,
+                        ]), [
+                            'title' => Yii::t('app', 'Turn Into'),
+                            'data-pjax' => '0',
+                        ]);
+                    }
+                ],
             ],
-            'sign',
-            'sort',
-            'url:url',
-            //'info',
-            [
-               'class'=>\common\components\grid\DateTimeColumn::className(),
-               'attribute'=>'add_time',
-            ],
-            [
-               'class'=>\common\components\grid\DateTimeColumn::className(),
-               'attribute'=>'edit_time',
-            ],
-
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
     <?php Pjax::end(); ?>
         </div>
-    </div>
-</div>
-<div id="position_type-change-dom" style="display: none;">
-    <div style="padding: 10px;">
-        <?=Html::beginForm(['change-status'],'post')?>
-        <input type="hidden" name="key" value="position_type">
-        <input type="hidden" name="id" value="">
-        <?php foreach ( common\models\data\Maintain::$position_type_code as $k=>$v):?>
-            <label class="checkbox-inline" style="margin: 5px 10px;">
-                <?php
-                    $css='warning';
-                    if( isset(common\models\data\Maintain::$position_type_css) && isset(common\models\data\Maintain::$position_type_css[$k])){
-                        $css = common\models\data\Maintain::$position_type_css [$k];
-                    }else{
-                        $css=isset(\common\components\behaviors\StatusCode::$cssCode[$k])?\common\components\behaviors\StatusCode::$cssCode[$k]:$css;
-                    }
-                ?>
-                <?=Html::input('radio','value',$k)?>
-                <?=Html::tag('span',\Yii::t('app',$v),['class'=>'btn btn-'.$css])?>
-            </label>
-        <?php endforeach;?>
-        <?=Html::endForm()?>
-    </div>
-</div><div id="show_type-change-dom" style="display: none;">
-    <div style="padding: 10px;">
-        <?=Html::beginForm(['change-status'],'post')?>
-        <input type="hidden" name="key" value="show_type">
-        <input type="hidden" name="id" value="">
-        <?php foreach ( common\models\data\Maintain::$show_type_code as $k=>$v):?>           
-            <label class="checkbox-inline" style="margin: 5px 10px;">
-                <?php
-                    $css='warning';
-                    if( isset(common\models\data\Maintain::$show_type_css) && isset(common\models\data\Maintain::$show_type_css[$k])){
-                        $css = common\models\data\Maintain::$show_type_css [$k];
-                    }else{
-                        $css=isset(\common\components\behaviors\StatusCode::$cssCode[$k])?\common\components\behaviors\StatusCode::$cssCode[$k]:$css;
-                    }
-                ?>               
-                <?=Html::input('radio','value',$k)?>
-                <?=Html::tag('span',\Yii::t('app',$v),['class'=>'btn btn-'.$css])?>
-            </label>          
-        <?php endforeach;?>
-        <?=Html::endForm()?>
     </div>
 </div>

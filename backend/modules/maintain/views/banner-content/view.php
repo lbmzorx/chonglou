@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\data\Options */
+/* @var $model common\models\data\Maintain */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Options'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Maintains'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="options-view">
+<div class="maintain-view">
     <?= \yii\widgets\Breadcrumbs::widget([
     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
     ]) ?>
@@ -35,21 +35,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             [
-               'attribute'=>'type',
-               'value'=>$model->getStatusCode('type','type_code'),
+               'attribute'=>'position_type',
+               'value'=>$model->getStatusCode('position_type','position_type_code'),
+            ],
+            [
+               'attribute'=>'show_type',
+               'value'=>$model->getStatusCode('show_type','show_type_code'),
             ],
             'name',
-            'value:ntext',
-            [
-               'attribute'=>'input_type',
-               'value'=>$model->getStatusCode('input_type','input_type_code'),
-            ],
-            [
-               'attribute'=>'autoload',
-               'value'=>$model->getStatusCode('autoload','autoload_code'),
-            ],
-            'tips',
-            'sort',
+            'value',
+            'sign',
+            'url:url',
+            'info',
+            'add_time:datetime',
+            'edit_time:datetime',
         ],
     ]) ?>
 </div>

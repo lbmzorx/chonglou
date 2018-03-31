@@ -2,10 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use common\models\data\Maintain;
+use common\models\data\Options;
 use common\components\behaviors\StatusCode;
 /* @var $this yii\web\View */
-/* @var $model common\models\data\Maintain */
+/* @var $model common\models\data\Options */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <div class="panel">
@@ -13,50 +13,25 @@ use common\components\behaviors\StatusCode;
         <h3 class="panel-title"><?=\Yii::t('app',Html::encode($this->title))?></h3>
     </div>
     <div class="panel-body">
-<div class="maintain-form">
+<div class="options-form">
+
     <?php $form = ActiveForm::begin(); ?>
+
 <div class="row">
-    <div class="col-lg-6 col-sm-6">
-        <div class="row">
-            <div class="col-lg-6 col-sm-6">
-                <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-            </div>
-            <div class="col-lg-6 col-sm-6">
-                <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 col-sm-6">
-                <?= $form->field($model, 'sign')->textInput(['maxlength' => true]) ?>
-            </div>
-            <div class="col-lg-6 col-sm-6">
-                <?= $form->field($model, 'info')->textInput(['maxlength' => true]) ?>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 col-sm-6">
-        <div class="row">
-            <div class="col-lg-6 col-sm-6">
-                <?= $form->field($model, 'value',[
-                    'class'=>\common\components\widget\UploadImgField::className(),
-                    'jsOptions'=>[
-                        'urlUpload'=>\yii\helpers\Url::to(['/upload/up']),
-                        'field'=>'UploadImg[imageFile]',
-                    ],
-                ])->fileInput([]);?>
-            </div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+	</div>
+	<div class="col-lg-3 col-sm-3">
+	    <?= $form->field($model, 'value')->textarea(['rows' => 6]) ?>
+	</div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-sm-12">
+        <div class="form-group">
+            <?= Html::submitButton(Yii::t('app',Yii::t('app', 'Save')), ['class' => 'btn btn-success']) ?>
         </div>
     </div>
 </div>
-
-
-    <div class="row">
-        <div class="col-lg-12 col-sm-12">
-            <div class="form-group">
-                <?= Html::submitButton(Yii::t('app',Yii::t('app', 'Save')), ['class' => 'btn btn-success']) ?>
-            </div>
-        </div>
-    </div>
     <?php ActiveForm::end(); ?>
 </div>
     </div>

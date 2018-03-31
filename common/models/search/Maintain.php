@@ -19,7 +19,7 @@ class Maintain extends MaintainModel
     public function rules()
     {
         return [
-            [['id', 'position_type', 'show_type','sort', 'add_time', 'edit_time'], 'integer'],
+            [['id', 'options_id', 'show_type','sort', 'add_time', 'edit_time','status'], 'integer'],
             [['name', 'value', 'sign', 'url', 'info'], 'safe'],
             [['add_time','edit_time'],'string'],
         ];
@@ -62,7 +62,8 @@ class Maintain extends MaintainModel
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'position_type' => $this->position_type,
+            'options_id' => $this->options_id,
+            'status' => $this->status,
             'show_type' => $this->show_type,
             'add_time' => $this->add_time,
             'edit_time' => $this->edit_time,

@@ -23,6 +23,7 @@ class BatchDelete extends Widget
     public $jsConfirmMsg="Are you want to delete these items?";
     public $jsbtn=['ok','cancel'];
     public $btnIcon = 'trash';
+    public $unChoose = 'At least Choose One to Delete!';
 
     /**
      * Initializes the pager.
@@ -76,11 +77,12 @@ class BatchDelete extends Widget
             $this->jsbtn[$k]=Yii::t('app',$v);
         }
         $btn = implode('\',\'',$this->jsbtn);
-
+        $unChoose = Yii::t('app',$this->unChoose);
         $view->registerAssetBundle(LayerAsset::className());
         $view->registerJs(<<<SCRITYT
          $('#{$this->options['id']}').click(function(){
-            var keys = $('#w{$this->griViewKey}').yiiGridView('getSelectedRows');            
+            var keys = $('#w{$this->griViewKey}').yiiGridView('getSelectedRows'); 
+            if(keys.length>0){
             layer.confirm("{$msg}",{
                 btn:['{$btn}'],
                 yes:function(){
@@ -95,6 +97,10 @@ class BatchDelete extends Widget
                     },'json');     
                 }
             });            
+            }else{
+                layer.alert('{$unChoose}');
+            }      
+            
               
     });
 SCRITYT

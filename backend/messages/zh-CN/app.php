@@ -28,6 +28,7 @@ return [
     'Batch Update {name}'=>'批量修改{name}',
     'At least Choose One to update!'=>'更新记录至少要选择一条！',
     'Are you want to update ?'=>'您确实想更新吗？',
+    'At least Choose One to Delete!'=>'删除需要至少选择一条！',
 
     'Articles'=>'文章',
 	/*start*Article*/
@@ -160,6 +161,9 @@ return [
     'Markdown' =>'Markdown',//'show_type'=2, 显示类型.0图片,2文字,3markdown
     'Maintains'=>'运营',
     'Create Maintain'=>'添加运营信息',
+    'Create Banner'=>'添加Banner',
+    'Turn Into'=>'进入',
+    'Available' =>'启用',//'status'=1, 状态.0禁用,1启用
     /*end*Maintain*/
 
 

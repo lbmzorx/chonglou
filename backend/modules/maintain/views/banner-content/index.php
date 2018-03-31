@@ -58,7 +58,9 @@ $this->params['breadcrumbs'][] = ['label' => Html::encode($request->get('options
                 'filter'=>false,
             ],
             'sign',
-            'sort',
+            [   'attribute'=>'sort',
+                'class'=>'backend\components\grid\SortColumn',
+            ],
             'url:url',
             'info',
             [

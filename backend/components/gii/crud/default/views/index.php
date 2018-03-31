@@ -77,9 +77,17 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
                 echo "            " .$datetime.",\n";
             }else{
                 if (++$count < 6) {
-                    echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+                    if($column->name == 'sort'){
+                        echo "            [\n            \t'attribute'=>'sort',\n            \t'class'=>'backend\components\grid\SortColumn',\n            ],";
+                    }else{
+                        echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+                    }
                 } else {
-                    echo "            //'" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+                    if($column->name == 'sort'){
+                        echo "            //[\n            //\t'attribute'=>'sort',\n            //\t'class'=>'backend\components\grid\SortColumn',\n            //],\n";
+                    }else{
+                        echo "            //'" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+                    }
                 }
             }
         }

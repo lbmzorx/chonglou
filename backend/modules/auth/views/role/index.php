@@ -1,4 +1,4 @@
-<div class="upload-default-index">
+<div class="auth-default-index">
     <h1><?= $this->context->action->uniqueId ?></h1>
     <p>
         This is the view content for action "<?= $this->context->action->id ?>".
@@ -7,7 +7,6 @@
     </p>
     <p>
         You may customize this page by editing the following file:<br>
-        aklsdjf;lkasjdl;kfjdkl;asjkl;fasdjl;kfjkl;asdjkl;flajks;dfjkl;
         <code><?= __FILE__ ?></code>
     </p>
 </div>

@@ -7,7 +7,7 @@ use yii\web\Controller;
 /**
  * Default controller for the `auth` module
  */
-class DefaultController extends Controller
+class RoleController extends Controller
 {
     /**
      * Renders the index view for the module

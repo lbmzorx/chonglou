@@ -14,6 +14,9 @@ return [
                 ],
             ],
         ],
+        'authManager' => [
+            'class' => yii\rbac\DbManager::className(),
+        ],
         'webSets' => [
             'class' => \common\config\WebSets::className(),
         ],

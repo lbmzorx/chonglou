@@ -21,6 +21,7 @@ class CommonAsset extends AssetBundle
         'common\assets\JqueryAsset',
         'common\assets\BootstrapAsset',
         'common\assets\FontAwesomeAsset',
+        'yii\web\YiiAsset',
         'common\assets\JquerySlimscroll',
         'common\assets\LineariconsAsset',
         'common\assets\JquerySlimscroll',

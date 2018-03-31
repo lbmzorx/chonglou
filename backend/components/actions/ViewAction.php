@@ -7,6 +7,7 @@ class ViewAction extends \yii\base\Action
 
     public $modelClass;
     public $viewFile = null;
+    public $directView='index';
     /**
      * view详情页
      *
@@ -17,6 +18,9 @@ class ViewAction extends \yii\base\Action
     {
         /* @var $model \yii\db\ActiveRecord */
         $model = call_user_func([$this->modelClass, 'findOne'], $id);
+        if(empty($model)){
+            return $this->controller->redirect($this->directView);
+        }
         $this->viewFile === null && $this->viewFile = $this->id;
         return $this->controller->render($this->viewFile, [
             'model' => $model,

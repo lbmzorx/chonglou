@@ -49,6 +49,12 @@ class Maintain extends MaintainModel
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'sort' => SORT_ASC,
+                    'id' => SORT_DESC,
+                ]
+            ]
         ]);
 
         $this->load($params);

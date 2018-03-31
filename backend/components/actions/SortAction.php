@@ -8,6 +8,7 @@
 
 namespace backend\components\actions;
 
+use common\components\tools\ModelHelper;
 use yii;
 use yii\web\Response;
 use yii\web\UnprocessableEntityHttpException;
@@ -19,53 +20,89 @@ class SortAction extends \yii\base\Action
 
     public $scenario = 'default';
 
+    public $primaryKey='id';
+
+    public $isTransacion=true;
     /**
      * 排序操作
      *
      */
     public function run()
     {
+        $status=false;
+        $err=Yii::t('app','Invalid Parameter');
         if (yii::$app->getRequest()->getIsPost()) {
-            $post = yii::$app->getRequest()->post();
-            if( isset( $post[yii::$app->getRequest()->csrfParam] ) ) {
-                unset($post[yii::$app->getRequest()->csrfParam]);
-            }
-            $err = '';
-            foreach ($post as $field => $array) {
-                foreach ($array as $key => $value) {
-                    /* @var $model yii\db\ActiveRecord */
-                    $model = call_user_func([$this->modelClass, 'findOne'], $key);
-                    $model->setScenario($this->scenario);
-                    if ($model->$field != $value) {
-                        $model->$field = $value;
-                        if (!$model->save()) {
-                            if( $err == '' ){
-                                $err .= $key . ' : ';
-                            }else{
-                                $err .= '<br>' . $key . ' : ';
+            $request = yii::$app->getRequest();
+            $post=$request->post();
+            $err='is not post';
+            if(!empty($post[$this->primaryKey])){
+                $id=$post[$this->primaryKey];
+                unset($post[$this->primaryKey]);
+                $otherAttr=$post;
+                if($id){
+                    if(is_array($id)){
+                        $keys=[];
+                        foreach ($id as $v){
+                            if(preg_match('/^[1-9][\d]*$/',$v)){
+                                $keys[]=$v;
                             }
-                            foreach ($model->getErrors() as $v) {
-                                $err .= $v[0] . ';';
+                        }
+                        if(!empty($keys)){
+                            $models=call_user_func([$this->modelClass, 'findAll'],[$this->primaryKey=>$keys]);
+                            if(!empty($models)){
+                                $t=\yii::$app->db->beginTransaction();
+                                $tStatus=true;
+                                foreach ($models as $model){
+                                    /**
+                                     * @var \yii\db\ActiveRecord $model
+                                     */
+                                    if( !($model->load($otherAttr,'') && $model->save())){
+                                        $t->rollBack();
+                                        $err=ModelHelper::getErrorAsString($model->getErrors());
+                                        $tStatus=false;
+                                        break;
+                                    }
+                                }
+                                if($tStatus){
+                                    $status=true;
+                                    $t->commit();
+                                }
+                            }
+                        }
+                    }else if(preg_match('/^[1-9][\d]*$/',$id)){
+                        $model = call_user_func([$this->modelClass, 'findOne'], $id);
+                        if(!empty($model)){
+                            /**
+                             * @var \yii\db\ActiveRecord $model
+                             */
+                            if( !($model->load($otherAttr,'') && $model->save())){
+                                $err=ModelHelper::getErrorAsString($model->getErrors());
+                            }else{
+                                $status=true;
                             }
                         }
                     }
-                }
-            }
-            $err = rtrim($err, ';');
-            if (yii::$app->getRequest()->getIsAjax()) {
-                yii::$app->getResponse()->format = Response::FORMAT_JSON;
-                if( !empty($err) ){
-                    throw new UnprocessableEntityHttpException($err);
                 }else{
-                    return [];
+                    $err='is not id';
                 }
-            } else {
-                if( !empty($err) ){
-                    yii::$app->getSession()->setFlash('error', $err);
-                }
-                return $this->controller->goBack();
+            }else{
+                $err='is not post';
             }
         }
+        if (yii::$app->getRequest()->getIsAjax()) {
+            yii::$app->getResponse()->format = Response::FORMAT_JSON;
+            if( $status ){
+                return ['status'=>'true','msg'=>yii::t('app','Edit Success!')];
+            }else{
+                return ['status'=>'false','msg'=>$err];
+            }
+        } else {
+            if( !$status ){
+                yii::$app->getSession()->setFlash('error', $err);
+            }
+            return $this->controller->goBack();
+        }
+
     }
 
 }

@@ -77,7 +77,8 @@ return [
     'Success'=>'成功',
     'Error'=>'失败',
     'Created Error'=>'添加错误',
-
+    'Edit Success!'=>'修改成功',
+    'Invalid Parameter'=>'无效参数',
     'error'=>'错误',
 
     'Create Article'=>'添加文章',
@@ -143,6 +144,7 @@ return [
     'Are you want to delete these items?'=>'您确定删除这些项？',
     'Not Found (#404)'=>'找不到页面(#404)',
 
+    'Admin Logs'=>'管理员日志',
     'Admin user'=>'管理员',
     'through'=>'通过',
     'created'=>'添加',
@@ -166,5 +168,8 @@ return [
     'Available' =>'启用',//'status'=1, 状态.0禁用,1启用
     /*end*Maintain*/
 
-
+    'Create Permission'=>'添加权限',
+    'Permissions'=>'权限',
+    'New Input'=>'新建',
+    'Build From Select'=>'选择',
 ];

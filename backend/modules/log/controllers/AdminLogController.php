@@ -32,16 +32,8 @@ class AdminLogController extends CommonController
                     ];
                 }
             ],
-            'create' => [
-                'class' => CreateAction::className(),
-                'modelClass' => AdminLog::className(),
-            ],
             'view' => [
                 'class' => ViewAction::className(),
-                'modelClass' => AdminLog::className(),
-            ],
-            'update' => [
-                'class' => UpdateAction::className(),
                 'modelClass' => AdminLog::className(),
             ],
             'delete' => [

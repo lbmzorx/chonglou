@@ -5,8 +5,8 @@
 */
 return [
     
-/*start*NameCommon*/
-'ID'=>'ID',
+    /*start*NameCommon*/
+    'ID'=>'ID',
     'User ID'=>'用户ID',
 	'Position'=>'位置',//0左，1上',
 	'Parent ID'=>'上级ID',
@@ -20,7 +20,11 @@ return [
     //	'User ID'=>'用户ID',',
     'Content'=>'内容',
     'Value'=>'值',
-	'Url'=>'url地址',	/*end*NameCommon*/
+	'Url'=>'url地址',
+    'Route'=>'路由',
+    'Description'=>'描述',
+    'Type'=>'类型',
+    /*end*NameCommon*/
 
 
 
@@ -92,15 +96,20 @@ return [
 	'Tips'=>'提示',
 	/*end*Options*/
 	/*start*AdminLog*/
-	'Route'=>'操作路由',
-	'Description'=>'操作描述',
 	/*end*AdminLog*/
 	
-/*start*Maintain*/
+    /*start*Maintain*/
 	'Options ID'=>'位置类型',//0首页轮播,1侧栏1,2侧栏2',
 	'Show Type'=>'显示类型',//0图片,2文字,3markdown',
 	'Sign'=>'标识',
 	'Info'=>'备注',
 	/*end*Maintain*/
 
+    /*start*Rbac*/
+    'HTTP Method'=>'请求方式',
+    'Permissions'=>'权限',
+    'Group'=>'组',
+    'Category'=>'分类',
+    'Role'=>'角色',
+    /*end*Rbac*/
 ];

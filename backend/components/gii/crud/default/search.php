@@ -7,7 +7,7 @@ use yii\helpers\StringHelper;
 
 
 /* @var $this yii\web\View */
-/* @var $generator yii\gii\generators\crud\Generator */
+/* @var $generator backend\components\gii\crud\Generator */
 
 $modelClass = StringHelper::basename($generator->modelClass);
 $searchModelClass = StringHelper::basename($generator->searchModelClass);
@@ -73,6 +73,15 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+<?php $order=$generator->generateSearchDefaultOrder();if(!empty($order)):?>
+            'sort' => [
+                'defaultOrder' => [
+<?php foreach ($order as $name=>$value):?>
+                    '<?=$name?>' => <?=$value?>,
+<?php endforeach;?>
+                ]
+            ]
+<?php endif;?>
         ]);
 
         $this->load($params);

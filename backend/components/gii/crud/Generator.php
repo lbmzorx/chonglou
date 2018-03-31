@@ -4,13 +4,14 @@
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
-
 namespace backend\components\gii\crud;
 
+use Codeception\Module\REST;
 use Yii;
 use yii\gii\CodeFile;
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
+use yii\helpers\VarDumper;
 
 /**
  * Generates CRUD
@@ -105,6 +106,19 @@ class Generator extends \yii\gii\generators\crud\Generator
         }
 
         return $files;
+    }
+
+    public function generateSearchDefaultOrder(){
+        $default=[];
+        foreach ($this->getColumnNames() as $name){
+            if($name =='id'){
+                $default['id']='SORT_DESC';
+            }
+            if($name =='sort'){
+                $default['sort']='SORT_ASC';
+            }
+        }
+        return $default;
     }
 
     /**

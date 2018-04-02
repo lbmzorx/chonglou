@@ -11,8 +11,6 @@ use yii\web\IdentityInterface;
  */
 class Admin extends \common\models\data\Admin implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
 
     /**
      * @inheritdoc
@@ -39,7 +37,7 @@ class Admin extends \common\models\data\Admin implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id' => $id, 'status' => self::ADMIN_STATUS_ACTIVE]);
     }
 
     /**
@@ -58,7 +56,7 @@ class Admin extends \common\models\data\Admin implements IdentityInterface
      */
     public static function findByUsername($name)
     {
-        return static::findOne(['name' => $name, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['name' => $name, 'status' => self::ADMIN_STATUS_ACTIVE]);
     }
 
     /**
@@ -75,7 +73,7 @@ class Admin extends \common\models\data\Admin implements IdentityInterface
 
         return static::findOne([
             'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
+            'status' => self::ADMIN_STATUS_ACTIVE,
         ]);
     }
 

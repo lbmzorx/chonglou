@@ -52,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'delete' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-trash"></span> ' . yii::t('app', 'Delete'), \yii\helpers\Url::to(['delete', 'name'=>$model['name']]), [
                             'title' => yii::t('app', 'Delete'),
+                            'data-method'=>'post',
                             'data-pjax' => '0',
                             'data-confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                         ]);

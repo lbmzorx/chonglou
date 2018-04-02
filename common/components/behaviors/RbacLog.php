@@ -33,7 +33,7 @@ class RbacLog extends Behavior
         if ($event->sender->className() !== AdminLogModel::className()) {
             $desc = '<br>';
             foreach ($event->sender->getAttributes() as $name => $value) {
-                $desc .= $event->sender->getAttributeLabel($name) . '(' . $name . ') => ' . $value . ',<br>';
+                $desc .= $event->sender->getAttributeLabel($name) . '(' . $name . ') => ' . json_encode($value) . ',<br>';
             }
             $desc = substr($desc, 0, -5);
             $model = new AdminLogModel();
@@ -61,7 +61,7 @@ class RbacLog extends Behavior
             $oldAttributes = $event->sender->oldAttributes;
             foreach ($event->changedAttributes as $name => $value) {
                 if( $oldAttributes[$name] == $value ) continue;
-                $desc .= $event->sender->getAttributeLabel($name) . '(' . $name . ') : ' . $value . '=>' . $event->sender->oldAttributes[$name] . ',<br>';
+                $desc .= $event->sender->getAttributeLabel($name) . '(' . $name . ') : ' .json_encode($value)  . '=>' . $event->sender->oldAttributes[$name] . ',<br>';
             }
             $desc = substr($desc, 0, -5);
             $model = new AdminLogModel();
@@ -86,7 +86,7 @@ class RbacLog extends Behavior
     {
         $desc = '<br>';
         foreach ($event->sender->getAttributes() as $name => $value) {
-            $desc .= $event->sender->getAttributeLabel($name) . '(' . $name . ') => ' . $value . ',<br>';
+            $desc .= $event->sender->getAttributeLabel($name) . '(' . $name . ') => ' . json_encode($value) . ',<br>';
         }
         $desc = substr($desc, 0, -5);
         $model = new AdminLogModel();

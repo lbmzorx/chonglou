@@ -20,6 +20,16 @@ return [
         'webSets' => [
             'class' => \common\config\WebSets::className(),
         ],
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                [
+                    'class' => 'yii\log\DbTarget',
+                    'levels' => ['error', 'warning'],
+                    'logTable'=>'{{%yii_log}}',
+                ]
+            ],
+        ],
         'mailer' => [//邮箱发件人配置，会被main-local.php以及后台管理页面中的smtp配置覆盖
             'class' => yii\swiftmailer\Mailer::className(),
             'viewPath' => '@common/mail',

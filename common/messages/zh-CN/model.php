@@ -5,8 +5,8 @@
 */
 return [
     
-    /*start*NameCommon*/
-    'ID'=>'ID',
+/*start*NameCommon*/
+'ID'=>'ID',
     'User ID'=>'用户ID',
 	'Position'=>'位置',//0左，1上',
 	'Parent ID'=>'上级ID',
@@ -24,12 +24,15 @@ return [
     'Route'=>'路由',
     'Description'=>'描述',
     'Type'=>'类型',
-    /*end*NameCommon*/
+    'Category'=>'分类',
+	/*end*NameCommon*/
+
+
 
 
 
 	/*start*Menu*/
-	'App Type'=>'菜单类型',//0后台,1前台',
+	'App Type'=>'菜单类型',//0后台,1前台,
 	////'Url'=>'url地址',
 	////////////'Sort'=>'排序',
 	'Target'=>'打开方式',//_blank新窗口,_self本窗口',
@@ -56,7 +59,7 @@ return [
 	'View'=>'浏览',
 	'Collection'=>'收藏',
 	'Thumbup'=>'赞',
-	//'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',
+	////'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',
 	'Score'=>'评分',
 	'Publish'=>'发布',//0草稿,1发布',
 	//////'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',
@@ -89,7 +92,7 @@ return [
     'You have failed to try login more than {count}times, please wait {time}s'=>'您已经登录失败超过{count}次了，请等待{time}秒',
     'You have failed to try login more than 10times, please try tomorrow!'=>'您登录失败超过10次，请联系管理员，或者明天再试一试',
 	/*start*Options*/
-	'Type'=>'类型',//0系统,1自定义,2banner,3广告',
+	//'Type'=>'类型',//0系统,1自定义,2banner,3广告',
 	////'Value'=>'值',
 	'Input Type'=>'输入框类型',
 	'Autoload'=>'自动加载',//0否,1是',
@@ -109,7 +112,13 @@ return [
     'HTTP Method'=>'请求方式',
     'Permissions'=>'权限',
     'Group'=>'组',
-    'Category'=>'分类',
+    //'Category'=>'分类',
     'Role'=>'角色',
     /*end*Rbac*/
+	/*start*Log*/
+	'Log Time'=>'记录时间',
+	'Prefix'=>'前缀',
+	'Message'=>'信息',
+	/*end*Log*/
+
 ];

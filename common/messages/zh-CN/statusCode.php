@@ -12,6 +12,7 @@ return [
     
     
     
+    
     	/*start*Article*/
 	'Un remain' =>'未提醒',//'remain'=0, 提醒.0未提醒，1已经提醒
 	'Remained' =>'已提醒',//'remain'=1, 提醒.0未提醒，1已经提醒
@@ -81,5 +82,17 @@ return [
 	'Profile Begin' =>'',//'level'=40, 级别.0x00=所有,0x01=致命错误,0x02=警告,0x04=信息,0x08=追踪,0x40=PROFILE,0x50=PROFILE_BEGIN,0x60=PROFILE_END
 	'Profile End' =>'',//'level'=48, 级别.0x00=所有,0x01=致命错误,0x02=警告,0x04=信息,0x08=追踪,0x40=PROFILE,0x50=PROFILE_BEGIN,0x60=PROFILE_END
 	/*end*Log*/
+
+
+	/*start*Admin*/
+	'Delete' =>'',//'status'=0, 状态
+	'Frozen' =>'',//'status'=1, 状态
+	'Audit Failed' =>'',//'status'=2, 状态
+	'Limit Login' =>'',//'status'=3, 状态
+	'Limit Active' =>'',//'status'=4, 状态
+	'Login Error' =>'',//'status'=5, 状态
+	'Active Error' =>'',//'status'=6, 状态
+	'Active' =>'',//'status'=10, 状态
+	/*end*Admin*/
 
 ];

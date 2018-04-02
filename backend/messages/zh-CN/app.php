@@ -193,4 +193,17 @@ return [
     'Profile Begin' =>'Profile Begin',//'level'=40, 级别.0x00=所有,0x01=致命错误,0x02=警告,0x04=信息,0x08=追踪,0x40=PROFILE,0x50=PROFILE_BEGIN,0x60=PROFILE_END
     'Profile End' =>'Profile End',//'level'=48, 级别.0x00=所有,0x01=致命错误,0x02=警告,0x04=信息,0x08=追踪,0x40=PROFILE,0x50=PROFILE_BEGIN,0x60=PROFILE_END
     /*end*Log*/
+
+    /*start*Admin*/
+    //'Delete' =>'',//'status'=0, 状态
+    'Frozen' =>'冻结',//'status'=1, 状态
+    //'Audit Failed' =>'',//'status'=2, 状态
+    'Limit Login' =>'限制登录',//'status'=3, 状态
+    'Limit Active' =>'限制活动',//'status'=4, 状态
+    'Login Error' =>'登录错误',//'status'=5, 状态
+    'Active Error' =>'活动错误',//'status'=6, 状态
+    'Active' =>'活动',//'status'=10, 状态
+    'Create Admin'=>'添加管理员',
+    'Admins'=>'管理员',
+    /*end*Admin*/
 ];

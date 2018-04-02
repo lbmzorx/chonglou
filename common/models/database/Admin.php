@@ -9,7 +9,7 @@ use Yii;
  *
  * @property string $id
  * @property string $name 名称
- * @property string $nick 昵称
+ * @property string $head 头像
  * @property string $email 邮箱
  * @property string $mobile 手机号
  * @property int $status 状态
@@ -18,7 +18,7 @@ use Yii;
  * @property string $password_reset_token 密码重置口令
  * @property int $role_id 角色
  * @property int $add_time 添加时间
- * @property int $edit_time 编辑时间
+ * @property int $edit_time 修改时间
  */
 class Admin extends \yii\db\ActiveRecord
 {
@@ -36,10 +36,12 @@ class Admin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name', 'head', 'email', 'mobile', 'status', 'auth_key', 'password', 'password_reset_token', 'add_time', 'edit_time'], 'required'],
             [['status', 'role_id', 'add_time', 'edit_time'], 'integer'],
-            [['name', 'nick'], 'string', 'max' => 50],
+            [['name'], 'string', 'max' => 50],
+            [['head', 'auth_key', 'password', 'password_reset_token'], 'string', 'max' => 255],
             [['email', 'mobile'], 'string', 'max' => 20],
-            [['auth_key', 'password', 'password_reset_token'], 'string', 'max' => 255],
+            [['name'], 'unique'],
         ];
     }
 
@@ -49,18 +51,20 @@ class Admin extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', '名称'),
-            'nick' => Yii::t('app', '昵称'),
-            'email' => Yii::t('app', '邮箱'),
-            'mobile' => Yii::t('app', '手机号'),
-            'status' => Yii::t('app', '状态'),
-            'auth_key' => Yii::t('app', '授权登录'),
-            'password' => Yii::t('app', '密码'),
-            'password_reset_token' => Yii::t('app', '密码重置口令'),
-            'role_id' => Yii::t('app', '角色'),
-            'add_time' => Yii::t('app', '添加时间'),
-            'edit_time' => Yii::t('app', '编辑时间'),
+            'id' => Yii::t('model', 'ID'), //
+            'name' => Yii::t('model', 'Name'), //名称
+            'head' => Yii::t('model', 'Head'), //头像
+            'email' => Yii::t('model', 'Email'), //邮箱
+            'mobile' => Yii::t('model', 'Mobile'), //手机号
+            'status' => Yii::t('model', 'Status'), //状态
+            'auth_key' => Yii::t('model', 'Auth Key'), //授权登录
+            'password' => Yii::t('model', 'Password'), //密码
+            'password_reset_token' => Yii::t('model', 'Password Reset Token'), //密码重置口令
+            'role_id' => Yii::t('model', 'Role ID'), //角色
+            'add_time' => Yii::t('model', 'Add Time'), //添加时间
+            'edit_time' => Yii::t('model', 'Edit Time'), //修改时间
         ];
     }
 }
+
+

@@ -5,8 +5,8 @@
 */
 return [
     
-/*start*NameCommon*/
-'ID'=>'ID',
+    /*start*NameCommon*/
+    'ID'=>'ID',
     'User ID'=>'用户ID',
 	'Position'=>'位置',//0左，1上',
 	'Parent ID'=>'上级ID',
@@ -25,7 +25,9 @@ return [
     'Description'=>'描述',
     'Type'=>'类型',
     'Category'=>'分类',
-	/*end*NameCommon*/
+    /*end*NameCommon*/
+
+
 
 
 
@@ -62,7 +64,7 @@ return [
 	////'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',
 	'Score'=>'评分',
 	'Publish'=>'发布',//0草稿,1发布',
-	//////'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',
+	////////'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',
 	/*end*Article*/
 
 	/*start*ArticleCate*/
@@ -120,5 +122,14 @@ return [
 	'Prefix'=>'前缀',
 	'Message'=>'信息',
 	/*end*Log*/
+	/*start*Admin*/
+	'Head'=>'头像',
+	'Email'=>'邮箱',
+	'Mobile'=>'手机号',
+	'Auth Key'=>'授权登录',
+	'Password'=>'密码',
+	'Password Reset Token'=>'密码重置口令',
+	'Role ID'=>'角色',
+	/*end*Admin*/
 
 ];

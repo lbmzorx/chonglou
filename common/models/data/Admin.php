@@ -1,37 +1,86 @@
 <?php
-
 namespace common\models\data;
 
 use Yii;
-use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "{{%admin}}".
- *
- */
+* This is the data class for [[common\models\database\Admin]].
+*
+* @see \common\models\database\Admin
+*/
 class Admin extends \common\models\database\Admin
 {
 
-    const ADMIN_STATUS_DELETE     =   0; //删除账号
-    const ADMIN_STATUS_FROOZE     =   1; //冻结
-    const ADMIN_STATUS_AUDITFAILED=   2; //未通过审核
-    const ADMIN_STATUS_LIMITLOGIN =   3; //限制登录
-    const ADMIN_STATUS_LIMITACTIVE=   4; //限制活动
-    const ADMIN_STATUS_LOGINERROR =   5; //登录异常
-    const ADMIN_STATUS_ACTIVEERROR=   6; //活动异常
-    const ADMIN_STATUS_ACTIVE     =   10; //正常
-
-    public static $status_code=[0=>'删除',1=>'冻结',2=>'限制登录',3=>'未通过审核',4=>'限制活动',5=>'登录异常',6=>'活动异常',10=>'正常',];
+    const ADMIN_STATUS_DELETE = 0;
+    const ADMIN_STATUS_FROZEN = 1;
+    const ADMIN_STATUS_AUDIT_FAILED = 2;
+    const ADMIN_STATUS_LIMIT_LOGIN = 3;
+    const ADMIN_STATUS_LIMIT_ACTIVE = 4;
+    const ADMIN_STATUS_LOGIN_ERROR = 5;
+    const ADMIN_STATUS_ACTIVE_ERROR = 6;
+    const ADMIN_STATUS_ACTIVE = 10;
+    /**
+     * @var array $status_code 状态
+     */
+    public static $status_code = [0=>'Delete',1=>'Frozen',2=>'Audit Failed',3=>'Limit Login',4=>'Limit Active',5=>'Login Error',6=>'Active Error',10=>'Active',];
 
     /**
      * @inheritdoc
      */
     public function rules()
     {
-        $rules=[
+        return array_merge(parent::rules(),[
+            [['status'], 'in', 'range' => [0,1,2,3,4,5,6,10,],],
+            [['role_id'], 'default', 'value' =>10,],
+        ]);
+    }
 
+    /**
+    * @inheritdoc
+    */
+    public function scenarios()
+    {
+        return [
+            'default' => [
+                'name',
+                'head',
+                'email',
+                'mobile',
+                'status',
+                'auth_key',
+                'password',
+                'password_reset_token',
+                'role_id',
+            ],
+            'search' => [
+                'id',
+                'name',
+                'head',
+                'email',
+                'mobile',
+                'status',
+                'auth_key',
+                'password',
+                'password_reset_token',
+                'role_id',
+                'add_time',
+                'edit_time',
+            ],
+            'frontend' => [
+                'id',
+                'name',
+                'head',
+                'email',
+                'mobile',
+                'status',
+                'auth_key',
+                'password',
+                'password_reset_token',
+                'role_id',
+                'add_time',
+                'edit_time',
+            ],
         ];
-        return \yii\helpers\ArrayHelper::merge(parent::rules(),$rules);
     }
 
     /**
@@ -39,23 +88,20 @@ class Admin extends \common\models\database\Admin
      */
     public function attributeLabels()
     {
-        $lables= [
+        return array_merge(parent::attributeLabels(),[
 
-        ];
-        return \yii\helpers\ArrayHelper::merge(parent::attributeLabels(),$lables);
+        ]);
     }
 
     public function behaviors()
     {
         return [
-            'activeTime'=>[
-                'class' => TimestampBehavior::className(),
+            'timeUpdate'=>[
+                'class' => \yii\behaviors\TimestampBehavior::className(),
                 'attributes' => [
                     self::EVENT_BEFORE_INSERT => ['add_time'],
                     self::EVENT_BEFORE_UPDATE => ['edit_time'],
                 ],
-                // if you're using datetime instead of UNIX timestamp:
-                // 'value' => new Expression('NOW()'),
             ],
             'getStatusCode'=>[
                 'class' => \common\components\behaviors\StatusCode::className(),

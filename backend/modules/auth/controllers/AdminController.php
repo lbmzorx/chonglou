@@ -2,19 +2,61 @@
 
 namespace backend\modules\auth\controllers;
 
-use yii\web\Controller;
+use Yii;
+use common\models\data\Admin;
+use common\models\search\Admin as AdminSearch;
+use backend\Controllers\CommonController;
+use backend\components\actions\CreateAction;
+use backend\components\actions\ViewAction;
+use backend\components\actions\UpdateAction;
+use backend\components\actions\IndexAction;
+use backend\components\actions\DeleteAction;
+use backend\components\actions\SortAction;
+use backend\components\actions\ChangeStatusAction;
 
 /**
- * Default controller for the `auth` module
+ * AdminController implements the CRUD actions for Admin model.
  */
-class AdminController extends Controller
+class AdminController extends CommonController
 {
-    /**
-     * Renders the index view for the module
-     * @return string
-     */
-    public function actionIndex()
+    public function actions()
     {
-        return $this->render('index');
+        return [
+            'index' => [
+                'class' => IndexAction::className(),
+                'data' => function(){
+                    $searchModel = new AdminSearch();
+                    $dataProvider = $searchModel->search(yii::$app->getRequest()->getQueryParams());
+                    return [
+                        'dataProvider' => $dataProvider,
+                        'searchModel' => $searchModel,
+                    ];
+                }
+            ],
+            'create' => [
+                'class' => CreateAction::className(),
+                'modelClass' => Admin::className(),
+            ],
+            'view' => [
+                'class' => ViewAction::className(),
+                'modelClass' => Admin::className(),
+            ],
+            'update' => [
+                'class' => UpdateAction::className(),
+                'modelClass' => Admin::className(),
+            ],
+            'delete' => [
+                'class' => DeleteAction::className(),
+                'modelClass' => Admin::className(),
+            ],
+            'sort' => [
+                'class' => SortAction::className(),
+                'modelClass' => Admin::className(),
+            ],
+            'change-status'=>[
+                'class'=>ChangeStatusAction::className(),
+                'modelClass'=>Admin::className(),
+            ],
+        ];
     }
 }

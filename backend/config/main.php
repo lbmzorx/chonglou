@@ -13,7 +13,6 @@ return [
     'bootstrap' => ['log'],
     'defaultRoute'=>'home/default/index',
     'components' => [
-
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
@@ -47,16 +46,15 @@ return [
                     'sourceLanguage' => 'en-US',
                     'fileMap' => [
                         'app' => 'app.php',
-                        'app/error' => 'error.php',
+                        'error' => 'error.php',
                     ],
                 ],
                 'menu' => [
                     'class' => yii\i18n\PhpMessageSource::className(),
                     'basePath' => '@backend/messages',
-                    'sourceLanguage' => 'zh-CN',
+                    'sourceLanguage' => 'en-US',
                     'fileMap' => [
                         'app' => 'menu.php',
-                        'app/error' => 'error.php',
                     ],
                 ],
             ],
@@ -75,7 +73,6 @@ return [
                 '<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'=>'<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>/<page:\d+>/<per-page:\d+>'=>'<module>/<controller>/<action>',
-
             ],
         ],
         'formatter' => [

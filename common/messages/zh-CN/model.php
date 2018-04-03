@@ -31,6 +31,7 @@ return [
 	'App Type'=>'菜单类型',//0后台,1前台,
 	////'Url'=>'url地址',
 	////////////'Sort'=>'排序',
+    'name_en'=>'英文名',
 	'Target'=>'打开方式',//_blank新窗口,_self本窗口',
 	'Is Absolute Url'=>'是否绝对地址',
 	'Is Display'=>'是否显示',//0否,1是',

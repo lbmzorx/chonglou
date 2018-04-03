@@ -28,8 +28,8 @@ if(empty($this->title)){
                     <h1 class="error-number"><i class="fa fa-warning text-danger"></i><?= \yii\helpers\Html::encode($this->title) ?></h1>
                     <h2></h2>
                     <p><?= nl2br(\yii\helpers\Html::encode($message))?></p>
-                    <a class="btn btn-primary" href="<?=\yii::$app->request->referrer?>">返回</a>
-                    <a class="btn btn-primary" href="<?=\yii\helpers\Url::to(['site/login'])?>">登录</a>
+                    <a class="btn btn-primary" href="<?=\yii::$app->request->referrer?>"><?=\yii::t('error','Return')?></a>
+                    <a class="btn btn-primary" href="<?=\yii\helpers\Url::to(['site/login'])?>"><?=\yii::t('error','Login')?>登录</a>
                 </div>
 
             </div>

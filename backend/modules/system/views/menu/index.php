@@ -59,6 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'parent_id',
             'name',
+            'name_en',
             'url:url',
             'icon',
             //'sort',

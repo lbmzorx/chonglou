@@ -21,15 +21,10 @@ use common\components\behaviors\StatusCode;
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-lg-3 col-sm-3">
-        <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-lg-3 col-sm-3">
-        <?= $form->field($model, 'icon',[
-            'class'=>\backend\components\widget\InputAddField::className(),
-            'firstContent'=>Html::tag('i','',['class'=>$model->icon,]),
-            'firstOption'=>['id'=>'icon-show'],
-            'endContent'=>'<button class="btn btn-success" id="icon-change" type="button"><i class="fa fa-search"></i></button>',
-        ])->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
     </div>
 </div>
 <div class="row">
@@ -63,18 +58,26 @@ use common\components\behaviors\StatusCode;
 	<div class="col-lg-3 col-sm-3">
 	    <?= $form->field($model, 'top_id')->textInput() ?>
 	</div>
-	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'module')->textInput(['maxlength' => true]) ?>
-	</div>
+    <div class="col-lg-3 col-sm-3">
+        <?= $form->field($model, 'icon',[
+            'class'=>\backend\components\widget\InputAddField::className(),
+            'firstContent'=>Html::tag('i','',['class'=>$model->icon,]),
+            'firstOption'=>['id'=>'icon-show'],
+            'endContent'=>'<button class="btn btn-success" id="icon-change" type="button"><i class="fa fa-search"></i></button>',
+        ])->textInput(['maxlength' => true]) ?>
+    </div>
 </div>
 <div class="row">
+    <div class="col-lg-3 col-sm-3">
+        <?= $form->field($model, 'module')->textInput(['maxlength' => true]) ?>
+    </div>
 	<div class="col-lg-3 col-sm-3">
 	    <?= $form->field($model, 'controller')->textInput(['maxlength' => true]) ?>
 	</div>
 	<div class="col-lg-3 col-sm-3">
 	    <?= $form->field($model, 'action')->textInput(['maxlength' => true]) ?>
 	</div>
-    </div>
+</div>
     <div class="row">
         <div class="col-lg-12 col-sm-12">
             <div class="form-group">

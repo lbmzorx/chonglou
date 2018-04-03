@@ -12,6 +12,7 @@ use Yii;
  * @property int $position 位置。0左，1上
  * @property string $parent_id 上级菜单id
  * @property string $name 名称
+ * @property string $name_en 英文名
  * @property string $url url地址
  * @property string $icon 图标
  * @property double $sort 排序
@@ -44,7 +45,7 @@ class Menu extends \yii\db\ActiveRecord
             [['app_type', 'position', 'parent_id', 'is_absolute_url', 'is_display', 'add_time', 'edit_time', 'top_id'], 'integer'],
             [['name', 'url', 'add_time'], 'required'],
             [['sort'], 'number'],
-            [['name', 'url', 'icon', 'target'], 'string', 'max' => 255],
+            [['name','name_en', 'url', 'icon', 'target'], 'string', 'max' => 255],
             [['module', 'controller', 'action'], 'string', 'max' => 100],
         ];
     }
@@ -60,6 +61,7 @@ class Menu extends \yii\db\ActiveRecord
             'position' => Yii::t('model', 'Position'), //位置。0左，1上
             'parent_id' => Yii::t('model', 'Parent ID'), //上级菜单id
             'name' => Yii::t('model', 'Name'), //名称
+            'name_en'=> Yii::t('model','name_en'),//英文名
             'url' => Yii::t('model', 'Url'), //url地址
             'icon' => Yii::t('model', 'Icon'), //图标
             'sort' => Yii::t('model', 'Sort'), //排序

@@ -19,9 +19,6 @@ use backend\components\actions\ChangeStatusAction;
  */
 class MenuController extends Controller
 {
-    public $controller_id='menu';
-    public $left_nav_id='system';
-
     public function actions()
     {
         return [

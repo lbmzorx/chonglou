@@ -36,7 +36,7 @@ class Admin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'head', 'email', 'mobile', 'status', 'auth_key', 'password', 'password_reset_token', 'add_time', 'edit_time'], 'required'],
+            [['name', 'email','status','password',], 'required'],
             [['status', 'role_id', 'add_time', 'edit_time'], 'integer'],
             [['name'], 'string', 'max' => 50],
             [['head', 'auth_key', 'password', 'password_reset_token'], 'string', 'max' => 255],

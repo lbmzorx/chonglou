@@ -5,8 +5,8 @@
 */
 return [
     
-    /*start*NameCommon*/
-    'ID'=>'ID',
+/*start*NameCommon*/
+'ID'=>'ID',
     'User ID'=>'用户ID',
 	'Position'=>'位置',//0左，1上',
 	'Parent ID'=>'上级ID',
@@ -26,12 +26,6 @@ return [
     'Type'=>'类型',
     'Category'=>'分类',
     /*end*NameCommon*/
-
-
-
-
-
-
 
 	/*start*Menu*/
 	'App Type'=>'菜单类型',//0后台,1前台,
@@ -61,7 +55,7 @@ return [
 	'View'=>'浏览',
 	'Collection'=>'收藏',
 	'Thumbup'=>'赞',
-	////'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',
+	//////'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',
 	'Score'=>'评分',
 	'Publish'=>'发布',//0草稿,1发布',
 	////////'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',
@@ -77,7 +71,7 @@ return [
 	/*end*Tag*/	/*start*ArticleCommit*/
 	'Article ID'=>'文章ID',
 	'Commit ID'=>'评论ID',
-	//'Content'=>'内容',
+	////'Content'=>'内容',
 	/*end*ArticleCommit*/
 	/*start*ArticleContent*/
 	/*end*ArticleContent*/
@@ -131,5 +125,12 @@ return [
 	'Password Reset Token'=>'密码重置口令',
 	'Role ID'=>'角色',
 	/*end*Admin*/
+	/*start*AdminMessage*/
+	'To Admin ID'=>'收信管理员',
+	'From Admin ID'=>'发信管理员',
+	'Spread Type'=>'消息类型',//0=广播,1组,3私信',
+	'Read'=>'已读',//0未读,1已读',
+	'From Type'=>'来源类型',//0管理员,1用户,2路人,10操作系统,11其他',
+	/*end*AdminMessage*/
 
 ];

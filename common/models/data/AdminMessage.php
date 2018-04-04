@@ -22,13 +22,13 @@ class AdminMessage extends \common\models\database\AdminMessage
     const ADMINMESSAGE_LEVEL_NORMAL = 0;
     const ADMINMESSAGE_LEVEL_INFO = 1;
     const ADMINMESSAGE_LEVEL_WARNING = 2;
-    const ADMINMESSAGE_LEVEL_IMPORTANT = 3;
-    const ADMINMESSAGE_LEVEL_EMERGENCY = 4;
-    const ADMINMESSAGE_LEVEL_DANGER = 5;
+    const ADMINMESSAGE_LEVEL_DANGER = 3;
+    const ADMINMESSAGE_LEVEL_IMPORTANT = 4;
+    const ADMINMESSAGE_LEVEL_EMERGENCY = 5;
     /**
      * @var array $level_code 级别.0一般,1=1星,2=2星,3=3星,4=4星,5=5星
      */
-    public static $level_code = [0=>'Normal',1=>'Info',2=>'Warning',3=>'Important',4=>'Emergency',5=>'Danger',];
+    public static $level_code = [0=>'Normal',1=>'Info',2=>'Warning',3=>'Danger',4=>'Important',5=>'Emergency',];
 
     const ADMINMESSAGE_READ_UNREAD = 0;
     const ADMINMESSAGE_READ_READ = 1;
@@ -128,6 +128,7 @@ class AdminMessage extends \common\models\database\AdminMessage
             'timeUpdate'=>[
                 'class' => \yii\behaviors\TimestampBehavior::className(),
                 'attributes' => [
+                    self::EVENT_BEFORE_INSERT => ['add_time'],
                 ],
             ],
             'getStatusCode'=>[

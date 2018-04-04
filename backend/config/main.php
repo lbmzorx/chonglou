@@ -114,6 +114,9 @@ return [
         'maintain' => [
             'class' => 'backend\modules\maintain\Module',
         ],
+        'admin' => [
+            'class' => 'backend\modules\admin\Module',
+        ],
     ],
 
     'params' => $params,

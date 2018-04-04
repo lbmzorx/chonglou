@@ -117,7 +117,7 @@ public function behaviors()
                 'class' => \yii\behaviors\TimestampBehavior::className(),
                 'attributes' => [
 <?php if($generator->timeAdd):?>
-<?php if($generator->keysExist($generator->timeUpdate,array_keys($labels))):?>
+<?php if($generator->keysExist($generator->timeAdd,array_keys($labels))):?>
 <?php
             $timeAdd=explode(',',$generator->timeAdd);
             $timeAdd=implode('\',\'',$timeAdd);

@@ -4,6 +4,7 @@
 *
 */
 return [
+    
     	/*start*Article*/
 	'Un remain' =>'未提醒',//'remain'=0, 提醒.0未提醒，1已经提醒
 	'Remained' =>'已提醒',//'remain'=1, 提醒.0未提醒，1已经提醒
@@ -105,5 +106,13 @@ return [
 	'Operation System' =>'操作系统',//'from_type'=10, 来源类型.0管理员,1用户,2路人,10操作系统,11其他
 	'Other' =>'其他',//'from_type'=100, 来源类型.0管理员,1用户,2路人,10操作系统,11其他
 	/*end*AdminMessage*/
+
+
+	/*start*AdminInfo*/
+	'Unreal Name' =>'',//'status'=0, 状态.0未实名,1已实名
+	'Real Name' =>'',//'status'=1, 状态.0未实名,1已实名
+	'Female' =>'',//'sex'=0, 性别.0女,1男
+	'male' =>'',//'sex'=1, 性别.0女,1男
+	/*end*AdminInfo*/
 
 ];

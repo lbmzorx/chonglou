@@ -24,8 +24,10 @@ return [
     'Route'=>'路由',
     'Description'=>'描述',
     'Type'=>'类型',
-    'Category'=>'分类',
-    /*end*NameCommon*/
+    'Category'=>'分类',	'Admin ID'=>'管理员ID',',
+	/*end*NameCommon*/
+
+
 
 	/*start*Menu*/
 	'App Type'=>'菜单类型',//0后台,1前台,
@@ -59,7 +61,7 @@ return [
 	//////'Level'=>'文章级别',//0垃圾,1较差,2普通,3较好,4优秀,5天才',
 	'Score'=>'评分',
 	'Publish'=>'发布',//0草稿,1发布',
-	////////'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',
+	//////////'Status'=>'状态值',//0待审核,1审核通过,2正在审核,3审核不通过',
 	/*end*Article*/
 
 	/*start*ArticleCate*/
@@ -79,7 +81,7 @@ return [
 	
 /*start*ImgUpload*/
 	'File Path'=>'文件路径',
-	'Admin ID'=>'管理员ID',
+	//'Admin ID'=>'管理员ID',
 	/*end*ImgUpload*/
 
 
@@ -133,5 +135,19 @@ return [
 	'Read'=>'已读',//0未读,1已读',
 	'From Type'=>'来源类型',//0管理员,1用户,2路人,10操作系统,11其他',
 	/*end*AdminMessage*/
+	/*start*AdminInfo*/
+	'Real Name'=>'实名',
+	'Sex'=>'性别',//0女,1男',
+	'Birthday'=>'生日',
+	'Province'=>'省',
+	'City'=>'市',
+	'County'=>'县/区',
+	'Address'=>'详细地址',
+	'Identified Card'=>'身份证',
+	'Qq'=>'QQ',
+	'Wechat'=>'微信',
+	'Weibo'=>'微博',
+	'Other Mongodb'=>'其他信息',
+	/*end*AdminInfo*/
 
 ];

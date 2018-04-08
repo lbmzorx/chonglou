@@ -57,7 +57,6 @@ class MutiCreateAction extends Action
             }
 
             $status=$this->save($depances);
-            var_dump($status);
             if ($status == true) {
                 if($this->transation){
                     $t->commit();

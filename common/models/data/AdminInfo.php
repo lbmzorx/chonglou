@@ -141,7 +141,7 @@ class AdminInfo extends \common\models\database\AdminInfo
             ],
             'admin_id'=>[
                 'class'=>AttributeBehavior::className(),
-                'attribute'=>[
+                'attributes'=>[
                     ActiveRecord::EVENT_BEFORE_VALIDATE=>['admin_id'],
                 ],
                 'value'=>\yii::$app->user->id,
@@ -150,7 +150,7 @@ class AdminInfo extends \common\models\database\AdminInfo
     }
 
     public function getAdmin(){
-        return $this->hasOne(Admin::className(),['admin_id'=>'id']);
+        return $this->hasOne(Admin::className(),['id'=>'admin_id']);
     }
 
 }

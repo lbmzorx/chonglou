@@ -80,6 +80,11 @@ class Admin extends \common\models\database\Admin
                 'add_time',
                 'edit_time',
             ],
+            'info' => [
+                'head',
+                'email',
+                'mobile',
+            ],
         ];
     }
 

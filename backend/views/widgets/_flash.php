@@ -8,7 +8,9 @@
 
 if (Yii::$app->getSession()->hasFlash('success')) {
     $successTitle = addslashes( yii::t('app', 'Success') );
-    $info = addslashes( Yii::$app->getSession()->getFlash('success') );
+    $success=Yii::$app->getSession()->getFlash('success');
+    $success=is_array($success)?json_encode($success):$success;
+    $info = addslashes($success);
     $str = <<<EOF
         toastr.options=toastrOption.success;
         toastr.success("{$successTitle}", "{$info}");

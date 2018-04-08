@@ -224,6 +224,23 @@ return [
     'Guest' =>'游客',//'from_type'=2, 来源类型.0管理员,1用户,2路人,10操作系统,11其他
     'Operation System' =>'操作系统',//'from_type'=10, 来源类型.0管理员,1用户,2路人,10操作系统,11其他
     'Other' =>'其他',//'from_type'=100, 来源类型.0管理员,1用户,2路人,10操作系统,11其他
+    'Message'=>'消息',
+    'Create Admin Message'=>'添加消息',
     /*end*AdminMessage*/
+
+    /*start*AdminInfo*/
+    'Unreal Name' =>'未实名',//'status'=0, 状态.0未实名,1已实名
+    'Real Name' =>'实名',//'status'=1, 状态.0未实名,1已实名
+    'Female' =>'女',//'sex'=0, 性别.0女,1男
+    'male' =>'男',//'sex'=1, 性别.0女,1男
+    'Admin Messages'=>'管理员管理',
+    'Index Admin Message'=>'管理员信息',
+    'My Profile'=>'我的资料',
+    'Logout'=>'退出',
+    'Settings'=>'设置',
+    /*end*AdminInfo*/
+
+    'Help'=>'帮助',
+
 
 ];

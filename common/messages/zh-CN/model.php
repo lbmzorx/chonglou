@@ -24,7 +24,8 @@ return [
     'Route'=>'路由',
     'Description'=>'描述',
     'Type'=>'类型',
-    'Category'=>'分类',	'Admin ID'=>'管理员ID',',
+    'Category'=>'分类',
+    'Admin ID'=>'管理员ID',
 	/*end*NameCommon*/
 
 

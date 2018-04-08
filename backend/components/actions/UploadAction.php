@@ -58,8 +58,10 @@ class UploadAction extends \yii\base\Action
             $model= call_user_func([$this->modelClass, 'findOne'], $id);
             $this->imgConfig['nameModel']=$model;
         }
-
-        $imgModel=Yii::createObject($this->imgClass,[$this->imgConfig]);
+        if(empty($this->imgConfig['class'])){
+            $this->imgConfig['class']=$this->imgClass;
+        }
+        $imgModel=Yii::createObject($this->imgConfig);
 
         if ($request->isPost) {
             $imgModel->imageFile =\yii\web\UploadedFile::getInstance($imgModel, 'imageFile');

@@ -241,6 +241,6 @@ return [
     /*end*AdminInfo*/
 
     'Help'=>'帮助',
-
+    'More Messages'=>'更多消息',
 
 ];

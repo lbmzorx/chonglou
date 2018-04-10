@@ -26,22 +26,18 @@ class MessageWidget extends Widget
         echo $this->renderMessage();
     }
 
-    public function countMessage(){
-        ;
-
-    }
-
-    public static $messageLeve_code=[0=>'default',1=>'success',2=>'info',3=>'warning',4=>'danger'];
+    public static $messageLeve_code=[0=>'success',1=>'success',2=>'info',3=>'warning',4=>'danger'];
 
     public function renderMessage(){
         $res=AdminMessage::getAdminMessage(\yii::$app->user->id);
         $count=$res['count'];
         $messages=$res['data'];
-        if($this->countMessage() >0){
+        if( $count >0){
             $li='';
             foreach ($messages as $message){
                 $li.=$this->renderLi($message['name'],$message['level'],['/admin/message/view','id'=>$message['id']],$this->aOption,$this->liOption);
             }
+            $li.=$this->renderLi(\yii::t('app','More Messages'),$message['level'],['/admin/message/index',],$this->aOption,$this->liOption);
             return $this->renderCount($count)."<ul class=\"dropdown-menu notifications\">".$li."</ul>";
         }else{
             return $this->renderCount(0);
@@ -49,6 +45,10 @@ class MessageWidget extends Widget
     }
 
     public function renderCount($count,$option=[]){
+        $option=array_merge($option,[
+            'class'=>"dropdown-toggle",'data-toggle'=>"dropdown", 'aria-expanded'=>false,
+        ]);
+
         return Html::a(Html::tag('i','',['class'=>'lnr lnr-alarm']).Html::tag('span',$count,['class'=>'badge bg-danger']),'#',$option);
     }
 
@@ -59,7 +59,6 @@ class MessageWidget extends Widget
         if(empty($aOption['class'])){
             $aOption['class']='notification-item';
         }
-
         return Html::tag('li',Html::a($msg_level_icon.$message,$url,$aOption),$liOption);
     }
 }

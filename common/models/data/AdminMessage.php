@@ -11,6 +11,7 @@ use yii\caching\TagDependency;
 */
 class AdminMessage extends \common\models\database\AdminMessage
 {
+    const TAGS='admin.message.data.models.common';
 
     const ADMINMESSAGE_SPREAD_TYPE_BROADCAST = 0;
     const ADMINMESSAGE_SPREAD_TYPE_GROUP = 1;
@@ -144,7 +145,7 @@ class AdminMessage extends \common\models\database\AdminMessage
         $msg=$cache->get($key);
         if( $msg==false ){
             $query=self::find()->select('a.id,a.name,a.level')->alias('a')
-                ->innerJoin('{{%admin_message_log}} l',['l.admin_message_id'=>'a.id'])
+                ->leftJoin('{{%admin_message_log}} l',['l.admin_message_id'=>'a.id'])
                 ->where(['and',
                     ['spread_type'=>[self::ADMINMESSAGE_SPREAD_TYPE_GROUP,self::ADMINMESSAGE_SPREAD_TYPE_BROADCAST]],
                     ['not in','l.admin_id',$admin_id,]
@@ -161,7 +162,7 @@ class AdminMessage extends \common\models\database\AdminMessage
                 $msg=[];
             }
             $cache->set($key,['count'=>$count,'data'=>$msg],86400*30,new TagDependency([
-                'tags'=>AdminMessage::className().$admin_id,
+                'tags'=>self::TAGS,
             ]));
             return ['count'=>$count,'data'=>$msg];
         }else{
@@ -181,7 +182,7 @@ class AdminMessage extends \common\models\database\AdminMessage
         }
         $cache=\yii::$app->cache;
         $cache->set($key,$res,86400*30,new TagDependency([
-            'tags'=>AdminMessage::className(),
+            'tags'=>self::TAGS,
         ]));
     }
 
@@ -195,7 +196,7 @@ class AdminMessage extends \common\models\database\AdminMessage
                     unset($res['data'][$k]);
                     $cache=\yii::$app->cache;
                     $cache->set($key,$res,86400*30,new TagDependency([
-                        'tags'=>AdminMessage::className(),
+                        'tags'=>self::TAGS,
                     ]));
                     break;
                 }
@@ -220,7 +221,7 @@ class AdminMessage extends \common\models\database\AdminMessage
     }
 
     public static function invalidCache(){
-        TagDependency::invalidate(\yii::$app->cache,AdminMessage::className());
+        TagDependency::invalidate(\yii::$app->cache,self::TAGS);
     }
 
 }

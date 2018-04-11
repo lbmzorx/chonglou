@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\data\AdminMessage;
 use common\components\behaviors\StatusCode;
+use common\models\data\Admin;
 /* @var $this yii\web\View */
 /* @var $model common\models\data\AdminMessage */
 /* @var $form yii\widgets\ActiveForm */
@@ -19,10 +20,13 @@ use common\components\behaviors\StatusCode;
 
 <div class="row">
 	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'to_admin_id')->textInput(['maxlength' => true]) ?>
-	</div>
-	<div class="col-lg-3 col-sm-3">
-	    <?= $form->field($model, 'from_admin_id')->textInput(['maxlength' => true]) ?>
+	    <?= $form->field($model, 'to_admin_id')->dropDownList(
+            \yii\helpers\ArrayHelper::getColumn(Admin::find()
+            ->select('id,name')
+            ->where(['status'=>Admin::ADMIN_STATUS_ACTIVE])->andWhere(['not in','id',\yii::$app->user->id])
+            ->indexBy('id')
+            ->asArray()
+            ->all(),'name'),['maxlength' => true]) ?>
 	</div>
 	<div class="col-lg-3 col-sm-3">
 	    <?= $form->field($model, 'spread_type')->dropDownList(StatusCode::tranStatusCode(AdminMessage::$spread_type_code,'app'),['prompt'=>\Yii::t('app','Please Select')]) ?>

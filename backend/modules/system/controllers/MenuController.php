@@ -2,10 +2,10 @@
 
 namespace backend\modules\system\controllers;
 
+use backend\controllers\CommonController;
 use Yii;
 use common\models\data\Menu;
 use common\models\search\Menu as MenuSearch;
-use yii\web\Controller;
 use backend\components\actions\CreateAction;
 use backend\components\actions\ViewAction;
 use backend\components\actions\UpdateAction;
@@ -17,7 +17,7 @@ use backend\components\actions\ChangeStatusAction;
 /**
  * MenuController implements the CRUD actions for Menu model.
  */
-class MenuController extends Controller
+class MenuController extends CommonController
 {
     public function actions()
     {

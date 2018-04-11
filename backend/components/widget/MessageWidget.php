@@ -31,13 +31,13 @@ class MessageWidget extends Widget
     public function renderMessage(){
         $res=AdminMessage::getAdminMessage(\yii::$app->user->id);
         $count=$res['count'];
-        $messages=$res['data'];
-        if( $count >0){
+        if( $count >0 && !empty($res['data'])){
+            $messages=$res['data'];
             $li='';
             foreach ($messages as $message){
                 $li.=$this->renderLi($message['name'],$message['level'],['/admin/message/view','id'=>$message['id']],$this->aOption,$this->liOption);
             }
-            $li.=$this->renderLi(\yii::t('app','More Messages'),$message['level'],['/admin/message/index',],$this->aOption,$this->liOption);
+            $li.=$this->renderLi(\yii::t('app','More Messages'),'',['/admin/message/index',],$this->aOption,$this->liOption);
             return $this->renderCount($count)."<ul class=\"dropdown-menu notifications\">".$li."</ul>";
         }else{
             return $this->renderCount(0);

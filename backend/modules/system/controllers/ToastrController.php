@@ -2,12 +2,11 @@
 
 namespace backend\modules\system\controllers;
 
-use yii\web\Controller;
-
+use backend\controllers\CommonController;
 /**
  * Default controller for the `system` module
  */
-class ToastrController extends Controller
+class ToastrController extends CommonController
 {
     /**
      * Renders the index view for the module

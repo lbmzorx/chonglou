@@ -2,7 +2,11 @@
 namespace common\models\data;
 
 use Yii;
+use yii\base\Exception;
+use yii\behaviors\AttributesBehavior;
 use yii\caching\TagDependency;
+use yii\db\ActiveRecord;
+use yii\helpers\VarDumper;
 
 /**
 * This is the data class for [[common\models\database\AdminMessage]].
@@ -136,6 +140,18 @@ class AdminMessage extends \common\models\database\AdminMessage
             'getStatusCode'=>[
                 'class' => \common\components\behaviors\StatusCode::className(),
             ],
+            'adminadd'=>[
+                'class'=> AttributesBehavior::className(),
+                'attributes'=>[
+                    'from_admin_id'=>[
+                        ActiveRecord::EVENT_BEFORE_INSERT => \yii::$app->user->id,
+                        ActiveRecord::EVENT_BEFORE_UPDATE => \yii::$app->user->id,
+                    ],
+                    'read' =>[
+                        ActiveRecord::EVENT_BEFORE_INSERT => self::ADMINMESSAGE_READ_UNREAD,
+                    ]
+                ],
+            ]
         ];
     }
 
@@ -175,10 +191,10 @@ class AdminMessage extends \common\models\database\AdminMessage
         $res=static::getAdminMessage($admin_id);
         if($res['count']>0){
             $res['count']++;
-            $res['data']=array_unshift($res['data'],$msg);
+            array_unshift($res['data'],$msg);
             array_pop($res['data']);
         }else{
-            $res=['count'=>1,'data'=>$msg];
+            $res=['count'=>1,'data'=>[$msg]];
         }
         $cache=\yii::$app->cache;
         $cache->set($key,$res,86400*30,new TagDependency([
@@ -190,7 +206,7 @@ class AdminMessage extends \common\models\database\AdminMessage
         $key=['admin'=>$admin_id,'class'=>AdminMessage::className()];
         $res=static::getAdminMessage($admin_id);
         if($res['count']>0){
-            foreach ($res as $k=>$msg){
+            foreach ($res['data'] as $k=>$msg){
                 if($msg['id']==$msgid){
                     $res['count']--;
                     unset($res['data'][$k]);
@@ -204,6 +220,17 @@ class AdminMessage extends \common\models\database\AdminMessage
         }
     }
 
+    public static function view(){
+        $id=\yii::$app->request->get('id');
+        $model=self::findOne($id);
+        if($model){
+            $model->read =self::ADMINMESSAGE_READ_READ;
+            if($model->save()){
+                return true;
+            }
+        }
+    }
+
     public function afterSave($insert , $changedAttributes)
     {
         if($insert==true){
@@ -213,6 +240,12 @@ class AdminMessage extends \common\models\database\AdminMessage
                     'name'=>$this->name,
                     'level'=>$this->level,
                 ],$this->to_admin_id);
+            }else{
+                static::invalidCache();
+            }
+        }else{
+            if($this->spread_type==self::ADMINMESSAGE_SPREAD_TYPE_PERSONAL){
+                static::delOneMessageCache($this->id,$this->to_admin_id);
             }else{
                 static::invalidCache();
             }

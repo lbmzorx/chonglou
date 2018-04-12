@@ -67,8 +67,6 @@ class AdminMessage extends \common\models\database\AdminMessage
             [['from_admin_id'], 'default', 'value' =>'0',],
             [['spread_type'], 'default', 'value' =>3,],
             [['level'], 'default', 'value' =>0,],
-            [['name'], 'default', 'value' =>'0',],
-            [['content'], 'default', 'value' =>'0',],
             [['read'], 'default', 'value' =>0,],
             [['from_type'], 'default', 'value' =>0,],
             [['add_time'], 'default', 'value' =>0,],
@@ -149,17 +147,26 @@ class AdminMessage extends \common\models\database\AdminMessage
                     ],
                     'read' =>[
                         ActiveRecord::EVENT_BEFORE_INSERT => self::ADMINMESSAGE_READ_UNREAD,
-                    ]
+                    ],
+                    'name'=>[
+                        ActiveRecord::EVENT_BEFORE_VALIDATE => [$this,'abstractName'],
+                    ],
                 ],
             ]
         ];
     }
 
-    public static function getAdminMessage($admin_id){
+    public function abstractName($attribute, $event){
+        if(empty($this->name)){
+            $this->name=mb_substr($this->content,0,6);
+        }
+    }
+
+    public static function getMessageCount($admin_id){
         $key=['admin'=>$admin_id,'class'=>AdminMessage::className()];
         $cache=\yii::$app->cache;
-        $msg=$cache->get($key);
-        if( $msg==false ){
+        $count=$cache->get($key);
+        if( $count==false ){
             $query=self::find()->select('a.id,a.name,a.level')->alias('a')
                 ->leftJoin('{{%admin_message_log}} l',['l.admin_message_id'=>'a.id'])
                 ->where(['and',
@@ -172,51 +179,53 @@ class AdminMessage extends \common\models\database\AdminMessage
                     'to_admin_id'=>$admin_id,
                 ]);
             $count=$query->count();
-            if($count>0){
-                $msg=$query->limit(10)->orderBy(['id'=>SORT_DESC,'level'=>SORT_DESC])->asArray()->all();
-            }else{
-                $msg=[];
-            }
-            $cache->set($key,['count'=>$count,'data'=>$msg],86400*30,new TagDependency([
+            $cache->set($key,$count,86400*30,new TagDependency([
                 'tags'=>self::TAGS,
             ]));
-            return ['count'=>$count,'data'=>$msg];
         }else{
-            return $msg;
+            return $count;
         }
     }
 
-    public static function addOneMessageCache($msg,$admin_id){
+    public static function getAdminMessage($admin_id){
+        $query=self::find()->select('a.id,a.name,a.level')->alias('a')
+            ->leftJoin('{{%admin_message_log}} l',['l.admin_message_id'=>'a.id'])
+            ->where(['and',
+                ['spread_type'=>[self::ADMINMESSAGE_SPREAD_TYPE_GROUP,self::ADMINMESSAGE_SPREAD_TYPE_BROADCAST]],
+                ['not in','l.admin_id',$admin_id,]
+            ])
+            ->orWhere([
+                'spread_type'=>self::ADMINMESSAGE_SPREAD_TYPE_PERSONAL,
+                'read'=>self::ADMINMESSAGE_READ_UNREAD,
+                'to_admin_id'=>$admin_id,
+            ]);
+
+        $msg=$query->limit(10)->orderBy(['id'=>SORT_DESC,'level'=>SORT_DESC])->asArray()->all();
+        return $msg;
+    }
+
+    public static function addOneMessageCount($admin_id){
         $key=['admin'=>$admin_id,'class'=>AdminMessage::className()];
-        $res=static::getAdminMessage($admin_id);
-        if($res['count']>0){
-            $res['count']++;
-            array_unshift($res['data'],$msg);
-            array_pop($res['data']);
+        $count=static::getMessageCount($admin_id);
+        if($count>0){
+            $count++;
         }else{
-            $res=['count'=>1,'data'=>[$msg]];
+            $count=1;
         }
         $cache=\yii::$app->cache;
-        $cache->set($key,$res,86400*30,new TagDependency([
+        $cache->set($key,$count,86400*30,new TagDependency([
             'tags'=>self::TAGS,
         ]));
     }
 
-    public static function delOneMessageCache($msgid,$admin_id){
+    public static function delOneMessageCount($admin_id){
         $key=['admin'=>$admin_id,'class'=>AdminMessage::className()];
-        $res=static::getAdminMessage($admin_id);
-        if($res['count']>0){
-            foreach ($res['data'] as $k=>$msg){
-                if($msg['id']==$msgid){
-                    $res['count']--;
-                    unset($res['data'][$k]);
-                    $cache=\yii::$app->cache;
-                    $cache->set($key,$res,86400*30,new TagDependency([
-                        'tags'=>self::TAGS,
-                    ]));
-                    break;
-                }
-            }
+        $count=static::getMessageCount($admin_id);
+        if($count>0){
+            $cache=\yii::$app->cache;
+            $cache->set($key,$count-1,86400*30,new TagDependency([
+                'tags'=>self::TAGS,
+            ]));
         }
     }
 
@@ -235,17 +244,13 @@ class AdminMessage extends \common\models\database\AdminMessage
     {
         if($insert==true){
             if($this->spread_type==self::ADMINMESSAGE_SPREAD_TYPE_PERSONAL){
-                static::addOneMessageCache([
-                    'id'=>$this->id,
-                    'name'=>$this->name,
-                    'level'=>$this->level,
-                ],$this->to_admin_id);
+                static::addOneMessageCount($this->to_admin_id);
             }else{
                 static::invalidCache();
             }
         }else{
             if($this->spread_type==self::ADMINMESSAGE_SPREAD_TYPE_PERSONAL){
-                static::delOneMessageCache($this->id,$this->to_admin_id);
+                static::delOneMessageCount($this->to_admin_id);
             }else{
                 static::invalidCache();
             }

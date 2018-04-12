@@ -106,6 +106,10 @@ STYLE
 <!-- Javascript -->
 <?= $this->render('//widgets/_flash') ?>
 <?=$this->endBody()?>
+<script type="text/javascript">
+
+</script>
+
 </body>
 
 </html>

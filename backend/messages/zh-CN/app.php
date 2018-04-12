@@ -242,5 +242,5 @@ return [
 
     'Help'=>'帮助',
     'More Messages'=>'更多消息',
-
+    'Error Get Messages'=>'获取消息错误',
 ];

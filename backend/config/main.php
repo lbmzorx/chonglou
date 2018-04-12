@@ -66,7 +66,7 @@ return [
                 'upload/<index:[\w\d]+(/[\w\d]+)*\.(png|jpg|jpeg)>'=>'upload/index',
                 '<controller:\w+>'=>'<controller>/index',
                 '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-                '<controller:\w+>/<action:\w+>.<id:\d+>'=>'<controller>/<action>',
+                '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
                 '<module:\w+>/<controller:\w+>'=>'<module>/<controller>/index',
                 '<module:\w+>'=>'<module>/default/index',
                 '<module:\w+>/<controller:\w+>/<id:\d+>'=>'<module>/<controller>/index',
